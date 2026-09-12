@@ -1,0 +1,56 @@
+{
+  "name": "ball2d",
+  "private": true,
+  "version": "0.2.0",
+  "description": "Ball2D SDK for browser integration and API-key-authorized Node.js room hosting",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/browser.d.ts",
+      "default": "./dist/browser.js"
+    },
+    "./node": {
+      "types": "./dist/types/node.d.ts",
+      "node": "./dist/node.js"
+    }
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://ball2d.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fillbyte/ball2d.git"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "bugs": {
+    "url": "https://github.com/fillbyte/ball2d/issues"
+  },
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "check:docs": "node scripts/check-docs.mjs",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "pack:check": "npm pack --dry-run --ignore-scripts"
+  },
+  "keywords": [
+    "ball2d",
+    "football",
+    "multiplayer",
+    "webrtc",
+    "sdk"
+  ],
+  "devDependencies": {
+    "prettier": "3.9.6"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

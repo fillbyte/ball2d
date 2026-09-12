@@ -1,0 +1,48 @@
+{
+  "author": "Ball2D",
+  "source": "Ball2D procedural arena designs",
+  "generator": "scripts/generate-stadiums.mjs",
+  "version": 1,
+  "files": [
+    {
+      "file": "classic.hbs",
+      "sha256": "e22c340c61ff34f97d8877d2c862a4374e4d3de0b78a6830ca509c214a4bfb12"
+    },
+    {
+      "file": "easy.hbs",
+      "sha256": "df2a587382319fa241d0125cd75306f45f113ee8c4e3f152237887c7a8b348a2"
+    },
+    {
+      "file": "small.hbs",
+      "sha256": "449bed77732c0480285e22aa2e4ee019855ac6866faff5ac1302f118e6b7ea96"
+    },
+    {
+      "file": "big.hbs",
+      "sha256": "79d4077a1889d83ac1f3adc60481e93ddaa9c9dba6d51a56390385731bb873da"
+    },
+    {
+      "file": "rounded.hbs",
+      "sha256": "b868882609345e6a9a59416df78b44e656516edb415ecf6780a5e8e1c201243b"
+    },
+    {
+      "file": "hockey.hbs",
+      "sha256": "7b51005c145e19c81afe01e6ccface23b78251bdb89c2650bb6cbb23a494c9cc"
+    },
+    {
+      "file": "big_easy.hbs",
+      "sha256": "884b24d3040e2a4c621e51ce9e43ee2d8a0c3f565e920311e7aa96d79db680ff"
+    },
+    {
+      "file": "big_rounded.hbs",
+      "sha256": "fbb3b837de61278292ad2eef5f407967fe867feff4dba087fdd3e1fd21474fd8"
+    },
+    {
+      "file": "big_hockey.hbs",
+      "sha256": "d01e9a3baf8fcf94fe12d8752d3e93c0d7ecaa4bd74d9525d1905c041655fffd"
+    },
+    {
+      "file": "huge.hbs",
+      "sha256": "8df81e479ba27c1c166720ae315ef926b89b9615e7851cc4281c9d5a74adc629"
+    }
+  ]
+}

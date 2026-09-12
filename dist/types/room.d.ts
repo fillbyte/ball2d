@@ -1,0 +1,78 @@
+import type { HostPlayer, HostScores, HostDiscProperties } from './player.js';
+import type { DiscPropertyPatch } from './disc.js';
+import type { MatchState } from './match-state.js';
+import type { AnnouncementStyle } from './announcement.js';
+/** Public room contract: runtime classes and transport types are deliberately absent. */
+export interface Room {
+    readonly roomId: string;
+    readonly roomLink: string;
+    readonly roomName: string;
+    readonly signal: AbortSignal;
+    readonly lastRecording: Blob | null;
+    onRecordingComplete?: (blob: Blob, reason: string) => void;
+    onRoomLink?: (url: string) => void;
+    onPlayerJoin?: (p: HostPlayer) => void;
+    onPlayerTeamChange?: (p: HostPlayer, byPlayer: HostPlayer | null) => void;
+    onPlayerAdminChange?: (p: HostPlayer, byPlayer: HostPlayer | null) => void;
+    onGameStart?: (byPlayer: HostPlayer | null) => void;
+    onGameStop?: (byPlayer: HostPlayer | null) => void;
+    onTeamVictory?: (scores: HostScores) => void;
+    /** Legacy Ball2D callback; prefer onTeamVictory. */
+    onGameVictory?: (scores: HostScores) => void;
+    onGamePauseChange?: (paused: boolean) => void;
+    onGamePause?: (byPlayer: HostPlayer | null) => void;
+    onGameUnpause?: (byPlayer: HostPlayer | null) => void;
+    onPlayerLeave?: (p: HostPlayer) => void;
+    onPlayerKicked?: (p: HostPlayer, reason: string, ban: boolean, byPlayer: HostPlayer | null) => void;
+    onPlayerActivity?: (p: HostPlayer) => void;
+    onPlayerChat?: (p: HostPlayer, text: string) => boolean | void;
+    onPlayerBallKick?: (p: HostPlayer) => void;
+    onTeamGoal?: (team: 1 | 2) => void;
+    onPositionsReset?: () => void;
+    onStadiumChange?: (name: string, byPlayer: HostPlayer | null) => void;
+    onTeamsLockChange?: (locked: boolean, byPlayer: HostPlayer | null) => void;
+    onKickRateLimitSet?: (min: number, rate: number, burst: number, byPlayer: HostPlayer | null) => void;
+    onGameTick?: () => void;
+    onError?: (message: string) => void;
+    getPlayerList(): HostPlayer[];
+    getPlayer(id: number): HostPlayer | null;
+    setTeamColors(team: number, angle: number, textColor: number, colors: number[]): Promise<void>;
+    reorderPlayers(playerIdList: number[], moveToTop: boolean): Promise<void>;
+    setPlayerAvatar(id: number, avatar: string | null): Promise<void>;
+    setPlayerTeam(id: number, team: 0 | 1 | 2): Promise<void>;
+    setPlayerAdmin(id: number, admin: boolean): Promise<void>;
+    setTeamsLock(locked: boolean): Promise<void>;
+    kickPlayer(id: number, reason?: string, ban?: boolean): Promise<void>;
+    clearBan(id: number): Promise<void>;
+    clearBans(): Promise<void>;
+    sendChat(text: string, targetId?: number | null): Promise<void>;
+    sendAnnouncement(text: string, targetId?: number | null, color?: number | null, style?: AnnouncementStyle | null, sound?: number | null): Promise<void>;
+    startGame(): Promise<void>;
+    stopGame(): Promise<void>;
+    pauseGame(paused: boolean): Promise<void>;
+    setKickRateLimit(min?: number, rate?: number, burst?: number): Promise<void>;
+    setPassword(password: string | null): Promise<void>;
+    readonly requireVerification: boolean | null;
+    setRequireVerification(required: boolean): Promise<void>;
+    /** Migration alias: Ball2D uses Turnstile, not Google's reCAPTCHA. */
+    setRequireRecaptcha(required: boolean): Promise<void>;
+    setScoreLimit(limit: number): Promise<void>;
+    setTimeLimit(minutes: number): Promise<void>;
+    setDefaultStadium(name: string): Promise<void>;
+    setCustomStadium(source: string): Promise<void>;
+    getScores(): HostScores | null;
+    getBallPosition(): {
+        x: number;
+        y: number;
+    } | null;
+    readonly CollisionFlags: Readonly<Record<string, number>>;
+    getDiscCount(): number;
+    getDiscProperties(discIndex: number): HostDiscProperties | null;
+    setDiscProperties(discIndex: number, properties: DiscPropertyPatch): Promise<void>;
+    setPlayerDiscProperties(playerId: number, properties: DiscPropertyPatch): Promise<void>;
+    getPlayerDiscProperties(playerId: number): HostDiscProperties | null;
+    getState(): MatchState;
+    startRecording(): void;
+    stopRecording(): Blob | null;
+    close(): void;
+}
