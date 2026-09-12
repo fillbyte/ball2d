@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.1 — 2026-09-12
+
+- Add `setPlayerMuted`, `onPlayerMuteChange`, and synchronized player mute state.
+- Reject muted chat before callbacks and broadcasts; protect the room owner.
+- Recheck room/player lifetime after chat callbacks before broadcasting.
+
+Installed Node.js 24.19.0/macOS arm64 acceptance passed against both isolated
+and production services: account-issued key, real browser join, mute/unmute and
+chat callbacks, second-room quota rejection, key revocation and rejected
+readmission. The temporary administrator-confirmed test account and key were
+removed afterward; this was not a new email-delivery acceptance run.
+
 ## 0.2.0 — 2026-09-12
 
 - Native hosting uses API-key admission with renewable service leases and quotas.

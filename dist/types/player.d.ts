@@ -5,6 +5,8 @@ export interface HostPlayer {
     name: string;
     team: 0 | 1 | 2;
     admin: boolean;
+    /** Room chat is suppressed while true; absent on older hosts. */
+    muted?: boolean;
     avatar?: string | null;
     position: {
         x: number;
