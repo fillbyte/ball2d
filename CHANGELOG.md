@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.2 — 2026-09-13
+
+- Use the versioned `/api/v1` service contract.
+- Update the compiled engine/runtime with signed stadium physics and explicit
+  runtime invariants; public declaration signatures remain unchanged.
+- Preserve the matching archived replay runtime for existing recordings on the web.
+
+Package structure and local installed-host checks passed on Node 24.19/macOS:
+Chrome guest input under negative acceleration, replay stadium preservation,
+signed collision group and key-revocation closure. The final runtime refresh
+adds only the unused account-notification endpoint constant. Production API
+acceptance passed with account-issued keys, Node admission, exact per-key quota
+rejection, revocation closure and rejected readmission. This used a temporary
+administrator-confirmed account; it does not reverify email delivery or WAN play.
+
 ## 0.2.1 — 2026-09-12
 
 - Add `setPlayerMuted`, `onPlayerMuteChange`, and synchronized player mute state.

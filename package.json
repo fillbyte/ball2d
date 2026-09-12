@@ -1,6 +1,6 @@
 {
   "name": "ball2d",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Ball2D SDK for browser integration and API-key-authorized Node.js room hosting",
   "type": "module",
   "sideEffects": false,
