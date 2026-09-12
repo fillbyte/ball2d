@@ -1,0 +1,16 @@
+name: Feature proposal
+description: Describe a user problem and an observable improvement.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome and constraints
+      description: Describe success and relevant tradeoffs; implementation details are optional.
+    validations:
+      required: true
