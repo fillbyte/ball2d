@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.2 — candidate
+
+- Use the versioned `/api/v1` service contract.
+- Update the compiled engine/runtime with signed stadium physics and explicit
+  runtime invariants; public declaration signatures remain unchanged.
+- Preserve the matching archived replay runtime for existing recordings on the web.
+
+Package structure and local installed-host acceptance are being verified.
+Production admission and coordinated web publication are still pending.
+
 ## 0.2.1 — 2026-09-12
 
 - Add `setPlayerMuted`, `onPlayerMuteChange`, and synchronized player mute state.

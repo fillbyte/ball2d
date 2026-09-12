@@ -4,6 +4,10 @@ Host a Ball2D football room on your own server and control it through a typed
 JavaScript API. The host runs the simulation; players connect directly over
 WebRTC. Ball2D provides authorization, room discovery and signaling.
 
+**Development candidate: 0.2.2.** This checkout contains a new engine/runtime
+for coordinated web deployment. It remains private pending acceptance; npm latest
+is still 0.2.1. Do not use this candidate with an older web engine.
+
 **Release: 0.2.1.** The matching production service supports API-key-authorized
 Node.js hosting, account quotas and key revocation. The installed 0.2.1 package passed authenticated production acceptance with a
 real browser player, including mute/unmute, quota rejection and key revocation.
