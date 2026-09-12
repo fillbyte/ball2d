@@ -7,8 +7,11 @@
   runtime invariants; public declaration signatures remain unchanged.
 - Preserve the matching archived replay runtime for existing recordings on the web.
 
-Package structure and local installed-host acceptance are being verified.
-Production admission and coordinated web publication are still pending.
+Package structure and local installed-host checks passed on Node 24.19/macOS:
+Chrome guest input under negative acceleration, replay stadium preservation,
+signed collision group and key-revocation closure. The final runtime refresh
+adds only the unused account-notification endpoint constant. Production admission
+and coordinated web publication are still pending.
 
 ## 0.2.1 — 2026-09-12
 

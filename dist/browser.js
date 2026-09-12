@@ -13,6 +13,7 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	account: `${l}/account`,
 	accountConfig: `${l}/account/config`,
 	profile: `${l}/account/profile`,
+	notifications: `${l}/account/notifications`,
 	keys: `${l}/account/keys`,
 	signal: (e) => `${l}/rooms/${encodeURIComponent(e)}/signal`,
 	lease: (e) => `${l}/sdk/rooms/${encodeURIComponent(e)}/lease`
