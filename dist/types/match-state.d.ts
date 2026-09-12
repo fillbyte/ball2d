@@ -1,4 +1,6 @@
 export interface MatchState {
+    /** Complete terrain checkpoint. Omitted for historical or disabled surfaces. */
+    surface?: number[];
     tick: number;
     elapsed: number;
     red: number;

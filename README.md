@@ -4,11 +4,9 @@ Host a Ball2D football room on your own server and control it through a typed
 JavaScript API. The host runs the simulation; players connect directly over
 WebRTC. Ball2D provides authorization, room discovery and signaling.
 
-**Release status: 0.2.0 development candidate, not yet published to npm.** The
-matching game service is deployed, but production account setup and authenticated
-native-host acceptance are still pending. Older registry versions have different
-authorization behavior and are being withdrawn. Do not install them as a
-substitute for this candidate.
+**Release: 0.2.0.** The matching production service supports API-key-authorized
+Node.js hosting, account quotas and key revocation. This release has passed an
+authenticated production acceptance run with a real browser player.
 
 Repository maintainers: [local setup](https://github.com/fillbyte/ball2d/blob/main/docs/DEVELOPMENT.md) · [release procedure](https://github.com/fillbyte/ball2d/blob/main/docs/RELEASING.md) · [changelog](https://github.com/fillbyte/ball2d/blob/main/CHANGELOG.md).
 
@@ -16,13 +14,12 @@ Repository maintainers: [local setup](https://github.com/fillbyte/ball2d/blob/ma
 
 Use Node.js 24 or newer. The verified native runtime is Node.js 24.19.0 on macOS
 arm64; other systems need independent acceptance. Native transport is experimental.
-After the release is published:
 
 ```sh
 npm install ball2d@0.2.0
 ```
 
-Create an API key through your Ball2D account once account services are enabled.
+Create an API key through your Ball2D account.
 Supply it as `BALL2D_API_KEY` through your server's secret manager or environment;
 never commit it or include it in a browser bundle.
 
@@ -98,7 +95,10 @@ native declarations do not require DOM/WebRTC globals or `skipLibCheck`.
 
 - **Players and lobby:** inspect players, assign teams/admins, lock teams, kick/ban,
   manage admission, send chat and announcements, and configure the room.
-- **Matches:** start/stop, pause/resume, score/time limits and kick-rate limits.
+- **Matches:** start/stop, pause/resume, score/time limits, kick-rate limits and
+  `await room.setSurfaceEnabled(true)` for wet grass and ground wear. Pass `false`
+  to restore dry ground. Stop the match before changing the surface; loading a
+  stadium resets it. Surface changes are retained in replays.
 - **Physics and stadiums:** load custom stadium text, select ten bundled defaults,
   query and modify supported player/disc properties, and use `CollisionFlags`.
 - **Events:** player join/leave/chat, team/admin changes, ball kicks, goals,
@@ -123,6 +123,18 @@ deadline; after creation, call `close()` to stop the room. `signal` aborts when
 closure begins and `closed` settles after native cleanup. `close()` is idempotent,
 cancels pending commands and finalizes an active recording once. It does not
 confirm that every remote player has received a shutdown message.
+
+## Signaling recovery
+
+Browser and native runtimes request resumable signaling by default. If the
+signaling connection briefly drops, the same admitted host or player can recover
+within the service membership lifetime while retaining healthy direct peer
+connections. Custom services must support the matching signaling protocol.
+
+This does not automatically transfer ownership to another player when the host
+leaves, guarantee uninterrupted delivery, or provide a relay for incompatible
+networks. Native recovery remains subject to the API key and room lease; it does
+not bypass revocation or quota enforcement.
 
 ## Stadiums and replays
 
@@ -179,7 +191,11 @@ Remove secrets, personal data and private room links. Use
 [private vulnerability reporting](https://github.com/fillbyte/ball2d/security/advisories/new)
 for sensitive findings. See [contribution guidance](https://github.com/fillbyte/ball2d/blob/main/CONTRIBUTING.md).
 
-Local verification includes installed-package native hosting with real browser
-peers, gameplay, replay and cleanup. It does not establish WAN/NAT reachability,
+Production acceptance on 12 September 2026 verified a confirmed-email account
+creating an API key, Node.js room creation, wet-ground simulation with a Chrome
+player, a second room rejected by the key quota, and active-key revocation closing
+the official host and rejecting new admission. Local verification also includes
+installed-package hosting, gameplay, replay and cleanup. This evidence does not
+establish broad WAN/NAT reachability,
 Linux compatibility, sustained capacity or an uptime guarantee. Direct WebRTC
 requires peer reachability; no TURN relay is provided.
