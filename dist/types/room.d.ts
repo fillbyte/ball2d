@@ -51,6 +51,8 @@ export interface Room {
     stopGame(): Promise<void>;
     pauseGame(paused: boolean): Promise<void>;
     setKickRateLimit(min?: number, rate?: number, burst?: number): Promise<void>;
+    /** Enable the wet-grass preset or restore dry ground; requires a stopped match. */
+    setSurfaceEnabled(enabled: boolean): Promise<void>;
     setPassword(password: string | null): Promise<void>;
     readonly requireVerification: boolean | null;
     setRequireVerification(required: boolean): Promise<void>;
