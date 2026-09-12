@@ -3706,6 +3706,7 @@ var Rt = Object.freeze({ ...Te }), zt = class e {
 	onRoomLink;
 	onPlayerJoin;
 	onPlayerTeamChange;
+	onPlayerMuteChange;
 	onPlayerAdminChange;
 	onGameStart;
 	onGameStop;
@@ -3895,8 +3896,8 @@ var Rt = Object.freeze({ ...Te }), zt = class e {
 		}
 		if (r && n.type === "action") {
 			if (n.action === "chat" && typeof n.text == "string" && n.text.length <= 200) {
-				if (!n.text.trim() || !this.traffic.allow(e.id, "chat") || (this.invoke("onPlayerActivity", this.onPlayerActivity, this.playerCopy(r)), this.closed || !this.players.includes(r))) return;
-				this.invoke("onPlayerChat", this.onPlayerChat, this.playerCopy(r), n.text) !== !1 && this.network.broadcast({
+				if (r.muted || !n.text.trim() || !this.traffic.allow(e.id, "chat") || (this.invoke("onPlayerActivity", this.onPlayerActivity, this.playerCopy(r)), this.closed || !this.players.includes(r))) return;
+				this.invoke("onPlayerChat", this.onPlayerChat, this.playerCopy(r), n.text) !== !1 && !this.closed && this.players.includes(r) && !r.muted && this.network.broadcast({
 					type: "chat",
 					name: r.name,
 					text: n.text
@@ -3940,6 +3941,11 @@ var Rt = Object.freeze({ ...Te }), zt = class e {
 					return;
 				}
 				if (r.admin) {
+					if (n.action === "mute" && typeof n.muted == "boolean") {
+						let e = this.players.find((e) => e.slot === n.slot);
+						e && e !== r && e.peerId !== this.network.hostId && this.changePlayerMuted(e.id, n.muted, this.playerCopy(r));
+						return;
+					}
 					if (n.action === "surface" && typeof n.enabled == "boolean" && ["lobby", "finished"].includes(this.engine.phase)) {
 						this.setSurfaceEnabled(n.enabled);
 						return;
@@ -4017,7 +4023,8 @@ var Rt = Object.freeze({ ...Te }), zt = class e {
 			slot: e.slot,
 			name: e.name,
 			team: e.team,
-			admin: e.admin
+			admin: e.admin,
+			muted: !!e.muted
 		}));
 	}
 	sync() {
@@ -4046,6 +4053,7 @@ var Rt = Object.freeze({ ...Te }), zt = class e {
 		let t = this.engine.index(e.slot) * 18, n = !this.closed && this.engine.phase !== "lobby" && this.engine.data[t + 13] > 0, { slot: r, avatarOverride: i, ...a } = e;
 		return {
 			...a,
+			muted: !!e.muted,
 			avatar: e.avatarOverride ?? e.avatar ?? null,
 			position: n ? {
 				x: this.engine.data[t],
@@ -4100,6 +4108,15 @@ var Rt = Object.freeze({ ...Te }), zt = class e {
 		if (this.closed) throw Error("Room is closed");
 		let n = this.players.find((t) => t.id === e);
 		n && n.admin !== !!t && (n.admin = !!t, this.sync(), this.invoke("onPlayerAdminChange", this.onPlayerAdminChange, this.playerCopy(n), null));
+	}
+	setPlayerMuted(e, t) {
+		this.changePlayerMuted(e, t, null);
+	}
+	changePlayerMuted(e, t, n) {
+		if (this.closed) throw Error("Room is closed");
+		if (!Number.isInteger(e) || typeof t != "boolean") throw Error("Invalid player mute");
+		let r = this.players.find((t) => t.id === e);
+		r && r.peerId !== this.network.hostId && !!r.muted !== t && (r.muted = t, this.sync(), this.invoke("onPlayerMuteChange", this.onPlayerMuteChange, this.playerCopy(r), n));
 	}
 	setTeamsLock(e) {
 		this.changeTeamsLock(e, null);
@@ -4451,33 +4468,7 @@ var Vt = class {
 		this.active?.reject(e);
 		for (let t of this.pending.splice(0)) t.reject(e);
 	}
-}, Ht = [
-	"sendChat",
-	"sendAnnouncement",
-	"setPlayerAdmin",
-	"setPlayerTeam",
-	"kickPlayer",
-	"clearBan",
-	"clearBans",
-	"setScoreLimit",
-	"setTimeLimit",
-	"setCustomStadium",
-	"setDefaultStadium",
-	"setTeamsLock",
-	"setTeamColors",
-	"startGame",
-	"stopGame",
-	"pauseGame",
-	"setPassword",
-	"setRequireVerification",
-	"setRequireRecaptcha",
-	"reorderPlayers",
-	"setKickRateLimit",
-	"setSurfaceEnabled",
-	"setPlayerAvatar",
-	"setDiscProperties",
-	"setPlayerDiscProperties"
-];
+}, Ht = /* @__PURE__ */ "sendChat.sendAnnouncement.setPlayerAdmin.setPlayerMuted.setPlayerTeam.kickPlayer.clearBan.clearBans.setScoreLimit.setTimeLimit.setCustomStadium.setDefaultStadium.setTeamsLock.setTeamColors.startGame.stopGame.pauseGame.setPassword.setRequireVerification.setRequireRecaptcha.reorderPlayers.setKickRateLimit.setSurfaceEnabled.setPlayerAvatar.setDiscProperties.setPlayerDiscProperties".split(".");
 function Ut(e, t) {
 	let n = Object.create(null);
 	t && Object.defineProperty(n, "closed", {
@@ -4536,6 +4527,7 @@ function Ut(e, t) {
 		"onPlayerChat",
 		"onPlayerTeamChange",
 		"onPlayerAdminChange",
+		"onPlayerMuteChange",
 		"onPlayerKicked",
 		"onPlayerActivity",
 		"onPlayerBallKick",

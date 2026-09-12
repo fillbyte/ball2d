@@ -4,9 +4,9 @@ Host a Ball2D football room on your own server and control it through a typed
 JavaScript API. The host runs the simulation; players connect directly over
 WebRTC. Ball2D provides authorization, room discovery and signaling.
 
-**Release: 0.2.0.** The matching production service supports API-key-authorized
-Node.js hosting, account quotas and key revocation. This release has passed an
-authenticated production acceptance run with a real browser player.
+**Release: 0.2.1.** The matching production service supports API-key-authorized
+Node.js hosting, account quotas and key revocation. The installed 0.2.1 package passed authenticated production acceptance with a
+real browser player, including mute/unmute, quota rejection and key revocation.
 
 Repository maintainers: [local setup](https://github.com/fillbyte/ball2d/blob/main/docs/DEVELOPMENT.md) · [release procedure](https://github.com/fillbyte/ball2d/blob/main/docs/RELEASING.md) · [changelog](https://github.com/fillbyte/ball2d/blob/main/CHANGELOG.md).
 
@@ -16,7 +16,7 @@ Use Node.js 24 or newer. The verified native runtime is Node.js 24.19.0 on macOS
 arm64; other systems need independent acceptance. Native transport is experimental.
 
 ```sh
-npm install ball2d@0.2.0
+npm install ball2d@0.2.1
 ```
 
 Create an API key through your Ball2D account.
@@ -199,3 +199,12 @@ installed-package hosting, gameplay, replay and cleanup. This evidence does not
 establish broad WAN/NAT reachability,
 Linux compatibility, sustained capacity or an uptime guarantee. Direct WebRTC
 requires peer reachability; no TURN relay is provided.
+
+## Player mute
+
+`await room.setPlayerMuted(id, true)` suppresses a player's room chat; pass `false`
+to restore it. `player.muted` exposes the current state.
+`onPlayerMuteChange(player, byPlayer)` reports the actor (null for SDK commands).
+Muted messages do not reach `onPlayerChat`. Remote admins may mute other players
+but cannot mute the room owner. Mute ends when a player leaves; use a ban to
+prevent rejoining. Losing the room host closes the room without transferring it.

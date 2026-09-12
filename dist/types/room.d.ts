@@ -13,6 +13,7 @@ export interface Room {
     onRoomLink?: (url: string) => void;
     onPlayerJoin?: (p: HostPlayer) => void;
     onPlayerTeamChange?: (p: HostPlayer, byPlayer: HostPlayer | null) => void;
+    onPlayerMuteChange?: (p: HostPlayer, byPlayer: HostPlayer | null) => void;
     onPlayerAdminChange?: (p: HostPlayer, byPlayer: HostPlayer | null) => void;
     onGameStart?: (byPlayer: HostPlayer | null) => void;
     onGameStop?: (byPlayer: HostPlayer | null) => void;
@@ -41,6 +42,8 @@ export interface Room {
     setPlayerAvatar(id: number, avatar: string | null): Promise<void>;
     setPlayerTeam(id: number, team: 0 | 1 | 2): Promise<void>;
     setPlayerAdmin(id: number, admin: boolean): Promise<void>;
+    /** Mute room chat for this player until unmuted or they leave. */
+    setPlayerMuted(id: number, muted: boolean): Promise<void>;
     setTeamsLock(locked: boolean): Promise<void>;
     kickPlayer(id: number, reason?: string, ban?: boolean): Promise<void>;
     clearBan(id: number): Promise<void>;
