@@ -1,6 +1,6 @@
 {
   "name": "ball2d",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Ball2D SDK for browser integration and API-key-authorized Node.js room hosting",
   "type": "module",
   "sideEffects": false,
@@ -51,5 +51,6 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "private": true
 }
