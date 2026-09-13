@@ -11,6 +11,16 @@ Actual transport failures and terminal room decisions still report errors.
 
 - Deliver persisted ban reasons and handle terminal signaling messages before teardown. A one-second grace period preserves the service reason when P2P teardown arrives first. Later admission remains generically denied.
 
+Latest candidate acceptance on Node 24.19/macOS: a clean installed archive passed
+public types, startup cancellation and credential rejection checks. An actual IAB
+guest joined the native host, produced right input with leftward movement under
+negative acceleration, and recorded five commands preserving the custom stadium
+and signed collision group. Fixture-key revocation closed the host and returned
+the guest to the directory; native cleanup settled. Runtime SHA256:
+`c328f882f60da7ce6a9cb83805cb4483f9b9e4fbfdaa8ab0e4a607dafcf1c362`.
+This is local fixture-account evidence, not production, quota, WAN, Steam or full
+physics compatibility. npm publication remains pending.
+
 ## 0.2.3 — candidate
 
 - Preserve bounded admission error details and HTTP status for quota and request conflicts; cancel stalled error reads with room startup.
