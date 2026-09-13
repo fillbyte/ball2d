@@ -9,6 +9,10 @@ API acceptance verified account-issued keys, Node admission, quota rejection and
 revocation. Local Chrome acceptance verified player input, signed stadium physics
 and replay preservation. These checks do not establish broad device or WAN support.
 
+**Repository candidate: 0.2.3, not published.** The candidate is intentionally private
+until final release acceptance and npm authentication complete. npm installation
+commands below still select the published 0.2.2 release.
+
 Repository maintainers: [local setup](https://github.com/fillbyte/ball2d/blob/main/docs/DEVELOPMENT.md) · [release procedure](https://github.com/fillbyte/ball2d/blob/main/docs/RELEASING.md) · [changelog](https://github.com/fillbyte/ball2d/blob/main/CHANGELOG.md).
 
 ## Node.js quick start
