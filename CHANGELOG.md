@@ -2,6 +2,10 @@
 
 ## Unpublished 0.2.3 candidate update
 
+- Drain every native peer before shutdown settles, including when another peer fails to close. Preserve earlier cleanup failures even when their rejection value is empty.
+- When startup and cleanup both fail, reject with an `AggregateError` whose `cause` is the original startup failure and whose `errors` retain both failures.
+- Five focused tests cover injected failures and a data-channel exchange between two real native peers on one machine. This does not establish WAN or physical-device coverage.
+
 Ordinary player departures and connection recovery no longer invoke `onError`.
 Actual transport failures and terminal room decisions still report errors.
 

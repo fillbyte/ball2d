@@ -9,7 +9,7 @@
     "dist/licenses/json5.txt": "53e59feb13058722d977c699eb0407c7bce2f93c949b681bbd2ff31698535927",
     "dist/licenses/native.json": "b227d082018bdf5dbb11c80f519d1cc6f21e632d4c9c22eaaf0637500b70d6b8",
     "dist/licenses/werift.txt": "b83683f3f71b5971e6c2e33a8b894a49d752fd24c11b8ae08b53ca20f594fca5",
-    "dist/node.js": "b4b090d1ddd0dce761fe8863814ab641d06a2847847a70d639dcb9315b3f44cc",
+    "dist/node.js": "c328f882f60da7ce6a9cb83805cb4483f9b9e4fbfdaa8ab0e4a607dafcf1c362",
     "dist/stadiums/big.hbs": "79d4077a1889d83ac1f3adc60481e93ddaa9c9dba6d51a56390385731bb873da",
     "dist/stadiums/big_easy.hbs": "884b24d3040e2a4c621e51ce9e43ee2d8a0c3f565e920311e7aa96d79db680ff",
     "dist/stadiums/big_hockey.hbs": "d01e9a3baf8fcf94fe12d8752d3e93c0d7ecaa4bd74d9525d1905c041655fffd",
@@ -34,5 +34,5 @@
     "dist/types/stadium.d.ts": "e3707e8a8721cb1b95ef85645670bdc00c508af7612d07ccf294b5590c90137f",
     "dist/types/team.d.ts": "2b0992c4b5a64ef0748a8a1e4b39fda857082accdc50fca9acb50cfdd311aac5"
   },
-  "sourceRevision": "b8ed4e09caa6616496e9c6c8cd704106cfaacfd2"
+  "sourceRevision": "fb78d1ea3b3e83bb15e7f02b913aa4bfb64e575b"
 }
