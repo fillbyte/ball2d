@@ -2,6 +2,19 @@
 
 ## Unpublished 0.2.3 candidate update
 
+- Quantize new `setTeamColors` command angles to the reference's 256 turn units
+  before byte wrapping; leave historical replay palettes unchanged. Cases include
+  1° → 0°, -30° → 330.46875° and 359.9° → 358.59375°.
+- The refreshed installed archive passed a local native-host/browser-peer check:
+  initial and updated palettes reached the guest, rendered on the pitch, and
+  survived replay decoding. All 806 application tests passed in the private
+  implementation. This is bounded source/peer evidence, not complete HaxBall parity.
+
+Current runtime source: `6181d11a033cbdc6a4a000c4c741ae6f22e4d012`.
+Native SHA-256: `27a03f79bb5d589d9090476268d6a4c659dd5715edcaf8692e8f84d870568d5c`.
+The production acceptance below used the previous candidate bytes; it is retained
+with its original scope and does not claim a new production run of this refresh.
+
 Production acceptance on Node 24.19/macOS arm64: a freshly packed and installed
 candidate used a generated real account's API-issued key to open a room. A second
 room was denied with the exact active-room quota message and `(429)`. A real
