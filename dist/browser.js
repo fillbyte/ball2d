@@ -3287,20 +3287,21 @@ var Ut = class {
 		let n = this.banRequest;
 		n && (this.banRequest = void 0, clearTimeout(n.timer), n.reject(t ? new Wt(e) : Error(e)));
 	}
-	updateBan(e, t) {
-		return this.closed || !this.host || !this.signalingAdmitted || this.ws.readyState !== Gt ? Promise.reject(Error("An active room-owner connection is required.")) : this.banRequest ? Promise.reject(Error("A ban operation is already pending.")) : new Promise((n, r) => {
-			let i = ++this.banSequence, a = setTimeout(() => this.rejectBan("Ban operation was not confirmed."), 1e4);
+	updateBan(e, t, n) {
+		return this.closed || !this.host || !this.signalingAdmitted || this.ws.readyState !== Gt ? Promise.reject(Error("An active room-owner connection is required.")) : this.banRequest ? Promise.reject(Error("A ban operation is already pending.")) : new Promise((r, i) => {
+			let a = ++this.banSequence, o = setTimeout(() => this.rejectBan("Ban operation was not confirmed."), 1e4);
 			this.banRequest = {
-				id: i,
-				resolve: n,
-				reject: r,
-				timer: a
+				id: a,
+				resolve: r,
+				reject: i,
+				timer: o
 			};
 			try {
 				this.signal({
 					type: e,
 					id: t,
-					requestId: i
+					requestId: a,
+					...e === "ban" && n !== void 0 ? { reason: n } : {}
 				});
 			} catch {
 				this.rejectBan("Ban operation could not be sent.");
@@ -3413,6 +3414,10 @@ var Ut = class {
 	}
 	async message(e, t = this.socketSerial) {
 		if (this.closed || t !== this.socketSerial) return;
+		if (e.type === "terminal") {
+			this.close(), this.hooks.ended?.(typeof e.reason == "string" && e.reason.length <= 123 ? e.reason : "Room connection ended.");
+			return;
+		}
 		if (e.type === "resumed") {
 			let n = Pt(e), r = this.resumeGrant, i = this.resumeAttempt;
 			if (!n || !r || !i || !this.recovery || n.roomGeneration !== r.roomGeneration || n.attemptId !== i.attemptId || n.id !== this.id || n.hostId !== this.hostId || n.role === "host" !== this.host || n.connectionEpoch <= r.connectionEpoch || n.rosterRevision < this.rosterRevision || n.members.some((e) => e.connectionEpoch < (this.members.get(e.id)?.connectionEpoch ?? 0))) return;
@@ -3774,16 +3779,22 @@ var Ut = class {
 			}
 		}
 	}
+	hostCloseTimer;
 	remove(e, t = !0) {
 		let n = this.peers.get(e);
-		n && (clearTimeout(n.admissionTimer), this.peers.delete(e), this.controlAssemblers.delete(e), n.pc.close(), this.host && t ? this.signal({
+		if (n && (clearTimeout(n.admissionTimer), this.peers.delete(e), this.controlAssemblers.delete(e), n.pc.close(), this.host && t && this.signal({
 			type: "evict",
 			id: e
-		}) : this.host || this.close(), this.hooks.leave(e), this.host || this.hooks.ended?.("The host connection ended."));
+		}), this.hooks.leave(e), !this.host)) {
+			let e = () => {
+				this.close(), this.hooks.ended?.("The host connection ended.");
+			};
+			this.signalingAdmitted && this.ws.readyState === Gt ? this.hostCloseTimer = setTimeout(e, 1e3) : e();
+		}
 	}
 	close() {
 		if (!this.closed) {
-			this.resumeGrant && this.signalingAdmitted && this.ws.readyState === Gt && this.signal({
+			clearTimeout(this.hostCloseTimer), this.hostCloseTimer = void 0, this.resumeGrant && this.signalingAdmitted && this.ws.readyState === Gt && this.signal({
 				type: "leave",
 				connectionEpoch: this.resumeGrant.connectionEpoch
 			}), this.recovery?.cancel(), this.resumeGrant = void 0, this.resumeAttempt = void 0, this.cancelHeartbeat(), this.socketSerial++, this.challenge?.abort(), this.rejectVerification("Room closed before verification confirmation."), this.verificationState = null, this.rejectBan("Room closed before ban confirmation."), this.rejectPasswordUpdate("Room closed before password confirmation."), this.closed = !0, clearInterval(this.timer), this.ws.close(1e3, "Left room");
@@ -4292,7 +4303,7 @@ var tn = Object.freeze({ ...Fe }), nn = class e {
 		let i = this.playerCopy(r), a = t.slice(0, 100);
 		if (this.bans.size >= 256 && !this.bans.has(e)) throw Error("Clear existing bans before adding more.");
 		try {
-			await this.network.updateBan("ban", r.peerId);
+			await this.network.updateBan("ban", r.peerId, a);
 		} catch (t) {
 			throw t instanceof Wt && this.bans.set(e, r.peerId), t;
 		}
