@@ -2,7 +2,7 @@
 
 ## Unpublished 0.2.3 candidate update
 
-- Deliver persisted ban reasons and handle terminal signaling messages before teardown. Later admission remains generically denied.
+- Deliver persisted ban reasons and handle terminal signaling messages before teardown. A one-second grace period preserves the service reason when P2P teardown arrives first. Later admission remains generically denied.
 
 ## 0.2.3 — candidate
 

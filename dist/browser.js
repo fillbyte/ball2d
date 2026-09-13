@@ -3779,16 +3779,22 @@ var Ut = class {
 			}
 		}
 	}
+	hostCloseTimer;
 	remove(e, t = !0) {
 		let n = this.peers.get(e);
-		n && (clearTimeout(n.admissionTimer), this.peers.delete(e), this.controlAssemblers.delete(e), n.pc.close(), this.host && t ? this.signal({
+		if (n && (clearTimeout(n.admissionTimer), this.peers.delete(e), this.controlAssemblers.delete(e), n.pc.close(), this.host && t && this.signal({
 			type: "evict",
 			id: e
-		}) : this.host || this.close(), this.hooks.leave(e), this.host || this.hooks.ended?.("The host connection ended."));
+		}), this.hooks.leave(e), !this.host)) {
+			let e = () => {
+				this.close(), this.hooks.ended?.("The host connection ended.");
+			};
+			this.signalingAdmitted && this.ws.readyState === Gt ? this.hostCloseTimer = setTimeout(e, 1e3) : e();
+		}
 	}
 	close() {
 		if (!this.closed) {
-			this.resumeGrant && this.signalingAdmitted && this.ws.readyState === Gt && this.signal({
+			clearTimeout(this.hostCloseTimer), this.hostCloseTimer = void 0, this.resumeGrant && this.signalingAdmitted && this.ws.readyState === Gt && this.signal({
 				type: "leave",
 				connectionEpoch: this.resumeGrant.connectionEpoch
 			}), this.recovery?.cancel(), this.resumeGrant = void 0, this.resumeAttempt = void 0, this.cancelHeartbeat(), this.socketSerial++, this.challenge?.abort(), this.rejectVerification("Room closed before verification confirmation."), this.verificationState = null, this.rejectBan("Room closed before ban confirmation."), this.rejectPasswordUpdate("Room closed before password confirmation."), this.closed = !0, clearInterval(this.timer), this.ws.close(1e3, "Left room");
