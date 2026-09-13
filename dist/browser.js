@@ -3287,20 +3287,21 @@ var Ut = class {
 		let n = this.banRequest;
 		n && (this.banRequest = void 0, clearTimeout(n.timer), n.reject(t ? new Wt(e) : Error(e)));
 	}
-	updateBan(e, t) {
-		return this.closed || !this.host || !this.signalingAdmitted || this.ws.readyState !== Gt ? Promise.reject(Error("An active room-owner connection is required.")) : this.banRequest ? Promise.reject(Error("A ban operation is already pending.")) : new Promise((n, r) => {
-			let i = ++this.banSequence, a = setTimeout(() => this.rejectBan("Ban operation was not confirmed."), 1e4);
+	updateBan(e, t, n) {
+		return this.closed || !this.host || !this.signalingAdmitted || this.ws.readyState !== Gt ? Promise.reject(Error("An active room-owner connection is required.")) : this.banRequest ? Promise.reject(Error("A ban operation is already pending.")) : new Promise((r, i) => {
+			let a = ++this.banSequence, o = setTimeout(() => this.rejectBan("Ban operation was not confirmed."), 1e4);
 			this.banRequest = {
-				id: i,
-				resolve: n,
-				reject: r,
-				timer: a
+				id: a,
+				resolve: r,
+				reject: i,
+				timer: o
 			};
 			try {
 				this.signal({
 					type: e,
 					id: t,
-					requestId: i
+					requestId: a,
+					...e === "ban" && n !== void 0 ? { reason: n } : {}
 				});
 			} catch {
 				this.rejectBan("Ban operation could not be sent.");
@@ -3413,6 +3414,10 @@ var Ut = class {
 	}
 	async message(e, t = this.socketSerial) {
 		if (this.closed || t !== this.socketSerial) return;
+		if (e.type === "terminal") {
+			this.close(), this.hooks.ended?.(typeof e.reason == "string" && e.reason.length <= 123 ? e.reason : "Room connection ended.");
+			return;
+		}
 		if (e.type === "resumed") {
 			let n = Pt(e), r = this.resumeGrant, i = this.resumeAttempt;
 			if (!n || !r || !i || !this.recovery || n.roomGeneration !== r.roomGeneration || n.attemptId !== i.attemptId || n.id !== this.id || n.hostId !== this.hostId || n.role === "host" !== this.host || n.connectionEpoch <= r.connectionEpoch || n.rosterRevision < this.rosterRevision || n.members.some((e) => e.connectionEpoch < (this.members.get(e.id)?.connectionEpoch ?? 0))) return;
@@ -4292,7 +4297,7 @@ var tn = Object.freeze({ ...Fe }), nn = class e {
 		let i = this.playerCopy(r), a = t.slice(0, 100);
 		if (this.bans.size >= 256 && !this.bans.has(e)) throw Error("Clear existing bans before adding more.");
 		try {
-			await this.network.updateBan("ban", r.peerId);
+			await this.network.updateBan("ban", r.peerId, a);
 		} catch (t) {
 			throw t instanceof Wt && this.bans.set(e, r.peerId), t;
 		}

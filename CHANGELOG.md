@@ -1,5 +1,9 @@
 # Changelog
 
+## Unpublished 0.2.3 candidate update
+
+- Deliver persisted ban reasons and handle terminal signaling messages before teardown. Later admission remains generically denied.
+
 ## 0.2.3 — candidate
 
 - Preserve bounded admission error details and HTTP status for quota and request conflicts; cancel stalled error reads with room startup.
