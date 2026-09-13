@@ -3329,10 +3329,10 @@ var Ut = class {
 			!this.resumeGrant && this.signalingAdmitted && this.ws.readyState === Gt && performance.now() - this.lastHeartbeat >= 3e4 && (this.signal({ type: "heartbeat" }), this.lastHeartbeat = performance.now());
 			for (let e of this.peers.values()) {
 				if (!e.connected && performance.now() - e.created > 2e4) {
-					n.status("Direct connection failed. This network pair may require a relay; this game does not use TURN."), this.remove(e.id);
+					n.status("Direct connection failed. This network pair may require a relay; this game does not use TURN.", "error"), this.remove(e.id);
 					continue;
 				}
-				e.lostAt !== void 0 && (performance.now() - e.lostAt > 2e4 ? (n.status("The direct connection could not be recovered. Rejoin the room."), this.remove(e.id)) : this.host && performance.now() - e.lastRestart > 5e3 && this.restartPeer(e.id));
+				e.lostAt !== void 0 && (performance.now() - e.lostAt > 2e4 ? (n.status("The direct connection could not be recovered. Rejoin the room.", "error"), this.remove(e.id)) : this.host && performance.now() - e.lastRestart > 5e3 && this.restartPeer(e.id));
 			}
 		}, 5e3);
 	}
@@ -3344,7 +3344,7 @@ var Ut = class {
 			i() && (this.signalQueue = this.signalQueue.then(async () => {
 				i() && await this.message(JSON.parse(e.data), r);
 			}).catch(() => {
-				i() && this.hooks.status("Connection negotiation failed. Try another room or network.");
+				i() && this.hooks.status("Connection negotiation failed. Try another room or network.", "error");
 			}));
 		}, e.onclose = (e) => {
 			if (i()) {
@@ -3353,7 +3353,7 @@ var Ut = class {
 					1008,
 					1009
 				].includes(e.code)) {
-					this.recovery.disconnected(n), this.hooks.status("Signaling interrupted. Reconnecting…");
+					this.recovery.disconnected(n), this.hooks.status("Signaling interrupted. Reconnecting…", "info");
 					return;
 				}
 				if (!this.id || this.recovery || [
@@ -3364,10 +3364,10 @@ var Ut = class {
 					this.close(), this.hooks.ended?.(e.reason || "Room connection ended.");
 					return;
 				}
-				this.hooks.status(e.reason || "Signaling disconnected. Established matches can continue; new joins are unavailable.");
+				this.hooks.status(e.reason || "Signaling disconnected. Established matches can continue; new joins are unavailable.", "error");
 			}
 		}, e.onerror = () => {
-			i() && this.hooks.status("Room service is unavailable.");
+			i() && this.hooks.status("Room service is unavailable.", "error");
 		};
 	}
 	startRecovery(e) {
@@ -3427,7 +3427,7 @@ var Ut = class {
 				...r,
 				connectionEpoch: n.connectionEpoch,
 				membershipValidForMs: a
-			}, this.resumeAttempt = void 0, this.scheduleHeartbeat(a, !1), this.verificationState = n.requireVerification, this.lockedState = n.locked, this.reconcile(n.members, n.rosterRevision, t), this.hooks.status("Room signaling restored.");
+			}, this.resumeAttempt = void 0, this.scheduleHeartbeat(a, !1), this.verificationState = n.requireVerification, this.lockedState = n.locked, this.reconcile(n.members, n.rosterRevision, t), this.hooks.status("Room signaling restored.", "info");
 			return;
 		}
 		if (e.type === "heartbeat" && this.resumeGrant && this.recovery) {
@@ -3487,7 +3487,7 @@ var Ut = class {
 			return;
 		}
 		if (e.type === "passwordUpgradeRequired" && this.host) {
-			this.hooks.status("Update the room password or explicitly unlock it to allow new guests.");
+			this.hooks.status("Update the room password or explicitly unlock it to allow new guests.", "error");
 			return;
 		}
 		if (e.type === "passwordUpdated" && e.ok === !1 && this.passwordRequest?.id === e.requestId) {
@@ -3593,7 +3593,7 @@ var Ut = class {
 		this.members = new Map(e.map((e) => [e.id, e])), this.rosterRevision = t;
 		for (let e of [...this.peers.keys()]) this.members.has(e) || this.remove(e, !1);
 		if (this.host) for (let t of e) t.id !== this.id && t.attached && !this.peers.has(t.id) && this.offerPeer(t.id, n).catch(() => {
-			!this.closed && n === this.socketSerial && this.hooks.status("Connection negotiation failed.");
+			!this.closed && n === this.socketSerial && this.hooks.status("Connection negotiation failed.", "error");
 		});
 	}
 	negotiationCurrent(e) {
@@ -3644,7 +3644,7 @@ var Ut = class {
 	noteHealthy(e) {
 		if (!this.current(e) || e.pc.connectionState !== "connected" || !["connected", "completed"].includes(e.pc.iceConnectionState)) return;
 		let t = e.lostAt !== void 0;
-		e.lostAt = void 0, e.restarts = 0, t && this.hooks.status("Direct connection restored.");
+		e.lostAt = void 0, e.restarts = 0, t && this.hooks.status("Direct connection restored.", "info");
 	}
 	async flushCandidates(e, t = () => this.current(e)) {
 		let n = e.candidates.splice(0);
@@ -3669,7 +3669,7 @@ var Ut = class {
 				sdp: this.localSdp(t)
 			}), !0);
 		} catch {
-			return !this.closed && this.peers.get(e) === t && this.hooks.status("Direct connection recovery is still pending."), !1;
+			return !this.closed && this.peers.get(e) === t && this.hooks.status("Direct connection recovery is still pending.", "info"), !1;
 		} finally {
 			t.restarting = !1;
 		}
@@ -3697,7 +3697,7 @@ var Ut = class {
 			});
 		}, t.ondatachannel = (e) => this.bind(n, e.channel);
 		let r = () => {
-			this.closed || this.peers.get(e) !== n || (t.connectionState === "closed" ? (this.hooks.status("A peer disconnected."), this.remove(e)) : t.connectionState === "connected" && ["connected", "completed"].includes(t.iceConnectionState) ? this.noteHealthy(n) : (["failed", "disconnected"].includes(t.connectionState) || ["failed", "disconnected"].includes(t.iceConnectionState)) && (n.lostAt ??= performance.now(), this.hooks.status("Direct connection interrupted. Attempting recovery…")));
+			this.closed || this.peers.get(e) !== n || (t.connectionState === "closed" ? (this.hooks.status("A peer disconnected.", "info"), this.remove(e)) : t.connectionState === "connected" && ["connected", "completed"].includes(t.iceConnectionState) ? this.noteHealthy(n) : (["failed", "disconnected"].includes(t.connectionState) || ["failed", "disconnected"].includes(t.iceConnectionState)) && (n.lostAt ??= performance.now(), this.hooks.status("Direct connection interrupted. Attempting recovery…", "info")));
 		};
 		return t.onconnectionstatechange = r, t.oniceconnectionstatechange = r, n;
 	}
@@ -3711,10 +3711,10 @@ var Ut = class {
 			return;
 		}
 		t.binaryType = "arraybuffer", t.label === "control" ? e.control = t : e.fast = t, t.onclose = () => {
-			!this.closed && this.peers.get(e.id) === e && (this.hooks.status("A peer closed its game channel."), this.remove(e.id));
+			!this.closed && this.peers.get(e.id) === e && (this.hooks.status("A peer closed its game channel.", "info"), this.remove(e.id));
 		}, t.onopen = () => {
 			this.closed || this.peers.get(e.id) !== e || e.control?.readyState === "open" && e.fast?.readyState === "open" && !e.connected && (e.connected = !0, this.host && (e.admissionTimer = setTimeout(() => {
-				this.closed || this.peers.get(e.id) !== e || (this.hooks.status("A peer did not complete room admission."), this.remove(e.id));
+				this.closed || this.peers.get(e.id) !== e || (this.hooks.status("A peer did not complete room admission.", "error"), this.remove(e.id));
 			}, 1e4)), this.hooks.open(e));
 		}, t.onmessage = (n) => {
 			if (!(this.closed || this.peers.get(e.id) !== e)) {
@@ -3734,7 +3734,7 @@ var Ut = class {
 					} else if (n.data instanceof ArrayBuffer && n.data.byteLength <= 1200) this.hooks.fast(e, n.data);
 					else throw Error();
 				} catch {
-					this.hooks.status("Invalid peer message rejected."), this.remove(e.id);
+					this.hooks.status("Invalid peer message rejected.", "error"), this.remove(e.id);
 				}
 			}
 		};
@@ -3961,7 +3961,9 @@ var tn = Object.freeze({ ...Fe }), nn = class e {
 						control: (e, t) => u.control(e, t),
 						fast: (e, t) => u.fast(e, t),
 						leave: (e) => u.leave(e),
-						status: (e) => u.report(e),
+						status: (e, t) => {
+							t === "error" && u.report(e);
+						},
 						ended: (e) => {
 							clearTimeout(p), t(Error(e)), u.close(), u.report(e);
 						}

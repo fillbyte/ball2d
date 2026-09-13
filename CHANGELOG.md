@@ -2,6 +2,9 @@
 
 ## Unpublished 0.2.3 candidate update
 
+Ordinary player departures and connection recovery no longer invoke `onError`.
+Actual transport failures and terminal room decisions still report errors.
+
 - Deliver persisted ban reasons and handle terminal signaling messages before teardown. A one-second grace period preserves the service reason when P2P teardown arrives first. Later admission remains generically denied.
 
 ## 0.2.3 — candidate

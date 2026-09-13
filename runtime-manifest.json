@@ -3,13 +3,13 @@
   "sourceRepository": "fillbyte/ball2d.com",
   "boundary": "Reviewed compiled runtime and public declarations. Private implementation source is not included.",
   "files": {
-    "dist/browser.js": "00f29e01f6eeb8277d06ef636ae02cae9bdbf076729082b9efcc635a8a26fa57",
+    "dist/browser.js": "8750bc9a01efcc288ecb56a85e99f79368956b3943b79eedfc56ce449103dd92",
     "dist/core.wasm": "1229b1b4ba3892d6073fb85b3b6231282c2d81ee270808cb0acda874d49cb87e",
     "dist/licenses/fflate.txt": "0a1df3a083d0c010560aa342e87959c8c1070e6fd54545741f083f22d0c8b551",
     "dist/licenses/json5.txt": "53e59feb13058722d977c699eb0407c7bce2f93c949b681bbd2ff31698535927",
     "dist/licenses/native.json": "b227d082018bdf5dbb11c80f519d1cc6f21e632d4c9c22eaaf0637500b70d6b8",
     "dist/licenses/werift.txt": "b83683f3f71b5971e6c2e33a8b894a49d752fd24c11b8ae08b53ca20f594fca5",
-    "dist/node.js": "f01843dcb3e84056d5f8cc8810a0f5fe05bc29a472eb8c1213c3081f3588d472",
+    "dist/node.js": "b4b090d1ddd0dce761fe8863814ab641d06a2847847a70d639dcb9315b3f44cc",
     "dist/stadiums/big.hbs": "79d4077a1889d83ac1f3adc60481e93ddaa9c9dba6d51a56390385731bb873da",
     "dist/stadiums/big_easy.hbs": "884b24d3040e2a4c621e51ce9e43ee2d8a0c3f565e920311e7aa96d79db680ff",
     "dist/stadiums/big_hockey.hbs": "d01e9a3baf8fcf94fe12d8752d3e93c0d7ecaa4bd74d9525d1905c041655fffd",
@@ -34,5 +34,5 @@
     "dist/types/stadium.d.ts": "e3707e8a8721cb1b95ef85645670bdc00c508af7612d07ccf294b5590c90137f",
     "dist/types/team.d.ts": "2b0992c4b5a64ef0748a8a1e4b39fda857082accdc50fca9acb50cfdd311aac5"
   },
-  "sourceRevision": "59ca49ae2fd26a1bd7ba9e31ba5157a7476c29e9"
+  "sourceRevision": "b8ed4e09caa6616496e9c6c8cd704106cfaacfd2"
 }
