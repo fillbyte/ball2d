@@ -2,6 +2,17 @@
 
 ## Unpublished 0.2.3 candidate update
 
+Production acceptance on Node 24.19/macOS arm64: a freshly packed and installed
+candidate used a generated real account's API-issued key to open a room. A second
+room was denied with the exact active-room quota message and `(429)`. A real
+browser guest joined, moved authoritatively, and produced a replay with seven
+commands including nonzero input. Revoking the key closed the native host and
+returned the guest to the directory with `API key revoked`; readmission was denied.
+Native shutdown settled; the generated session/account and temporary consumer were
+removed. The unchanged native SHA-256 is listed below. This covers production
+admission and one same-machine peer, not email delivery, WAN, devices or npm
+publication. Registry latest remains 0.2.2; this candidate remains unpublished.
+
 - Drain every native peer before shutdown settles, including when another peer fails to close. Preserve earlier cleanup failures even when their rejection value is empty.
 - When startup and cleanup both fail, reject with an `AggregateError` whose `cause` is the original startup failure and whose `errors` retain both failures.
 - Five focused tests cover injected failures and a data-channel exchange between two real native peers on one machine. This does not establish WAN or physical-device coverage.
