@@ -4236,7 +4236,8 @@ var tn = Object.freeze({ ...Fe }), nn = class e {
 		return t ? this.playerCopy(t) : null;
 	}
 	setTeamColors(e, t, n, r) {
-		this.changeTeamColors(e, Ee(t, n, r));
+		let i = Ee(t, n, r);
+		i.angle = ((256 * t / 360 | 0) & 255) * (360 / 256), this.changeTeamColors(e, i);
 	}
 	changeTeamColors(e, t) {
 		if (this.closed) throw Error("Room is closed");
