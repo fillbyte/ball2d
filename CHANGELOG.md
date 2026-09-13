@@ -2,13 +2,15 @@
 
 ## 0.2.3 — candidate
 
+- Preserve bounded admission error details and HTTP status for quota and request conflicts; cancel stalled error reads with room startup.
+
 - Preserve completed tick goal and kick observations when callbacks restart or change the match.
 - Publish bounded authoritative kick events so current web clients can play sampled match audio. Native hosts do not load audio resources.
 - Refresh runtime URL ownership from the reviewed implementation.
 
 Candidate verification on Node 24.19/macOS: 30 runtime files and 12 public
 declarations passed the distribution audit; the installed archive opened a room,
-rejected a second room with 429, closed after fixture-key revocation and rejected
+rejected a second room with its specific quota message and 429, closed after fixture-key revocation and rejected
 readmission. A real browser joined the installed Node host. Short automated key
 pulses did not produce movement, so keyboard/replay acceptance was cancelled and
 is not claimed. These are loopback fixture-key checks, not fresh production-account
