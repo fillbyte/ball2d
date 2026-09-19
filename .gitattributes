@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.wasm binary
+*.png binary
+*.jpg binary
+*.webp binary
+*.tgz binary
+# Preserve the exact published stadium bytes.
+dist/stadiums/*.ball2dstadium -text -whitespace

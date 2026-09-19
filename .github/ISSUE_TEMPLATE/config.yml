@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/fillbyte/ball2d/security/advisories/new
+    about: Do not include credentials or security exploits in public issues.

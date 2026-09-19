@@ -1,0 +1,24 @@
+name: Bug report
+description: Report a reproducible product or SDK defect.
+title: '[Bug]: '
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Version or commit, browser or Node.js version, operating system, and local or deployed service.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Steps or a small example. Remove API keys, personal data and private room links.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true

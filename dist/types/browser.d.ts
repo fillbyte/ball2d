@@ -1,0 +1,10 @@
+import type { RoomConfig } from './config.js';
+import type { CreateRoomOptions } from './creation.js';
+import type { Room } from './room.js';
+import type { Replay } from './replay.js';
+import type { StadiumValidation } from './stadium.js';
+export type { RoomConfig, CreateRoomOptions, Room, Replay, StadiumValidation };
+export type { HostPlayer, HostScores, HostDiscProperties } from './player.js';
+export declare function createRoom(config?: RoomConfig, options?: CreateRoomOptions): Promise<Room>;
+export declare function readReplay(blob: Blob): Promise<Replay>;
+export declare function validateStadium(source: string): StadiumValidation;

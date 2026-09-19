@@ -1,0 +1,42 @@
+Ball2D SDK License, version 1.0
+Copyright (c) 2026 Fillbyte. All rights reserved.
+
+1. Permission
+Fillbyte grants you a non-exclusive, worldwide, royalty-free license to download,
+install and run the unmodified Ball2D SDK to develop and operate integrations
+with the official Ball2D service, including commercial integrations. You may
+copy the SDK into your deployment artifacts for that purpose. You may use, copy
+and adapt the public type declarations, documentation and examples to build your
+integration. Retain this license and the applicable third-party notices in copies
+of the SDK that you distribute with your integration.
+
+2. Service access
+Native room hosting requires a valid Ball2D API key and compliance with the
+service's authorization, scope, rate and concurrent-session limits. This license
+does not grant unlimited service access or permission to bypass those controls.
+You are responsible for protecting your credentials and your integration's data.
+
+3. Reserved rights
+The game implementation remains proprietary. No right to its private source code,
+trademarks or branding is granted. Except for the permission above, you may not
+redistribute a modified Ball2D runtime or offer the SDK as an independent competing
+service without Fillbyte's written permission. This is a proprietary SDK license,
+not an open-source license. Rights that cannot lawfully be restricted remain
+unaffected.
+
+4. Third-party components
+Components identified in dist/licenses retain their own licenses, which govern
+those components and take precedence over conflicting restrictions in this
+license. No ownership of those components is claimed by Fillbyte.
+
+5. Warranty and liability
+To the extent permitted by applicable law, the SDK is provided "AS IS", without
+warranty of any kind. Fillbyte is not liable for damages arising from use of or
+inability to use the SDK. Nothing excludes liability that cannot lawfully be
+excluded. No uptime, compatibility or fitness guarantee is implied.
+
+6. Termination
+If you materially violate this license, the permissions granted by this license
+terminate. Stop using and distributing the SDK under those permissions. The
+third-party licenses remain independent. Separately agreed written terms with
+Fillbyte take precedence where they expressly address the same subject.
