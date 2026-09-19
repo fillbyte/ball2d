@@ -1,6 +1,17 @@
 # Changelog
 
-## Unpublished 0.2.3 candidate update
+## 0.2.3 — 2026-09-19
+
+- Complete native shutdown and error aggregation, preserve service teardown
+  reasons, and quantize new team-color commands without changing archived replays.
+- Explain failed direct connections with an actionable network/room suggestion.
+- Preserve the host-loss room-closure contract in the signaling documentation.
+- Production acceptance on Node 24.19/macOS arm64 covers real account/key issuance,
+  room creation, same-key quota rejection, Chrome player movement and replay,
+  key revocation, rejected readmission and awaited cleanup. This is same-device
+  acceptance; independent WAN, other platforms and sustained capacity remain open.
+
+## Historical 0.2.3 candidate evidence — 2026-09-13
 
 - Quantize new `setTeamColors` command angles to the reference's 256 turn units
   before byte wrapping; leave historical replay palettes unchanged. Cases include

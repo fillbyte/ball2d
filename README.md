@@ -4,14 +4,11 @@ Host a Ball2D football room on your own server and control it through a typed
 JavaScript API. The host runs the simulation; players connect directly over
 WebRTC. Ball2D provides authorization, room discovery and signaling.
 
-**SDK version: 0.2.2.** Requires the matching Ball2D web engine. Production
-API acceptance verified account-issued keys, Node admission, quota rejection and
-revocation. Local Chrome acceptance verified player input, signed stadium physics
-and replay preservation. These checks do not establish broad device or WAN support.
-
-**Repository candidate: 0.2.3, not published.** The candidate is intentionally private
-until final release acceptance and npm authentication complete. npm installation
-commands below still select the published 0.2.2 release.
+**SDK version: 0.2.3.** Requires the matching Ball2D web engine. Production
+acceptance verified account-issued keys, Node admission, quota rejection, a real
+same-Mac Chrome player's movement/replay, revocation and native cleanup.
+The verified native platform is Node 24.19.0 on macOS arm64. These checks do not
+establish broad device, operating-system or WAN support.
 
 Repository maintainers: [local setup](https://github.com/fillbyte/ball2d/blob/main/docs/DEVELOPMENT.md) · [release procedure](https://github.com/fillbyte/ball2d/blob/main/docs/RELEASING.md) · [changelog](https://github.com/fillbyte/ball2d/blob/main/CHANGELOG.md).
 
@@ -21,7 +18,7 @@ Use Node.js 24 or newer. The verified native runtime is Node.js 24.19.0 on macOS
 arm64; other systems need independent acceptance. Native transport is experimental.
 
 ```sh
-npm install ball2d@0.2.2
+npm install ball2d@0.2.3
 ```
 
 Create an API key through your Ball2D account.
@@ -132,9 +129,10 @@ confirm that every remote player has received a shutdown message.
 ## Signaling recovery
 
 Browser and native runtimes request resumable signaling by default. If the
-signaling connection briefly drops, the same admitted host or player can recover
+guest signaling connection briefly drops, the same admitted player can recover
 within the service membership lifetime while retaining healthy direct peer
-connections. Custom services must support the matching signaling protocol.
+connections. Host loss closes the room, including when the service observes the
+host signaling socket close. Custom services must support the matching protocol.
 
 This does not automatically transfer ownership to another player when the host
 leaves, guarantee uninterrupted delivery, or provide a relay for incompatible
