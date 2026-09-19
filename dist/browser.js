@@ -3329,7 +3329,7 @@ var Ut = class {
 			!this.resumeGrant && this.signalingAdmitted && this.ws.readyState === Gt && performance.now() - this.lastHeartbeat >= 3e4 && (this.signal({ type: "heartbeat" }), this.lastHeartbeat = performance.now());
 			for (let e of this.peers.values()) {
 				if (!e.connected && performance.now() - e.created > 2e4) {
-					n.status("Direct connection failed. This network pair may require a relay; this game does not use TURN.", "error"), this.remove(e.id);
+					n.status("Could not connect directly to this room. Try another network or room.", "error"), this.remove(e.id);
 					continue;
 				}
 				e.lostAt !== void 0 && (performance.now() - e.lostAt > 2e4 ? (n.status("The direct connection could not be recovered. Rejoin the room.", "error"), this.remove(e.id)) : this.host && performance.now() - e.lastRestart > 5e3 && this.restartPeer(e.id));
