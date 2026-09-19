@@ -33,6 +33,9 @@ const artifacts = new Set([
  */
 export async function auditSdkStructure(root, { forbiddenTerms = [] } = {}) {
   const files = [];
+  const dist = await lstat(join(root, 'dist'));
+  if (dist.isSymbolicLink() || !dist.isDirectory())
+    throw Error('SDK dist must be a directory, not a symlink or special file');
   async function walk(relative) {
     for (const name of await readdir(join(root, relative))) {
       const path = posix.join(relative, name);
@@ -63,7 +66,9 @@ export async function auditSdkStructure(root, { forbiddenTerms = [] } = {}) {
     if (/sourceMappingURL\s*=|sourceURL\s*=|\/\/#region\s+(?:src\/|\\0)/.test(text))
       throw Error(`SDK contains source/debug metadata: ${path}`);
     if (contracts.has(path)) {
-      for (const match of text.matchAll(/(?:from\s*|import\s*\(\s*)['"]([^'"]+)['"]/g)) {
+      if (/^\s*\/\/\/\s*<reference\b/m.test(text))
+        throw Error(`SDK declaration contains unreviewed type reference: ${path}`);
+      for (const match of text.matchAll(/(?:from\s*|import\s*(?:\(\s*)?)['"]([^'"]+)['"]/g)) {
         const specifier = match[1];
         const target = posix.join(posix.dirname(path), specifier.replace(/\.js$/, '.d.ts'));
         if (!specifier.startsWith('./') || !specifier.endsWith('.js') || !contracts.has(target))
@@ -71,5 +76,5 @@ export async function auditSdkStructure(root, { forbiddenTerms = [] } = {}) {
       }
     }
   }
-  return { files: files.length, declarations: contracts.size };
+  return { files: files.length, declarations: contracts.size, paths: files.sort() };
 }
