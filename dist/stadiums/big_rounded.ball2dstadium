@@ -295,7 +295,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -305,7 +305,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -315,7 +315,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -325,7 +325,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -335,7 +335,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -345,7 +345,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -355,7 +355,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -365,7 +365,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -375,7 +375,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -385,7 +385,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -395,7 +395,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -405,7 +405,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -415,7 +415,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -425,7 +425,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -435,7 +435,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -445,7 +445,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -563,7 +563,7 @@
       ],
       "radius": 6,
       "invMass": 0,
-      "color": "DAEEE4",
+      "color": "FFFFFF",
       "bCoef": 0.5
     },
     {
@@ -573,7 +573,7 @@
       ],
       "radius": 6,
       "invMass": 0,
-      "color": "DAEEE4",
+      "color": "FFFFFF",
       "bCoef": 0.5
     },
     {
@@ -583,7 +583,7 @@
       ],
       "radius": 6,
       "invMass": 0,
-      "color": "DAEEE4",
+      "color": "FFFFFF",
       "bCoef": 0.5
     },
     {
@@ -593,7 +593,7 @@
       ],
       "radius": 6,
       "invMass": 0,
-      "color": "DAEEE4",
+      "color": "FFFFFF",
       "bCoef": 0.5
     }
   ],

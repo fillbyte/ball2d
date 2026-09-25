@@ -12,6 +12,8 @@ export interface HostPlayer {
         x: number;
         y: number;
     } | null;
+    /** Current authoritative key bitmask: up 1, down 2, left 4, right 8, kick 16. */
+    input: number;
 }
 export interface HostScores {
     red: number;

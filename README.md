@@ -96,12 +96,10 @@ native declarations do not require DOM/WebRTC globals or `skipLibCheck`.
 - **Players and lobby:** inspect players, assign teams/admins, lock teams, kick/ban,
   manage admission, send chat and announcements, and configure the room.
 - **Matches:** start/stop, pause/resume, score/time limits, kick-rate limits and
-  `await room.setSurfaceEnabled(true)` for wet grass and ground wear. Pass `false`
-  to restore dry ground. Stop the match before changing the surface; loading a
-  stadium resets it. Surface changes are retained in replays.
-- **Physics and stadiums:** load custom stadium text, select ten bundled defaults,
+  team controls.
+- **Physics and stadiums:** load custom stadium text, select fourteen bundled defaults,
   query and modify supported player/disc properties, and use `CollisionFlags`.
-- **Events:** player join/leave/chat, team/admin changes, ball kicks, goals,
+- **Events:** player join/leave/input/chat, team/admin changes, ball kicks, goals,
   match ticks, position resets, victory, stadium changes and recording completion.
 - **Replay:** record and decode Ball2D recordings with their embedded stadium and
   matching engine identity.
@@ -116,6 +114,8 @@ Callbacks receive the room facade as `this`. Callback failures are reported to
 `onError`; that handler's own failures are contained. Chat filtering must return
 `false` synchronously to suppress a message. Player IDs are stable public IDs,
 not physics slots; departed player IDs are not reused within a room.
+`onPlayerInput(player, prevInput)` reports accepted key-state changes. `player.input`
+is the current bitmask: up `1`, down `2`, left `4`, right `8`, kick `16`.
 
 Room creation resolves only after signaling confirms host authority. An optional
 second argument `{ signal }` cancels startup. Startup has a 15-second overall
@@ -160,8 +160,8 @@ if (recording) {
 
 Validation is synchronous and does not allocate a room. Passing validation means
 the stadium can be parsed, not that all gameplay outcomes have been certified.
-Bundled defaults are Classic, Easy, Small, Big, Rounded, Hockey, Big Easy,
-Big Rounded, Big Hockey and Huge. They are Ball2D-authored procedural designs;
+Bundled defaults are Classic, Easy, Small, Big, Rounded, Big Easy, Big Rounded,
+Huge, Asphalt, Asphalt Arena, Courtyard, Meadow, Street Five and Training Green. They are Ball2D-authored procedural designs;
 provenance and hashes are included. Custom stadiums and embedded-stadium replays
 remain supported. Geometry and physics can differ from earlier SDK assets.
 Recordings are binary containers: use `readReplay`, not JSON parsing.

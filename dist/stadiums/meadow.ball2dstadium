@@ -1,190 +1,246 @@
 {
   "version": 1,
   "physicsMode": "substeps",
-  "name": "Big Easy",
-  "width": 615,
-  "height": 325,
-  "spawnDistance": 216,
+  "name": "Meadow",
+  "width": 555,
+  "height": 335,
+  "spawnDistance": 192,
   "bg": {
     "type": "grass",
-    "width": 540,
-    "height": 260,
+    "width": 480,
+    "height": 270,
     "kickOffRadius": 65,
-    "color": "285B35",
-    "cornerRadius": 0
+    "color": "648752",
+    "cornerRadius": 55
   },
   "vertexes": [
     {
-      "x": -540,
-      "y": -260,
+      "x": -425,
+      "y": -270,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 540,
-      "y": -260,
+      "x": 425,
+      "y": -270,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 540,
-      "y": -260,
+      "x": 480,
+      "y": -215,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 540,
-      "y": -100,
+      "x": 480,
+      "y": -70,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 540,
-      "y": 100,
+      "x": 480,
+      "y": 70,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 540,
-      "y": 260,
+      "x": 480,
+      "y": 215,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 540,
-      "y": 260,
+      "x": 425,
+      "y": 270,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -540,
-      "y": 260,
+      "x": -425,
+      "y": 270,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -540,
-      "y": 260,
+      "x": -480,
+      "y": 215,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -540,
-      "y": 100,
+      "x": -480,
+      "y": 70,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -540,
-      "y": -100,
+      "x": -480,
+      "y": -70,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -540,
-      "y": -260,
+      "x": -480,
+      "y": -215,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -540,
-      "y": -100,
+      "x": 425,
+      "y": -270,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -570,
-      "y": -100,
+      "x": 480,
+      "y": -215,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -570,
-      "y": -100,
+      "x": 480,
+      "y": 215,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -570,
-      "y": 100,
+      "x": 425,
+      "y": 270,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -570,
-      "y": 100,
+      "x": -425,
+      "y": 270,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -540,
-      "y": 100,
+      "x": -480,
+      "y": 215,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 540,
-      "y": -100,
+      "x": -480,
+      "y": -215,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 570,
-      "y": -100,
+      "x": -425,
+      "y": -270,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 570,
-      "y": -100,
+      "x": -480,
+      "y": -70,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 570,
-      "y": 100,
+      "x": -510,
+      "y": -70,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 570,
-      "y": 100,
+      "x": -510,
+      "y": -70,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 540,
-      "y": 100,
+      "x": -510,
+      "y": 70,
+      "cMask": [
+        "ball"
+      ]
+    },
+    {
+      "x": -510,
+      "y": 70,
+      "cMask": [
+        "ball"
+      ]
+    },
+    {
+      "x": -480,
+      "y": 70,
+      "cMask": [
+        "ball"
+      ]
+    },
+    {
+      "x": 480,
+      "y": -70,
+      "cMask": [
+        "ball"
+      ]
+    },
+    {
+      "x": 510,
+      "y": -70,
+      "cMask": [
+        "ball"
+      ]
+    },
+    {
+      "x": 510,
+      "y": -70,
+      "cMask": [
+        "ball"
+      ]
+    },
+    {
+      "x": 510,
+      "y": 70,
+      "cMask": [
+        "ball"
+      ]
+    },
+    {
+      "x": 510,
+      "y": 70,
+      "cMask": [
+        "ball"
+      ]
+    },
+    {
+      "x": 480,
+      "y": 70,
       "cMask": [
         "ball"
       ]
     },
     {
       "x": 0,
-      "y": -300,
+      "y": -310,
       "cGroup": [
         "redKO",
         "blueKO"
@@ -220,7 +276,7 @@
     },
     {
       "x": 0,
-      "y": 300,
+      "y": 310,
       "cGroup": [
         "redKO",
         "blueKO"
@@ -295,42 +351,42 @@
     {
       "v0": 12,
       "v1": 13,
-      "curve": 0,
+      "curve": 90,
       "cMask": [
         "ball"
       ],
-      "color": "DDE2E5",
-      "bCoef": 0.15
+      "color": "FFFFFF",
+      "bCoef": 0.8
     },
     {
       "v0": 14,
       "v1": 15,
-      "curve": 0,
+      "curve": 90,
       "cMask": [
         "ball"
       ],
-      "color": "DDE2E5",
-      "bCoef": 0.15
+      "color": "FFFFFF",
+      "bCoef": 0.8
     },
     {
       "v0": 16,
       "v1": 17,
-      "curve": 0,
+      "curve": 90,
       "cMask": [
         "ball"
       ],
-      "color": "DDE2E5",
-      "bCoef": 0.15
+      "color": "FFFFFF",
+      "bCoef": 0.8
     },
     {
       "v0": 18,
       "v1": 19,
-      "curve": 0,
+      "curve": 90,
       "cMask": [
         "ball"
       ],
-      "color": "DDE2E5",
-      "bCoef": 0.15
+      "color": "FFFFFF",
+      "bCoef": 0.8
     },
     {
       "v0": 20,
@@ -355,19 +411,46 @@
     {
       "v0": 24,
       "v1": 25,
-      "vis": false,
-      "cGroup": [
-        "redKO",
-        "blueKO"
-      ],
+      "curve": 0,
       "cMask": [
-        "red",
-        "blue"
-      ]
+        "ball"
+      ],
+      "color": "DDE2E5",
+      "bCoef": 0.15
     },
     {
       "v0": 26,
       "v1": 27,
+      "curve": 0,
+      "cMask": [
+        "ball"
+      ],
+      "color": "DDE2E5",
+      "bCoef": 0.15
+    },
+    {
+      "v0": 28,
+      "v1": 29,
+      "curve": 0,
+      "cMask": [
+        "ball"
+      ],
+      "color": "DDE2E5",
+      "bCoef": 0.15
+    },
+    {
+      "v0": 30,
+      "v1": 31,
+      "curve": 0,
+      "cMask": [
+        "ball"
+      ],
+      "color": "DDE2E5",
+      "bCoef": 0.15
+    },
+    {
+      "v0": 32,
+      "v1": 33,
       "vis": false,
       "cGroup": [
         "redKO",
@@ -379,8 +462,21 @@
       ]
     },
     {
-      "v0": 26,
-      "v1": 25,
+      "v0": 34,
+      "v1": 35,
+      "vis": false,
+      "cGroup": [
+        "redKO",
+        "blueKO"
+      ],
+      "cMask": [
+        "red",
+        "blue"
+      ]
+    },
+    {
+      "v0": 34,
+      "v1": 33,
       "curve": -180,
       "vis": false,
       "cGroup": [
@@ -392,8 +488,8 @@
       ]
     },
     {
-      "v0": 26,
-      "v1": 25,
+      "v0": 34,
+      "v1": 33,
       "curve": 180,
       "vis": false,
       "cGroup": [
@@ -411,50 +507,50 @@
         0,
         1
       ],
-      "dist": -300
+      "dist": -310
     },
     {
       "normal": [
         0,
         -1
       ],
-      "dist": -300
+      "dist": -310
     },
     {
       "normal": [
         1,
         0
       ],
-      "dist": -590
+      "dist": -530
     },
     {
       "normal": [
         -1,
         0
       ],
-      "dist": -590
+      "dist": -530
     }
   ],
   "goals": [
     {
       "p0": [
-        -540,
-        -100
+        -480,
+        -70
       ],
       "p1": [
-        -540,
-        100
+        -480,
+        70
       ],
       "team": "red"
     },
     {
       "p0": [
-        540,
-        -100
+        480,
+        -70
       ],
       "p1": [
-        540,
-        100
+        480,
+        70
       ],
       "team": "blue"
     }
@@ -462,8 +558,8 @@
   "discs": [
     {
       "pos": [
-        -540,
-        -100
+        -480,
+        -70
       ],
       "radius": 6,
       "invMass": 0,
@@ -472,8 +568,8 @@
     },
     {
       "pos": [
-        -540,
-        100
+        -480,
+        70
       ],
       "radius": 6,
       "invMass": 0,
@@ -482,8 +578,8 @@
     },
     {
       "pos": [
-        540,
-        -100
+        480,
+        -70
       ],
       "radius": 6,
       "invMass": 0,
@@ -492,8 +588,8 @@
     },
     {
       "pos": [
-        540,
-        100
+        480,
+        70
       ],
       "radius": 6,
       "invMass": 0,
