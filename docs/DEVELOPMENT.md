@@ -6,16 +6,21 @@ repository. Cloning it requires no sibling checkout, browser process or build st
 
 ```sh
 npm ci
+npm test
 npm run check
 npm run check:docs
 npm run format:check
 npm run pack:check
 ```
 
-The checks verify declared artifacts, runtime hashes, WebAssembly compilation,
+The checks verify the exact audited file inventory, runtime hashes, WebAssembly compilation,
 SDK imports and rejection of missing native credentials without allocating a room.
 They do not authenticate with the production service. Formatting excludes bundled
 runtime files; regenerate those through the private build/export pipeline.
+
+Integrity tests reject missing files, aliased manifest paths, version mismatches
+and modified bytes. The structural audit rejects symlinks, including the `dist`
+root. These are local packaging checks, not proof of artifact provenance.
 
 For an integration, install the documented package version into your own project,
 set BALL2D_API_KEY through your secret manager, and use the example in the README.

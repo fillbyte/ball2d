@@ -13,6 +13,7 @@ const contracts = new Set(
     'player',
     'replay',
     'room',
+    'room-geo',
     'stadium',
     'team',
   ].map((name) => `dist/types/${name}.d.ts`),
@@ -32,6 +33,9 @@ const artifacts = new Set([
  */
 export async function auditSdkStructure(root, { forbiddenTerms = [] } = {}) {
   const files = [];
+  const dist = await lstat(join(root, 'dist'));
+  if (dist.isSymbolicLink() || !dist.isDirectory())
+    throw Error('SDK dist must be a directory, not a symlink or special file');
   async function walk(relative) {
     for (const name of await readdir(join(root, relative))) {
       const path = posix.join(relative, name);
@@ -46,14 +50,14 @@ export async function auditSdkStructure(root, { forbiddenTerms = [] } = {}) {
   for (const required of [...artifacts, ...contracts])
     if (!files.includes(required)) throw Error(`SDK artifact missing: ${required}`);
   for (const path of files) {
-    const stadium = /^dist\/stadiums\/(?:[a-z_]+\.hbs|provenance\.json)$/.test(path);
+    const stadium = /^dist\/stadiums\/(?:[a-z_]+\.ball2dstadium|provenance\.json)$/.test(path);
     if (!artifacts.has(path) && !contracts.has(path) && !stadium)
       throw Error(`Unreviewed SDK artifact: ${path}`);
     const contents = await readFile(join(root, path));
     for (const term of forbiddenTerms) {
       if (
         term &&
-        (path + '\n' + contents.toString('utf8')).toLowerCase().includes(term.toLowerCase())
+        `${path}\n${contents.toString('utf8')}`.toLowerCase().includes(term.toLowerCase())
       )
         throw Error(`SDK contains a forbidden term: ${path}`);
     }
@@ -62,7 +66,9 @@ export async function auditSdkStructure(root, { forbiddenTerms = [] } = {}) {
     if (/sourceMappingURL\s*=|sourceURL\s*=|\/\/#region\s+(?:src\/|\\0)/.test(text))
       throw Error(`SDK contains source/debug metadata: ${path}`);
     if (contracts.has(path)) {
-      for (const match of text.matchAll(/(?:from\s*|import\s*\(\s*)['"]([^'"]+)['"]/g)) {
+      if (/^\s*\/\/\/\s*<reference\b/m.test(text))
+        throw Error(`SDK declaration contains unreviewed type reference: ${path}`);
+      for (const match of text.matchAll(/(?:from\s*|import\s*(?:\(\s*)?)['"]([^'"]+)['"]/g)) {
         const specifier = match[1];
         const target = posix.join(posix.dirname(path), specifier.replace(/\.js$/, '.d.ts'));
         if (!specifier.startsWith('./') || !specifier.endsWith('.js') || !contracts.has(target))
@@ -70,5 +76,5 @@ export async function auditSdkStructure(root, { forbiddenTerms = [] } = {}) {
       }
     }
   }
-  return { files: files.length, declarations: contracts.size };
+  return { files: files.length, declarations: contracts.size, paths: files.sort() };
 }
