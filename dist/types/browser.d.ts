@@ -5,6 +5,12 @@ import type { Replay } from './replay.js';
 import type { StadiumValidation } from './stadium.js';
 export type { RoomConfig, CreateRoomOptions, Room, Replay, StadiumValidation };
 export type { HostPlayer, HostScores, HostDiscProperties } from './player.js';
+/** Room creation was rejected by the signaling service. */
+export declare class RoomAdmissionError extends Error {
+    readonly status: number;
+    readonly retryAfterSeconds: number | null;
+    constructor(message: string, status: number, retryAfterSeconds?: number | null);
+}
 export declare function createRoom(config?: RoomConfig, options?: CreateRoomOptions): Promise<Room>;
 export declare function readReplay(blob: Blob): Promise<Replay>;
 export declare function validateStadium(source: string): StadiumValidation;

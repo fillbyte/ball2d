@@ -3,7 +3,7 @@ import type { TeamStyles } from './team.js';
 import type { MatchState } from './match-state.js';
 export type ReplayCommand = {
     tick: number;
-    kind: 'input' | 'team' | 'start' | 'stop' | 'pause' | 'scoreLimit' | 'timeLimit' | 'kickRate' | 'join' | 'disc' | 'surface';
+    kind: 'input' | 'team' | 'start' | 'stop' | 'pause' | 'scoreLimit' | 'timeLimit' | 'kickRate' | 'join' | 'disc' | 'finishDraw';
     properties?: DiscPropertyPatch;
     slot: number;
     value: number;

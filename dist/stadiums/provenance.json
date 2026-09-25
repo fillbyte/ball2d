@@ -5,44 +5,60 @@
   "version": 1,
   "files": [
     {
-      "file": "classic.hbs",
-      "sha256": "e22c340c61ff34f97d8877d2c862a4374e4d3de0b78a6830ca509c214a4bfb12"
+      "file": "classic.ball2dstadium",
+      "sha256": "7c4cd14fe01dc5d501f19dd6091499fae35b38a0745d1efbe6e43f7e858b46e2"
     },
     {
-      "file": "easy.hbs",
-      "sha256": "df2a587382319fa241d0125cd75306f45f113ee8c4e3f152237887c7a8b348a2"
+      "file": "easy.ball2dstadium",
+      "sha256": "0b0b9e24eb108bdce561546b33f374bd9697b4096e433a158603db464e349fbd"
     },
     {
-      "file": "small.hbs",
-      "sha256": "449bed77732c0480285e22aa2e4ee019855ac6866faff5ac1302f118e6b7ea96"
+      "file": "small.ball2dstadium",
+      "sha256": "9b64fcc9b6e77955e6714889b863e619794e3af35f685dd53b728a35e922f4b3"
     },
     {
-      "file": "big.hbs",
-      "sha256": "79d4077a1889d83ac1f3adc60481e93ddaa9c9dba6d51a56390385731bb873da"
+      "file": "big.ball2dstadium",
+      "sha256": "97a982e78f0a8ecdf9fdc3621ef8ed5254b3845b08a5e4d41f9f6de74cc12257"
     },
     {
-      "file": "rounded.hbs",
-      "sha256": "b868882609345e6a9a59416df78b44e656516edb415ecf6780a5e8e1c201243b"
+      "file": "rounded.ball2dstadium",
+      "sha256": "85ded3717e9d1909747f0428a5e662239613034eecfa4a8b621869d6866f49d2"
     },
     {
-      "file": "hockey.hbs",
-      "sha256": "7b51005c145e19c81afe01e6ccface23b78251bdb89c2650bb6cbb23a494c9cc"
+      "file": "big_easy.ball2dstadium",
+      "sha256": "5dcad58bddba6222bad35da50d9093fb60a8015a37d6f05b3868df16260b525e"
     },
     {
-      "file": "big_easy.hbs",
-      "sha256": "884b24d3040e2a4c621e51ce9e43ee2d8a0c3f565e920311e7aa96d79db680ff"
+      "file": "big_rounded.ball2dstadium",
+      "sha256": "5259d59550c27335be5ae792a98baac29c7078e314ba1b14367ee85811ce3fb2"
     },
     {
-      "file": "big_rounded.hbs",
-      "sha256": "fbb3b837de61278292ad2eef5f407967fe867feff4dba087fdd3e1fd21474fd8"
+      "file": "huge.ball2dstadium",
+      "sha256": "42459db7da62de483909c638c2e34a799bf4d874f5fd3a9b50efe5a205b6c3f8"
     },
     {
-      "file": "big_hockey.hbs",
-      "sha256": "d01e9a3baf8fcf94fe12d8752d3e93c0d7ecaa4bd74d9525d1905c041655fffd"
+      "file": "asphalt.ball2dstadium",
+      "sha256": "9fed7029b2f44663d54241fb6656744b001423f8e20c3a08b0dee14c9a093415"
     },
     {
-      "file": "huge.hbs",
-      "sha256": "8df81e479ba27c1c166720ae315ef926b89b9615e7851cc4281c9d5a74adc629"
+      "file": "meadow.ball2dstadium",
+      "sha256": "180de3a4bdf9e1013027e2b1c868a71efb679944c0189a7e71de7b538957b55d"
+    },
+    {
+      "file": "training_green.ball2dstadium",
+      "sha256": "632bc4e59d8b4905c8e8d8e91fed0c664811540f6883881dd577b509d00b88f3"
+    },
+    {
+      "file": "courtyard.ball2dstadium",
+      "sha256": "107464750c25a5e9fa641f22d78c19d3b27c88695814a5c534c3ca3a954949df"
+    },
+    {
+      "file": "street_five.ball2dstadium",
+      "sha256": "edc5a4d5dc0a53c5470c7146e0a965f0edafb1002be141d777575b40fc65e1ec"
+    },
+    {
+      "file": "asphalt_arena.ball2dstadium",
+      "sha256": "fa04673db615ec8f562801994efc38f3084097cf64e358b3caacc19991119af4"
     }
   ]
 }

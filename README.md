@@ -4,11 +4,8 @@ Host a Ball2D football room on your own server and control it through a typed
 JavaScript API. The host runs the simulation; players connect directly over
 WebRTC. Ball2D provides authorization, room discovery and signaling.
 
-**SDK version: 0.2.3.** Requires the matching Ball2D web engine. Production
-acceptance verified account-issued keys, Node admission, quota rejection, a real
-same-Mac Chrome player's movement/replay, revocation and native cleanup.
-The verified native platform is Node 24.19.0 on macOS arm64. These checks do not
-establish broad device, operating-system or WAN support.
+**Current release: 0.3.0.** It matches the Ball2D service deployed on
+2026-09-25 (room protocol 5). Recordings and stadium geometry differ from 0.2.x.
 
 Repository maintainers: [local setup](https://github.com/fillbyte/ball2d/blob/main/docs/DEVELOPMENT.md) · [release procedure](https://github.com/fillbyte/ball2d/blob/main/docs/RELEASING.md) · [changelog](https://github.com/fillbyte/ball2d/blob/main/CHANGELOG.md).
 
@@ -18,7 +15,7 @@ Use Node.js 24 or newer. The verified native runtime is Node.js 24.19.0 on macOS
 arm64; other systems need independent acceptance. Native transport is experimental.
 
 ```sh
-npm install ball2d@0.2.3
+npm install ball2d
 ```
 
 Create an API key through your Ball2D account.
@@ -98,12 +95,10 @@ native declarations do not require DOM/WebRTC globals or `skipLibCheck`.
 - **Players and lobby:** inspect players, assign teams/admins, lock teams, kick/ban,
   manage admission, send chat and announcements, and configure the room.
 - **Matches:** start/stop, pause/resume, score/time limits, kick-rate limits and
-  `await room.setSurfaceEnabled(true)` for wet grass and ground wear. Pass `false`
-  to restore dry ground. Stop the match before changing the surface; loading a
-  stadium resets it. Surface changes are retained in replays.
-- **Physics and stadiums:** load custom stadium text, select ten bundled defaults,
+  team controls.
+- **Physics and stadiums:** load custom stadium text, select fourteen bundled defaults,
   query and modify supported player/disc properties, and use `CollisionFlags`.
-- **Events:** player join/leave/chat, team/admin changes, ball kicks, goals,
+- **Events:** player join/leave/input/chat, team/admin changes, ball kicks, goals,
   match ticks, position resets, victory, stadium changes and recording completion.
 - **Replay:** record and decode Ball2D recordings with their embedded stadium and
   matching engine identity.
@@ -118,6 +113,8 @@ Callbacks receive the room facade as `this`. Callback failures are reported to
 `onError`; that handler's own failures are contained. Chat filtering must return
 `false` synchronously to suppress a message. Player IDs are stable public IDs,
 not physics slots; departed player IDs are not reused within a room.
+`onPlayerInput(player, prevInput)` reports accepted key-state changes. `player.input`
+is the current bitmask: up `1`, down `2`, left `4`, right `8`, kick `16`.
 
 Room creation resolves only after signaling confirms host authority. An optional
 second argument `{ signal }` cancels startup. Startup has a 15-second overall
@@ -141,6 +138,10 @@ not bypass revocation or quota enforcement.
 
 ## Stadiums and replays
 
+Stadium files use `.ball2dstadium` or JSON; recordings use `.ball2drep`.
+Only recordings matching the current engine are accepted. Historical engine
+compatibility is not part of this development baseline.
+
 ```js
 import { validateStadium, readReplay } from 'ball2d/node';
 
@@ -158,8 +159,8 @@ if (recording) {
 
 Validation is synchronous and does not allocate a room. Passing validation means
 the stadium can be parsed, not that all gameplay outcomes have been certified.
-Bundled defaults are Classic, Easy, Small, Big, Rounded, Hockey, Big Easy,
-Big Rounded, Big Hockey and Huge. They are Ball2D-authored procedural designs;
+Bundled defaults are Classic, Easy, Small, Big, Rounded, Big Easy, Big Rounded,
+Huge, Asphalt, Asphalt Arena, Courtyard, Meadow, Street Five and Training Green. They are Ball2D-authored procedural designs;
 provenance and hashes are included. Custom stadiums and embedded-stadium replays
 remain supported. Geometry and physics can differ from earlier SDK assets.
 Recordings are binary containers: use `readReplay`, not JSON parsing.
@@ -193,15 +194,6 @@ Report reproducible defects through [issues](https://github.com/fillbyte/ball2d/
 Remove secrets, personal data and private room links. Use
 [private vulnerability reporting](https://github.com/fillbyte/ball2d/security/advisories/new)
 for sensitive findings. See [contribution guidance](https://github.com/fillbyte/ball2d/blob/main/CONTRIBUTING.md).
-
-Production acceptance on 12 September 2026 verified a confirmed-email account
-creating an API key, Node.js room creation, wet-ground simulation with a Chrome
-player, a second room rejected by the key quota, and active-key revocation closing
-the official host and rejecting new admission. Local verification also includes
-installed-package hosting, gameplay, replay and cleanup. This evidence does not
-establish broad WAN/NAT reachability,
-Linux compatibility, sustained capacity or an uptime guarantee. Direct WebRTC
-requires peer reachability; no TURN relay is provided.
 
 ## Player mute
 

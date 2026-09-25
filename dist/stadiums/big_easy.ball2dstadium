@@ -1,190 +1,190 @@
 {
   "version": 1,
   "physicsMode": "substeps",
-  "name": "Small",
-  "width": 395,
-  "height": 225,
-  "spawnDistance": 128,
+  "name": "Big Easy",
+  "width": 615,
+  "height": 325,
+  "spawnDistance": 216,
   "bg": {
     "type": "grass",
-    "width": 320,
-    "height": 160,
+    "width": 540,
+    "height": 260,
     "kickOffRadius": 65,
     "color": "285B35",
     "cornerRadius": 0
   },
   "vertexes": [
     {
-      "x": -320,
-      "y": -160,
+      "x": -540,
+      "y": -260,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 320,
-      "y": -160,
+      "x": 540,
+      "y": -260,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 320,
-      "y": -160,
+      "x": 540,
+      "y": -260,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 320,
-      "y": -60,
+      "x": 540,
+      "y": -100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 320,
-      "y": 60,
+      "x": 540,
+      "y": 100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 320,
-      "y": 160,
+      "x": 540,
+      "y": 260,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 320,
-      "y": 160,
+      "x": 540,
+      "y": 260,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -320,
-      "y": 160,
+      "x": -540,
+      "y": 260,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -320,
-      "y": 160,
+      "x": -540,
+      "y": 260,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -320,
-      "y": 60,
+      "x": -540,
+      "y": 100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -320,
-      "y": -60,
+      "x": -540,
+      "y": -100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -320,
-      "y": -160,
+      "x": -540,
+      "y": -260,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -320,
-      "y": -60,
+      "x": -540,
+      "y": -100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -350,
-      "y": -60,
+      "x": -570,
+      "y": -100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -350,
-      "y": -60,
+      "x": -570,
+      "y": -100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -350,
-      "y": 60,
+      "x": -570,
+      "y": 100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -350,
-      "y": 60,
+      "x": -570,
+      "y": 100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": -320,
-      "y": 60,
+      "x": -540,
+      "y": 100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 320,
-      "y": -60,
+      "x": 540,
+      "y": -100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 350,
-      "y": -60,
+      "x": 570,
+      "y": -100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 350,
-      "y": -60,
+      "x": 570,
+      "y": -100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 350,
-      "y": 60,
+      "x": 570,
+      "y": 100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 350,
-      "y": 60,
+      "x": 570,
+      "y": 100,
       "cMask": [
         "ball"
       ]
     },
     {
-      "x": 320,
-      "y": 60,
+      "x": 540,
+      "y": 100,
       "cMask": [
         "ball"
       ]
     },
     {
       "x": 0,
-      "y": -200,
+      "y": -300,
       "cGroup": [
         "redKO",
         "blueKO"
@@ -220,7 +220,7 @@
     },
     {
       "x": 0,
-      "y": 200,
+      "y": 300,
       "cGroup": [
         "redKO",
         "blueKO"
@@ -239,7 +239,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -249,7 +249,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -259,7 +259,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -269,7 +269,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -279,7 +279,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -289,7 +289,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "72A99C",
+      "color": "FFFFFF",
       "bCoef": 0.8
     },
     {
@@ -299,7 +299,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -309,7 +309,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -319,7 +319,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -329,7 +329,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -339,7 +339,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -349,7 +349,7 @@
       "cMask": [
         "ball"
       ],
-      "color": "3D7267",
+      "color": "DDE2E5",
       "bCoef": 0.15
     },
     {
@@ -411,50 +411,50 @@
         0,
         1
       ],
-      "dist": -200
+      "dist": -300
     },
     {
       "normal": [
         0,
         -1
       ],
-      "dist": -200
+      "dist": -300
     },
     {
       "normal": [
         1,
         0
       ],
-      "dist": -370
+      "dist": -590
     },
     {
       "normal": [
         -1,
         0
       ],
-      "dist": -370
+      "dist": -590
     }
   ],
   "goals": [
     {
       "p0": [
-        -320,
-        -60
+        -540,
+        -100
       ],
       "p1": [
-        -320,
-        60
+        -540,
+        100
       ],
       "team": "red"
     },
     {
       "p0": [
-        320,
-        -60
+        540,
+        -100
       ],
       "p1": [
-        320,
-        60
+        540,
+        100
       ],
       "team": "blue"
     }
@@ -462,42 +462,42 @@
   "discs": [
     {
       "pos": [
-        -320,
-        -60
+        -540,
+        -100
       ],
       "radius": 6,
       "invMass": 0,
-      "color": "DAEEE4",
+      "color": "FFFFFF",
       "bCoef": 0.5
     },
     {
       "pos": [
-        -320,
-        60
+        -540,
+        100
       ],
       "radius": 6,
       "invMass": 0,
-      "color": "DAEEE4",
+      "color": "FFFFFF",
       "bCoef": 0.5
     },
     {
       "pos": [
-        320,
-        -60
+        540,
+        -100
       ],
       "radius": 6,
       "invMass": 0,
-      "color": "DAEEE4",
+      "color": "FFFFFF",
       "bCoef": 0.5
     },
     {
       "pos": [
-        320,
-        60
+        540,
+        100
       ],
       "radius": 6,
       "invMass": 0,
-      "color": "DAEEE4",
+      "color": "FFFFFF",
       "bCoef": 0.5
     }
   ],

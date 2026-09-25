@@ -26,7 +26,11 @@ export interface Room {
     onPlayerLeave?: (p: HostPlayer) => void;
     onPlayerKicked?: (p: HostPlayer, reason: string, ban: boolean, byPlayer: HostPlayer | null) => void;
     onPlayerActivity?: (p: HostPlayer) => void;
+    /** Runs only when a peer changes its accepted key state; prevInput is the previous authoritative bitmask. */
+    onPlayerInput?: (p: HostPlayer, prevInput: number) => void;
     onPlayerChat?: (p: HostPlayer, text: string) => boolean | void;
+    /** Host-visible direct chat; return false to suppress delivery to both participants. */
+    onPlayerDirectChat?: (p: HostPlayer, recipient: HostPlayer, text: string) => boolean | void;
     onPlayerBallKick?: (p: HostPlayer) => void;
     onTeamGoal?: (team: 1 | 2) => void;
     onPositionsReset?: () => void;
@@ -49,18 +53,16 @@ export interface Room {
     clearBan(id: number): Promise<void>;
     clearBans(): Promise<void>;
     sendChat(text: string, targetId?: number | null): Promise<void>;
+    /** Literal text, up to 1,000 characters. RGB color 0x000000–0xffffff;
+     * null target broadcasts. Sound 0/1/2 is subject to recipient preferences. */
     sendAnnouncement(text: string, targetId?: number | null, color?: number | null, style?: AnnouncementStyle | null, sound?: number | null): Promise<void>;
     startGame(): Promise<void>;
     stopGame(): Promise<void>;
     pauseGame(paused: boolean): Promise<void>;
     setKickRateLimit(min?: number, rate?: number, burst?: number): Promise<void>;
-    /** Enable the wet-grass preset or restore dry ground; requires a stopped match. */
-    setSurfaceEnabled(enabled: boolean): Promise<void>;
     setPassword(password: string | null): Promise<void>;
     readonly requireVerification: boolean | null;
     setRequireVerification(required: boolean): Promise<void>;
-    /** Migration alias: Ball2D uses Turnstile, not Google's reCAPTCHA. */
-    setRequireRecaptcha(required: boolean): Promise<void>;
     setScoreLimit(limit: number): Promise<void>;
     setTimeLimit(minutes: number): Promise<void>;
     setDefaultStadium(name: string): Promise<void>;

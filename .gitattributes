@@ -5,4 +5,4 @@
 *.webp binary
 *.tgz binary
 # Preserve the exact published stadium bytes.
-dist/stadiums/*.hbs -text -whitespace
+dist/stadiums/*.ball2dstadium -text -whitespace
