@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0-dev.0",
+  "version": "0.3.0",
   "sourceRepository": "fillbyte/ball2d.com",
   "boundary": "Reviewed compiled runtime and public declarations. Private implementation source is not included.",
   "files": {

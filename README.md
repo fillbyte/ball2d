@@ -4,9 +4,8 @@ Host a Ball2D football room on your own server and control it through a typed
 JavaScript API. The host runs the simulation; players connect directly over
 WebRTC. Ball2D provides authorization, room discovery and signaling.
 
-**Development baseline: 0.3.0-dev.0. Not published.** This package requires a
-matching Ball2D deployment and engine. Previous production acceptance does not
-verify this new baseline. The package is private until a future release is verified.
+**Current release: 0.3.0.** It matches the Ball2D service deployed on
+2026-09-25 (room protocol 5). Recordings and stadium geometry differ from 0.2.x.
 
 Repository maintainers: [local setup](https://github.com/fillbyte/ball2d/blob/main/docs/DEVELOPMENT.md) · [release procedure](https://github.com/fillbyte/ball2d/blob/main/docs/RELEASING.md) · [changelog](https://github.com/fillbyte/ball2d/blob/main/CHANGELOG.md).
 
@@ -16,7 +15,7 @@ Use Node.js 24 or newer. The verified native runtime is Node.js 24.19.0 on macOS
 arm64; other systems need independent acceptance. Native transport is experimental.
 
 ```sh
-npm install /absolute/path/to/ball2d-0.3.0-dev.0.tgz
+npm install ball2d
 ```
 
 Create an API key through your Ball2D account.
