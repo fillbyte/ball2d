@@ -7,7 +7,7 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 }, c = (n, r, o) => (o = n == null ? {} : e(i(n)), s(r || !n || !n.__esModule || !a.call(n, "default") ? t(o, "default", {
 	value: n,
 	enumerable: !0
-}) : o, n)), l = "694293262fc3a50a2786", u = {
+}) : o, n)), l = "bebab011c14ea1a034cb", u = {
 	X: 0,
 	Y: 1,
 	SPEED_X: 2,
@@ -381,43 +381,43 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 			for (p in o && (i = r), i) m = !a && u && u[p] !== void 0, g = (m ? u : i)[p], _ = l && m ? C(g, t) : c && typeof g == "function" ? C(Function.call, g) : g, u && ee(u, p, g, e & T.U), d[p] != g && h(d, p, _), c && f[p] != g && (f[p] = g);
 		};
 		t.core = n, T.F = 1, T.G = 2, T.S = 4, T.P = 8, T.B = 16, T.W = 32, T.U = 64, T.R = 128;
-		var E = T, D = Math.ceil, te = Math.floor, O = function(e) {
+		var E = T, D = Math.ceil, te = Math.floor, ne = function(e) {
 			return isNaN(e = +e) ? 0 : (e > 0 ? te : D)(e);
-		}, k = function(e) {
+		}, re = function(e) {
 			if (e == null) throw TypeError("Can't call method on  " + e);
 			return e;
-		}, A = function(e) {
+		}, O = function(e) {
 			return function(t, n) {
-				var r = String(k(t)), i = O(n), a = r.length, o, s;
+				var r = String(re(t)), i = ne(n), a = r.length, o, s;
 				return i < 0 || i >= a ? e ? "" : void 0 : (o = r.charCodeAt(i), o < 55296 || o > 56319 || i + 1 === a || (s = r.charCodeAt(i + 1)) < 56320 || s > 57343 ? e ? r.charAt(i) : o : e ? r.slice(i, i + 2) : (o - 55296 << 10) + (s - 56320) + 65536);
 			};
 		}(!1);
 		E(E.P, "String", { codePointAt: function(e) {
-			return A(this, e);
+			return O(this, e);
 		} }), n.String.codePointAt;
-		var j = Math.max, ne = Math.min, M = function(e, t) {
-			return e = O(e), e < 0 ? j(e + t, 0) : ne(e, t);
-		}, re = String.fromCharCode, ie = String.fromCodePoint;
-		E(E.S + E.F * (!!ie && ie.length != 1), "String", { fromCodePoint: function(e) {
+		var k = Math.max, ie = Math.min, A = function(e, t) {
+			return e = ne(e), e < 0 ? k(e + t, 0) : ie(e, t);
+		}, ae = String.fromCharCode, oe = String.fromCodePoint;
+		E(E.S + E.F * (!!oe && oe.length != 1), "String", { fromCodePoint: function(e) {
 			for (var t = arguments, n = [], r = arguments.length, i = 0, a; r > i;) {
-				if (a = +t[i++], M(a, 1114111) !== a) throw RangeError(a + " is not a valid code point");
-				n.push(a < 65536 ? re(a) : re(((a -= 65536) >> 10) + 55296, a % 1024 + 56320));
+				if (a = +t[i++], A(a, 1114111) !== a) throw RangeError(a + " is not a valid code point");
+				n.push(a < 65536 ? ae(a) : ae(((a -= 65536) >> 10) + 55296, a % 1024 + 56320));
 			}
 			return n.join("");
 		} }), n.String.fromCodePoint;
-		var N = {
+		var j = {
 			Space_Separator: /[\u1680\u2000-\u200A\u202F\u205F\u3000]/,
 			ID_Start: /[\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0370-\u0374\u0376\u0377\u037A-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u048A-\u052F\u0531-\u0556\u0559\u0561-\u0587\u05D0-\u05EA\u05F0-\u05F2\u0620-\u064A\u066E\u066F\u0671-\u06D3\u06D5\u06E5\u06E6\u06EE\u06EF\u06FA-\u06FC\u06FF\u0710\u0712-\u072F\u074D-\u07A5\u07B1\u07CA-\u07EA\u07F4\u07F5\u07FA\u0800-\u0815\u081A\u0824\u0828\u0840-\u0858\u0860-\u086A\u08A0-\u08B4\u08B6-\u08BD\u0904-\u0939\u093D\u0950\u0958-\u0961\u0971-\u0980\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD\u09CE\u09DC\u09DD\u09DF-\u09E1\u09F0\u09F1\u09FC\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABD\u0AD0\u0AE0\u0AE1\u0AF9\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3D\u0B5C\u0B5D\u0B5F-\u0B61\u0B71\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BD0\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3D\u0C58-\u0C5A\u0C60\u0C61\u0C80\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CDE\u0CE0\u0CE1\u0CF1\u0CF2\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D\u0D4E\u0D54-\u0D56\u0D5F-\u0D61\u0D7A-\u0D7F\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0E01-\u0E30\u0E32\u0E33\u0E40-\u0E46\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB0\u0EB2\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6\u0EDC-\u0EDF\u0F00\u0F40-\u0F47\u0F49-\u0F6C\u0F88-\u0F8C\u1000-\u102A\u103F\u1050-\u1055\u105A-\u105D\u1061\u1065\u1066\u106E-\u1070\u1075-\u1081\u108E\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1380-\u138F\u13A0-\u13F5\u13F8-\u13FD\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EE-\u16F8\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17D7\u17DC\u1820-\u1877\u1880-\u1884\u1887-\u18A8\u18AA\u18B0-\u18F5\u1900-\u191E\u1950-\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u1A00-\u1A16\u1A20-\u1A54\u1AA7\u1B05-\u1B33\u1B45-\u1B4B\u1B83-\u1BA0\u1BAE\u1BAF\u1BBA-\u1BE5\u1C00-\u1C23\u1C4D-\u1C4F\u1C5A-\u1C7D\u1C80-\u1C88\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF5\u1CF6\u1D00-\u1DBF\u1E00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u212F-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2160-\u2188\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CEE\u2CF2\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2E2F\u3005-\u3007\u3021-\u3029\u3031-\u3035\u3038-\u303C\u3041-\u3096\u309D-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312E\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FEA\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA61F\uA62A\uA62B\uA640-\uA66E\uA67F-\uA69D\uA6A0-\uA6EF\uA717-\uA71F\uA722-\uA788\uA78B-\uA7AE\uA7B0-\uA7B7\uA7F7-\uA801\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA840-\uA873\uA882-\uA8B3\uA8F2-\uA8F7\uA8FB\uA8FD\uA90A-\uA925\uA930-\uA946\uA960-\uA97C\uA984-\uA9B2\uA9CF\uA9E0-\uA9E4\uA9E6-\uA9EF\uA9FA-\uA9FE\uAA00-\uAA28\uAA40-\uAA42\uAA44-\uAA4B\uAA60-\uAA76\uAA7A\uAA7E-\uAAAF\uAAB1\uAAB5\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADD\uAAE0-\uAAEA\uAAF2-\uAAF4\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB5A\uAB5C-\uAB65\uAB70-\uABE2\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE70-\uFE74\uFE76-\uFEFC\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC]|\uD800[\uDC00-\uDC0B\uDC0D-\uDC26\uDC28-\uDC3A\uDC3C\uDC3D\uDC3F-\uDC4D\uDC50-\uDC5D\uDC80-\uDCFA\uDD40-\uDD74\uDE80-\uDE9C\uDEA0-\uDED0\uDF00-\uDF1F\uDF2D-\uDF4A\uDF50-\uDF75\uDF80-\uDF9D\uDFA0-\uDFC3\uDFC8-\uDFCF\uDFD1-\uDFD5]|\uD801[\uDC00-\uDC9D\uDCB0-\uDCD3\uDCD8-\uDCFB\uDD00-\uDD27\uDD30-\uDD63\uDE00-\uDF36\uDF40-\uDF55\uDF60-\uDF67]|\uD802[\uDC00-\uDC05\uDC08\uDC0A-\uDC35\uDC37\uDC38\uDC3C\uDC3F-\uDC55\uDC60-\uDC76\uDC80-\uDC9E\uDCE0-\uDCF2\uDCF4\uDCF5\uDD00-\uDD15\uDD20-\uDD39\uDD80-\uDDB7\uDDBE\uDDBF\uDE00\uDE10-\uDE13\uDE15-\uDE17\uDE19-\uDE33\uDE60-\uDE7C\uDE80-\uDE9C\uDEC0-\uDEC7\uDEC9-\uDEE4\uDF00-\uDF35\uDF40-\uDF55\uDF60-\uDF72\uDF80-\uDF91]|\uD803[\uDC00-\uDC48\uDC80-\uDCB2\uDCC0-\uDCF2]|\uD804[\uDC03-\uDC37\uDC83-\uDCAF\uDCD0-\uDCE8\uDD03-\uDD26\uDD50-\uDD72\uDD76\uDD83-\uDDB2\uDDC1-\uDDC4\uDDDA\uDDDC\uDE00-\uDE11\uDE13-\uDE2B\uDE80-\uDE86\uDE88\uDE8A-\uDE8D\uDE8F-\uDE9D\uDE9F-\uDEA8\uDEB0-\uDEDE\uDF05-\uDF0C\uDF0F\uDF10\uDF13-\uDF28\uDF2A-\uDF30\uDF32\uDF33\uDF35-\uDF39\uDF3D\uDF50\uDF5D-\uDF61]|\uD805[\uDC00-\uDC34\uDC47-\uDC4A\uDC80-\uDCAF\uDCC4\uDCC5\uDCC7\uDD80-\uDDAE\uDDD8-\uDDDB\uDE00-\uDE2F\uDE44\uDE80-\uDEAA\uDF00-\uDF19]|\uD806[\uDCA0-\uDCDF\uDCFF\uDE00\uDE0B-\uDE32\uDE3A\uDE50\uDE5C-\uDE83\uDE86-\uDE89\uDEC0-\uDEF8]|\uD807[\uDC00-\uDC08\uDC0A-\uDC2E\uDC40\uDC72-\uDC8F\uDD00-\uDD06\uDD08\uDD09\uDD0B-\uDD30\uDD46]|\uD808[\uDC00-\uDF99]|\uD809[\uDC00-\uDC6E\uDC80-\uDD43]|[\uD80C\uD81C-\uD820\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD80D[\uDC00-\uDC2E]|\uD811[\uDC00-\uDE46]|\uD81A[\uDC00-\uDE38\uDE40-\uDE5E\uDED0-\uDEED\uDF00-\uDF2F\uDF40-\uDF43\uDF63-\uDF77\uDF7D-\uDF8F]|\uD81B[\uDF00-\uDF44\uDF50\uDF93-\uDF9F\uDFE0\uDFE1]|\uD821[\uDC00-\uDFEC]|\uD822[\uDC00-\uDEF2]|\uD82C[\uDC00-\uDD1E\uDD70-\uDEFB]|\uD82F[\uDC00-\uDC6A\uDC70-\uDC7C\uDC80-\uDC88\uDC90-\uDC99]|\uD835[\uDC00-\uDC54\uDC56-\uDC9C\uDC9E\uDC9F\uDCA2\uDCA5\uDCA6\uDCA9-\uDCAC\uDCAE-\uDCB9\uDCBB\uDCBD-\uDCC3\uDCC5-\uDD05\uDD07-\uDD0A\uDD0D-\uDD14\uDD16-\uDD1C\uDD1E-\uDD39\uDD3B-\uDD3E\uDD40-\uDD44\uDD46\uDD4A-\uDD50\uDD52-\uDEA5\uDEA8-\uDEC0\uDEC2-\uDEDA\uDEDC-\uDEFA\uDEFC-\uDF14\uDF16-\uDF34\uDF36-\uDF4E\uDF50-\uDF6E\uDF70-\uDF88\uDF8A-\uDFA8\uDFAA-\uDFC2\uDFC4-\uDFCB]|\uD83A[\uDC00-\uDCC4\uDD00-\uDD43]|\uD83B[\uDE00-\uDE03\uDE05-\uDE1F\uDE21\uDE22\uDE24\uDE27\uDE29-\uDE32\uDE34-\uDE37\uDE39\uDE3B\uDE42\uDE47\uDE49\uDE4B\uDE4D-\uDE4F\uDE51\uDE52\uDE54\uDE57\uDE59\uDE5B\uDE5D\uDE5F\uDE61\uDE62\uDE64\uDE67-\uDE6A\uDE6C-\uDE72\uDE74-\uDE77\uDE79-\uDE7C\uDE7E\uDE80-\uDE89\uDE8B-\uDE9B\uDEA1-\uDEA3\uDEA5-\uDEA9\uDEAB-\uDEBB]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0]|\uD87E[\uDC00-\uDE1D]/,
 			ID_Continue: /[\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u02C1\u02C6-\u02D1\u02E0-\u02E4\u02EC\u02EE\u0300-\u0374\u0376\u0377\u037A-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03F5\u03F7-\u0481\u0483-\u0487\u048A-\u052F\u0531-\u0556\u0559\u0561-\u0587\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7\u05D0-\u05EA\u05F0-\u05F2\u0610-\u061A\u0620-\u0669\u066E-\u06D3\u06D5-\u06DC\u06DF-\u06E8\u06EA-\u06FC\u06FF\u0710-\u074A\u074D-\u07B1\u07C0-\u07F5\u07FA\u0800-\u082D\u0840-\u085B\u0860-\u086A\u08A0-\u08B4\u08B6-\u08BD\u08D4-\u08E1\u08E3-\u0963\u0966-\u096F\u0971-\u0983\u0985-\u098C\u098F\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BC-\u09C4\u09C7\u09C8\u09CB-\u09CE\u09D7\u09DC\u09DD\u09DF-\u09E3\u09E6-\u09F1\u09FC\u0A01-\u0A03\u0A05-\u0A0A\u0A0F\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32\u0A33\u0A35\u0A36\u0A38\u0A39\u0A3C\u0A3E-\u0A42\u0A47\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A75\u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0-\u0AE3\u0AE6-\u0AEF\u0AF9-\u0AFF\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32\u0B33\u0B35-\u0B39\u0B3C-\u0B44\u0B47\u0B48\u0B4B-\u0B4D\u0B56\u0B57\u0B5C\u0B5D\u0B5F-\u0B63\u0B66-\u0B6F\u0B71\u0B82\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99\u0B9A\u0B9C\u0B9E\u0B9F\u0BA3\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BEF\u0C00-\u0C03\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3D-\u0C44\u0C46-\u0C48\u0C4A-\u0C4D\u0C55\u0C56\u0C58-\u0C5A\u0C60-\u0C63\u0C66-\u0C6F\u0C80-\u0C83\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5\u0CD6\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1\u0CF2\u0D00-\u0D03\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D44\u0D46-\u0D48\u0D4A-\u0D4E\u0D54-\u0D57\u0D5F-\u0D63\u0D66-\u0D6F\u0D7A-\u0D7F\u0D82\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2\u0DF3\u0E01-\u0E3A\u0E40-\u0E4E\u0E50-\u0E59\u0E81\u0E82\u0E84\u0E87\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA\u0EAB\u0EAD-\u0EB9\u0EBB-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECD\u0ED0-\u0ED9\u0EDC-\u0EDF\u0F00\u0F18\u0F19\u0F20-\u0F29\u0F35\u0F37\u0F39\u0F3E-\u0F47\u0F49-\u0F6C\u0F71-\u0F84\u0F86-\u0F97\u0F99-\u0FBC\u0FC6\u1000-\u1049\u1050-\u109D\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FC-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u135D-\u135F\u1380-\u138F\u13A0-\u13F5\u13F8-\u13FD\u1401-\u166C\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EE-\u16F8\u1700-\u170C\u170E-\u1714\u1720-\u1734\u1740-\u1753\u1760-\u176C\u176E-\u1770\u1772\u1773\u1780-\u17D3\u17D7\u17DC\u17DD\u17E0-\u17E9\u180B-\u180D\u1810-\u1819\u1820-\u1877\u1880-\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1946-\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19D9\u1A00-\u1A1B\u1A20-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA7\u1AB0-\u1ABD\u1B00-\u1B4B\u1B50-\u1B59\u1B6B-\u1B73\u1B80-\u1BF3\u1C00-\u1C37\u1C40-\u1C49\u1C4D-\u1C7D\u1C80-\u1C88\u1CD0-\u1CD2\u1CD4-\u1CF9\u1D00-\u1DF9\u1DFB-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u203F\u2040\u2054\u2071\u207F\u2090-\u209C\u20D0-\u20DC\u20E1\u20E5-\u20F0\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D\u2124\u2126\u2128\u212A-\u212D\u212F-\u2139\u213C-\u213F\u2145-\u2149\u214E\u2160-\u2188\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2CE4\u2CEB-\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u2DE0-\u2DFF\u2E2F\u3005-\u3007\u3021-\u302F\u3031-\u3035\u3038-\u303C\u3041-\u3096\u3099\u309A\u309D-\u309F\u30A1-\u30FA\u30FC-\u30FF\u3105-\u312E\u3131-\u318E\u31A0-\u31BA\u31F0-\u31FF\u3400-\u4DB5\u4E00-\u9FEA\uA000-\uA48C\uA4D0-\uA4FD\uA500-\uA60C\uA610-\uA62B\uA640-\uA66F\uA674-\uA67D\uA67F-\uA6F1\uA717-\uA71F\uA722-\uA788\uA78B-\uA7AE\uA7B0-\uA7B7\uA7F7-\uA827\uA840-\uA873\uA880-\uA8C5\uA8D0-\uA8D9\uA8E0-\uA8F7\uA8FB\uA8FD\uA900-\uA92D\uA930-\uA953\uA960-\uA97C\uA980-\uA9C0\uA9CF-\uA9D9\uA9E0-\uA9FE\uAA00-\uAA36\uAA40-\uAA4D\uAA50-\uAA59\uAA60-\uAA76\uAA7A-\uAAC2\uAADB-\uAADD\uAAE0-\uAAEF\uAAF2-\uAAF6\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB5A\uAB5C-\uAB65\uAB70-\uABEA\uABEC\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB28\uFB2A-\uFB36\uFB38-\uFB3C\uFB3E\uFB40\uFB41\uFB43\uFB44\uFB46-\uFBB1\uFBD3-\uFD3D\uFD50-\uFD8F\uFD92-\uFDC7\uFDF0-\uFDFB\uFE00-\uFE0F\uFE20-\uFE2F\uFE33\uFE34\uFE4D-\uFE4F\uFE70-\uFE74\uFE76-\uFEFC\uFF10-\uFF19\uFF21-\uFF3A\uFF3F\uFF41-\uFF5A\uFF66-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2-\uFFD7\uFFDA-\uFFDC]|\uD800[\uDC00-\uDC0B\uDC0D-\uDC26\uDC28-\uDC3A\uDC3C\uDC3D\uDC3F-\uDC4D\uDC50-\uDC5D\uDC80-\uDCFA\uDD40-\uDD74\uDDFD\uDE80-\uDE9C\uDEA0-\uDED0\uDEE0\uDF00-\uDF1F\uDF2D-\uDF4A\uDF50-\uDF7A\uDF80-\uDF9D\uDFA0-\uDFC3\uDFC8-\uDFCF\uDFD1-\uDFD5]|\uD801[\uDC00-\uDC9D\uDCA0-\uDCA9\uDCB0-\uDCD3\uDCD8-\uDCFB\uDD00-\uDD27\uDD30-\uDD63\uDE00-\uDF36\uDF40-\uDF55\uDF60-\uDF67]|\uD802[\uDC00-\uDC05\uDC08\uDC0A-\uDC35\uDC37\uDC38\uDC3C\uDC3F-\uDC55\uDC60-\uDC76\uDC80-\uDC9E\uDCE0-\uDCF2\uDCF4\uDCF5\uDD00-\uDD15\uDD20-\uDD39\uDD80-\uDDB7\uDDBE\uDDBF\uDE00-\uDE03\uDE05\uDE06\uDE0C-\uDE13\uDE15-\uDE17\uDE19-\uDE33\uDE38-\uDE3A\uDE3F\uDE60-\uDE7C\uDE80-\uDE9C\uDEC0-\uDEC7\uDEC9-\uDEE6\uDF00-\uDF35\uDF40-\uDF55\uDF60-\uDF72\uDF80-\uDF91]|\uD803[\uDC00-\uDC48\uDC80-\uDCB2\uDCC0-\uDCF2]|\uD804[\uDC00-\uDC46\uDC66-\uDC6F\uDC7F-\uDCBA\uDCD0-\uDCE8\uDCF0-\uDCF9\uDD00-\uDD34\uDD36-\uDD3F\uDD50-\uDD73\uDD76\uDD80-\uDDC4\uDDCA-\uDDCC\uDDD0-\uDDDA\uDDDC\uDE00-\uDE11\uDE13-\uDE37\uDE3E\uDE80-\uDE86\uDE88\uDE8A-\uDE8D\uDE8F-\uDE9D\uDE9F-\uDEA8\uDEB0-\uDEEA\uDEF0-\uDEF9\uDF00-\uDF03\uDF05-\uDF0C\uDF0F\uDF10\uDF13-\uDF28\uDF2A-\uDF30\uDF32\uDF33\uDF35-\uDF39\uDF3C-\uDF44\uDF47\uDF48\uDF4B-\uDF4D\uDF50\uDF57\uDF5D-\uDF63\uDF66-\uDF6C\uDF70-\uDF74]|\uD805[\uDC00-\uDC4A\uDC50-\uDC59\uDC80-\uDCC5\uDCC7\uDCD0-\uDCD9\uDD80-\uDDB5\uDDB8-\uDDC0\uDDD8-\uDDDD\uDE00-\uDE40\uDE44\uDE50-\uDE59\uDE80-\uDEB7\uDEC0-\uDEC9\uDF00-\uDF19\uDF1D-\uDF2B\uDF30-\uDF39]|\uD806[\uDCA0-\uDCE9\uDCFF\uDE00-\uDE3E\uDE47\uDE50-\uDE83\uDE86-\uDE99\uDEC0-\uDEF8]|\uD807[\uDC00-\uDC08\uDC0A-\uDC36\uDC38-\uDC40\uDC50-\uDC59\uDC72-\uDC8F\uDC92-\uDCA7\uDCA9-\uDCB6\uDD00-\uDD06\uDD08\uDD09\uDD0B-\uDD36\uDD3A\uDD3C\uDD3D\uDD3F-\uDD47\uDD50-\uDD59]|\uD808[\uDC00-\uDF99]|\uD809[\uDC00-\uDC6E\uDC80-\uDD43]|[\uD80C\uD81C-\uD820\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD80D[\uDC00-\uDC2E]|\uD811[\uDC00-\uDE46]|\uD81A[\uDC00-\uDE38\uDE40-\uDE5E\uDE60-\uDE69\uDED0-\uDEED\uDEF0-\uDEF4\uDF00-\uDF36\uDF40-\uDF43\uDF50-\uDF59\uDF63-\uDF77\uDF7D-\uDF8F]|\uD81B[\uDF00-\uDF44\uDF50-\uDF7E\uDF8F-\uDF9F\uDFE0\uDFE1]|\uD821[\uDC00-\uDFEC]|\uD822[\uDC00-\uDEF2]|\uD82C[\uDC00-\uDD1E\uDD70-\uDEFB]|\uD82F[\uDC00-\uDC6A\uDC70-\uDC7C\uDC80-\uDC88\uDC90-\uDC99\uDC9D\uDC9E]|\uD834[\uDD65-\uDD69\uDD6D-\uDD72\uDD7B-\uDD82\uDD85-\uDD8B\uDDAA-\uDDAD\uDE42-\uDE44]|\uD835[\uDC00-\uDC54\uDC56-\uDC9C\uDC9E\uDC9F\uDCA2\uDCA5\uDCA6\uDCA9-\uDCAC\uDCAE-\uDCB9\uDCBB\uDCBD-\uDCC3\uDCC5-\uDD05\uDD07-\uDD0A\uDD0D-\uDD14\uDD16-\uDD1C\uDD1E-\uDD39\uDD3B-\uDD3E\uDD40-\uDD44\uDD46\uDD4A-\uDD50\uDD52-\uDEA5\uDEA8-\uDEC0\uDEC2-\uDEDA\uDEDC-\uDEFA\uDEFC-\uDF14\uDF16-\uDF34\uDF36-\uDF4E\uDF50-\uDF6E\uDF70-\uDF88\uDF8A-\uDFA8\uDFAA-\uDFC2\uDFC4-\uDFCB\uDFCE-\uDFFF]|\uD836[\uDE00-\uDE36\uDE3B-\uDE6C\uDE75\uDE84\uDE9B-\uDE9F\uDEA1-\uDEAF]|\uD838[\uDC00-\uDC06\uDC08-\uDC18\uDC1B-\uDC21\uDC23\uDC24\uDC26-\uDC2A]|\uD83A[\uDC00-\uDCC4\uDCD0-\uDCD6\uDD00-\uDD4A\uDD50-\uDD59]|\uD83B[\uDE00-\uDE03\uDE05-\uDE1F\uDE21\uDE22\uDE24\uDE27\uDE29-\uDE32\uDE34-\uDE37\uDE39\uDE3B\uDE42\uDE47\uDE49\uDE4B\uDE4D-\uDE4F\uDE51\uDE52\uDE54\uDE57\uDE59\uDE5B\uDE5D\uDE5F\uDE61\uDE62\uDE64\uDE67-\uDE6A\uDE6C-\uDE72\uDE74-\uDE77\uDE79-\uDE7C\uDE7E\uDE80-\uDE89\uDE8B-\uDE9B\uDEA1-\uDEA3\uDEA5-\uDEA9\uDEAB-\uDEBB]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0]|\uD87E[\uDC00-\uDE1D]|\uDB40[\uDD00-\uDDEF]/
-		}, P = {
+		}, M = {
 			isSpaceSeparator: function(e) {
-				return typeof e == "string" && N.Space_Separator.test(e);
+				return typeof e == "string" && j.Space_Separator.test(e);
 			},
 			isIdStartChar: function(e) {
-				return typeof e == "string" && (e >= "a" && e <= "z" || e >= "A" && e <= "Z" || e === "$" || e === "_" || N.ID_Start.test(e));
+				return typeof e == "string" && (e >= "a" && e <= "z" || e >= "A" && e <= "Z" || e === "$" || e === "_" || j.ID_Start.test(e));
 			},
 			isIdContinueChar: function(e) {
-				return typeof e == "string" && (e >= "a" && e <= "z" || e >= "A" && e <= "Z" || e >= "0" && e <= "9" || e === "$" || e === "_" || e === "‌" || e === "‍" || N.ID_Continue.test(e));
+				return typeof e == "string" && (e >= "a" && e <= "z" || e >= "A" && e <= "Z" || e >= "0" && e <= "9" || e === "$" || e === "_" || e === "‌" || e === "‍" || j.ID_Continue.test(e));
 			},
 			isDigit: function(e) {
 				return typeof e == "string" && /[0-9]/.test(e);
@@ -425,10 +425,10 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 			isHexDigit: function(e) {
 				return typeof e == "string" && /[0-9A-Fa-f]/.test(e);
 			}
-		}, ae, F, I, oe, se, L, R, ce, le, ue = function(e, t) {
-			ae = String(e), F = "start", I = [], oe = 0, se = 1, L = 0, R = void 0, ce = void 0, le = void 0;
+		}, N, P, F, se, I, L, R, ce, le, ue = function(e, t) {
+			N = String(e), P = "start", F = [], se = 0, I = 1, L = 0, R = void 0, ce = void 0, le = void 0;
 			do
-				R = me(), xe[F]();
+				R = me(), xe[P]();
 			while (R.type !== "eof");
 			return typeof t == "function" ? de({ "": le }, "", t) : le;
 		};
@@ -465,11 +465,11 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 			}
 		}
 		function he() {
-			if (ae[oe]) return String.fromCodePoint(ae.codePointAt(oe));
+			if (N[se]) return String.fromCodePoint(N.codePointAt(se));
 		}
 		function H() {
 			var e = he();
-			return e === "\n" ? (se++, L = 0) : e ? L += e.length : L++, e && (oe += e.length), e;
+			return e === "\n" ? (I++, L = 0) : e ? L += e.length : L++, e && (se += e.length), e;
 		}
 		var ge = {
 			default: function() {
@@ -491,11 +491,11 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 						return;
 					case void 0: return H(), U("eof");
 				}
-				if (P.isSpaceSeparator(V)) {
+				if (M.isSpaceSeparator(V)) {
 					H();
 					return;
 				}
-				return ge[F]();
+				return ge[P]();
 			},
 			comment: function() {
 				switch (V) {
@@ -585,7 +585,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 				switch (e) {
 					case "$":
 					case "_": break;
-					default: if (!P.isIdStartChar(e)) throw Te();
+					default: if (!M.isIdStartChar(e)) throw Te();
 				}
 				B += e, z = "identifierName";
 			},
@@ -601,7 +601,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 						H(), z = "identifierNameEscape";
 						return;
 				}
-				if (P.isIdContinueChar(V)) {
+				if (M.isIdContinueChar(V)) {
 					B += H();
 					return;
 				}
@@ -616,7 +616,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 					case "_":
 					case "‌":
 					case "‍": break;
-					default: if (!P.isIdContinueChar(e)) throw Te();
+					default: if (!M.isIdContinueChar(e)) throw Te();
 				}
 				B += e, z = "identifierName";
 			},
@@ -670,14 +670,14 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 						B += H(), z = "decimalExponent";
 						return;
 				}
-				if (P.isDigit(V)) {
+				if (M.isDigit(V)) {
 					B += H();
 					return;
 				}
 				return U("numeric", pe * Number(B));
 			},
 			decimalPointLeading: function() {
-				if (P.isDigit(V)) {
+				if (M.isDigit(V)) {
 					B += H(), z = "decimalFraction";
 					return;
 				}
@@ -690,7 +690,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 						B += H(), z = "decimalExponent";
 						return;
 				}
-				if (P.isDigit(V)) {
+				if (M.isDigit(V)) {
 					B += H(), z = "decimalFraction";
 					return;
 				}
@@ -703,7 +703,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 						B += H(), z = "decimalExponent";
 						return;
 				}
-				if (P.isDigit(V)) {
+				if (M.isDigit(V)) {
 					B += H();
 					return;
 				}
@@ -716,35 +716,35 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 						B += H(), z = "decimalExponentSign";
 						return;
 				}
-				if (P.isDigit(V)) {
+				if (M.isDigit(V)) {
 					B += H(), z = "decimalExponentInteger";
 					return;
 				}
 				throw W(H());
 			},
 			decimalExponentSign: function() {
-				if (P.isDigit(V)) {
+				if (M.isDigit(V)) {
 					B += H(), z = "decimalExponentInteger";
 					return;
 				}
 				throw W(H());
 			},
 			decimalExponentInteger: function() {
-				if (P.isDigit(V)) {
+				if (M.isDigit(V)) {
 					B += H();
 					return;
 				}
 				return U("numeric", pe * Number(B));
 			},
 			hexadecimal: function() {
-				if (P.isHexDigit(V)) {
+				if (M.isHexDigit(V)) {
 					B += H(), z = "hexadecimalInteger";
 					return;
 				}
 				throw W(H());
 			},
 			hexadecimalInteger: function() {
-				if (P.isHexDigit(V)) {
+				if (M.isHexDigit(V)) {
 					B += H();
 					return;
 				}
@@ -795,7 +795,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 						fe = H() === "\"", z = "string";
 						return;
 				}
-				if (P.isIdStartChar(V)) {
+				if (M.isIdStartChar(V)) {
 					B += H(), z = "identifierName";
 					return;
 				}
@@ -834,7 +834,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 			return {
 				type: e,
 				value: t,
-				line: se,
+				line: I,
 				column: L
 			};
 		}
@@ -854,7 +854,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 				case "t": return H(), "	";
 				case "v": return H(), "\v";
 				case "0":
-					if (H(), P.isDigit(he())) throw W(H());
+					if (H(), M.isDigit(he())) throw W(H());
 					return "\0";
 				case "x": return H(), ye();
 				case "u": return H(), be();
@@ -877,13 +877,13 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 		}
 		function ye() {
 			var e = "", t = he();
-			if (!P.isHexDigit(t) || (e += H(), t = he(), !P.isHexDigit(t))) throw W(H());
+			if (!M.isHexDigit(t) || (e += H(), t = he(), !M.isHexDigit(t))) throw W(H());
 			return e += H(), String.fromCodePoint(parseInt(e, 16));
 		}
 		function be() {
 			for (var e = "", t = 4; t-- > 0;) {
 				var n = he();
-				if (!P.isHexDigit(n)) throw W(H());
+				if (!M.isHexDigit(n)) throw W(H());
 				e += H();
 			}
 			return String.fromCodePoint(parseInt(e, 16));
@@ -897,7 +897,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 				switch (R.type) {
 					case "identifier":
 					case "string":
-						ce = R.value, F = "afterPropertyName";
+						ce = R.value, P = "afterPropertyName";
 						return;
 					case "punctuator":
 						Ce();
@@ -907,7 +907,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 			},
 			afterPropertyName: function() {
 				if (R.type === "eof") throw we();
-				F = "beforePropertyValue";
+				P = "beforePropertyValue";
 			},
 			beforePropertyValue: function() {
 				if (R.type === "eof") throw we();
@@ -925,7 +925,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 				if (R.type === "eof") throw we();
 				switch (R.value) {
 					case ",":
-						F = "beforePropertyName";
+						P = "beforePropertyName";
 						return;
 					case "}": Ce();
 				}
@@ -934,7 +934,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 				if (R.type === "eof") throw we();
 				switch (R.value) {
 					case ",":
-						F = "beforeArrayValue";
+						P = "beforeArrayValue";
 						return;
 					case "]": Ce();
 				}
@@ -959,7 +959,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 			}
 			if (le === void 0) le = e;
 			else {
-				var t = I[I.length - 1];
+				var t = F[F.length - 1];
 				Array.isArray(t) ? t.push(e) : Object.defineProperty(t, ce, {
 					value: e,
 					writable: !0,
@@ -967,25 +967,25 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 					configurable: !0
 				});
 			}
-			if (typeof e == "object" && e) I.push(e), F = Array.isArray(e) ? "beforeArrayValue" : "beforePropertyName";
+			if (typeof e == "object" && e) F.push(e), P = Array.isArray(e) ? "beforeArrayValue" : "beforePropertyName";
 			else {
-				var n = I[I.length - 1];
-				F = n == null ? "end" : Array.isArray(n) ? "afterArrayValue" : "afterPropertyValue";
+				var n = F[F.length - 1];
+				P = n == null ? "end" : Array.isArray(n) ? "afterArrayValue" : "afterPropertyValue";
 			}
 		}
 		function Ce() {
-			I.pop();
-			var e = I[I.length - 1];
-			F = e == null ? "end" : Array.isArray(e) ? "afterArrayValue" : "afterPropertyValue";
+			F.pop();
+			var e = F[F.length - 1];
+			P = e == null ? "end" : Array.isArray(e) ? "afterArrayValue" : "afterPropertyValue";
 		}
 		function W(e) {
-			return G(e === void 0 ? "JSON5: invalid end of input at " + se + ":" + L : "JSON5: invalid character '" + De(e) + "' at " + se + ":" + L);
+			return G(e === void 0 ? "JSON5: invalid end of input at " + I + ":" + L : "JSON5: invalid character '" + De(e) + "' at " + I + ":" + L);
 		}
 		function we() {
-			return G("JSON5: invalid end of input at " + se + ":" + L);
+			return G("JSON5: invalid end of input at " + I + ":" + L);
 		}
 		function Te() {
-			return L -= 5, G("JSON5: invalid identifier character at " + se + ":" + L);
+			return L -= 5, G("JSON5: invalid identifier character at " + I + ":" + L);
 		}
 		function Ee(e) {
 			console.warn("JSON5: '" + De(e) + "' in strings is not valid ECMAScript; consider escaping");
@@ -1014,7 +1014,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 		}
 		function G(e) {
 			var t = SyntaxError(e);
-			return t.lineNumber = se, t.columnNumber = L, t;
+			return t.lineNumber = I, t.columnNumber = L, t;
 		}
 		return {
 			parse: ue,
@@ -1064,7 +1064,7 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 							case "\"":
 								t[a]++, r += a;
 								continue;
-							case "\0": if (P.isDigit(e[i + 1])) {
+							case "\0": if (M.isDigit(e[i + 1])) {
 								r += "\\x00";
 								continue;
 							}
@@ -1112,8 +1112,8 @@ var y = /* @__PURE__ */ c((/* @__PURE__ */ o(((e, t) => {
 				function g(e) {
 					if (e.length === 0) return m(e, !0);
 					var t = String.fromCodePoint(e.codePointAt(0));
-					if (!P.isIdStartChar(t)) return m(e, !0);
-					for (var n = t.length; n < e.length; n++) if (!P.isIdContinueChar(String.fromCodePoint(e.codePointAt(n)))) return m(e, !0);
+					if (!M.isIdStartChar(t)) return m(e, !0);
+					for (var n = t.length; n < e.length; n++) if (!M.isIdContinueChar(String.fromCodePoint(e.codePointAt(n)))) return m(e, !0);
 					return e;
 				}
 				function _(e) {
@@ -1189,11 +1189,11 @@ function D(e, t = "FFFFFF") {
 	if (typeof e == "string" && /^[0-9a-f]{6}$/i.test(e)) return e;
 	throw Error("Invalid color");
 }
-var te = 4096, O = 1024, k = .15, A = 1e-4, j = (e) => [C(e.x, 0), C(e.y, 0)];
-function ne(e) {
+var te = 4096, ne = 1024, re = .15, O = 1e-4, k = (e) => [C(e.x, 0), C(e.y, 0)];
+function ie(e) {
 	return {
-		a: j(e),
-		b: j(e),
+		a: k(e),
+		b: k(e),
 		bCoef: C(e.bCoef, 1, -1, 8192),
 		cGroup: E(e.cGroup, 32),
 		cMask: E(e.cMask, 63),
@@ -1202,13 +1202,13 @@ function ne(e) {
 		vis: !1
 	};
 }
-function M(e) {
+function A(e) {
 	return e.curveF === void 0 ? C(e.curve, 0, -359, 359) : 2 * Math.atan2(1, C(e.curveF, 0, -1e8, 1e8)) * 180 / Math.PI;
 }
-function re(e, t, n, r, i, a) {
+function ae(e, t, n, r, i, a) {
 	let o = r * Math.PI / 180, s = t[0] - e[0], c = t[1] - e[1];
 	if (Math.hypot(s, c) < .001) throw Error("Arc endpoints overlap");
-	let l = 1 / (2 * Math.tan(o / 2)), u = [(e[0] + t[0]) / 2 - c * l, (e[1] + t[1]) / 2 + s * l], d = Math.hypot(e[0] - u[0], e[1] - u[1]), f = Math.atan2(e[1] - u[1], e[0] - u[0]), p = Math.ceil(Math.abs(o) / Math.max(1e-8, 2 * Math.acos(Math.max(-1, 1 - k / d))));
+	let l = 1 / (2 * Math.tan(o / 2)), u = [(e[0] + t[0]) / 2 - c * l, (e[1] + t[1]) / 2 + s * l], d = Math.hypot(e[0] - u[0], e[1] - u[1]), f = Math.atan2(e[1] - u[1], e[0] - u[0]), p = Math.ceil(Math.abs(o) / Math.max(1e-8, 2 * Math.acos(Math.max(-1, 1 - re / d))));
 	if (a.segments.length + p > te) throw Error("Compiled geometry exceeds 4096 segments");
 	let m = {
 		a: e,
@@ -1232,25 +1232,25 @@ function re(e, t, n, r, i, a) {
 		}), h = r;
 	}
 }
-function ie(e, t, n) {
-	let r = e.map(ne), i = {
+function oe(e, t, n) {
+	let r = e.map(ie), i = {
 		segments: r,
 		arcs: [],
 		colliders: [...r]
 	};
-	for (let a of T(t, O)) {
+	for (let a of T(t, ne)) {
 		let t = n(a), o = C(t.v0, -1, 0, e.length - 1), s = C(t.v1, -1, 0, e.length - 1);
 		if (!Number.isInteger(o) || !Number.isInteger(s)) throw Error("Vertex indices must be integers");
-		let c = j(e[o]), l = j(e[s]), u = {
+		let c = k(e[o]), l = k(e[s]), u = {
 			bCoef: C(t.bCoef, 1, -1, 8192),
 			cGroup: E(t.cGroup, 32),
 			cMask: E(t.cMask, 63),
 			bias: C(t.bias, 0, -100, 100),
 			color: D(t.color, "000000"),
 			vis: t.vis !== !1
-		}, d = M(t);
-		if (Math.abs(d) >= A) {
-			re(c, l, u, d, t, i);
+		}, d = A(t);
+		if (Math.abs(d) >= O) {
+			ae(c, l, u, d, t, i);
 			continue;
 		}
 		let f = {
@@ -1263,7 +1263,7 @@ function ie(e, t, n) {
 	if (r.length > te) throw Error("Compiled geometry exceeds 4096 segments");
 	return i;
 }
-var N = Object.fromEntries(Object.entries({
+var j = Object.fromEntries(Object.entries({
 	root: "version physicsMode name width height maxViewWidth cameraFollow spawnDistance canBeStored kickOffReset bg traits vertexes segments goals discs planes joints redSpawnPoints blueSpawnPoints playerPhysics ballPhysics",
 	bg: "type width height kickOffRadius cornerRadius color",
 	vertexes: "trait x y bCoef cMask cGroup",
@@ -1273,7 +1273,7 @@ var N = Object.fromEntries(Object.entries({
 	goals: "trait p0 p1 team",
 	joints: "trait d0 d1 length strength color",
 	playerPhysics: "trait pos speed gravity radius invMass damping bCoef cGroup cMask color acceleration kickingAcceleration kickingDamping kickStrength kickback"
-}).map(([e, t]) => [e, new Set(t.split(" "))])), P = new Set([
+}).map(([e, t]) => [e, new Set(t.split(" "))])), M = new Set([
 	"vertexes",
 	"segments",
 	"discs",
@@ -1281,15 +1281,15 @@ var N = Object.fromEntries(Object.entries({
 	"goals",
 	"joints",
 	"playerPhysics"
-].flatMap((e) => [...N[e]]));
-function ae(e) {
+].flatMap((e) => [...j[e]]));
+function N(e) {
 	let t = [], n = (e, t) => {
 		let n = t.length > 80 ? `${t.slice(0, 80)}…` : t;
 		return e + (/^[A-Za-z_$][\w$]*$/.test(n) ? `.${n}` : `[${JSON.stringify(n)}]`);
 	}, r = (e, r, i) => {
 		if (e && typeof e == "object" && !Array.isArray(e)) for (let a of Object.keys(e)) r.has(a) || (t.length < 64 ? t.push(`Unsupported stadium field: ${n(i, a)}`) : t.length === 64 && t.push("Additional unsupported stadium fields omitted."));
 	};
-	r(e, N.root, "$"), r(e.bg, N.bg, "$.bg");
+	r(e, j.root, "$"), r(e.bg, j.bg, "$.bg");
 	for (let t of [
 		"vertexes",
 		"segments",
@@ -1300,13 +1300,13 @@ function ae(e) {
 	]) {
 		let n = e[t];
 		Array.isArray(n) && n.forEach((e, n) => {
-			r(e, N[t], `$.${t}[${n}]`);
+			r(e, j[t], `$.${t}[${n}]`);
 		});
 	}
-	if (r(e.ballPhysics, N.discs, "$.ballPhysics"), r(e.playerPhysics, N.playerPhysics, "$.playerPhysics"), e.traits && typeof e.traits == "object" && !Array.isArray(e.traits)) for (let [t, i] of Object.entries(e.traits)) r(i, P, n("$.traits", t));
+	if (r(e.ballPhysics, j.discs, "$.ballPhysics"), r(e.playerPhysics, j.playerPhysics, "$.playerPhysics"), e.traits && typeof e.traits == "object" && !Array.isArray(e.traits)) for (let [t, i] of Object.entries(e.traits)) r(i, M, n("$.traits", t));
 	return t;
 }
-var F = 262144, I = 63, oe = 1024, se = 64, L = 16, R = 128, ce = 192, le = [
+var P = 262144, F = 63, se = 1024, I = 64, L = 16, R = 128, ce = 192, le = [
 	"grass",
 	"asphalt",
 	"none"
@@ -1338,7 +1338,7 @@ function de(e, t = !1) {
 	};
 }
 function z(e, t) {
-	let n = T(e.discs, I).map((e) => de(t(e)));
+	let n = T(e.discs, F).map((e) => de(t(e)));
 	if (e.ballPhysics !== "disc0") {
 		let r = de(e.ballPhysics === void 0 ? {} : t(e.ballPhysics), !0);
 		r.cGroup |= ce, n.unshift(r);
@@ -1412,11 +1412,11 @@ function he(e, t) {
 	};
 }
 function H(e) {
-	if (new TextEncoder().encode(e).length > F) throw Error("Stadium exceeds 256 KB");
+	if (new TextEncoder().encode(e).length > P) throw Error("Stadium exceeds 256 KB");
 	let t = S(y.default.parse(e));
 	if (t.physicsMode !== void 0 && t.physicsMode !== "stadium" && t.physicsMode !== "substeps") throw Error("Invalid physics mode");
 	if (t.version !== void 0 && t.version !== 1) throw Error("Unsupported stadium version");
-	let n = ue(t), r = z(t, n), i = T(t.vertexes, oe).map(n), a = ae(t), { segments: o, arcs: s, colliders: c } = ie(i, t.segments, n), l = B(t, n), u = T(t.planes, se), d = T(t.joints, R);
+	let n = ue(t), r = z(t, n), i = T(t.vertexes, se).map(n), a = N(t), { segments: o, arcs: s, colliders: c } = oe(i, t.segments, n), l = B(t, n), u = T(t.planes, I), d = T(t.joints, R);
 	b(r.length, o.length, u.length + d.length, Math.min(l.radius, ...r.map((e) => e.radius)));
 	let f = fe(t.bg);
 	return {
@@ -1553,7 +1553,7 @@ async function Ne(e) {
 	return Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", e))).map((e) => e.toString(16).padStart(2, "0")).join("");
 }
 async function Pe(e, t) {
-	let n = e ?? await (await fetch("/core.wasm?v=694293262fc3a50a2786", { signal: t })).arrayBuffer();
+	let n = e ?? await (await fetch("/core.wasm?v=bebab011c14ea1a034cb", { signal: t })).arrayBuffer();
 	if (await Ne(n) !== "105f5ccfb67900e11f5d8a36b86125d085a1b1ece88bb20e6690eb376b836fdb") throw Error("Physics build changed. Refresh the page to load a matching version.");
 	return WebAssembly.instantiate(await WebAssembly.compile(n));
 }
@@ -1564,7 +1564,7 @@ var Fe = 60, Ie = [
 ], Le = {
 	1: x.redKO,
 	2: x.blueKO
-}, Re = x.redKO | x.blueKO, ze = 300, Be = 60, Ve = (e) => e ? { ...e } : null, He = class e {
+}, Re = x.redKO | x.blueKO, ze = 300, Be = (e) => e ? { ...e } : null, Ve = class e {
 	core;
 	stadium;
 	source = "";
@@ -1678,12 +1678,6 @@ var Fe = 60, Ie = [
 	finish() {
 		this.phase = "finished", this.countdown = ze;
 	}
-	canFinishDraw() {
-		return this.phase === "playing" && !this.paused && this.timeLimit > 0 && this.red === this.blue && this.elapsed >= (this.timeLimit + Be) * Fe;
-	}
-	finishDraw() {
-		return this.canFinishDraw() ? (this.finish(), !0) : !1;
-	}
 	timeExpiredWithLeader() {
 		return this.timeLimit > 0 && this.elapsed >= this.timeLimit * Fe && this.red !== this.blue;
 	}
@@ -1737,12 +1731,12 @@ var Fe = 60, Ie = [
 		for (let r = 0; r < 32; r++) e[this.index(r) * 18 + u.COLLISION_MASK] = t & ~Re | n;
 	}
 	scoreGoal(e) {
-		e === 1 ? this.red++ : this.blue++, this.kickoff = e === 1 ? 2 : 1, this.phase = "goal", this.countdown = 330, this.goalTouch = Ve(this.lastTouch), this.lastGoal = this.tick;
+		e === 1 ? this.red++ : this.blue++, this.kickoff = e === 1 ? 2 : 1, this.phase = "goal", this.countdown = 330, this.goalTouch = Be(this.lastTouch), this.lastGoal = this.tick;
 	}
 	snapshot() {
 		return {
-			lastTouch: Ve(this.lastTouch),
-			goalTouch: Ve(this.goalTouch),
+			lastTouch: Be(this.lastTouch),
+			goalTouch: Be(this.goalTouch),
 			tick: this.tick,
 			elapsed: this.elapsed,
 			red: this.red,
@@ -1761,9 +1755,9 @@ var Fe = 60, Ie = [
 		};
 	}
 	restore(e) {
-		Me(e, this.data.length, this.stadium), this.setKickRateLimit(..._(e.kickRate)), this.lastTouch = Ve(e.lastTouch), this.goalTouch = Ve(e.goalTouch), this.tick = e.tick, this.elapsed = e.elapsed, this.red = e.red, this.blue = e.blue, this.phase = e.phase, this.paused = e.paused, this.resumeTicks = e.resumeTicks, this.countdown = e.countdown, this.kickoff = e.kickoff, this.kickoffActive = e.kickoffActive, this.scoreLimit = e.scoreLimit, this.timeLimit = e.timeLimit, this.data.set(e.discs), this.colors = [...e.colors];
+		Me(e, this.data.length, this.stadium), this.setKickRateLimit(..._(e.kickRate)), this.lastTouch = Be(e.lastTouch), this.goalTouch = Be(e.goalTouch), this.tick = e.tick, this.elapsed = e.elapsed, this.red = e.red, this.blue = e.blue, this.phase = e.phase, this.paused = e.paused, this.resumeTicks = e.resumeTicks, this.countdown = e.countdown, this.kickoff = e.kickoff, this.kickoffActive = e.kickoffActive, this.scoreLimit = e.scoreLimit, this.timeLimit = e.timeLimit, this.data.set(e.discs), this.colors = [...e.colors];
 	}
-}, Ue = `ball2d-core/1/${l}`, K = Uint8Array, We = Uint16Array, Ge = Int32Array, Ke = new K([
+}, He = `ball2d-core/1/${l}`, K = Uint8Array, Ue = Uint16Array, We = Int32Array, Ge = new K([
 	0,
 	0,
 	0,
@@ -1794,42 +1788,42 @@ var Fe = 60, Ie = [
 	5,
 	0,
 	0,
+	0,
+	0
+]), Ke = new K([
+	0,
+	0,
+	0,
+	0,
+	1,
+	1,
+	2,
+	2,
+	3,
+	3,
+	4,
+	4,
+	5,
+	5,
+	6,
+	6,
+	7,
+	7,
+	8,
+	8,
+	9,
+	9,
+	10,
+	10,
+	11,
+	11,
+	12,
+	12,
+	13,
+	13,
 	0,
 	0
 ]), qe = new K([
-	0,
-	0,
-	0,
-	0,
-	1,
-	1,
-	2,
-	2,
-	3,
-	3,
-	4,
-	4,
-	5,
-	5,
-	6,
-	6,
-	7,
-	7,
-	8,
-	8,
-	9,
-	9,
-	10,
-	10,
-	11,
-	11,
-	12,
-	12,
-	13,
-	13,
-	0,
-	0
-]), Je = new K([
 	16,
 	17,
 	18,
@@ -1849,49 +1843,49 @@ var Fe = 60, Ie = [
 	14,
 	1,
 	15
-]), Ye = function(e, t) {
-	for (var n = new We(31), r = 0; r < 31; ++r) n[r] = t += 1 << e[r - 1];
-	for (var i = new Ge(n[30]), r = 1; r < 30; ++r) for (var a = n[r]; a < n[r + 1]; ++a) i[a] = a - n[r] << 5 | r;
+]), Je = function(e, t) {
+	for (var n = new Ue(31), r = 0; r < 31; ++r) n[r] = t += 1 << e[r - 1];
+	for (var i = new We(n[30]), r = 1; r < 30; ++r) for (var a = n[r]; a < n[r + 1]; ++a) i[a] = a - n[r] << 5 | r;
 	return {
 		b: n,
 		r: i
 	};
-}, Xe = Ye(Ke, 2), Ze = Xe.b, Qe = Xe.r;
-Ze[28] = 258, Qe[258] = 28;
-for (var $e = Ye(qe, 0), et = $e.b, tt = $e.r, nt = new We(32768), q = 0; q < 32768; ++q) {
-	var rt = (q & 43690) >> 1 | (q & 21845) << 1;
-	rt = (rt & 52428) >> 2 | (rt & 13107) << 2, rt = (rt & 61680) >> 4 | (rt & 3855) << 4, nt[q] = ((rt & 65280) >> 8 | (rt & 255) << 8) >> 1;
+}, Ye = Je(Ge, 2), Xe = Ye.b, Ze = Ye.r;
+Xe[28] = 258, Ze[258] = 28;
+for (var Qe = Je(Ke, 0), $e = Qe.b, et = Qe.r, tt = new Ue(32768), q = 0; q < 32768; ++q) {
+	var nt = (q & 43690) >> 1 | (q & 21845) << 1;
+	nt = (nt & 52428) >> 2 | (nt & 13107) << 2, nt = (nt & 61680) >> 4 | (nt & 3855) << 4, tt[q] = ((nt & 65280) >> 8 | (nt & 255) << 8) >> 1;
 }
-for (var it = (function(e, t, n) {
-	for (var r = e.length, i = 0, a = new We(t); i < r; ++i) e[i] && ++a[e[i] - 1];
-	var o = new We(t);
+for (var rt = (function(e, t, n) {
+	for (var r = e.length, i = 0, a = new Ue(t); i < r; ++i) e[i] && ++a[e[i] - 1];
+	var o = new Ue(t);
 	for (i = 1; i < t; ++i) o[i] = o[i - 1] + a[i - 1] << 1;
 	var s;
 	if (n) {
-		s = new We(1 << t);
+		s = new Ue(1 << t);
 		var c = 15 - t;
-		for (i = 0; i < r; ++i) if (e[i]) for (var l = i << 4 | e[i], u = t - e[i], d = o[e[i] - 1]++ << u, f = d | (1 << u) - 1; d <= f; ++d) s[nt[d] >> c] = l;
-	} else for (s = new We(r), i = 0; i < r; ++i) e[i] && (s[i] = nt[o[e[i] - 1]++] >> 15 - e[i]);
+		for (i = 0; i < r; ++i) if (e[i]) for (var l = i << 4 | e[i], u = t - e[i], d = o[e[i] - 1]++ << u, f = d | (1 << u) - 1; d <= f; ++d) s[tt[d] >> c] = l;
+	} else for (s = new Ue(r), i = 0; i < r; ++i) e[i] && (s[i] = tt[o[e[i] - 1]++] >> 15 - e[i]);
 	return s;
-}), at = new K(288), q = 0; q < 144; ++q) at[q] = 8;
-for (var q = 144; q < 256; ++q) at[q] = 9;
-for (var q = 256; q < 280; ++q) at[q] = 7;
-for (var q = 280; q < 288; ++q) at[q] = 8;
-for (var ot = new K(32), q = 0; q < 32; ++q) ot[q] = 5;
-var st = /*#__PURE__*/ it(at, 9, 0), ct = /*#__PURE__*/ it(at, 9, 1), lt = /*#__PURE__*/ it(ot, 5, 0), ut = /*#__PURE__*/ it(ot, 5, 1), dt = function(e) {
+}), it = new K(288), q = 0; q < 144; ++q) it[q] = 8;
+for (var q = 144; q < 256; ++q) it[q] = 9;
+for (var q = 256; q < 280; ++q) it[q] = 7;
+for (var q = 280; q < 288; ++q) it[q] = 8;
+for (var at = new K(32), q = 0; q < 32; ++q) at[q] = 5;
+var ot = /*#__PURE__*/ rt(it, 9, 0), st = /*#__PURE__*/ rt(it, 9, 1), ct = /*#__PURE__*/ rt(at, 5, 0), lt = /*#__PURE__*/ rt(at, 5, 1), ut = function(e) {
 	for (var t = e[0], n = 1; n < e.length; ++n) e[n] > t && (t = e[n]);
 	return t;
-}, ft = function(e, t, n) {
+}, dt = function(e, t, n) {
 	var r = t / 8 | 0;
 	return (e[r] | e[r + 1] << 8) >> (t & 7) & n;
-}, pt = function(e, t) {
+}, ft = function(e, t) {
 	var n = t / 8 | 0;
 	return (e[n] | e[n + 1] << 8 | e[n + 2] << 16) >> (t & 7);
-}, mt = function(e) {
+}, pt = function(e) {
 	return (e + 7) / 8 | 0;
-}, ht = function(e, t, n) {
+}, mt = function(e, t, n) {
 	return (t == null || t < 0) && (t = 0), (n == null || n > e.length) && (n = e.length), new K(e.subarray(t, n));
-}, gt = [
+}, ht = [
 	"unexpected EOF",
 	"invalid block type",
 	"invalid length/literal",
@@ -1906,11 +1900,11 @@ var st = /*#__PURE__*/ it(at, 9, 0), ct = /*#__PURE__*/ it(at, 9, 1), lt = /*#__
 	"filename too long",
 	"stream finishing",
 	"invalid zip data"
-], _t = function(e, t, n) {
-	var r = Error(t || gt[e]);
-	if (r.code = e, Error.captureStackTrace && Error.captureStackTrace(r, _t), !n) throw r;
+], gt = function(e, t, n) {
+	var r = Error(t || ht[e]);
+	if (r.code = e, Error.captureStackTrace && Error.captureStackTrace(r, gt), !n) throw r;
 	return r;
-}, vt = function(e, t, n, r) {
+}, _t = function(e, t, n, r) {
 	var i = e.length, a = r ? r.length : 0;
 	if (!i || t.f && !t.l) return n || new K(0);
 	var o = !n, s = o || t.i != 2, c = t.i;
@@ -1924,97 +1918,97 @@ var st = /*#__PURE__*/ it(at, 9, 0), ct = /*#__PURE__*/ it(at, 9, 1), lt = /*#__
 	}, u = t.f || 0, d = t.p || 0, f = t.b || 0, p = t.l, m = t.d, h = t.m, g = t.n, _ = i * 8;
 	do {
 		if (!p) {
-			u = ft(e, d, 1);
-			var v = ft(e, d + 1, 3);
+			u = dt(e, d, 1);
+			var v = dt(e, d + 1, 3);
 			if (d += 3, !v) {
-				var y = mt(d) + 4, b = e[y - 4] | e[y - 3] << 8, x = y + b;
+				var y = pt(d) + 4, b = e[y - 4] | e[y - 3] << 8, x = y + b;
 				if (x > i) {
-					c && _t(0);
+					c && gt(0);
 					break;
 				}
 				s && l(f + b), n.set(e.subarray(y, x), f), t.b = f += b, t.p = d = x * 8, t.f = u;
 				continue;
 			}
-			if (v == 1) p = ct, m = ut, h = 9, g = 5;
+			if (v == 1) p = st, m = lt, h = 9, g = 5;
 			else if (v == 2) {
-				var ee = ft(e, d, 31) + 257, S = ft(e, d + 10, 15) + 4, C = ee + ft(e, d + 5, 31) + 1;
+				var ee = dt(e, d, 31) + 257, S = dt(e, d + 10, 15) + 4, C = ee + dt(e, d + 5, 31) + 1;
 				d += 14;
-				for (var w = new K(C), T = new K(19), E = 0; E < S; ++E) T[Je[E]] = ft(e, d + E * 3, 7);
+				for (var w = new K(C), T = new K(19), E = 0; E < S; ++E) T[qe[E]] = dt(e, d + E * 3, 7);
 				d += S * 3;
-				for (var D = dt(T), te = (1 << D) - 1, O = it(T, D, 1), E = 0; E < C;) {
-					var k = O[ft(e, d, te)];
-					d += k & 15;
-					var y = k >> 4;
+				for (var D = ut(T), te = (1 << D) - 1, ne = rt(T, D, 1), E = 0; E < C;) {
+					var re = ne[dt(e, d, te)];
+					d += re & 15;
+					var y = re >> 4;
 					if (y < 16) w[E++] = y;
 					else {
-						var A = 0, j = 0;
-						for (y == 16 ? (j = 3 + ft(e, d, 3), d += 2, A = w[E - 1]) : y == 17 ? (j = 3 + ft(e, d, 7), d += 3) : y == 18 && (j = 11 + ft(e, d, 127), d += 7); j--;) w[E++] = A;
+						var O = 0, k = 0;
+						for (y == 16 ? (k = 3 + dt(e, d, 3), d += 2, O = w[E - 1]) : y == 17 ? (k = 3 + dt(e, d, 7), d += 3) : y == 18 && (k = 11 + dt(e, d, 127), d += 7); k--;) w[E++] = O;
 					}
 				}
-				var ne = w.subarray(0, ee), M = w.subarray(ee);
-				h = dt(ne), g = dt(M), p = it(ne, h, 1), m = it(M, g, 1);
-			} else _t(1);
+				var ie = w.subarray(0, ee), A = w.subarray(ee);
+				h = ut(ie), g = ut(A), p = rt(ie, h, 1), m = rt(A, g, 1);
+			} else gt(1);
 			if (d > _) {
-				c && _t(0);
+				c && gt(0);
 				break;
 			}
 		}
 		s && l(f + 131072);
-		for (var re = (1 << h) - 1, ie = (1 << g) - 1, N = d;; N = d) {
-			var A = p[pt(e, d) & re], P = A >> 4;
-			if (d += A & 15, d > _) {
-				c && _t(0);
+		for (var ae = (1 << h) - 1, oe = (1 << g) - 1, j = d;; j = d) {
+			var O = p[ft(e, d) & ae], M = O >> 4;
+			if (d += O & 15, d > _) {
+				c && gt(0);
 				break;
 			}
-			if (A || _t(2), P < 256) n[f++] = P;
-			else if (P == 256) {
-				N = d, p = null;
+			if (O || gt(2), M < 256) n[f++] = M;
+			else if (M == 256) {
+				j = d, p = null;
 				break;
 			} else {
-				var ae = P - 254;
-				if (P > 264) {
-					var E = P - 257, F = Ke[E];
-					ae = ft(e, d, (1 << F) - 1) + Ze[E], d += F;
+				var N = M - 254;
+				if (M > 264) {
+					var E = M - 257, P = Ge[E];
+					N = dt(e, d, (1 << P) - 1) + Xe[E], d += P;
 				}
-				var I = m[pt(e, d) & ie], oe = I >> 4;
-				I || _t(3), d += I & 15;
-				var M = et[oe];
-				if (oe > 3) {
-					var F = qe[oe];
-					M += pt(e, d) & (1 << F) - 1, d += F;
+				var F = m[ft(e, d) & oe], se = F >> 4;
+				F || gt(3), d += F & 15;
+				var A = $e[se];
+				if (se > 3) {
+					var P = Ke[se];
+					A += ft(e, d) & (1 << P) - 1, d += P;
 				}
 				if (d > _) {
-					c && _t(0);
+					c && gt(0);
 					break;
 				}
 				s && l(f + 131072);
-				var se = f + ae;
-				if (f < M) {
-					var L = a - M, R = Math.min(M, se);
-					for (L + f < 0 && _t(3); f < R; ++f) n[f] = r[L + f];
+				var I = f + N;
+				if (f < A) {
+					var L = a - A, R = Math.min(A, I);
+					for (L + f < 0 && gt(3); f < R; ++f) n[f] = r[L + f];
 				}
-				for (; f < se; ++f) n[f] = n[f - M];
+				for (; f < I; ++f) n[f] = n[f - A];
 			}
 		}
-		t.l = p, t.p = N, t.b = f, t.f = u, p && (u = 1, t.m = h, t.d = m, t.n = g);
+		t.l = p, t.p = j, t.b = f, t.f = u, p && (u = 1, t.m = h, t.d = m, t.n = g);
 	} while (!u);
-	return f != n.length && o ? ht(n, 0, f) : n.subarray(0, f);
-}, yt = function(e, t, n) {
+	return f != n.length && o ? mt(n, 0, f) : n.subarray(0, f);
+}, vt = function(e, t, n) {
 	n <<= t & 7;
 	var r = t / 8 | 0;
 	e[r] |= n, e[r + 1] |= n >> 8;
-}, bt = function(e, t, n) {
+}, yt = function(e, t, n) {
 	n <<= t & 7;
 	var r = t / 8 | 0;
 	e[r] |= n, e[r + 1] |= n >> 8, e[r + 2] |= n >> 16;
-}, xt = function(e, t) {
+}, bt = function(e, t) {
 	for (var n = [], r = 0; r < e.length; ++r) e[r] && n.push({
 		s: r,
 		f: e[r]
 	});
 	var i = n.length, a = n.slice();
 	if (!i) return {
-		t: Ot,
+		t: Dt,
 		l: 0
 	};
 	if (i == 1) {
@@ -2043,7 +2037,7 @@ var st = /*#__PURE__*/ it(at, 9, 0), ct = /*#__PURE__*/ it(at, 9, 1), lt = /*#__
 		r: c
 	};
 	for (var f = a[0].s, r = 1; r < i; ++r) a[r].s > f && (f = a[r].s);
-	var p = new We(f + 1), m = St(n[u - 1], p, 0);
+	var p = new Ue(f + 1), m = xt(n[u - 1], p, 0);
 	if (m > t) {
 		var r = 0, h = 0, g = m - t, _ = 1 << g;
 		for (a.sort(function(e, t) {
@@ -2067,11 +2061,11 @@ var st = /*#__PURE__*/ it(at, 9, 0), ct = /*#__PURE__*/ it(at, 9, 1), lt = /*#__
 		t: new K(p),
 		l: m
 	};
-}, St = function(e, t, n) {
-	return e.s == -1 ? Math.max(St(e.l, t, n + 1), St(e.r, t, n + 1)) : t[e.s] = n;
-}, Ct = function(e) {
+}, xt = function(e, t, n) {
+	return e.s == -1 ? Math.max(xt(e.l, t, n + 1), xt(e.r, t, n + 1)) : t[e.s] = n;
+}, St = function(e) {
 	for (var t = e.length; t && !e[--t];);
-	for (var n = new We(++t), r = 0, i = e[0], a = 1, o = function(e) {
+	for (var n = new Ue(++t), r = 0, i = e[0], a = 1, o = function(e) {
 		n[r++] = e;
 	}, s = 1; s <= t; ++s) if (e[s] == i && s != t) ++a;
 	else {
@@ -2089,44 +2083,44 @@ var st = /*#__PURE__*/ it(at, 9, 0), ct = /*#__PURE__*/ it(at, 9, 1), lt = /*#__
 		c: n.subarray(0, r),
 		n: t
 	};
-}, wt = function(e, t) {
+}, Ct = function(e, t) {
 	for (var n = 0, r = 0; r < t.length; ++r) n += e[r] * t[r];
 	return n;
-}, Tt = function(e, t, n) {
-	var r = n.length, i = mt(t + 2);
+}, wt = function(e, t, n) {
+	var r = n.length, i = pt(t + 2);
 	e[i] = r & 255, e[i + 1] = r >> 8, e[i + 2] = e[i] ^ 255, e[i + 3] = e[i + 1] ^ 255;
 	for (var a = 0; a < r; ++a) e[i + a + 4] = n[a];
 	return (i + 4 + r) * 8;
-}, Et = function(e, t, n, r, i, a, o, s, c, l, u) {
-	yt(t, u++, n), ++i[256];
-	for (var d = xt(i, 15), f = d.t, p = d.l, m = xt(a, 15), h = m.t, g = m.l, _ = Ct(f), v = _.c, y = _.n, b = Ct(h), x = b.c, ee = b.n, S = new We(19), C = 0; C < v.length; ++C) ++S[v[C] & 31];
+}, Tt = function(e, t, n, r, i, a, o, s, c, l, u) {
+	vt(t, u++, n), ++i[256];
+	for (var d = bt(i, 15), f = d.t, p = d.l, m = bt(a, 15), h = m.t, g = m.l, _ = St(f), v = _.c, y = _.n, b = St(h), x = b.c, ee = b.n, S = new Ue(19), C = 0; C < v.length; ++C) ++S[v[C] & 31];
 	for (var C = 0; C < x.length; ++C) ++S[x[C] & 31];
-	for (var w = xt(S, 7), T = w.t, E = w.l, D = 19; D > 4 && !T[Je[D - 1]]; --D);
-	var te = l + 5 << 3, O = wt(i, at) + wt(a, ot) + o, k = wt(i, f) + wt(a, h) + o + 14 + 3 * D + wt(S, T) + 2 * S[16] + 3 * S[17] + 7 * S[18];
-	if (c >= 0 && te <= O && te <= k) return Tt(t, u, e.subarray(c, c + l));
-	var A, j, ne, M;
-	if (yt(t, u, 1 + (k < O)), u += 2, k < O) {
-		A = it(f, p, 0), j = f, ne = it(h, g, 0), M = h;
-		var re = it(T, E, 0);
-		yt(t, u, y - 257), yt(t, u + 5, ee - 1), yt(t, u + 10, D - 4), u += 14;
-		for (var C = 0; C < D; ++C) yt(t, u + 3 * C, T[Je[C]]);
+	for (var w = bt(S, 7), T = w.t, E = w.l, D = 19; D > 4 && !T[qe[D - 1]]; --D);
+	var te = l + 5 << 3, ne = Ct(i, it) + Ct(a, at) + o, re = Ct(i, f) + Ct(a, h) + o + 14 + 3 * D + Ct(S, T) + 2 * S[16] + 3 * S[17] + 7 * S[18];
+	if (c >= 0 && te <= ne && te <= re) return wt(t, u, e.subarray(c, c + l));
+	var O, k, ie, A;
+	if (vt(t, u, 1 + (re < ne)), u += 2, re < ne) {
+		O = rt(f, p, 0), k = f, ie = rt(h, g, 0), A = h;
+		var ae = rt(T, E, 0);
+		vt(t, u, y - 257), vt(t, u + 5, ee - 1), vt(t, u + 10, D - 4), u += 14;
+		for (var C = 0; C < D; ++C) vt(t, u + 3 * C, T[qe[C]]);
 		u += 3 * D;
-		for (var ie = [v, x], N = 0; N < 2; ++N) for (var P = ie[N], C = 0; C < P.length; ++C) {
-			var ae = P[C] & 31;
-			yt(t, u, re[ae]), u += T[ae], ae > 15 && (yt(t, u, P[C] >> 5 & 127), u += P[C] >> 12);
+		for (var oe = [v, x], j = 0; j < 2; ++j) for (var M = oe[j], C = 0; C < M.length; ++C) {
+			var N = M[C] & 31;
+			vt(t, u, ae[N]), u += T[N], N > 15 && (vt(t, u, M[C] >> 5 & 127), u += M[C] >> 12);
 		}
-	} else A = st, j = at, ne = lt, M = ot;
+	} else O = ot, k = it, ie = ct, A = at;
 	for (var C = 0; C < s; ++C) {
-		var F = r[C];
-		if (F > 255) {
-			var ae = F >> 18 & 31;
-			bt(t, u, A[ae + 257]), u += j[ae + 257], ae > 7 && (yt(t, u, F >> 23 & 31), u += Ke[ae]);
-			var I = F & 31;
-			bt(t, u, ne[I]), u += M[I], I > 3 && (bt(t, u, F >> 5 & 8191), u += qe[I]);
-		} else bt(t, u, A[F]), u += j[F];
+		var P = r[C];
+		if (P > 255) {
+			var N = P >> 18 & 31;
+			yt(t, u, O[N + 257]), u += k[N + 257], N > 7 && (vt(t, u, P >> 23 & 31), u += Ge[N]);
+			var F = P & 31;
+			yt(t, u, ie[F]), u += A[F], F > 3 && (yt(t, u, P >> 5 & 8191), u += Ke[F]);
+		} else yt(t, u, O[P]), u += k[P];
 	}
-	return bt(t, u, A[256]), u + j[256];
-}, Dt = /*#__PURE__*/ new Ge([
+	return yt(t, u, O[256]), u + k[256];
+}, Et = /*#__PURE__*/ new We([
 	65540,
 	131080,
 	131088,
@@ -2136,63 +2130,63 @@ var st = /*#__PURE__*/ it(at, 9, 0), ct = /*#__PURE__*/ it(at, 9, 1), lt = /*#__
 	1048832,
 	2114560,
 	2117632
-]), Ot = /*#__PURE__*/ new K(0), kt = function(e, t, n, r, i, a) {
+]), Dt = /*#__PURE__*/ new K(0), Ot = function(e, t, n, r, i, a) {
 	var o = a.z || e.length, s = new K(r + o + 5 * (1 + Math.ceil(o / 7e3)) + i), c = s.subarray(r, s.length - i), l = a.l, u = (a.r || 0) & 7;
 	if (t) {
 		u && (c[0] = a.r >> 3);
-		for (var d = Dt[t - 1], f = d >> 13, p = d & 8191, m = (1 << n) - 1, h = a.p || new We(32768), g = a.h || new We(m + 1), _ = Math.ceil(n / 3), v = 2 * _, y = function(t) {
+		for (var d = Et[t - 1], f = d >> 13, p = d & 8191, m = (1 << n) - 1, h = a.p || new Ue(32768), g = a.h || new Ue(m + 1), _ = Math.ceil(n / 3), v = 2 * _, y = function(t) {
 			return (e[t] ^ e[t + 1] << _ ^ e[t + 2] << v) & m;
-		}, b = new Ge(25e3), x = new We(288), ee = new We(32), S = 0, C = 0, w = a.i || 0, T = 0, E = a.w || 0, D = 0; w + 2 < o; ++w) {
-			var te = y(w), O = w & 32767, k = g[te];
-			if (h[O] = k, g[te] = O, E <= w) {
-				var A = o - w;
-				if ((S > 7e3 || T > 24576) && (A > 423 || !l)) {
-					u = Et(e, c, 0, b, x, ee, C, T, D, w - D, u), T = S = C = 0, D = w;
-					for (var j = 0; j < 286; ++j) x[j] = 0;
-					for (var j = 0; j < 30; ++j) ee[j] = 0;
+		}, b = new We(25e3), x = new Ue(288), ee = new Ue(32), S = 0, C = 0, w = a.i || 0, T = 0, E = a.w || 0, D = 0; w + 2 < o; ++w) {
+			var te = y(w), ne = w & 32767, re = g[te];
+			if (h[ne] = re, g[te] = ne, E <= w) {
+				var O = o - w;
+				if ((S > 7e3 || T > 24576) && (O > 423 || !l)) {
+					u = Tt(e, c, 0, b, x, ee, C, T, D, w - D, u), T = S = C = 0, D = w;
+					for (var k = 0; k < 286; ++k) x[k] = 0;
+					for (var k = 0; k < 30; ++k) ee[k] = 0;
 				}
-				var ne = 2, M = 0, re = p, ie = O - k & 32767;
-				if (A > 2 && te == y(w - ie)) for (var N = Math.min(f, A) - 1, P = Math.min(32767, w), ae = Math.min(258, A); ie <= P && --re && O != k;) {
-					if (e[w + ne] == e[w + ne - ie]) {
-						for (var F = 0; F < ae && e[w + F] == e[w + F - ie]; ++F);
-						if (F > ne) {
-							if (ne = F, M = ie, F > N) break;
-							for (var I = Math.min(ie, F - 2), oe = 0, j = 0; j < I; ++j) {
-								var se = w - ie + j & 32767, L = se - h[se] & 32767;
-								L > oe && (oe = L, k = se);
+				var ie = 2, A = 0, ae = p, oe = ne - re & 32767;
+				if (O > 2 && te == y(w - oe)) for (var j = Math.min(f, O) - 1, M = Math.min(32767, w), N = Math.min(258, O); oe <= M && --ae && ne != re;) {
+					if (e[w + ie] == e[w + ie - oe]) {
+						for (var P = 0; P < N && e[w + P] == e[w + P - oe]; ++P);
+						if (P > ie) {
+							if (ie = P, A = oe, P > j) break;
+							for (var F = Math.min(oe, P - 2), se = 0, k = 0; k < F; ++k) {
+								var I = w - oe + k & 32767, L = I - h[I] & 32767;
+								L > se && (se = L, re = I);
 							}
 						}
 					}
-					O = k, k = h[O], ie += O - k & 32767;
+					ne = re, re = h[ne], oe += ne - re & 32767;
 				}
-				if (M) {
-					b[T++] = 268435456 | Qe[ne] << 18 | tt[M];
-					var R = Qe[ne] & 31, ce = tt[M] & 31;
-					C += Ke[R] + qe[ce], ++x[257 + R], ++ee[ce], E = w + ne, ++S;
+				if (A) {
+					b[T++] = 268435456 | Ze[ie] << 18 | et[A];
+					var R = Ze[ie] & 31, ce = et[A] & 31;
+					C += Ge[R] + Ke[ce], ++x[257 + R], ++ee[ce], E = w + ie, ++S;
 				} else b[T++] = e[w], ++x[e[w]];
 			}
 		}
 		for (w = Math.max(w, E); w < o; ++w) b[T++] = e[w], ++x[e[w]];
-		u = Et(e, c, l, b, x, ee, C, T, D, w - D, u), l || (a.r = u & 7 | c[u / 8 | 0] << 3, u -= 7, a.h = g, a.p = h, a.i = w, a.w = E);
+		u = Tt(e, c, l, b, x, ee, C, T, D, w - D, u), l || (a.r = u & 7 | c[u / 8 | 0] << 3, u -= 7, a.h = g, a.p = h, a.i = w, a.w = E);
 	} else {
 		for (var w = a.w || 0; w < o + l; w += 65535) {
 			var le = w + 65535;
-			le >= o && (c[u / 8 | 0] = l, le = o), u = Tt(c, u + 1, e.subarray(w, le));
+			le >= o && (c[u / 8 | 0] = l, le = o), u = wt(c, u + 1, e.subarray(w, le));
 		}
 		a.i = o;
 	}
-	return ht(s, 0, r + mt(u) + i);
-}, At = function(e, t, n, r, i) {
+	return mt(s, 0, r + pt(u) + i);
+}, kt = function(e, t, n, r, i) {
 	if (!i && (i = { l: 1 }, t.dictionary)) {
 		var a = t.dictionary.subarray(-32768), o = new K(a.length + e.length);
 		o.set(a), o.set(e, a.length), e = o, i.w = a.length;
 	}
-	return kt(e, t.level == null ? 6 : t.level, t.mem == null ? i.l ? Math.ceil(Math.max(8, Math.min(13, Math.log(e.length))) * 1.5) : 20 : 12 + t.mem, n, r, i);
+	return Ot(e, t.level == null ? 6 : t.level, t.mem == null ? i.l ? Math.ceil(Math.max(8, Math.min(13, Math.log(e.length))) * 1.5) : 20 : 12 + t.mem, n, r, i);
 };
-function jt(e, t) {
-	return At(e, t || {}, 0, 0);
+function At(e, t) {
+	return kt(e, t || {}, 0, 0);
 }
-var Mt = /* @__PURE__ */ function() {
+var jt = /* @__PURE__ */ function() {
 	function e(e, t) {
 		typeof e == "function" && (t = e, e = {}), this.ondata = t;
 		var n = e && e.dictionary && e.dictionary.subarray(-32768);
@@ -2202,31 +2196,31 @@ var Mt = /* @__PURE__ */ function() {
 		}, this.o = new K(32768), this.p = new K(0), n && this.o.set(n);
 	}
 	return e.prototype.e = function(e) {
-		if (this.ondata || _t(5), this.d && _t(4), !this.p.length) this.p = e;
+		if (this.ondata || gt(5), this.d && gt(4), !this.p.length) this.p = e;
 		else if (e.length) {
 			var t = new K(this.p.length + e.length);
 			t.set(this.p), t.set(e, this.p.length), this.p = t;
 		}
 	}, e.prototype.c = function(e) {
 		this.s.i = +(this.d = e || !1);
-		var t = this.s.b, n = vt(this.p, this.s, this.o);
-		this.ondata(ht(n, t, this.s.b), this.d), this.o = ht(n, this.s.b - 32768), this.s.b = this.o.length, this.p = ht(this.p, this.s.p / 8 | 0), this.s.p &= 7;
+		var t = this.s.b, n = _t(this.p, this.s, this.o);
+		this.ondata(mt(n, t, this.s.b), this.d), this.o = mt(n, this.s.b - 32768), this.s.b = this.o.length, this.p = mt(this.p, this.s.p / 8 | 0), this.s.p &= 7;
 	}, e.prototype.push = function(e, t) {
 		this.e(e), this.c(t);
 	}, e;
-}(), Nt = typeof TextDecoder < "u" && /*#__PURE__*/ new TextDecoder();
+}(), Mt = typeof TextDecoder < "u" && /*#__PURE__*/ new TextDecoder();
 try {
-	Nt.decode(Ot, { stream: !0 });
+	Mt.decode(Dt, { stream: !0 });
 } catch {}
-var Pt = 33554432;
-function Ft(e) {
+var Nt = 33554432;
+function Pt(e) {
 	let t = 2166136261;
 	for (let n of e) t = Math.imul(t ^ n, 16777619);
 	return t >>> 0;
 }
-function It(e) {
+function Ft(e) {
 	if (e.length > 33554432) throw Error("Replay exceeds 32 MB");
-	let t = jt(e, { level: 6 }), n = new Uint8Array(16 + t.length), r = new DataView(n.buffer);
+	let t = At(e, { level: 6 }), n = new Uint8Array(16 + t.length), r = new DataView(n.buffer);
 	return n.set([
 		66,
 		50,
@@ -2236,49 +2230,49 @@ function It(e) {
 		0,
 		0,
 		0
-	]), r.setUint32(8, e.length, !0), r.setUint32(12, Ft(e), !0), n.set(t, 16), n;
+	]), r.setUint32(8, e.length, !0), r.setUint32(12, Pt(e), !0), n.set(t, 16), n;
 }
-function Lt(e) {
+function It(e) {
 	let t = e instanceof Uint8Array ? e : new Uint8Array(e);
 	if (t.length > 33554432) throw Error("Replay exceeds 32 MB");
 	if (t.length < 17 || t[0] !== 66 || t[1] !== 50 || t[2] !== 68 || t[3] !== 90 || t[4] !== 1 || t[5] || t[6] || t[7]) throw Error("Invalid compressed replay header");
 	let n = new DataView(t.buffer, t.byteOffset, t.byteLength), r = n.getUint32(8, !0);
 	if (!r || r > 33554432) throw Error("Invalid expanded replay size");
-	let i = new Uint8Array(r), a = 0, o = !1, s = new Mt((e, t) => {
+	let i = new Uint8Array(r), a = 0, o = !1, s = new jt((e, t) => {
 		if (a + e.length > r) throw Error("Expanded replay exceeds declared size");
 		i.set(e, a), a += e.length, o = t;
 	});
 	for (let e = 16; e < t.length; e += 1024) s.push(t.subarray(e, e + 1024), e + 1024 >= t.length);
-	if (!o || a !== r || Ft(i) !== n.getUint32(12, !0)) throw Error("Compressed replay integrity failure");
+	if (!o || a !== r || Pt(i) !== n.getUint32(12, !0)) throw Error("Compressed replay integrity failure");
 	return i;
 }
-var Rt = "/api/v1", zt = {
-	rooms: `${Rt}/rooms`,
-	sdkRooms: `${Rt}/sdk/rooms`,
-	account: `${Rt}/account`,
-	accountConfig: `${Rt}/account/config`,
-	profile: `${Rt}/account/profile`,
-	profileVisibility: `${Rt}/account/profile/visibility`,
-	publicProfile: (e, t) => `${Rt}/community/${e}/${encodeURIComponent(t)}`,
-	notifications: `${Rt}/account/notifications`,
-	keys: `${Rt}/account/keys`,
-	signal: (e) => `${Rt}/rooms/${encodeURIComponent(e)}/signal`,
-	liveness: (e) => `${Rt}/rooms/${encodeURIComponent(e)}/liveness`,
-	lease: (e) => `${Rt}/sdk/rooms/${encodeURIComponent(e)}/lease`
+var Lt = "/api/v1", Rt = {
+	rooms: `${Lt}/rooms`,
+	sdkRooms: `${Lt}/sdk/rooms`,
+	account: `${Lt}/account`,
+	accountConfig: `${Lt}/account/config`,
+	profile: `${Lt}/account/profile`,
+	profileVisibility: `${Lt}/account/profile/visibility`,
+	publicProfile: (e, t) => `${Lt}/community/${e}/${encodeURIComponent(t)}`,
+	notifications: `${Lt}/account/notifications`,
+	keys: `${Lt}/account/keys`,
+	signal: (e) => `${Lt}/rooms/${encodeURIComponent(e)}/signal`,
+	liveness: (e) => `${Lt}/rooms/${encodeURIComponent(e)}/liveness`,
+	lease: (e) => `${Lt}/sdk/rooms/${encodeURIComponent(e)}/lease`
 };
-function Bt(e) {
+function zt(e) {
 	let t = new URL(e);
 	if (!["http:", "https:"].includes(t.protocol) || t.username || t.password || t.pathname !== "/" || t.search || t.hash) throw Error("Expected an HTTP(S) service origin without credentials or a path");
 	return t.origin;
 }
-function Vt(e) {
+function Bt(e) {
 	let t = new URL(e.assets);
 	if (![
 		"http:",
 		"https:",
 		"ball2d:"
 	].includes(t.protocol) || !t.host || t.username || t.password || t.pathname !== "/" || t.search || t.hash) throw Error("Expected a root asset origin");
-	let n = Bt(e.service), r = Bt(e.public);
+	let n = zt(e.service), r = zt(e.public);
 	function i(e, t) {
 		if (!e.startsWith("/") || e.startsWith("//") || e.includes("\\") || [...e].some((e) => e.charCodeAt(0) <= 32 || e.charCodeAt(0) === 127)) throw Error("Expected an absolute application path");
 		let n = decodeURIComponent(e.split(/[?#]/, 1)[0]);
@@ -2294,20 +2288,20 @@ function Vt(e) {
 		public: (e) => i(e, r),
 		api: (e) => {
 			let t = i(e, n);
-			if (!t.pathname.startsWith(`${Rt}/`) || t.hash) throw Error("Expected a versioned application API path");
+			if (!t.pathname.startsWith(`${Lt}/`) || t.hash) throw Error("Expected a versioned application API path");
 			return t;
 		}
 	};
 }
-function Ht() {
+function Vt() {
 	let e = location.origin;
-	return Vt({
+	return Bt({
 		assets: e,
 		service: e,
 		public: e
 	});
 }
-function Ut(e, t) {
+function Ht(e, t) {
 	let n = {
 		get label() {
 			return e.label;
@@ -2339,7 +2333,7 @@ function Ut(e, t) {
 	};
 	return t.prepare?.(e), e.onopen = () => n.onopen?.(), e.onclose = () => n.onclose?.(), e.onmessage = ({ data: e }) => n.onmessage?.({ data: t.decode(e) }), n;
 }
-function Wt(e, t, n) {
+function Ut(e, t, n) {
 	let r = {
 		get connectionState() {
 			return e.connectionState;
@@ -2360,7 +2354,7 @@ function Wt(e, t, n) {
 		ondatachannel: null,
 		onconnectionstatechange: null,
 		oniceconnectionstatechange: null,
-		createDataChannel: (n, r) => Ut(e.createDataChannel(n, r), t),
+		createDataChannel: (n, r) => Ht(e.createDataChannel(n, r), t),
 		createOffer: (t) => e.createOffer(t),
 		createAnswer: () => e.createAnswer(),
 		setLocalDescription: (t) => e.setLocalDescription(t),
@@ -2373,42 +2367,42 @@ function Wt(e, t, n) {
 		getStats: () => e.getStats(),
 		close: n
 	};
-	return e.onicecandidate = ({ candidate: e }) => r.onicecandidate?.({ candidate: e ?? null }), e.ondatachannel = ({ channel: e }) => r.ondatachannel?.({ channel: Ut(e, t) }), e.onconnectionstatechange = () => r.onconnectionstatechange?.(), e.oniceconnectionstatechange = () => r.oniceconnectionstatechange?.(), r;
+	return e.onicecandidate = ({ candidate: e }) => r.onicecandidate?.({ candidate: e ?? null }), e.ondatachannel = ({ channel: e }) => r.ondatachannel?.({ channel: Ht(e, t) }), e.onconnectionstatechange = () => r.onconnectionstatechange?.(), e.oniceconnectionstatechange = () => r.oniceconnectionstatechange?.(), r;
 }
-var Gt = null, Kt = null;
-function qt(e) {
+var Wt = null, Gt = null;
+function Kt(e) {
 	if (Object.keys(e).length !== 2 || e.bundlePolicy !== "max-bundle") return !1;
 	let t = e.iceServers;
 	if (t?.length !== 1) return !1;
 	let n = t[0];
 	return Object.keys(n).length === 1 && n.urls === "stun:stun.l.google.com:19302";
 }
+function qt() {
+	Gt?.removeEventListener("pagehide", Jt), Gt = null;
+}
 function Jt() {
-	Kt?.removeEventListener("pagehide", Yt), Kt = null;
+	let e = Wt;
+	Wt = null, qt(), e?.close();
 }
-function Yt() {
-	let e = Gt;
-	Gt = null, Jt(), e?.close();
-}
-var Xt = {
+var Yt = {
 	prepare(e) {
 		e.binaryType = "arraybuffer";
 	},
 	encode: (e) => e,
 	decode: (e) => e
 };
-function Zt(e) {
+function Xt(e) {
 	let t;
-	return Gt && qt(e) ? (t = Gt, Gt = null, Jt(), t.signalingState === "closed" && (t = new RTCPeerConnection(e))) : t = new RTCPeerConnection(e), Wt(t, Xt, () => t.close());
+	return Wt && Kt(e) ? (t = Wt, Wt = null, qt(), t.signalingState === "closed" && (t = new RTCPeerConnection(e))) : t = new RTCPeerConnection(e), Ut(t, Yt, () => t.close());
 }
-function Qt(e = Ht()) {
+function Zt(e = Vt()) {
 	return {
 		serviceOrigin: e.serviceOrigin,
 		createWebSocket: (e, t) => new WebSocket(e, t),
-		createPeerConnection: Zt
+		createPeerConnection: Xt
 	};
 }
-var $t = [
+var Qt = [
 	["classic", "Classic"],
 	["easy", "Easy"],
 	["small", "Small"],
@@ -2424,10 +2418,10 @@ var $t = [
 	["street_five", "Street Five"],
 	["asphalt_arena", "Asphalt Arena"]
 ];
-function en(e) {
+function $t(e) {
 	let t = /* @__PURE__ */ new Map();
 	return async (n) => {
-		let r = $t.find(([e, t]) => e === n || t === n);
+		let r = Qt.find(([e, t]) => e === n || t === n);
 		if (!r) throw Error("Unknown default stadium");
 		let i = t.get(r[0]);
 		return i || (i = (async () => {
@@ -2438,8 +2432,8 @@ function en(e) {
 		})(), t.set(r[0], i), i.catch(() => t.delete(r[0]))), i;
 	};
 }
-function tn(e = Ht()) {
-	let t = Qt(e), n = (e, t) => fetch(e, t);
+function en(e = Vt()) {
+	let t = Zt(e), n = (e, t) => fetch(e, t);
 	return {
 		network: t,
 		publicOrigin: e.publicOrigin,
@@ -2447,16 +2441,16 @@ function tn(e = Ht()) {
 		loadEngine: async (t) => {
 			let r = await n(e.asset(`/core.wasm?v=${l}`), { signal: t });
 			if (!r.ok) throw Error("Could not load bundled physics engine");
-			return He.create(await r.arrayBuffer(), t);
+			return Ve.create(await r.arrayBuffer(), t);
 		},
-		loadStadium: en((t) => n(e.asset(t)))
+		loadStadium: $t((t) => n(e.asset(t)))
 	};
 }
-function nn(e, t) {
+function tn(e, t) {
 	let n = e.engine.stadium.discs.length;
 	return t < n ? t : e.engine.index(e.players.fielded()[t - n].slot);
 }
-function rn(e, t) {
+function nn(e, t) {
 	let n = e.engine.data, r = t * 18;
 	return {
 		x: n[r],
@@ -2474,71 +2468,71 @@ function rn(e, t) {
 		color: e.engine.colors[t]
 	};
 }
-function an(e, t, n) {
-	let r = m(n), i = rn(e, t);
+function rn(e, t, n) {
+	let r = m(n), i = nn(e, t);
 	Object.entries(r).every(([e, t]) => i[e] === t) || (e.match.command("disc", t, 0, r), e.broadcastState());
 }
-function on(e) {
+function an(e) {
 	return e.closed || e.engine.phase === "lobby" ? 0 : e.engine.stadium.discs.length + e.players.fielded().length;
 }
-var sn = (e, t) => Number.isInteger(t) && t >= 0 && t < on(e);
-function cn(e, t) {
-	return sn(e, t) ? rn(e, nn(e, t)) : null;
+var on = (e, t) => Number.isInteger(t) && t >= 0 && t < an(e);
+function sn(e, t) {
+	return on(e, t) ? nn(e, tn(e, t)) : null;
 }
-function ln(e, t, n) {
-	e.assertOpen(), sn(e, t) && an(e, nn(e, t), n);
+function cn(e, t, n) {
+	e.assertOpen(), on(e, t) && rn(e, tn(e, t), n);
 }
-var un = (e, t) => {
+var ln = (e, t) => {
 	let n = e.players.byId(t);
 	return n && n.team !== 0 ? n : void 0;
 };
-function dn(e, t) {
+function un(e, t) {
 	if (e.closed || e.engine.phase === "lobby") return null;
-	let n = un(e, t);
-	return n ? rn(e, e.engine.index(n.slot)) : null;
+	let n = ln(e, t);
+	return n ? nn(e, e.engine.index(n.slot)) : null;
 }
-function fn(e, t, n) {
+function dn(e, t, n) {
 	if (e.assertOpen(), e.engine.phase === "lobby") return;
-	let r = un(e, t);
-	r && an(e, e.engine.index(r.slot), n);
+	let r = ln(e, t);
+	r && rn(e, e.engine.index(r.slot), n);
 }
-function pn(e) {
+function fn(e) {
 	return e.closed || e.engine.phase === "lobby" ? null : {
 		x: e.engine.data[0],
 		y: e.engine.data[1]
 	};
 }
-function mn(e, t) {
+function pn(e, t) {
 	e.assertOpen();
 	let n = e.engine.phase;
 	(n === "lobby" || n === "finished") && (e.command("start"), e.stadiumSelection++, e.broadcastState(), n !== e.engine.phase && e.engine.phase === "playing" && e.invoke("onGameStart", e.hooks.onGameStart, e.publicOrNull(t)));
 }
-function hn(e, t) {
+function mn(e, t) {
 	e.assertOpen();
 	let n = e.engine.phase !== "lobby";
 	(n || e.engine.paused) && (e.command("stop"), e.broadcastState(), n && e.invoke("onGameStop", e.hooks.onGameStop, e.publicOrNull(t)));
 }
-function gn(e, t, n) {
+function hn(e, t, n) {
 	e.assertOpen(), e.engine.phase !== "lobby" && (t = !!t, e.engine.paused !== t && (e.command("pause", 0, +t), e.broadcastState(), t ? e.invoke("onGamePause", e.hooks.onGamePause, n) : e.invoke("onGameUnpause", e.hooks.onGameUnpause, n), e.invoke("onGamePauseChange", e.hooks.onGamePauseChange, t)));
 }
-function _n(e, t, n, r, i) {
+function gn(e, t, n, r, i) {
 	e.assertOpen();
 	let a = g(t, n, r);
 	a !== e.engine.kickRate && (e.command("kickRate", 0, a), e.broadcastState(), e.invoke("onKickRateLimitSet", e.hooks.onKickRateLimitSet, ..._(a), i));
 }
-function vn(e, t) {
+function _n(e, t) {
 	if (e.assertOpen(), e.stopped()) {
 		if (!Number.isInteger(t) || t < 0 || t > 99) throw Error("Invalid limit");
 		t !== e.engine.scoreLimit && (e.command("scoreLimit", 0, t), e.syncLobby());
 	}
 }
-function yn(e, t) {
+function vn(e, t) {
 	if (e.assertOpen(), e.stopped()) {
 		if (!Number.isInteger(t) || t < 0 || t > 99) throw Error("Invalid time limit");
 		t * 60 !== e.engine.timeLimit && (e.command("timeLimit", 0, t * 60), e.syncLobby());
 	}
 }
-function bn(e) {
+function yn(e) {
 	let t = e.engine;
 	return e.closed || t.phase === "lobby" ? null : {
 		red: t.red,
@@ -2548,7 +2542,7 @@ function bn(e) {
 		timeLimit: t.timeLimit
 	};
 }
-var xn = [
+var bn = [
 	"normal",
 	"bold",
 	"italic",
@@ -2556,10 +2550,10 @@ var xn = [
 	"small-bold",
 	"small-italic"
 ];
-function Sn(e, t, n, r) {
+function xn(e, t, n, r) {
 	if (typeof e != "string" || e.length > 1e3) throw Error("Announcement exceeds 1000 characters");
 	if (t != null && (!Number.isInteger(t) || t < 0 || t > 16777215)) throw Error("Invalid announcement color");
-	if (n != null && !xn.includes(n)) throw Error("Invalid announcement style");
+	if (n != null && !bn.includes(n)) throw Error("Invalid announcement style");
 	if (r != null && ![
 		0,
 		1,
@@ -2573,10 +2567,10 @@ function Sn(e, t, n, r) {
 		sound: r ?? 1
 	};
 }
-function Cn(e) {
+function Sn(e) {
 	return e == null || Number.isSafeInteger(e) && e >= 0;
 }
-function wn(e, t, n) {
+function Cn(e, t, n) {
 	if (n == null) {
 		e.network.broadcast(t);
 		return;
@@ -2584,25 +2578,25 @@ function wn(e, t, n) {
 	let r = e.players.byId(n), i = r && e.network.peers.get(r.peerId);
 	i && e.network.control(i, t);
 }
-function Tn(e, t, n) {
+function wn(e, t, n) {
 	if (e.assertOpen(), typeof t != "string" || t.length > 200) throw Error("Chat must contain at most 200 characters");
-	if (!Cn(n)) throw Error("Invalid chat target");
+	if (!Sn(n)) throw Error("Invalid chat target");
 	let r = e.players.byPeer(e.network.hostId);
 	if (!r) throw Error("sendChat requires a host player; use sendAnnouncement");
-	t.trim() && wn(e, {
+	t.trim() && Cn(e, {
 		type: "chat",
 		name: r.name,
 		text: t,
 		...n == null ? { playerId: r.peerId } : {}
 	}, n);
 }
-function En(e, t, n, r, i, a) {
+function Tn(e, t, n, r, i, a) {
 	e.assertOpen();
-	let o = Sn(t, r, i, a);
-	if (!Cn(n)) throw Error("Invalid announcement target");
-	wn(e, o, n);
+	let o = xn(t, r, i, a);
+	if (!Sn(n)) throw Error("Invalid announcement target");
+	Cn(e, o, n);
 }
-var Dn = 524288, On = 16384, kn = 12, An = 45635, jn = 1, Mn = 32, Nn = 1e4, Pn = {
+var En = 524288, Dn = 16384, On = 12, kn = 45635, An = 1, jn = 32, Mn = 1e4, Nn = {
 	MAGIC: 0,
 	VERSION: 2,
 	RESERVED: 3,
@@ -2610,31 +2604,31 @@ var Dn = 524288, On = 16384, kn = 12, An = 45635, jn = 1, Mn = 32, Nn = 1e4, Pn 
 	INDEX: 8,
 	COUNT: 10
 };
-function Fn(e, t) {
+function Pn(e, t) {
 	let n = JSON.stringify(e);
 	if (n === void 0) throw Error("Missing control message");
 	let r = new TextEncoder().encode(n);
-	if (r.length > Dn) throw Error("Control message exceeds 512 KB");
-	if (r.length <= On) return [n];
-	let i = Math.ceil(r.length / On), a = [];
+	if (r.length > En) throw Error("Control message exceeds 512 KB");
+	if (r.length <= Dn) return [n];
+	let i = Math.ceil(r.length / Dn), a = [];
 	for (let e = 0; e < i; e++) {
-		let n = r.subarray(e * On, (e + 1) * On), o = new ArrayBuffer(kn + n.length), s = new DataView(o);
-		s.setUint16(Pn.MAGIC, An), s.setUint8(Pn.VERSION, jn), s.setUint32(Pn.ID, t, !0), s.setUint16(Pn.INDEX, e, !0), s.setUint16(Pn.COUNT, i, !0), new Uint8Array(o, kn).set(n), a.push(o);
+		let n = r.subarray(e * Dn, (e + 1) * Dn), o = new ArrayBuffer(On + n.length), s = new DataView(o);
+		s.setUint16(Nn.MAGIC, kn), s.setUint8(Nn.VERSION, An), s.setUint32(Nn.ID, t, !0), s.setUint16(Nn.INDEX, e, !0), s.setUint16(Nn.COUNT, i, !0), new Uint8Array(o, On).set(n), a.push(o);
 	}
 	return a;
 }
-var In = class {
+var Fn = class {
 	partial;
 	push(e, t = performance.now()) {
 		if (typeof e == "string") {
-			if (this.partial || new TextEncoder().encode(e).length > On) throw Error("Invalid control message");
+			if (this.partial || new TextEncoder().encode(e).length > Dn) throw Error("Invalid control message");
 			return JSON.parse(e);
 		}
 		if (e.byteLength < 13 || e.byteLength > 16396) throw Error("Control fragment length");
 		let n = new DataView(e);
-		if (n.getUint16(Pn.MAGIC) !== An || n.getUint8(Pn.VERSION) !== jn || n.getUint8(Pn.RESERVED) !== 0) throw Error("Control fragment version");
-		let r = n.getUint32(Pn.ID, !0), i = n.getUint16(Pn.INDEX, !0), a = n.getUint16(Pn.COUNT, !0);
-		if (a < 2 || a > Mn || i >= a) throw Error("Control fragment bounds");
+		if (n.getUint16(Nn.MAGIC) !== kn || n.getUint8(Nn.VERSION) !== An || n.getUint8(Nn.RESERVED) !== 0) throw Error("Control fragment version");
+		let r = n.getUint32(Nn.ID, !0), i = n.getUint16(Nn.INDEX, !0), a = n.getUint16(Nn.COUNT, !0);
+		if (a < 2 || a > jn || i >= a) throw Error("Control fragment bounds");
 		if (!this.partial) {
 			if (i !== 0) throw Error("Missing first fragment");
 			this.partial = {
@@ -2647,24 +2641,24 @@ var In = class {
 			};
 		}
 		let o = this.partial;
-		if (o.id !== r || o.count !== a || o.next !== i || t - o.since > Nn) throw Error("Control fragment sequence");
-		if (o.next++, o.bytes += e.byteLength - kn, o.bytes > Dn) throw Error("Control size limit");
-		if (o.parts.push(new Uint8Array(e.slice(kn))), o.next !== a) return;
+		if (o.id !== r || o.count !== a || o.next !== i || t - o.since > Mn) throw Error("Control fragment sequence");
+		if (o.next++, o.bytes += e.byteLength - On, o.bytes > En) throw Error("Control size limit");
+		if (o.parts.push(new Uint8Array(e.slice(On))), o.next !== a) return;
 		let s = new Uint8Array(o.bytes), c = 0;
 		for (let e of o.parts) s.set(e, c), c += e.length;
 		return this.partial = void 0, JSON.parse(new TextDecoder("utf-8", { fatal: !0 }).decode(s));
 	}
-}, Ln = {
+}, In = {
 	INPUT: 1,
 	STATE: 2
-}, Rn = {
+}, Ln = {
 	KIND: 0,
 	PROTOCOL: 1,
 	SEQUENCE: 2,
 	KEYS: 6,
 	RESERVED: 7,
 	EPOCH: 8
-}, zn = {
+}, Rn = {
 	KIND: 0,
 	PROTOCOL: 1,
 	TICK: 2,
@@ -2672,7 +2666,7 @@ var In = class {
 	COUNT: 7,
 	EPOCH: 8,
 	SIZE: 10
-}, Bn = 1188, J = {
+}, zn = 1188, J = {
 	TICK: 0,
 	ELAPSED: 4,
 	RED: 8,
@@ -2691,33 +2685,33 @@ var In = class {
 	KICK_RATE: 32,
 	LAST_TOUCH: 36,
 	GOAL_TOUCH: 38
-}, Vn = [
+}, Bn = [
 	"lobby",
 	"playing",
 	"goal",
 	"finished"
-], Hn = {
+], Vn = {
 	INDEX: 0,
 	TEAM: 2,
 	PACKED_INPUT: 3,
 	MOTION: 4,
 	KICK_STATE: 36,
 	KICK_BUDGET: 38
-}, Un = 31;
-function Wn(e) {
+}, Hn = 31;
+function Un(e) {
 	if (e.byteLength !== 10) throw Error("Input length");
 	let t = new DataView(e);
-	if (t.getUint8(Rn.KIND) !== Ln.INPUT || t.getUint8(Rn.PROTOCOL) !== 2 || t.getUint8(Rn.KEYS) > Un || t.getUint8(Rn.RESERVED)) throw Error("Input format");
+	if (t.getUint8(Ln.KIND) !== In.INPUT || t.getUint8(Ln.PROTOCOL) !== 2 || t.getUint8(Ln.KEYS) > Hn || t.getUint8(Ln.RESERVED)) throw Error("Input format");
 	return {
-		seq: t.getUint32(Rn.SEQUENCE, !0),
-		keys: t.getUint8(Rn.KEYS),
-		epoch: t.getUint16(Rn.EPOCH, !0)
+		seq: t.getUint32(Ln.SEQUENCE, !0),
+		keys: t.getUint8(Ln.KEYS),
+		epoch: t.getUint16(Ln.EPOCH, !0)
 	};
 }
-function Gn(e, t) {
+function Wn(e, t) {
 	return e !== t && e - t >>> 0 < 2147483648;
 }
-function Kn(e) {
+function Gn(e) {
 	let t = [];
 	for (let n = 0; n < e.length / 18; n++) {
 		let r = n * 18, i = e[r + u.INVERSE_MASS] > 0 || e[r + u.SPEED_X] !== 0 || e[r + u.SPEED_Y] !== 0 || e[r + u.GRAVITY_X] !== 0 || e[r + u.GRAVITY_Y] !== 0 || e[r + u.X] !== e[r + u.SPAWN_X] || e[r + u.Y] !== e[r + u.SPAWN_Y];
@@ -2725,97 +2719,97 @@ function Kn(e) {
 	}
 	return t;
 }
+function Kn(e, t, n, r) {
+	e.setUint32(J.TICK, t.tick, !0), e.setUint32(J.ELAPSED, t.elapsed, !0), e.setUint16(J.RED, t.red, !0), e.setUint16(J.BLUE, t.blue, !0), e.setUint8(J.PHASE, Bn.indexOf(t.phase)), e.setUint8(J.PAUSED, +t.paused), e.setUint8(J.KICKOFF, t.kickoff), e.setUint8(J.KICKOFF_ACTIVE, +t.kickoffActive), e.setUint16(J.COUNTDOWN, t.countdown, !0), e.setUint16(J.SCORE_LIMIT, t.scoreLimit, !0), e.setUint16(J.TIME_LIMIT, t.timeLimit, !0), e.setUint16(J.DISC_COUNT, t.discs.length / 18, !0), e.setUint32(J.ACKNOWLEDGED, n, !0), e.setUint16(J.BODY_COUNT, r, !0), e.setUint16(J.RESUME_TICKS, t.resumeTicks, !0), e.setUint32(J.KICK_RATE, t.kickRate, !0), e.setUint8(J.LAST_TOUCH, t.lastTouch?.slot ?? 255), e.setUint8(J.LAST_TOUCH + 1, t.lastTouch?.team ?? 0), e.setUint8(J.GOAL_TOUCH, t.goalTouch?.slot ?? 255), e.setUint8(J.GOAL_TOUCH + 1, t.goalTouch?.team ?? 0);
+}
 function qn(e, t, n, r) {
-	e.setUint32(J.TICK, t.tick, !0), e.setUint32(J.ELAPSED, t.elapsed, !0), e.setUint16(J.RED, t.red, !0), e.setUint16(J.BLUE, t.blue, !0), e.setUint8(J.PHASE, Vn.indexOf(t.phase)), e.setUint8(J.PAUSED, +t.paused), e.setUint8(J.KICKOFF, t.kickoff), e.setUint8(J.KICKOFF_ACTIVE, +t.kickoffActive), e.setUint16(J.COUNTDOWN, t.countdown, !0), e.setUint16(J.SCORE_LIMIT, t.scoreLimit, !0), e.setUint16(J.TIME_LIMIT, t.timeLimit, !0), e.setUint16(J.DISC_COUNT, t.discs.length / 18, !0), e.setUint32(J.ACKNOWLEDGED, n, !0), e.setUint16(J.BODY_COUNT, r, !0), e.setUint16(J.RESUME_TICKS, t.resumeTicks, !0), e.setUint32(J.KICK_RATE, t.kickRate, !0), e.setUint8(J.LAST_TOUCH, t.lastTouch?.slot ?? 255), e.setUint8(J.LAST_TOUCH + 1, t.lastTouch?.team ?? 0), e.setUint8(J.GOAL_TOUCH, t.goalTouch?.slot ?? 255), e.setUint8(J.GOAL_TOUCH + 1, t.goalTouch?.team ?? 0);
-}
-function Jn(e, t, n, r) {
 	let i = r * 18, a = n[i + u.PLAYER_SLOT] > 0;
-	e.setUint16(t + Hn.INDEX, r, !0), e.setUint8(t + Hn.TEAM, n[i + u.TEAM]), e.setUint8(t + Hn.PACKED_INPUT, n[i + u.INPUT] | (a ? (n[i + u.COLLISION_MASK] & 24) << 2 : 0));
-	for (let r = 0; r < 4; r++) e.setFloat64(t + Hn.MOTION + r * 8, n[i + r], !0);
-	e.setUint16(t + Hn.KICK_STATE, n[i + u.KICK_STATE], !0), a && e.setUint16(t + Hn.KICK_BUDGET, n[i + u.KICK_BUDGET] + 255, !0);
+	e.setUint16(t + Vn.INDEX, r, !0), e.setUint8(t + Vn.TEAM, n[i + u.TEAM]), e.setUint8(t + Vn.PACKED_INPUT, n[i + u.INPUT] | (a ? (n[i + u.COLLISION_MASK] & 24) << 2 : 0));
+	for (let r = 0; r < 4; r++) e.setFloat64(t + Vn.MOTION + r * 8, n[i + r], !0);
+	e.setUint16(t + Vn.KICK_STATE, n[i + u.KICK_STATE], !0), a && e.setUint16(t + Vn.KICK_BUDGET, n[i + u.KICK_BUDGET] + 255, !0);
 }
-function Yn(e, t, n = 0) {
-	let r = Kn(e.discs), i = /* @__PURE__ */ new ArrayBuffer(40 + r.length * 40), a = new DataView(i);
-	qn(a, e, t, r.length);
-	for (let [t, n] of r.entries()) Jn(a, 40 + t * 40, e.discs, n);
-	let o = new Uint8Array(i), s = [], c = Math.ceil(o.length / Bn);
+function Jn(e, t, n = 0) {
+	let r = Gn(e.discs), i = /* @__PURE__ */ new ArrayBuffer(40 + r.length * 40), a = new DataView(i);
+	Kn(a, e, t, r.length);
+	for (let [t, n] of r.entries()) qn(a, 40 + t * 40, e.discs, n);
+	let o = new Uint8Array(i), s = [], c = Math.ceil(o.length / zn);
 	for (let t = 0; t < c; t++) {
-		let r = o.subarray(t * Bn, (t + 1) * Bn), i = new ArrayBuffer(12 + r.length), a = new DataView(i);
-		a.setUint8(zn.KIND, Ln.STATE), a.setUint8(zn.PROTOCOL, 2), a.setUint32(zn.TICK, e.tick, !0), a.setUint8(zn.INDEX, t), a.setUint8(zn.COUNT, c), a.setUint16(zn.EPOCH, n, !0), a.setUint16(zn.SIZE, r.length, !0), new Uint8Array(i, 12).set(r), s.push(i);
+		let r = o.subarray(t * zn, (t + 1) * zn), i = new ArrayBuffer(12 + r.length), a = new DataView(i);
+		a.setUint8(Rn.KIND, In.STATE), a.setUint8(Rn.PROTOCOL, 2), a.setUint32(Rn.TICK, e.tick, !0), a.setUint8(Rn.INDEX, t), a.setUint8(Rn.COUNT, c), a.setUint16(Rn.EPOCH, n, !0), a.setUint16(Rn.SIZE, r.length, !0), new Uint8Array(i, 12).set(r), s.push(i);
 	}
 	return s;
 }
-function Xn(e, t, n = 0) {
+function Yn(e, t, n = 0) {
 	if (!t.length) return [];
-	let r = Yn(e, t[0], n), i = [r];
+	let r = Jn(e, t[0], n), i = [r];
 	for (let e = 1; e < t.length; e++) {
 		let n = r.map((e) => e.slice(0));
 		new DataView(n[0]).setUint32(12 + J.ACKNOWLEDGED, t[e], !0), i.push(n);
 	}
 	return i;
 }
-function Zn(e) {
+function Xn(e) {
 	let t = [...e], n = new Set(t.filter((e) => e.type === "transport" && e.selectedCandidatePairId).map((e) => e.selectedCandidatePairId)), r = t.filter((e) => e.type === "candidate-pair" && e.state === "succeeded"), i = n.size ? r.filter((e) => n.has(e.id)) : r.filter((e) => e.nominated === !0);
 	if (i.length !== 1) return null;
 	let a = i[0].currentRoundTripTime;
 	return typeof a == "number" && Number.isFinite(a) && a >= 0 ? a * 1e3 : null;
 }
-var Qn = (e) => e?.match(/(?:^|\r?\n)a=ice-ufrag:([^\s]+)/)?.[1], $n = (e) => e.usernameFragment ?? e.candidate?.match(/(?:^| )ufrag ([^ ]+)/)?.[1];
-function er(e) {
+var Zn = (e) => e?.match(/(?:^|\r?\n)a=ice-ufrag:([^\s]+)/)?.[1], Qn = (e) => e.usernameFragment ?? e.candidate?.match(/(?:^| )ufrag ([^ ]+)/)?.[1];
+function $n(e) {
 	let t = e.pc.localDescription;
 	if (!t?.sdp) throw Error("Local peer description is unavailable");
 	return t.sdp;
 }
-function tr(e, t, n) {
+function er(e, t, n) {
 	if (n()) {
 		if (e.candidates.length >= 128) throw Error("Too many pending ICE candidates");
 		e.candidates.push(t);
 	}
 }
-async function nr(e, t) {
+async function tr(e, t) {
 	let n = e.candidates.splice(0);
 	for (let r of n) {
 		if (!t.current()) return;
-		if (!t.versioned || e.remoteIceUfrag && $n(r) === e.remoteIceUfrag) try {
+		if (!t.versioned || e.remoteIceUfrag && Qn(r) === e.remoteIceUfrag) try {
 			await e.pc.addIceCandidate(r);
 		} catch {}
 	}
 }
-async function rr(e, t, n) {
+async function nr(e, t, n) {
 	let r = await e.pc.createOffer(n);
-	return !t.current() || (e.localIceUfrag = Qn(r.sdp), await e.pc.setLocalDescription(r), !t.current()) ? !1 : (t.publish({
+	return !t.current() || (e.localIceUfrag = Zn(r.sdp), await e.pc.setLocalDescription(r), !t.current()) ? !1 : (t.publish({
 		type: "offer",
-		sdp: er(e)
+		sdp: $n(e)
 	}), !0);
 }
-async function ir(e, t, n) {
+async function rr(e, t, n) {
 	if (await e.pc.setRemoteDescription({
 		type: "offer",
 		sdp: t
-	}), !n.current() || (await nr(e, n), !n.current())) return;
+	}), !n.current() || (await tr(e, n), !n.current())) return;
 	let r = await e.pc.createAnswer();
-	n.current() && (e.localIceUfrag = Qn(r.sdp), await e.pc.setLocalDescription(r), n.current() && n.publish({
+	n.current() && (e.localIceUfrag = Zn(r.sdp), await e.pc.setLocalDescription(r), n.current() && n.publish({
 		type: "answer",
-		sdp: er(e)
+		sdp: $n(e)
 	}));
 }
-async function ar(e, t, n) {
+async function ir(e, t, n) {
 	return await e.pc.setRemoteDescription({
 		type: "answer",
 		sdp: t
-	}), n.current() ? (await nr(e, n), !0) : !1;
+	}), n.current() ? (await tr(e, n), !0) : !1;
 }
-async function or(e, t, n) {
-	if (!(n.versioned && (!$n(t) || e.remoteIceUfrag && $n(t) !== e.remoteIceUfrag))) {
-		if (!e.pc.remoteDescription) tr(e, t, n.current);
+async function ar(e, t, n) {
+	if (!(n.versioned && (!Qn(t) || e.remoteIceUfrag && Qn(t) !== e.remoteIceUfrag))) {
+		if (!e.pc.remoteDescription) er(e, t, n.current);
 		else try {
 			await e.pc.addIceCandidate(t);
 		} catch {
-			tr(e, t, n.current);
+			er(e, t, n.current);
 		}
 	}
 }
-var sr = class {
+var or = class {
 	admission;
 	assembler;
 	constructor(e) {
@@ -2828,13 +2822,13 @@ var sr = class {
 		if (typeof e != "string" && !(e instanceof ArrayBuffer)) throw Error("Invalid control type");
 		let t = typeof e != "string" || new TextEncoder().encode(e).length > 4096, n = this.admission.fromGuest();
 		if (n && t && !this.admission.canUploadStadium()) throw Error("Guest control size or permission");
-		this.assembler ??= new In();
+		this.assembler ??= new Fn();
 		let r = this.assembler.push(e);
 		if (r !== void 0 && n && t && (!r || typeof r != "object" || !("type" in r) || r.type !== "action" || !("action" in r) || r.action !== "customStadium")) throw Error("Invalid bulk action");
 		return r;
 	}
-}, cr = 1e4, lr = 1200, ur = (e) => e.connectionState === "connected" && ["connected", "completed"].includes(e.iceConnectionState), dr = (e) => ["failed", "disconnected"].includes(e.connectionState) || ["failed", "disconnected"].includes(e.iceConnectionState);
-function fr(e, t, n) {
+}, sr = 1e4, cr = 1200, lr = (e) => e.connectionState === "connected" && ["connected", "completed"].includes(e.iceConnectionState), ur = (e) => ["failed", "disconnected"].includes(e.connectionState) || ["failed", "disconnected"].includes(e.iceConnectionState);
+function dr(e, t, n) {
 	let r = {
 		id: t,
 		pc: e,
@@ -2850,28 +2844,28 @@ function fr(e, t, n) {
 			type: "candidate",
 			candidate: e.candidate.toJSON()
 		});
-	}, e.ondatachannel = (e) => hr(r, e.channel, n);
+	}, e.ondatachannel = (e) => mr(r, e.channel, n);
 	let i = () => {
-		n.current(r) && (e.connectionState === "closed" ? (n.hooks.status("A peer disconnected.", "info"), n.remove(t)) : ur(e) ? n.noteHealthy(r) : dr(e) && (r.lostAt ??= performance.now(), n.hooks.status("Direct connection interrupted. Attempting recovery…", "info")));
+		n.current(r) && (e.connectionState === "closed" ? (n.hooks.status("A peer disconnected.", "info"), n.remove(t)) : lr(e) ? n.noteHealthy(r) : ur(e) && (r.lostAt ??= performance.now(), n.hooks.status("Direct connection interrupted. Attempting recovery…", "info")));
 	};
 	return e.onconnectionstatechange = i, e.oniceconnectionstatechange = i, r;
 }
-function pr(e, t) {
+function fr(e, t) {
 	return t.maxPacketLifeTime === null ? t.label === "control" ? t.ordered === !0 && t.maxRetransmits === null && !e.control : t.ordered === !1 && t.maxRetransmits === 0 && !e.fast : !1;
 }
-function mr(e) {
+function pr(e) {
 	return typeof e == "string" ? e.length : e instanceof ArrayBuffer ? e.byteLength : 0;
 }
-function hr(e, t, n) {
+function mr(e, t, n) {
 	if (!n.current(e) || !["control", "realtime"].includes(t.label)) {
 		t.close();
 		return;
 	}
-	if (!pr(e, t)) {
+	if (!fr(e, t)) {
 		t.close(), n.remove(e.id);
 		return;
 	}
-	t.label === "control" ? (e.control = t, e.controlReader = new sr({
+	t.label === "control" ? (e.control = t, e.controlReader = new or({
 		fromGuest: () => n.isHost(),
 		canUploadStadium: () => n.hooks.allowStadiumUpload?.(e) ?? !1
 	})) : e.fast = t, t.onclose = () => {
@@ -2879,15 +2873,15 @@ function hr(e, t, n) {
 	}, t.onopen = () => {
 		n.current(e) && (e.control?.readyState !== "open" || e.fast?.readyState !== "open" || e.connected || (e.connected = !0, n.isHost() && (e.admissionTimer = setTimeout(() => {
 			n.current(e) && (n.hooks.status("A peer did not complete room admission.", "error"), n.remove(e.id));
-		}, cr)), n.hooks.open(e)));
+		}, sr)), n.hooks.open(e)));
 	}, t.onmessage = (r) => {
 		if (n.current(e)) {
-			n.countReceived(mr(r.data));
+			n.countReceived(pr(r.data));
 			try {
 				if (t.label === "control") {
 					let t = e.controlReader?.read(r.data);
 					t !== void 0 && n.hooks.control(e, t);
-				} else if (r.data instanceof ArrayBuffer && r.data.byteLength <= lr) n.hooks.fast(e, r.data);
+				} else if (r.data instanceof ArrayBuffer && r.data.byteLength <= cr) n.hooks.fast(e, r.data);
 				else throw Error("Invalid realtime packet");
 			} catch {
 				n.hooks.status("Invalid peer message rejected.", "error"), n.remove(e.id);
@@ -2895,28 +2889,28 @@ function hr(e, t, n) {
 		}
 	};
 }
-var gr = {
+var hr = {
 	lang: void 0,
 	message: void 0,
 	abortEarly: void 0,
 	abortPipeEarly: void 0
 };
 /* @__NO_SIDE_EFFECTS__ */
-function _r(e) {
+function gr(e) {
 	return e ? {
 		lang: e?.lang ?? void 0,
 		message: e?.message,
 		abortEarly: e?.abortEarly ?? void 0,
 		abortPipeEarly: e?.abortPipeEarly ?? void 0
-	} : gr;
+	} : hr;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function vr(e) {
+function _r(e) {
 	let t = typeof e;
 	return t === "string" ? `"${e}"` : t === "number" || t === "bigint" || t === "boolean" ? `${e}` : t === "object" || t === "function" ? (e && Object.getPrototypeOf(e)?.constructor?.name) ?? "null" : t;
 }
 function Y(e, t, n, r, i) {
-	let a = i && "input" in i ? i.input : n.value, o = i?.expected ?? e.expects ?? null, s = i?.received ?? /* @__PURE__ */ vr(a), c = {
+	let a = i && "input" in i ? i.input : n.value, o = i?.expected ?? e.expects ?? null, s = i?.received ?? /* @__PURE__ */ _r(a), c = {
 		kind: e.kind,
 		type: e.type,
 		input: a,
@@ -2933,27 +2927,27 @@ function Y(e, t, n, r, i) {
 	u !== void 0 && (c.message = typeof u == "function" ? u(c) : u), l && (n.typed = !1), n.issues ? n.issues.push(c) : n.issues = [c];
 }
 /* @__NO_SIDE_EFFECTS__ */
-function yr(e, t) {
+function vr(e, t) {
 	return e === t || Number.isNaN(e) && Number.isNaN(t);
 }
 /* @__NO_SIDE_EFFECTS__ */
-function br(e, t) {
+function yr(e, t) {
 	let n = [...new Set(e)];
 	return n.length > 1 ? `(${n.join(` ${t} `)})` : n[0] ?? "never";
 }
-function xr(e) {
+function br(e) {
 	return e["~standard"] = {
 		version: 1,
 		vendor: "valibot",
-		validate: (t) => e["~run"]({ value: t }, /* @__PURE__ */ _r())
+		validate: (t) => e["~run"]({ value: t }, /* @__PURE__ */ gr())
 	}, e;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Sr(e, t) {
+function xr(e, t) {
 	return {
 		kind: "validation",
 		type: "check",
-		reference: Sr,
+		reference: xr,
 		async: !1,
 		expects: null,
 		requirement: e,
@@ -2964,11 +2958,11 @@ function Sr(e, t) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Cr(e) {
+function Sr(e) {
 	return {
 		kind: "validation",
 		type: "integer",
-		reference: Cr,
+		reference: Sr,
 		async: !1,
 		expects: null,
 		requirement: Number.isInteger,
@@ -2979,11 +2973,11 @@ function Cr(e) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function wr(e, t) {
+function Cr(e, t) {
 	return {
 		kind: "validation",
 		type: "max_length",
-		reference: wr,
+		reference: Cr,
 		async: !1,
 		expects: `<=${e}`,
 		requirement: e,
@@ -2994,26 +2988,26 @@ function wr(e, t) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Tr(e, t) {
+function wr(e, t) {
 	return {
 		kind: "validation",
 		type: "max_value",
-		reference: Tr,
+		reference: wr,
 		async: !1,
-		expects: `<=${e instanceof Date ? e.toJSON() : /* @__PURE__ */ vr(e)}`,
+		expects: `<=${e instanceof Date ? e.toJSON() : /* @__PURE__ */ _r(e)}`,
 		requirement: e,
 		message: t,
 		"~run"(e, t) {
-			return e.typed && !(e.value <= this.requirement) && Y(this, "value", e, t, { received: e.value instanceof Date ? e.value.toJSON() : /* @__PURE__ */ vr(e.value) }), e;
+			return e.typed && !(e.value <= this.requirement) && Y(this, "value", e, t, { received: e.value instanceof Date ? e.value.toJSON() : /* @__PURE__ */ _r(e.value) }), e;
 		}
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Er(e, t) {
+function Tr(e, t) {
 	return {
 		kind: "validation",
 		type: "min_length",
-		reference: Er,
+		reference: Tr,
 		async: !1,
 		expects: `>=${e}`,
 		requirement: e,
@@ -3024,26 +3018,26 @@ function Er(e, t) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Dr(e, t) {
+function Er(e, t) {
 	return {
 		kind: "validation",
 		type: "min_value",
-		reference: Dr,
+		reference: Er,
 		async: !1,
-		expects: `>=${e instanceof Date ? e.toJSON() : /* @__PURE__ */ vr(e)}`,
+		expects: `>=${e instanceof Date ? e.toJSON() : /* @__PURE__ */ _r(e)}`,
 		requirement: e,
 		message: t,
 		"~run"(e, t) {
-			return e.typed && !(e.value >= this.requirement) && Y(this, "value", e, t, { received: e.value instanceof Date ? e.value.toJSON() : /* @__PURE__ */ vr(e.value) }), e;
+			return e.typed && !(e.value >= this.requirement) && Y(this, "value", e, t, { received: e.value instanceof Date ? e.value.toJSON() : /* @__PURE__ */ _r(e.value) }), e;
 		}
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Or(e) {
+function Dr(e) {
 	return {
 		kind: "transformation",
 		type: "raw_transform",
-		reference: Or,
+		reference: Dr,
 		async: !1,
 		"~run"(t, n) {
 			let r = e({
@@ -3057,11 +3051,11 @@ function Or(e) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function kr(e, t) {
+function Or(e, t) {
 	return {
 		kind: "validation",
 		type: "regex",
-		reference: kr,
+		reference: Or,
 		async: !1,
 		expects: `${e}`,
 		requirement: e,
@@ -3071,25 +3065,25 @@ function kr(e, t) {
 		}
 	};
 }
-var Ar = { abortEarly: !0 };
+var kr = { abortEarly: !0 };
 /* @__NO_SIDE_EFFECTS__ */
-function jr(e, t, n) {
+function Ar(e, t, n) {
 	return typeof e.fallback == "function" ? e.fallback(t, n) : e.fallback;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Mr(e, t, n) {
+function jr(e, t, n) {
 	return typeof e.default == "function" ? e.default(t, n) : e.default;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Nr(e, t) {
-	return !e["~run"]({ value: t }, Ar).issues;
+function Mr(e, t) {
+	return !e["~run"]({ value: t }, kr).issues;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Pr(e, t) {
-	return xr({
+function Nr(e, t) {
+	return br({
 		kind: "schema",
 		type: "array",
-		reference: Pr,
+		reference: Nr,
 		expects: "Array",
 		async: !1,
 		item: e,
@@ -3122,11 +3116,11 @@ function Pr(e, t) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Fr(e) {
-	return xr({
+function Pr(e) {
+	return br({
 		kind: "schema",
 		type: "boolean",
-		reference: Fr,
+		reference: Pr,
 		expects: "boolean",
 		async: !1,
 		message: e,
@@ -3136,11 +3130,11 @@ function Fr(e) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Ir(e, t) {
-	return xr({
+function Fr(e, t) {
+	return br({
 		kind: "schema",
 		type: "custom",
-		reference: Ir,
+		reference: Fr,
 		expects: "unknown",
 		async: !1,
 		check: e,
@@ -3152,40 +3146,40 @@ function Ir(e, t) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function X(e, t) {
-	return xr({
+	return br({
 		kind: "schema",
 		type: "literal",
 		reference: X,
-		expects: /* @__PURE__ */ vr(e),
+		expects: /* @__PURE__ */ _r(e),
 		async: !1,
 		literal: e,
 		message: t,
 		"~run"(e, t) {
-			return /* @__PURE__ */ yr(e.value, this.literal) ? e.typed = !0 : Y(this, "type", e, t), e;
+			return /* @__PURE__ */ vr(e.value, this.literal) ? e.typed = !0 : Y(this, "type", e, t), e;
 		}
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Lr(e, t) {
-	return xr({
+function Ir(e, t) {
+	return br({
 		kind: "schema",
 		type: "nullable",
-		reference: Lr,
+		reference: Ir,
 		expects: `(${e.expects} | null)`,
 		async: !1,
 		wrapped: e,
 		default: t,
 		"~run"(e, t) {
-			return e.value === null && (this.default !== void 0 && (e.value = /* @__PURE__ */ Mr(this, e, t)), e.value === null) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
+			return e.value === null && (this.default !== void 0 && (e.value = /* @__PURE__ */ jr(this, e, t)), e.value === null) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
 		}
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Rr(e) {
-	return xr({
+function Lr(e) {
+	return br({
 		kind: "schema",
 		type: "number",
-		reference: Rr,
+		reference: Lr,
 		expects: "number",
 		async: !1,
 		message: e,
@@ -3196,7 +3190,7 @@ function Rr(e) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function Z(e, t) {
-	return xr({
+	return br({
 		kind: "schema",
 		type: "object",
 		reference: Z,
@@ -3211,7 +3205,7 @@ function Z(e, t) {
 				for (let r in this.entries) {
 					let i = this.entries[r];
 					if (r in n || (i.type === "exact_optional" || i.type === "optional" || i.type === "nullish") && i.default !== void 0) {
-						let a = r in n ? n[r] : /* @__PURE__ */ Mr(i), o = i["~run"]({ value: a }, t);
+						let a = r in n ? n[r] : /* @__PURE__ */ jr(i), o = i["~run"]({ value: a }, t);
 						if (o.issues) {
 							let i = {
 								type: "object",
@@ -3227,7 +3221,7 @@ function Z(e, t) {
 							}
 						}
 						o.typed || (e.typed = !1), e.value[r] = o.value;
-					} else if (i.fallback !== void 0) e.value[r] = /* @__PURE__ */ jr(i);
+					} else if (i.fallback !== void 0) e.value[r] = /* @__PURE__ */ Ar(i);
 					else if (i.type !== "exact_optional" && i.type !== "optional" && i.type !== "nullish" && (Y(this, "key", e, t, {
 						input: void 0,
 						expected: `"${r}"`,
@@ -3246,27 +3240,27 @@ function Z(e, t) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function zr(e, t) {
-	return xr({
+function Rr(e, t) {
+	return br({
 		kind: "schema",
 		type: "optional",
-		reference: zr,
+		reference: Rr,
 		expects: `(${e.expects} | undefined)`,
 		async: !1,
 		wrapped: e,
 		default: t,
 		"~run"(e, t) {
-			return e.value === void 0 && (this.default !== void 0 && (e.value = /* @__PURE__ */ Mr(this, e, t)), e.value === void 0) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
+			return e.value === void 0 && (this.default !== void 0 && (e.value = /* @__PURE__ */ jr(this, e, t)), e.value === void 0) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
 		}
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Br(e, t) {
-	return xr({
+function zr(e, t) {
+	return br({
 		kind: "schema",
 		type: "picklist",
-		reference: Br,
-		expects: /* @__PURE__ */ br(e.map(vr), "|"),
+		reference: zr,
+		expects: /* @__PURE__ */ yr(e.map(_r), "|"),
 		async: !1,
 		options: e,
 		message: t,
@@ -3276,11 +3270,11 @@ function Br(e, t) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Vr(e, t) {
-	return xr({
+function Br(e, t) {
+	return br({
 		kind: "schema",
 		type: "strict_object",
-		reference: Vr,
+		reference: Br,
 		expects: "Object",
 		async: !1,
 		entries: e,
@@ -3292,7 +3286,7 @@ function Vr(e, t) {
 				for (let r in this.entries) {
 					let i = this.entries[r];
 					if (r in n || (i.type === "exact_optional" || i.type === "optional" || i.type === "nullish") && i.default !== void 0) {
-						let a = r in n ? n[r] : /* @__PURE__ */ Mr(i), o = i["~run"]({ value: a }, t);
+						let a = r in n ? n[r] : /* @__PURE__ */ jr(i), o = i["~run"]({ value: a }, t);
 						if (o.issues) {
 							let i = {
 								type: "object",
@@ -3308,7 +3302,7 @@ function Vr(e, t) {
 							}
 						}
 						o.typed || (e.typed = !1), e.value[r] = o.value;
-					} else if (i.fallback !== void 0) e.value[r] = /* @__PURE__ */ jr(i);
+					} else if (i.fallback !== void 0) e.value[r] = /* @__PURE__ */ Ar(i);
 					else if (i.type !== "exact_optional" && i.type !== "optional" && i.type !== "nullish" && (Y(this, "key", e, t, {
 						input: void 0,
 						expected: `"${r}"`,
@@ -3344,7 +3338,7 @@ function Vr(e, t) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function Q(e) {
-	return xr({
+	return br({
 		kind: "schema",
 		type: "string",
 		reference: Q,
@@ -3357,11 +3351,11 @@ function Q(e) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Hr() {
-	return xr({
+function Vr() {
+	return br({
 		kind: "schema",
 		type: "unknown",
-		reference: Hr,
+		reference: Vr,
 		expects: "unknown",
 		async: !1,
 		"~run"(e) {
@@ -3370,11 +3364,11 @@ function Hr() {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Ur(e, t, n) {
-	return xr({
+function Hr(e, t, n) {
+	return br({
 		kind: "schema",
 		type: "variant",
-		reference: Ur,
+		reference: Hr,
 		expects: "Object",
 		async: !1,
 		key: e,
@@ -3393,7 +3387,7 @@ function Ur(e, t, n) {
 								if (t in n ? r["~run"]({
 									typed: !1,
 									value: n[t]
-								}, Ar).issues : r.type !== "exact_optional" && r.type !== "optional" && r.type !== "nullish") {
+								}, kr).issues : r.type !== "exact_optional" && r.type !== "optional" && r.type !== "nullish") {
 									e = !1, a !== t && (i < s || i === s && t in n && !(a in n)) && (i = s, a = t, o = []), a === t && o.push(l.entries[t].expects);
 									break;
 								}
@@ -3410,7 +3404,7 @@ function Ur(e, t, n) {
 				if (s(this, /* @__PURE__ */ new Set([this.key])), r) return r;
 				Y(this, "type", e, t, {
 					input: n[a],
-					expected: /* @__PURE__ */ br(o, "|"),
+					expected: /* @__PURE__ */ yr(o, "|"),
 					path: [{
 						type: "object",
 						origin: "value",
@@ -3426,7 +3420,7 @@ function Ur(e, t, n) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function $(...e) {
-	return xr({
+	return br({
 		...e[0],
 		pipe: e,
 		"~run"(t, n) {
@@ -3442,8 +3436,8 @@ function $(...e) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Wr(e, t, n) {
-	let r = e["~run"]({ value: t }, /* @__PURE__ */ _r(n));
+function Ur(e, t, n) {
+	let r = e["~run"]({ value: t }, /* @__PURE__ */ gr(n));
 	return {
 		typed: r.typed,
 		success: !r.issues,
@@ -3451,19 +3445,19 @@ function Wr(e, t, n) {
 		issues: r.issues
 	};
 }
-var Gr = /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ kr(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)), Kr = (e) => /* @__PURE__ */ $(/* @__PURE__ */ Ir((e) => typeof e == "object" && !!e && !Array.isArray(e)), e), qr = (e) => Kr(/* @__PURE__ */ Vr(e));
-((e) => Kr(/* @__PURE__ */ Z(e)))({ error: /* @__PURE__ */ Q() });
-var Jr = /* @__PURE__ */ $(/* @__PURE__ */ Z({
-	id: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Er(1)),
-	hostId: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Er(1)),
-	role: /* @__PURE__ */ Br(["host", "guest"]),
-	generation: /* @__PURE__ */ zr(Gr),
-	requireVerification: /* @__PURE__ */ zr(/* @__PURE__ */ Hr()),
-	locked: /* @__PURE__ */ zr(/* @__PURE__ */ Hr())
-}), /* @__PURE__ */ Sr((e) => e.role === "host" == (e.id === e.hostId))), Yr = /* @__PURE__ */ Z({
+var Wr = /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Or(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)), Gr = (e) => /* @__PURE__ */ $(/* @__PURE__ */ Fr((e) => typeof e == "object" && !!e && !Array.isArray(e)), e), Kr = (e) => Gr(/* @__PURE__ */ Br(e));
+((e) => Gr(/* @__PURE__ */ Z(e)))({ error: /* @__PURE__ */ Q() });
+var qr = /* @__PURE__ */ $(/* @__PURE__ */ Z({
+	id: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Tr(1)),
+	hostId: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Tr(1)),
+	role: /* @__PURE__ */ zr(["host", "guest"]),
+	generation: /* @__PURE__ */ Rr(Wr),
+	requireVerification: /* @__PURE__ */ Rr(/* @__PURE__ */ Vr()),
+	locked: /* @__PURE__ */ Rr(/* @__PURE__ */ Vr())
+}), /* @__PURE__ */ xr((e) => e.role === "host" == (e.id === e.hostId))), Jr = /* @__PURE__ */ Z({
 	roomId: /* @__PURE__ */ Q(),
-	siteKey: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ kr(/^[A-Za-z0-9_-]{1,100}$/))
-}), Xr = 6e4, Zr = class {
+	siteKey: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Or(/^[A-Za-z0-9_-]{1,100}$/))
+}), Yr = 6e4, Xr = class {
 	roomId;
 	hostToken;
 	runtime;
@@ -3482,11 +3476,11 @@ var Jr = /* @__PURE__ */ $(/* @__PURE__ */ Z({
 	}
 	pulse(e) {
 		let t = performance.now();
-		this.lastPulseAt !== void 0 && t - this.lastPulseAt < Xr || (e.send("hb"), this.lastPulseAt = t);
+		this.lastPulseAt !== void 0 && t - this.lastPulseAt < Yr || (e.send("hb"), this.lastPulseAt = t);
 	}
 	connect() {
 		if (this.stopped) return;
-		let e = new URL(zt.liveness(this.roomId), Bt(this.runtime.serviceOrigin));
+		let e = new URL(Rt.liveness(this.roomId), zt(this.runtime.serviceOrigin));
 		e.protocol = e.protocol === "https:" ? "wss:" : "ws:";
 		let t;
 		try {
@@ -3509,7 +3503,7 @@ var Jr = /* @__PURE__ */ $(/* @__PURE__ */ Z({
 	close() {
 		this.stopped || (this.stopped = !0, clearTimeout(this.retry), clearTimeout(this.handshake), this.socket?.close(1e3, "Host left"), this.socket = void 0);
 	}
-}, Qr = class extends Error {}, $r = class {
+}, Zr = class extends Error {}, Qr = class {
 	messages;
 	unconfirmed;
 	sequence = 0;
@@ -3547,25 +3541,25 @@ var Jr = /* @__PURE__ */ $(/* @__PURE__ */ Z({
 		let e = this.pending;
 		return this.pending = void 0, e && clearTimeout(e.timer), e;
 	}
-}, ei = class {
+}, $r = class {
 	available;
 	send;
 	verification = null;
-	verificationRequest = new $r({
+	verificationRequest = new Qr({
 		pending: "A verification update is already pending.",
 		timeout: "Verification update was not confirmed.",
 		send: "Verification update could not be sent."
 	}, (e) => (this.verification = null, Error(e)));
-	passwordRequest = new $r({
+	passwordRequest = new Qr({
 		pending: "A password update is already pending.",
 		timeout: "Password update was not confirmed.",
 		send: "Password update could not be sent."
 	});
-	banRequest = new $r({
+	banRequest = new Qr({
 		pending: "A ban operation is already pending.",
 		timeout: "Ban operation was not confirmed.",
 		send: "Ban operation could not be sent."
-	}, (e) => new Qr(e));
+	}, (e) => new Zr(e));
 	constructor(e, t) {
 		this.available = e, this.send = t;
 	}
@@ -3603,28 +3597,28 @@ var Jr = /* @__PURE__ */ $(/* @__PURE__ */ Z({
 		let t = e === "closed" ? "Room closed" : "Signaling disconnected";
 		this.verificationRequest.fail(`${t} before verification confirmation.`), this.banRequest.fail(`${t} before ban confirmation.`), this.passwordRequest.fail(`${t} before password confirmation.`), e === "closed" && (this.verification = null);
 	}
-}, ti = 1, ni = 2048, ri = [
+}, ei = 1, ti = 2048, ni = [
 	1001,
 	1008,
 	1009,
 	1011,
 	1013
-], ii = (e) => typeof e == "string" && /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(e), ai = (e) => typeof e == "string" && e.length <= 123 ? e : "Room connection ended.", oi = {
+], ri = (e) => typeof e == "string" && /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(e), ii = (e) => typeof e == "string" && e.length <= 123 ? e : "Room connection ended.", ai = {
 	"Host left": "The host left. Return to Rooms and join again.",
 	"Host connection ended": "Host connection ended. Return to Rooms and join again."
 };
-function si(e) {
-	return Object.hasOwn(oi, e.reason) ? oi[e.reason] : ri.includes(e.code) && e.reason ? e.reason : "Room connection ended. Return to Rooms and join again.";
+function oi(e) {
+	return Object.hasOwn(ai, e.reason) ? ai[e.reason] : ni.includes(e.code) && e.reason ? e.reason : "Room connection ended. Return to Rooms and join again.";
 }
-function ci(e) {
-	if (e.matchEntry && (e.hostToken || !/^[a-f0-9]{64}$/.test(e.matchEntry.token) || !ii(e.matchEntry.generation))) throw Error("Invalid match entry credentials.");
+function si(e) {
+	if (e.matchEntry && (e.hostToken || !/^[a-f0-9]{64}$/.test(e.matchEntry.token) || !ri(e.matchEntry.generation))) throw Error("Invalid match entry credentials.");
 	return {
 		hostToken: e.hostToken,
 		password: e.password,
 		...e.matchEntry ? { matchEntry: { ...e.matchEntry } } : {}
 	};
 }
-var li = class {
+var ci = class {
 	room;
 	hooks;
 	events;
@@ -3637,18 +3631,18 @@ var li = class {
 	generation = null;
 	locked = null;
 	serial = 0;
-	ownerRequests = new ei(() => this.host && this.ready, (e) => this.send(e));
+	ownerRequests = new $r(() => this.host && this.ready, (e) => this.send(e));
 	credentials;
 	challenge;
 	queue = Promise.resolve();
 	hostMonitor;
 	constructor(e, t, n, r, i) {
-		this.room = e, this.hooks = n, this.events = r, this.runtime = i, this.credentials = ci(t);
-		let a = new URL(zt.signal(e), Bt(i.serviceOrigin));
+		this.room = e, this.hooks = n, this.events = r, this.runtime = i, this.credentials = si(t);
+		let a = new URL(Rt.signal(e), zt(i.serviceOrigin));
 		a.protocol = a.protocol === "https:" ? "wss:" : "ws:", this.ws = i.createWebSocket(a), this.attach(this.ws);
 	}
 	get socketOpen() {
-		return this.ws.readyState === ti;
+		return this.ws.readyState === ei;
 	}
 	get ready() {
 		return !this.closed && !!this.id && this.socketOpen;
@@ -3680,14 +3674,14 @@ var li = class {
 				n() && this.hooks.status("Connection negotiation failed. Try another room or network.", "error");
 			}));
 		}, e.onclose = (e) => {
-			n() && (this.serial++, this.challenge?.abort(), this.ownerRequests.cancel("disconnected"), this.events.ended(si(e)));
+			n() && (this.serial++, this.challenge?.abort(), this.ownerRequests.cancel("disconnected"), this.events.ended(oi(e)));
 		}, e.onerror = () => {
 			n() && this.hooks.status("Room service is unavailable.", "error");
 		};
 	}
 	async receive(e, t) {
 		if (!(this.closed || t !== this.serial)) {
-			if (e.type === "terminal") return this.events.ended(ai(e.reason));
+			if (e.type === "terminal") return this.events.ended(ii(e.reason));
 			if (!this.ownerRequests.accept(e)) switch (e.type) {
 				case "heartbeat":
 					this.host && this.hostMonitor?.acknowledged();
@@ -3701,7 +3695,7 @@ var li = class {
 		}
 	}
 	async answerVerification(e) {
-		if (this.closed || this.id || this.credentials.hostToken || this.challenge || !/* @__PURE__ */ Nr(Yr, e) || e.roomId !== this.room) return;
+		if (this.closed || this.id || this.credentials.hostToken || this.challenge || !/* @__PURE__ */ Mr(Jr, e) || e.roomId !== this.room) return;
 		if (!this.hooks.verify) {
 			this.events.ended("This client cannot complete the room verification challenge.");
 			return;
@@ -3714,7 +3708,7 @@ var li = class {
 				roomId: this.room
 			}, t.signal);
 			if (t.signal.aborted || this.closed || !this.socketOpen) return;
-			if (typeof n != "string" || n.length === 0 || n.length > ni) throw Error("Invalid verification response.");
+			if (typeof n != "string" || n.length === 0 || n.length > ti) throw Error("Invalid verification response.");
 			this.send({
 				type: "hello",
 				...this.helloCredentials(),
@@ -3729,11 +3723,11 @@ var li = class {
 	admit(e) {
 		if (this.id) return;
 		let t = this.credentials.matchEntry;
-		if (!/* @__PURE__ */ Nr(Jr, e) || t && (e.role !== "guest" || !ii(e.id) || !ii(e.hostId) || e.generation !== t.generation)) {
+		if (!/* @__PURE__ */ Mr(qr, e) || t && (e.role !== "guest" || !ri(e.id) || !ri(e.hostId) || e.generation !== t.generation)) {
 			this.events.ended("Invalid room admission.");
 			return;
 		}
-		this.id = e.id, this.host = e.role === "host", this.host && this.credentials.hostToken && (this.hostMonitor = new Zr(this.room, this.credentials.hostToken, this.runtime), this.hostMonitor.acknowledged()), this.hostId = e.hostId, this.generation = e.generation ?? null, delete this.credentials.matchEntry, this.ownerRequests.verification = typeof e.requireVerification == "boolean" ? e.requireVerification : null, this.locked = typeof e.locked == "boolean" ? e.locked : null, this.events.admitted(this.id, this.host);
+		this.id = e.id, this.host = e.role === "host", this.host && this.credentials.hostToken && (this.hostMonitor = new Xr(this.room, this.credentials.hostToken, this.runtime), this.hostMonitor.acknowledged()), this.hostId = e.hostId, this.generation = e.generation ?? null, delete this.credentials.matchEntry, this.ownerRequests.verification = typeof e.requireVerification == "boolean" ? e.requireVerification : null, this.locked = typeof e.locked == "boolean" ? e.locked : null, this.events.admitted(this.id, this.host);
 	}
 	helloCredentials() {
 		return {
@@ -3745,7 +3739,7 @@ var li = class {
 	close() {
 		this.closed || (this.serial++, this.challenge?.abort(), this.ownerRequests.cancel("closed"), this.closed = !0, this.hostMonitor?.close(), this.hostMonitor = void 0, this.credentials = {}, this.ws.close(1e3, "Left room"));
 	}
-}, ui = 2e4, di = 5e3, fi = 2, pi = 3e4, mi = 5e3, hi = 1048576, gi = 32768, _i = 1e3, vi = [{ urls: "stun:stun.l.google.com:19302" }], yi = (e) => typeof e == "string" ? new TextEncoder().encode(e).length : e.byteLength, bi = class {
+}, li = 2e4, ui = 5e3, di = 2, fi = 3e4, pi = 5e3, mi = 1048576, hi = 32768, gi = 1e3, _i = [{ urls: "stun:stun.l.google.com:19302" }], vi = (e) => typeof e == "string" ? new TextEncoder().encode(e).length : e.byteLength, yi = class {
 	hooks;
 	runtime;
 	peers = /* @__PURE__ */ new Map();
@@ -3758,7 +3752,7 @@ var li = class {
 	lastHeartbeat = 0;
 	controlId = 0;
 	hostCloseTimer;
-	constructor(e, t, n, r = Qt()) {
+	constructor(e, t, n, r = Zt()) {
 		this.hooks = n, this.runtime = r, this.link = {
 			isHost: () => this.host,
 			hooks: n,
@@ -3770,12 +3764,12 @@ var li = class {
 			countReceived: (e) => {
 				this.bytesReceived += e;
 			}
-		}, this.signaling = new li(e, t, n, {
+		}, this.signaling = new ci(e, t, n, {
 			admitted: (e, t) => n.ready(e, t),
 			peer: (e, t) => this.peerChanged(e, t),
 			negotiate: (e, t) => this.negotiate(e, t),
 			ended: (e) => this.end(e)
-		}, r), this.timer = setInterval(() => this.maintain(), mi);
+		}, r), this.timer = setInterval(() => this.maintain(), pi);
 	}
 	get ws() {
 		return this.signaling.ws;
@@ -3822,8 +3816,8 @@ var li = class {
 	}
 	maintain() {
 		let e = performance.now();
-		this.host && this.signalingReady && e - this.lastHeartbeat >= pi && (this.signal({ type: "heartbeat" }), this.lastHeartbeat = e);
-		for (let t of this.peers.values()) !t.connected && e - t.created > ui ? (this.hooks.status("Could not connect directly to this room. Try another network or room.", "error"), this.remove(t.id)) : t.lostAt !== void 0 && e - t.lostAt > ui ? (this.hooks.status("The direct connection could not be recovered. Rejoin the room.", "error"), this.remove(t.id)) : t.lostAt !== void 0 && this.host && e - t.lastRestart > di && this.restartPeer(t.id);
+		this.host && this.signalingReady && e - this.lastHeartbeat >= fi && (this.signal({ type: "heartbeat" }), this.lastHeartbeat = e);
+		for (let t of this.peers.values()) !t.connected && e - t.created > li ? (this.hooks.status("Could not connect directly to this room. Try another network or room.", "error"), this.remove(t.id)) : t.lostAt !== void 0 && e - t.lostAt > li ? (this.hooks.status("The direct connection could not be recovered. Rejoin the room.", "error"), this.remove(t.id)) : t.lostAt !== void 0 && this.host && e - t.lastRestart > ui && this.restartPeer(t.id);
 	}
 	async peerChanged(e, t) {
 		typeof e.id == "string" && e.id && e.id !== this.id && (e.type === "leave" ? this.remove(e.id, !1) : this.host && !this.peers.has(e.id) && await this.offerPeer(e.id, t));
@@ -3838,18 +3832,18 @@ var li = class {
 		let i = this.negotiationScope(r, t);
 		if (n.type === "offer") {
 			if (this.host) throw Error("Only the host can offer");
-			await ir(r, n.sdp, i);
+			await rr(r, n.sdp, i);
 		} else if (n.type === "answer") {
 			if (!this.host) throw Error("Only guests can answer");
-			await ar(r, n.sdp, i) && this.noteHealthy(r);
-		} else n.type === "candidate" && n.candidate && await or(r, n.candidate, i);
+			await ir(r, n.sdp, i) && this.noteHealthy(r);
+		} else n.type === "candidate" && n.candidate && await ar(r, n.candidate, i);
 	}
 	async offerPeer(e, t) {
 		let n = this.make(e);
 		this.bind(n, n.pc.createDataChannel("control", { ordered: !0 })), this.bind(n, n.pc.createDataChannel("realtime", {
 			ordered: !1,
 			maxRetransmits: 0
-		})), await rr(n, this.negotiationScope(n, t));
+		})), await nr(n, this.negotiationScope(n, t));
 	}
 	negotiationScope(e, t) {
 		return {
@@ -3868,11 +3862,11 @@ var li = class {
 	}
 	async restartPeer(e) {
 		let t = this.peers.get(e);
-		if (this.closed || !this.host || !t || t.restarting || t.restarts >= fi || t.pc.signalingState !== "stable" || !this.signaling.socketOpen) return !1;
+		if (this.closed || !this.host || !t || t.restarting || t.restarts >= di || t.pc.signalingState !== "stable" || !this.signaling.socketOpen) return !1;
 		let n = this.signaling.serial;
 		t.restarting = !0, t.lastRestart = performance.now(), t.lostAt ??= t.lastRestart, t.restarts++;
 		try {
-			return await rr(t, this.negotiationScope(t, n), { iceRestart: !0 });
+			return await nr(t, this.negotiationScope(t, n), { iceRestart: !0 });
 		} catch {
 			return this.current(t) && this.hooks.status("Direct connection recovery is still pending.", "info"), !1;
 		} finally {
@@ -3880,14 +3874,14 @@ var li = class {
 		}
 	}
 	make(e) {
-		let t = fr(this.runtime.createPeerConnection({
-			iceServers: vi,
+		let t = dr(this.runtime.createPeerConnection({
+			iceServers: _i,
 			bundlePolicy: "max-bundle"
 		}), e, this.link);
 		return this.peers.set(e, t), t;
 	}
 	bind(e, t) {
-		hr(e, t, this.link);
+		mr(e, t, this.link);
 	}
 	admit(e) {
 		clearTimeout(e.admissionTimer), e.admissionTimer = void 0;
@@ -3895,8 +3889,8 @@ var li = class {
 	control(e, t) {
 		let n = e.control;
 		if (n?.readyState !== "open") return;
-		let r = Fn(t, this.controlId++), i = r.reduce((e, t) => e + yi(t), 0);
-		if (n.bufferedAmount + i > hi) {
+		let r = Pn(t, this.controlId++), i = r.reduce((e, t) => e + vi(t), 0);
+		if (n.bufferedAmount + i > mi) {
 			this.remove(e.id);
 			return;
 		}
@@ -3904,7 +3898,7 @@ var li = class {
 		this.bytesSent += i;
 	}
 	fast(e, t) {
-		e.fast?.readyState === "open" && e.fast.bufferedAmount < gi && (e.fast.send(t), this.bytesSent += t.byteLength);
+		e.fast?.readyState === "open" && e.fast.bufferedAmount < hi && (e.fast.send(t), this.bytesSent += t.byteLength);
 	}
 	broadcast(e) {
 		for (let t of this.peers.values()) this.control(t, e);
@@ -3920,7 +3914,7 @@ var li = class {
 					}
 					try {
 						let t = await e.pc.getStats();
-						this.current(e) && (e.rtt = Zn(t.values()));
+						this.current(e) && (e.rtt = Xn(t.values()));
 					} catch {
 						e.rtt = null;
 					}
@@ -3945,7 +3939,7 @@ var li = class {
 		} catch {}
 		if (this.hooks.leave(e), this.host) return;
 		let r = this.signalingReady, i = () => this.end(r ? "The host connection ended. Return to Rooms and join again." : "Room connection ended. Return to Rooms and join again.");
-		r ? this.hostCloseTimer = setTimeout(i, _i) : i();
+		r ? this.hostCloseTimer = setTimeout(i, gi) : i();
 	}
 	close() {
 		if (!this.closed) {
@@ -3954,95 +3948,95 @@ var li = class {
 			this.peers.clear();
 		}
 	}
-}, xi = 256, Si = (e) => e.slice(0, 100);
-function Ci(e, t, n, r) {
+}, bi = 256, xi = (e) => e.slice(0, 100);
+function Si(e, t, n, r) {
 	if (e.assertOpen(), typeof n != "string") throw Error("Invalid kick reason");
 	let i = e.players.byId(t);
 	if (!i || e.isHost(i)) return;
-	let a = e.publicPlayer(i), o = Si(n), s = e.network.peers.get(i.peerId);
+	let a = e.publicPlayer(i), o = xi(n), s = e.network.peers.get(i.peerId);
 	s && e.network.control(s, {
 		type: "kicked",
 		reason: o
 	}), e.network.remove(i.peerId), e.players.has(i) || e.invoke("onPlayerKicked", e.hooks.onPlayerKicked, a, o, !1, r);
 }
-async function wi(e, t, n, r = null) {
+async function Ci(e, t, n, r = null) {
 	if (typeof n != "string") throw Error("Invalid kick reason");
 	let i = e.players.byId(t);
 	if (!i || e.isHost(i)) return;
-	let a = e.publicPlayer(i), o = Si(n);
-	if (e.bans.size >= xi && !e.bans.has(t)) throw Error("Clear existing bans before adding more.");
+	let a = e.publicPlayer(i), o = xi(n);
+	if (e.bans.size >= bi && !e.bans.has(t)) throw Error("Clear existing bans before adding more.");
 	try {
 		await e.network.updateBan("ban", i.peerId, o);
 	} catch (n) {
-		throw n instanceof Qr && e.bans.set(t, i.peerId), n;
+		throw n instanceof Zr && e.bans.set(t, i.peerId), n;
 	}
 	e.bans.set(t, i.peerId), e.network.remove(i.peerId), e.invoke("onPlayerKicked", e.hooks.onPlayerKicked, a, o, !0, r);
 }
-async function Ti(e, t) {
+async function wi(e, t) {
 	e.assertOpen();
 	let n = e.bans.get(t);
 	n && (await e.network.updateBan("clearBan", n), e.bans.delete(t));
 }
-async function Ei(e) {
+async function Ti(e) {
 	e.assertOpen(), await e.network.updateBan("clearBans"), e.bans.clear();
 }
-function Di(e) {
+function Ei(e) {
 	return e === null || typeof e == "string" && Array.from(e).length <= 2 && !/[\p{Cc}\p{Cf}]/u.test(e);
 }
-var Oi = (e) => /* @__PURE__ */ $(/* @__PURE__ */ Rr(), /* @__PURE__ */ Cr(), /* @__PURE__ */ Dr(0), /* @__PURE__ */ Tr(e)), ki = Oi(31), Ai = /* @__PURE__ */ Br([1, 2]), ji = /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ wr(200), /* @__PURE__ */ Sr((e) => !!e.trim())), Mi = /* @__PURE__ */ Z({
-	score: Oi(99),
-	minutes: Oi(99),
-	locked: /* @__PURE__ */ Fr(),
-	kickRate: /* @__PURE__ */ zr(Oi(h))
-}), Ni = /* @__PURE__ */ $(/* @__PURE__ */ Z({
-	angle: /* @__PURE__ */ Rr(),
-	textColor: /* @__PURE__ */ Rr(),
-	colors: /* @__PURE__ */ Pr(/* @__PURE__ */ Rr())
-}), /* @__PURE__ */ Or(({ dataset: e, addIssue: t, NEVER: n }) => {
+var Di = (e) => /* @__PURE__ */ $(/* @__PURE__ */ Lr(), /* @__PURE__ */ Sr(), /* @__PURE__ */ Er(0), /* @__PURE__ */ wr(e)), Oi = Di(31), ki = /* @__PURE__ */ zr([1, 2]), Ai = /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Cr(200), /* @__PURE__ */ xr((e) => !!e.trim())), ji = /* @__PURE__ */ Z({
+	score: Di(99),
+	minutes: Di(99),
+	locked: /* @__PURE__ */ Pr(),
+	kickRate: /* @__PURE__ */ Rr(Di(h))
+}), Mi = /* @__PURE__ */ $(/* @__PURE__ */ Z({
+	angle: /* @__PURE__ */ Lr(),
+	textColor: /* @__PURE__ */ Lr(),
+	colors: /* @__PURE__ */ Nr(/* @__PURE__ */ Lr())
+}), /* @__PURE__ */ Dr(({ dataset: e, addIssue: t, NEVER: n }) => {
 	try {
 		let { angle: t, textColor: n, colors: r } = e.value;
 		return ge(t, n, r);
 	} catch {
 		return t({ message: "Invalid team colors" }), n;
 	}
-})), Pi = (e) => /* @__PURE__ */ Z({ action: /* @__PURE__ */ X(e) }), Fi = /* @__PURE__ */ Ur("action", [
+})), Ni = (e) => /* @__PURE__ */ Z({ action: /* @__PURE__ */ X(e) }), Pi = /* @__PURE__ */ Hr("action", [
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("typing"),
-		active: /* @__PURE__ */ Fr()
+		active: /* @__PURE__ */ Pr()
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("chat"),
-		text: ji
+		text: Ai
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("directChat"),
-		recipientId: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Er(1), /* @__PURE__ */ wr(128)),
-		text: ji
+		recipientId: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Tr(1), /* @__PURE__ */ Cr(128)),
+		text: Ai
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("avatar"),
-		avatar: /* @__PURE__ */ Ir(Di)
+		avatar: /* @__PURE__ */ Fr(Ei)
 	}),
-	Pi("autoTeams"),
-	Pi("clearBans"),
-	Pi("start"),
-	Pi("stop"),
+	Ni("autoTeams"),
+	Ni("clearBans"),
+	Ni("start"),
+	Ni("stop"),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("teamsLock"),
-		locked: /* @__PURE__ */ Fr()
+		locked: /* @__PURE__ */ Pr()
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("resetTeams"),
-		team: /* @__PURE__ */ zr(Ai)
+		team: /* @__PURE__ */ Rr(ki)
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("team"),
-		team: /* @__PURE__ */ Br([
+		team: /* @__PURE__ */ zr([
 			0,
 			1,
 			2
 		]),
-		slot: /* @__PURE__ */ zr(ki)
+		slot: /* @__PURE__ */ Rr(Oi)
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("defaultStadium"),
@@ -4054,47 +4048,47 @@ var Oi = (e) => /* @__PURE__ */ $(/* @__PURE__ */ Rr(), /* @__PURE__ */ Cr(), /*
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("ban"),
-		slot: ki
+		slot: Oi
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("kick"),
-		slot: ki
+		slot: Oi
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("admin"),
-		slot: ki
+		slot: Oi
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("mute"),
-		slot: ki,
-		muted: /* @__PURE__ */ Fr()
+		slot: Oi,
+		muted: /* @__PURE__ */ Pr()
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("teamColors"),
-		team: Ai,
-		palette: /* @__PURE__ */ Lr(Ni)
+		team: ki,
+		palette: /* @__PURE__ */ Ir(Mi)
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("pause"),
-		paused: /* @__PURE__ */ zr(/* @__PURE__ */ Fr())
+		paused: /* @__PURE__ */ Rr(/* @__PURE__ */ Pr())
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("kickRate"),
-		value: Oi(h)
+		value: Di(h)
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("settings"),
-		...Mi.entries
+		...ji.entries
 	})
 ]);
-function Ii(e, t) {
-	let n = /* @__PURE__ */ Wr(Fi, {
+function Fi(e, t) {
+	let n = /* @__PURE__ */ Ur(Pi, {
 		...t,
 		action: e
 	});
 	return n.success ? n.output : null;
 }
-function Li(e, t, n, r) {
+function Ii(e, t, n, r) {
 	let i = e.find((e) => e.id === t), a = e.find((e) => e.id === n);
 	return !i || i.muted || !a || a.bot || t === n || !r.trim() || r.length > 200 ? null : {
 		type: "directChat",
@@ -4105,17 +4099,17 @@ function Li(e, t, n, r) {
 		text: r
 	};
 }
-function Ri(e, t, n) {
+function Li(e, t, n) {
 	return t !== void 0 && (e.admin || !n && t === e);
 }
-function zi(e, t, n) {
+function Ri(e, t, n) {
 	return t !== void 0 && e.admin && t !== e && !n(t);
 }
-function Bi(e, t, n) {
+function zi(e, t, n) {
 	let r = e.indexOf(t);
 	return r < 0 || t.team === n ? !1 : (t.team = n, e.splice(r, 1), e.push(t), !0);
 }
-function Vi(e, t) {
+function Bi(e, t) {
 	let n = e.filter((e) => e.team === 0), r = e.filter((e) => e.team === 1).length, i = e.filter((e) => e.team === 2).length;
 	if (!n.length || r === i && n.length < 2) return [];
 	let a = () => n.splice(t ? Math.floor(t() * n.length) : 0, 1)[0];
@@ -4133,23 +4127,23 @@ function Vi(e, t) {
 		team: 2
 	}];
 }
-function Hi(e, t) {
+function Vi(e, t) {
 	return (t ? [t] : [2, 1]).flatMap((t) => e.filter((e) => e.team === t));
 }
-function Ui(e, t, n) {
+function Hi(e, t, n) {
 	switch (t.action) {
 		case "team": {
 			let r = t.slot === void 0 ? e : n.players().find((e) => e.slot === t.slot);
-			return Ri(e, r, n.locked()) && n.move(r, t.team), !0;
+			return Li(e, r, n.locked()) && n.move(r, t.team), !0;
 		}
 		case "teamsLock": return e.admin && n.lock(t.locked), !0;
 		case "autoTeams":
 		case "resetTeams": {
 			if (!e.admin) return !0;
-			let r = t.action === "resetTeams" ? Hi(n.players(), t.team).map((e) => ({
+			let r = t.action === "resetTeams" ? Vi(n.players(), t.team).map((e) => ({
 				player: e,
 				team: 0
-			})) : Vi(n.players());
+			})) : Bi(n.players());
 			for (let { player: i, team: a } of r) {
 				if (!n.current() || !n.players().includes(e) || !e.admin || t.action === "resetTeams" && !n.stopped()) break;
 				n.players().includes(i) && ((t.action === "autoTeams" ? i.team !== 0 : i.team === 0) || n.move(i, a));
@@ -4159,7 +4153,7 @@ function Ui(e, t, n) {
 		default: return !1;
 	}
 }
-function Wi(e, t, n, r) {
+function Ui(e, t, n, r) {
 	if (e.assertOpen(), ![
 		0,
 		1,
@@ -4168,28 +4162,28 @@ function Wi(e, t, n, r) {
 	let i = e.players.byId(t);
 	i && e.players.assignTeam(i, n) && (e.command("team", i.slot, n), e.match.recordOrder(e.players.all.map((e) => e.slot)), e.syncLobby(), e.invoke("onPlayerTeamChange", e.hooks.onPlayerTeamChange, e.publicPlayer(i), e.publicOrNull(r)));
 }
-function Gi(e, t, n) {
+function Wi(e, t, n) {
 	e.assertOpen();
 	let r = e.players.byId(t);
 	r && r.admin !== !!n && (r.admin = !!n, e.syncLobby(), e.invoke("onPlayerAdminChange", e.hooks.onPlayerAdminChange, e.publicPlayer(r), null));
 }
-function Ki(e, t, n, r) {
+function Gi(e, t, n, r) {
 	if (e.assertOpen(), !Number.isInteger(t) || typeof n != "boolean") throw Error("Invalid player mute");
 	let i = e.players.byId(t);
 	i && !e.isHost(i) && !!i.muted !== n && (i.muted = n, e.syncLobby(), e.invoke("onPlayerMuteChange", e.hooks.onPlayerMuteChange, e.publicPlayer(i), r));
 }
-function qi(e, t, n) {
+function Ki(e, t, n) {
 	e.assertOpen(), e.locked !== !!t && (e.locked = !!t, e.syncLobby(), e.invoke("onTeamsLockChange", e.hooks.onTeamsLockChange, e.locked, n));
 }
-function Ji(e, t, n) {
+function qi(e, t, n) {
 	if (e.assertOpen(), t !== 1 && t !== 2) throw Error("Invalid team");
 	JSON.stringify(e.teamStyles[t - 1]) !== JSON.stringify(n) && (e.teamStyles[t - 1] = n, e.match.recordStyles(e.teamStyles), e.syncLobby());
 }
-function Yi(e, t, n, r, i) {
+function Ji(e, t, n, r, i) {
 	let a = ge(n, r, i);
-	a.angle = ((256 * n / 360 | 0) & 255) * (360 / 256), Ji(e, t, a);
+	a.angle = ((256 * n / 360 | 0) & 255) * (360 / 256), qi(e, t, a);
 }
-function Xi(e, t, n) {
+function Yi(e, t, n) {
 	if (e.assertOpen(), !Array.isArray(t) || t.length > 32 || t.some((e) => !Number.isSafeInteger(e) || e < 0) || typeof n != "boolean") throw Error("Invalid player order");
 	let r = new Set(t), i = [...r].flatMap((t) => {
 		let n = e.players.byId(t);
@@ -4197,12 +4191,12 @@ function Xi(e, t, n) {
 	}), a = e.players.all.filter((e) => !r.has(e.id)), o = n ? [...i, ...a] : [...a, ...i];
 	e.players.reorder(o) && (e.match.recordOrder(o.map((e) => e.slot)), e.syncLobby());
 }
-function Zi(e, t, n) {
-	if (e.assertOpen(), !Di(n)) throw Error("Avatar must be null or at most two visible characters.");
+function Xi(e, t, n) {
+	if (e.assertOpen(), !Ei(n)) throw Error("Avatar must be null or at most two visible characters.");
 	let r = e.players.byId(t);
 	r && (r.avatarOverride = n, e.match.recordPlayer(r.slot, r.name, n ?? r.avatar), e.syncLobby());
 }
-function Qi(e, t, n) {
+function Zi(e, t, n) {
 	if (e.assertOpen(), !e.stopped()) return;
 	H(t);
 	let r = ++e.stadiumSelection;
@@ -4218,23 +4212,23 @@ function Qi(e, t, n) {
 		}), e.invoke("onStadiumChange", e.hooks.onStadiumChange, e.engine.stadium.name, n);
 	}
 }
-async function $i(e, t) {
+async function Qi(e, t) {
 	if (e.assertOpen(), !e.stopped()) return;
 	let n = ++e.stadiumSelection, r = await e.runtime.loadStadium(t);
 	if (e.assertOpen(), n !== e.stadiumSelection) throw Error("Stadium selection superseded");
-	Qi(e, r, null);
+	Zi(e, r, null);
 }
-var ea = "You are muted in this room.", ta = "Message not sent. Please wait a moment before sending again.";
-function na({ room: e, peer: t, actor: n }, r, i) {
+var $i = "You are muted in this room.", ea = "Message not sent. Please wait a moment before sending again.";
+function ta({ room: e, peer: t, actor: n }, r, i) {
 	return !n.muted && e.traffic.allow(t.id, "chat") ? !1 : (e.traffic.allow(t.id, "feedback") && e.network.control(t, {
 		type: "chatError",
 		rejectedText: r,
 		recipientId: i,
-		text: n.muted ? ea : ta
+		text: n.muted ? $i : ea
 	}), !0);
 }
-var ra = ({ room: e, actor: t }) => !e.closed && e.players.has(t);
-function ia(e, t) {
+var na = ({ room: e, actor: t }) => !e.closed && e.players.has(t);
+function ra(e, t) {
 	let { room: n, peer: r, actor: i } = e;
 	n.traffic.allow(r.id, "typing") && n.network.broadcast({
 		type: "typing",
@@ -4242,10 +4236,10 @@ function ia(e, t) {
 		active: t.active && !i.muted
 	});
 }
-function aa(e, t) {
+function ia(e, t) {
 	let { room: n, peer: r, actor: i } = e;
-	if (na(e, t.text, t.recipientId)) return;
-	let a = Li(n.players.all.map((e) => ({
+	if (ta(e, t.text, t.recipientId)) return;
+	let a = Ii(n.players.all.map((e) => ({
 		...e,
 		id: e.peerId
 	})), r.id, t.recipientId, t.text);
@@ -4263,26 +4257,26 @@ function aa(e, t) {
 		let e = n.hooks.onPlayerDirectChat?.(n.publicPlayer(i), n.publicPlayer(o), a.text);
 		return s = !0, e;
 	});
-	if (!(!s || c instanceof Promise || c === !1 || !ra(e) || i.muted || !n.players.has(o))) for (let e of [a.fromId, a.toId]) {
+	if (!(!s || c instanceof Promise || c === !1 || !na(e) || i.muted || !n.players.has(o))) for (let e of [a.fromId, a.toId]) {
 		let t = n.network.peers.get(e);
 		t && n.network.control(t, a);
 	}
 }
-function oa(e, t) {
+function aa(e, t) {
 	let { room: n, actor: r } = e;
-	na(e, t.text, "") || (n.invoke("onPlayerActivity", n.hooks.onPlayerActivity, n.publicPlayer(r)), ra(e) && n.invoke("onPlayerChat", n.hooks.onPlayerChat, n.publicPlayer(r), t.text) !== !1 && ra(e) && !r.muted && n.network.broadcast({
+	ta(e, t.text, "") || (n.invoke("onPlayerActivity", n.hooks.onPlayerActivity, n.publicPlayer(r)), na(e) && n.invoke("onPlayerChat", n.hooks.onPlayerChat, n.publicPlayer(r), t.text) !== !1 && na(e) && !r.muted && n.network.broadcast({
 		type: "chat",
 		playerId: r.peerId,
 		name: r.name,
 		text: t.text
 	}));
 }
-function sa({ room: e, actor: t }, n) {
+function oa({ room: e, actor: t }, n) {
 	t.avatar = n.avatar, e.match.recordPlayer(t.slot, t.name, t.avatarOverride ?? t.avatar), e.syncLobby();
 }
-function ca(e, t) {
+function sa(e, t) {
 	let { room: n, peer: r, actor: i } = e, a = (t) => {
-		ra(e) && n.network.control(r, {
+		na(e) && n.network.control(r, {
 			type: "stadiumResult",
 			text: t
 		});
@@ -4293,95 +4287,95 @@ function ca(e, t) {
 	}
 	let o = ++n.stadiumSelection;
 	(t.action === "defaultStadium" ? n.runtime.loadStadium(t.name) : Promise.resolve(t.source)).then((t) => {
-		if (ra(e)) {
+		if (na(e)) {
 			if (o !== n.stadiumSelection || !i.admin || !n.stopped()) {
 				a("Stadium change cancelled: room state or permissions changed.");
 				return;
 			}
-			Qi(n, t, n.publicPlayer(i)), a("Stadium applied.");
+			Zi(n, t, n.publicPlayer(i)), a("Stadium applied.");
 		}
 	}).catch(() => a("Stadium could not be loaded. Please try again."));
 }
-function la({ room: e, actor: t }, n) {
+function ca({ room: e, actor: t }, n) {
 	let r = e.players.bySlot(n);
-	return zi(t, r, (t) => e.isHost(t)) ? r : void 0;
+	return Ri(t, r, (t) => e.isHost(t)) ? r : void 0;
 }
-function ua({ room: e, peer: t }, n) {
+function la({ room: e, peer: t }, n) {
 	!e.closed && e.network.peers.has(t.id) && e.network.control(t, {
 		type: "moderationResult",
 		text: n
 	});
 }
-function da(e, t) {
-	let { room: n, actor: r } = e, i = la(e, t);
-	i && wi(n, i.id, "Removed by admin", n.publicPlayer(r)).then(() => ua(e, "Player banned.")).catch((t) => ua(e, t instanceof Error ? t.message : "Moderation failed."));
+function ua(e, t) {
+	let { room: n, actor: r } = e, i = ca(e, t);
+	i && Ci(n, i.id, "Removed by admin", n.publicPlayer(r)).then(() => la(e, "Player banned.")).catch((t) => la(e, t instanceof Error ? t.message : "Moderation failed."));
 }
-function fa(e, t, n) {
-	_n(e, ..._(t), e.publicPlayer(n));
+function da(e, t, n) {
+	gn(e, ..._(t), e.publicPlayer(n));
 }
-function pa({ room: e, actor: t }, n) {
-	e.stopped() && (vn(e, n.score), yn(e, n.minutes), qi(e, n.locked, e.publicPlayer(t)), !e.closed && n.kickRate !== void 0 && n.kickRate !== e.engine.kickRate && fa(e, n.kickRate, t));
+function fa({ room: e, actor: t }, n) {
+	e.stopped() && (_n(e, n.score), vn(e, n.minutes), Ki(e, n.locked, e.publicPlayer(t)), !e.closed && n.kickRate !== void 0 && n.kickRate !== e.engine.kickRate && da(e, n.kickRate, t));
 }
-function ma(e, t) {
+function pa(e, t) {
 	let { room: n, actor: r } = e;
 	switch (t.action) {
 		case "mute": {
-			let i = la(e, t.slot);
-			i && Ki(n, i.id, t.muted, n.publicPlayer(r));
+			let i = ca(e, t.slot);
+			i && Gi(n, i.id, t.muted, n.publicPlayer(r));
 			return;
 		}
-		case "ban": return da(e, t.slot);
-		case "clearBans": return ua(e, "Only the room owner can clear bans.");
-		case "teamColors": return Ji(n, t.team, t.palette);
-		case "kickRate": return fa(n, t.value, r);
-		case "start": return mn(n, r);
-		case "stop": return hn(n, r);
-		case "pause": return gn(n, t.paused === void 0 ? !n.engine.paused : t.paused, n.publicPlayer(r));
-		case "settings": return pa(e, t);
+		case "ban": return ua(e, t.slot);
+		case "clearBans": return la(e, "Only the room owner can clear bans.");
+		case "teamColors": return qi(n, t.team, t.palette);
+		case "kickRate": return da(n, t.value, r);
+		case "start": return pn(n, r);
+		case "stop": return mn(n, r);
+		case "pause": return hn(n, t.paused === void 0 ? !n.engine.paused : t.paused, n.publicPlayer(r));
+		case "settings": return fa(e, t);
 		case "kick": {
-			let i = la(e, t.slot);
-			i && Ci(n, i.id, "Removed by host", n.publicPlayer(r));
+			let i = ca(e, t.slot);
+			i && Si(n, i.id, "Removed by host", n.publicPlayer(r));
 			return;
 		}
 	}
 }
-function ha(e, t, n, r) {
+function ma(e, t, n, r) {
 	let i = {
 		room: e,
 		peer: t,
 		actor: n
 	};
 	switch (r.action) {
-		case "typing": return ia(i, r);
-		case "directChat": return aa(i, r);
-		case "chat": return oa(i, r);
-		case "avatar": return sa(i, r);
+		case "typing": return ra(i, r);
+		case "directChat": return ia(i, r);
+		case "chat": return aa(i, r);
+		case "avatar": return oa(i, r);
 		case "defaultStadium":
-		case "customStadium": return ca(i, r);
+		case "customStadium": return sa(i, r);
 	}
-	!Ui(n, r, {
+	!Hi(n, r, {
 		players: () => e.players.all,
 		current: () => !e.closed,
 		stopped: () => e.stopped(),
 		locked: () => e.locked,
-		move: (t, r) => Wi(e, t.id, r, n),
-		lock: (t) => qi(e, t, e.publicPlayer(n))
-	}) && n.admin && ma(i, r);
+		move: (t, r) => Ui(e, t.id, r, n),
+		lock: (t) => Ki(e, t, e.publicPlayer(n))
+	}) && n.admin && pa(i, r);
 }
-var ga = /* @__PURE__ */ new Set([
+var ha = /* @__PURE__ */ new Set([
 	"chat",
 	"directChat",
 	"typing"
 ]);
-function _a(e, t) {
+function ga(e, t) {
 	return e.traffic.allow(t.id, "message") ? !0 : (e.network.remove(t.id), !1);
 }
-function va(e) {
-	return e.version === 1 && e.engine === Ue && typeof e.name == "string" && !!e.name.trim() && e.name.length <= 24;
+function _a(e) {
+	return e.version === 1 && e.engine === He && typeof e.name == "string" && !!e.name.trim() && e.name.length <= 24;
 }
-function ya(e, t, n) {
-	let r = va(n) ? e.players.freeSlot() : void 0;
-	if (!va(n) || r === void 0) {
+function va(e, t, n) {
+	let r = _a(n) ? e.players.freeSlot() : void 0;
+	if (!_a(n) || r === void 0) {
 		e.network.remove(t.id);
 		return;
 	}
@@ -4399,7 +4393,7 @@ function ya(e, t, n) {
 		soundStream: e.soundStream.checkpoint(),
 		epoch: e.epoch,
 		roomName: e.roomName,
-		engine: Ue,
+		engine: He,
 		slot: r,
 		stadium: e.engine.source,
 		state: e.engine.snapshot(),
@@ -4408,18 +4402,18 @@ function ya(e, t, n) {
 		locked: e.locked
 	}), e.syncLobby(), e.invoke("onPlayerJoin", e.hooks.onPlayerJoin, e.publicPlayer(i));
 }
-function ba(e) {
+function ya(e) {
 	return {
 		control(t, n) {
-			if (!_a(e, t) || !n || typeof n != "object") return;
+			if (!ga(e, t) || !n || typeof n != "object") return;
 			let r = n, i = e.players.byPeer(t.id);
-			if (r.type === "join" && !i) return ya(e, t, r);
-			if (!i || r.type !== "action" || !(typeof r.action == "string" && ga.has(r.action)) && !e.traffic.allow(t.id, "action")) return;
-			let a = Ii(r.action, r);
-			a && ha(e, t, i, a);
+			if (r.type === "join" && !i) return va(e, t, r);
+			if (!i || r.type !== "action" || !(typeof r.action == "string" && ha.has(r.action)) && !e.traffic.allow(t.id, "action")) return;
+			let a = Fi(r.action, r);
+			a && ma(e, t, i, a);
 		},
 		fast(t, n) {
-			if (!_a(e, t)) return;
+			if (!ga(e, t)) return;
 			let r = e.players.byPeer(t.id);
 			if (!r) return;
 			let i = e.engine.index(r.slot) * 18 + u.INPUT, a = e.engine.data[i], o = e.inputs.accept(t.id, r.slot, n, e.epoch);
@@ -4435,7 +4429,7 @@ function ba(e) {
 		}
 	};
 }
-var xa = class {
+var ba = class {
 	match;
 	now;
 	peers = /* @__PURE__ */ new Map();
@@ -4445,10 +4439,10 @@ var xa = class {
 	}
 	accept(e, t, n, r) {
 		if (this.closed) return;
-		let i = Wn(n);
+		let i = Un(n);
 		if (i.epoch !== r) return;
 		let a = this.peers.get(e);
-		if (!a || Gn(i.seq, a.seq)) return this.peers.set(e, {
+		if (!a || Wn(i.seq, a.seq)) return this.peers.set(e, {
 			seq: i.seq,
 			received: this.now(),
 			keys: i.keys
@@ -4471,7 +4465,7 @@ var xa = class {
 	close() {
 		this.closed = !0, this.reset();
 	}
-}, Sa = {
+}, xa = {
 	input: {
 		slot: 31,
 		value: 31
@@ -4511,13 +4505,9 @@ var xa = class {
 	disc: {
 		slot: 95,
 		value: 0
-	},
-	finishDraw: {
-		slot: 0,
-		value: 0
 	}
 };
-function Ca(e, t) {
+function Sa(e, t) {
 	switch (t.kind) {
 		case "disc":
 			if (!t.properties) throw Error("Missing replay disc properties");
@@ -4538,9 +4528,6 @@ function Ca(e, t) {
 		case "stop":
 			e.stop();
 			break;
-		case "finishDraw":
-			e.finishDraw();
-			break;
 		case "scoreLimit":
 			e.scoreLimit = t.value;
 			break;
@@ -4553,12 +4540,12 @@ function Ca(e, t) {
 		case "pause": e.setPaused(!!t.value);
 	}
 }
-function wa(e) {
+function Ca(e) {
 	let t = JSON.stringify(e), n = 2166136261;
 	for (let e = 0; e < t.length; e++) n ^= t.charCodeAt(e), n = Math.imul(n, 16777619);
 	return (n >>> 0).toString(16).padStart(8, "0");
 }
-var Ta = [
+var wa = [
 	"input",
 	"team",
 	"start",
@@ -4568,13 +4555,12 @@ var Ta = [
 	"timeLimit",
 	"kickRate",
 	"join",
-	"disc",
-	"finishDraw"
-], Ea = new TextEncoder(), Da = new TextDecoder("utf-8", { fatal: !0 });
-function Oa(e) {
-	return It(ka(e));
+	"disc"
+], Ta = new TextEncoder(), Ea = new TextDecoder("utf-8", { fatal: !0 });
+function Da(e) {
+	return Ft(Oa(e));
 }
-function ka(e) {
+function Oa(e) {
 	let { commands: t, ...n } = e, r = 0, i = e.checkpoints.map((e) => {
 		let t = e.state.discs;
 		if (!Array.isArray(t) || t.length > 1728 || t.some((e) => !Number.isFinite(e))) throw Error("Invalid checkpoint discs");
@@ -4587,12 +4573,12 @@ function ka(e) {
 		};
 	});
 	if (i.length > 721) throw Error("Too many replay checkpoints");
-	let a = Ea.encode(JSON.stringify({
+	let a = Ta.encode(JSON.stringify({
 		...n,
 		checkpoints: i
 	}));
 	if (t.length > 5e5 || a.length + 16 > 33554432) throw Error("Replay exceeds bounds");
-	let o = t.length * 12 + t.filter((e) => e.kind === "disc").length * 106, s = new Uint8Array(Math.min(Pt, o)), c = new DataView(s.buffer), l = (e) => {
+	let o = t.length * 12 + t.filter((e) => e.kind === "disc").length * 106, s = new Uint8Array(Math.min(Nt, o)), c = new DataView(s.buffer), l = (e) => {
 		if (u + e > s.length) throw Error("Replay exceeds bounds");
 	}, u = 0, d = e.initial.tick, f = (e) => {
 		if (!Number.isInteger(e) || e < 0 || e > 4294967295) throw Error("Invalid replay integer");
@@ -4603,9 +4589,9 @@ function ka(e) {
 		} while (e);
 	};
 	for (let e of t) {
-		let t = Ta.indexOf(e.kind);
-		if ((e.kind === "join" || e.kind === "finishDraw") && e.value !== 0 || e.kind === "team" && e.value > 2) throw Error("Invalid replay team command");
-		if (t < 0 || !Number.isInteger(e.slot) || e.slot < 0 || e.slot > (e.kind === "disc" ? 95 : 31) || e.kind === "finishDraw" && e.slot !== 0) throw Error("Invalid replay command");
+		let t = wa.indexOf(e.kind);
+		if (e.kind === "join" && e.value !== 0 || e.kind === "team" && e.value > 2) throw Error("Invalid replay team command");
+		if (t < 0 || !Number.isInteger(e.slot) || e.slot < 0 || e.slot > (e.kind === "disc" ? 95 : 31)) throw Error("Invalid replay command");
 		if (f(e.tick - d), l(1), s[u++] = t, f(e.slot), f(e.value), e.kind === "disc") {
 			let t = m(e.properties), n = 0;
 			p.forEach(([e], r) => {
@@ -4635,16 +4621,16 @@ function ka(e) {
 	for (let t of e.checkpoints) for (let e of t.state.discs) _.setFloat64(v, e, !0), v += 8;
 	return g.set(s.subarray(0, u), v), g;
 }
-function Aa(e) {
+function ka(e) {
 	let t = e instanceof Uint8Array ? e : new Uint8Array(e), n = t[0] === 66 && t[1] === 50 && t[2] === 68 && t[3] === 49;
 	if (n && t.length > 33554432) throw Error("Replay exceeds 32 MB");
-	return ja(n ? t : Lt(t));
+	return Aa(n ? t : It(t));
 }
-function ja(e) {
+function Aa(e) {
 	if (e.length < 16 || e[0] !== 66 || e[1] !== 50 || e[2] !== 68 || e[3] !== 49 || e[4] !== 1 || e[5] || e[6] || e[7]) throw Error("Invalid packed replay header");
 	let t = new DataView(e.buffer, e.byteOffset, e.byteLength), n = t.getUint32(8, !0), r = t.getUint32(12, !0);
 	if (n > e.length - 16 || r > 5e5 || r > (e.length - 16 - n) / 3) throw Error("Invalid packed replay bounds");
-	let i = JSON.parse(Da.decode(e.subarray(16, 16 + n)));
+	let i = JSON.parse(Ea.decode(e.subarray(16, 16 + n)));
 	if (!i || !Number.isSafeInteger(i.initial?.tick) || i.initial.tick < 0) throw Error("Invalid replay initial tick");
 	i.commands = [];
 	let a = 16 + n, o = i.initial.tick;
@@ -4679,7 +4665,7 @@ function ja(e) {
 	};
 	for (let n = 0; n < r; n++) {
 		if (o += c(), !Number.isSafeInteger(o) || a >= e.length) throw Error("Invalid replay tick");
-		let n = Ta[e[a++]];
+		let n = wa[e[a++]];
 		if (!n) throw Error("Unknown replay command");
 		let r = c(), s = c();
 		if (n === "disc") {
@@ -4710,7 +4696,7 @@ function ja(e) {
 	if (a !== e.length) throw Error("Trailing replay command data");
 	return i;
 }
-var Ma = 31457280, Na = 5e5, Pa = 4096, Fa = Fe * 5, Ia = class {
+var ja = 31457280, Ma = 5e5, Na = 4096, Pa = Fe * 5, Fa = class {
 	replay;
 	playerOrder = [];
 	lastInputs = /* @__PURE__ */ new Map();
@@ -4724,7 +4710,7 @@ var Ma = 31457280, Na = 5e5, Pa = 4096, Fa = Fe * 5, Ia = class {
 		this.playerOrder = t.map((e) => e.slot), this.replay = {
 			magic: "B2DR",
 			version: 1,
-			engine: Ue,
+			engine: He,
 			stadium: e.source,
 			initial: r,
 			commands: [],
@@ -4742,13 +4728,13 @@ var Ma = 31457280, Na = 5e5, Pa = 4096, Fa = Fe * 5, Ia = class {
 				slots: [...this.playerOrder]
 			}],
 			end: r.tick,
-			finalHash: wa(r)
+			finalHash: Ca(r)
 		}, this.bytes = new TextEncoder().encode(JSON.stringify(this.replay)).length;
 		for (let t = 0; t < 32; t++) this.lastInputs.set(t, e.data[e.index(t) * 18 + u.INPUT]);
 	}
 	reserve(e) {
 		let t = new TextEncoder().encode(JSON.stringify(e)).length + 1;
-		return this.full || this.bytes + t > Ma ? (this.full = !0, !1) : (this.bytes += t, !0);
+		return this.full || this.bytes + t > ja ? (this.full = !0, !1) : (this.bytes += t, !0);
 	}
 	player(e, t, n, r) {
 		let i = {
@@ -4757,14 +4743,14 @@ var Ma = 31457280, Na = 5e5, Pa = 4096, Fa = Fe * 5, Ia = class {
 			name: n,
 			avatar: r
 		};
-		return this.replay.roster.length >= Pa || !this.reserve(i) ? (this.full = !0, !1) : (this.replay.roster.push(i), n === null ? this.order(e, this.playerOrder.filter((e) => e !== t)) : this.playerOrder.includes(t) ? !0 : this.order(e, [...this.playerOrder, t]));
+		return this.replay.roster.length >= Na || !this.reserve(i) ? (this.full = !0, !1) : (this.replay.roster.push(i), n === null ? this.order(e, this.playerOrder.filter((e) => e !== t)) : this.playerOrder.includes(t) ? !0 : this.order(e, [...this.playerOrder, t]));
 	}
 	style(e, t) {
 		let n = {
 			tick: e,
 			teams: U(t)
 		}, r = this.replay.styles;
-		return r.length >= Pa || !this.reserve(n) ? (this.full = !0, !1) : (r.push(n), !0);
+		return r.length >= Na || !this.reserve(n) ? (this.full = !0, !1) : (r.push(n), !0);
 	}
 	order(e, t) {
 		if (t.length === this.playerOrder.length && t.every((e, t) => e === this.playerOrder[t])) return !0;
@@ -4772,87 +4758,87 @@ var Ma = 31457280, Na = 5e5, Pa = 4096, Fa = Fe * 5, Ia = class {
 			tick: e,
 			slots: [...t]
 		}, r = this.replay.orders;
-		return r.length >= Pa || !this.reserve(n) ? (this.full = !0, !1) : (this.playerOrder = [...t], r.push(n), !0);
+		return r.length >= Na || !this.reserve(n) ? (this.full = !0, !1) : (this.playerOrder = [...t], r.push(n), !0);
 	}
 	command(e) {
-		return e.kind === "input" && this.lastInputs.get(e.slot) === e.value ? !0 : this.replay.commands.length >= Na || !this.reserve(e) ? (this.full = !0, !1) : (e.kind === "input" && this.lastInputs.set(e.slot, e.value), (e.kind === "team" || e.kind === "join") && this.lastInputs.set(e.slot, 0), e.kind === "start" && this.lastInputs.clear(), this.replay.commands.push(e.kind === "disc" ? {
+		return e.kind === "input" && this.lastInputs.get(e.slot) === e.value ? !0 : this.replay.commands.length >= Ma || !this.reserve(e) ? (this.full = !0, !1) : (e.kind === "input" && this.lastInputs.set(e.slot, e.value), (e.kind === "team" || e.kind === "join") && this.lastInputs.set(e.slot, 0), e.kind === "start" && this.lastInputs.clear(), this.replay.commands.push(e.kind === "disc" ? {
 			...e,
 			properties: m(e.properties)
 		} : { ...e }), !0);
 	}
 	step(e) {
 		for (let t = 0; t < 32; t++) this.lastInputs.set(t, e.data[e.index(t) * 18 + u.INPUT]);
-		if (e.tick % Fa === 0) {
+		if (e.tick % Pa === 0) {
 			let t = e.snapshot(), n = {
 				tick: e.tick,
 				state: t,
-				hash: wa(t)
+				hash: Ca(t)
 			};
 			this.reserve(n) && this.replay.checkpoints.push(n);
 		}
 		this.replay.end = e.tick;
 	}
 	pack(e) {
-		return this.replay.end = e.tick, this.replay.finalHash = wa(e.snapshot()), ka(this.replay);
+		return this.replay.end = e.tick, this.replay.finalHash = Ca(e.snapshot()), Oa(this.replay);
 	}
 	finish(e) {
-		return this.replay.end = e.tick, this.replay.finalHash = wa(e.snapshot()), new Blob([Oa(this.replay)], { type: "application/x-ball2d-replay" });
+		return this.replay.end = e.tick, this.replay.finalHash = Ca(e.snapshot()), new Blob([Da(this.replay)], { type: "application/x-ball2d-replay" });
 	}
-}, La = 5e5, Ra = 721, za = 4096, Ba = Fe * 3600, Va = (e, t, n) => Number.isInteger(e) && e >= t && e <= n;
-function Ha(e) {
-	if (e.magic !== "B2DR" || e.version !== 1 || e.engine !== Ue) throw Error("Unsupported replay engine/version");
-	if (!Array.isArray(e.commands) || e.commands.length > La || !Array.isArray(e.checkpoints) || e.checkpoints.length > Ra || !Number.isInteger(e.end) || e.end < e.initial.tick || e.end - e.initial.tick > Ba) throw Error("Invalid replay bounds");
+}, Ia = 5e5, La = 721, Ra = 4096, za = Fe * 3600, Ba = (e, t, n) => Number.isInteger(e) && e >= t && e <= n;
+function Va(e) {
+	if (e.magic !== "B2DR" || e.version !== 1 || e.engine !== He) throw Error("Unsupported replay engine/version");
+	if (!Array.isArray(e.commands) || e.commands.length > Ia || !Array.isArray(e.checkpoints) || e.checkpoints.length > La || !Number.isInteger(e.end) || e.end < e.initial.tick || e.end - e.initial.tick > za) throw Error("Invalid replay bounds");
 }
-function Ua(e) {
+function Ha(e) {
 	let t = e.initial.tick;
 	for (let n of e.commands) {
-		let r = Object.hasOwn(Sa, n.kind) ? Sa[n.kind] : void 0;
-		if (!r || !Va(n.tick, t, e.end) || !Va(n.slot, 0, r.slot) || !Va(n.value, 0, r.value)) throw Error("Invalid replay command");
+		let r = Object.hasOwn(xa, n.kind) ? xa[n.kind] : void 0;
+		if (!r || !Ba(n.tick, t, e.end) || !Ba(n.slot, 0, r.slot) || !Ba(n.value, 0, r.value)) throw Error("Invalid replay command");
 		n.kind === "disc" && (n.properties = m(n.properties)), t = n.tick;
 	}
 }
-function Wa(e) {
-	if (!Array.isArray(e.roster) || e.roster.length > za) throw Error("Invalid replay roster");
+function Ua(e) {
+	if (!Array.isArray(e.roster) || e.roster.length > Ra) throw Error("Invalid replay roster");
 	let t = e.initial.tick;
 	for (let n of e.roster) {
-		if (!Va(n.tick, t, e.end) || !Va(n.slot, 0, 31) || n.name !== null && (typeof n.name != "string" || n.name.length > 24) || n.avatar !== void 0 && !Di(n.avatar)) throw Error("Invalid roster event");
+		if (!Ba(n.tick, t, e.end) || !Ba(n.slot, 0, 31) || n.name !== null && (typeof n.name != "string" || n.name.length > 24) || n.avatar !== void 0 && !Ei(n.avatar)) throw Error("Invalid roster event");
 		t = n.tick;
 	}
 }
-function Ga(e) {
+function Wa(e) {
 	if (e.styles === void 0) return;
-	if (!Array.isArray(e.styles) || e.styles.length > za) throw Error("Invalid replay styles");
+	if (!Array.isArray(e.styles) || e.styles.length > Ra) throw Error("Invalid replay styles");
 	let t = e.initial.tick;
 	for (let n of e.styles) {
-		if (!n || !Va(n.tick, t, e.end) || n.teams === void 0) throw Error("Invalid replay style");
+		if (!n || !Ba(n.tick, t, e.end) || n.teams === void 0) throw Error("Invalid replay style");
 		n.teams = U(n.teams), t = n.tick;
 	}
 }
-function Ka(e) {
+function Ga(e) {
 	if (e.orders === void 0) return;
-	if (!Array.isArray(e.orders) || e.orders.length > za) throw Error("Invalid replay orders");
+	if (!Array.isArray(e.orders) || e.orders.length > Ra) throw Error("Invalid replay orders");
 	let t = e.initial.tick;
 	for (let n of e.orders) {
-		if (!n || !Va(n.tick, t, e.end) || !Array.isArray(n.slots) || n.slots.length > 32 || n.slots.some((e) => !Va(e, 0, 31)) || new Set(n.slots).size !== n.slots.length) throw Error("Invalid replay order");
+		if (!n || !Ba(n.tick, t, e.end) || !Array.isArray(n.slots) || n.slots.length > 32 || n.slots.some((e) => !Ba(e, 0, 31)) || new Set(n.slots).size !== n.slots.length) throw Error("Invalid replay order");
+		t = n.tick;
+	}
+}
+function Ka(e) {
+	let t = e.initial.tick;
+	for (let n of e.checkpoints) {
+		if (!Ba(n.tick, t + 1, e.end) || n.state.tick !== n.tick || typeof n.hash != "string") throw Error("Invalid checkpoint");
 		t = n.tick;
 	}
 }
 function qa(e) {
-	let t = e.initial.tick;
-	for (let n of e.checkpoints) {
-		if (!Va(n.tick, t + 1, e.end) || n.state.tick !== n.tick || typeof n.hash != "string") throw Error("Invalid checkpoint");
-		t = n.tick;
-	}
+	let t = ka(e);
+	return Va(t), Ha(t), Ua(t), Wa(t), Ga(t), Ka(t), t;
 }
-function Ja(e) {
-	let t = Aa(e);
-	return Ha(t), Ua(t), Wa(t), Ga(t), Ka(t), qa(t), t;
-}
-async function Ya(e) {
+async function Ja(e) {
 	if (e.size > 33554432) throw Error("Replay exceeds 32 MB");
-	return Ja(await e.arrayBuffer());
+	return qa(await e.arrayBuffer());
 }
-var Xa = class {
+var Ya = class {
 	engine;
 	onRecordingComplete;
 	recorder;
@@ -4875,7 +4861,7 @@ var Xa = class {
 			slot: t,
 			value: n
 		};
-		r && (i.properties = r), this.recorder && (!this.recorder.canRecord(this.engine) || !this.recorder.command(i)) && this.finishRecording("Recording limit reached"), this.assertOpen(), Ca(this.engine, i);
+		r && (i.properties = r), this.recorder && (!this.recorder.canRecord(this.engine) || !this.recorder.command(i)) && this.finishRecording("Recording limit reached"), this.assertOpen(), Sa(this.engine, i);
 	}
 	checkRecordingLimit() {
 		this.recorder && !this.recorder.canRecord(this.engine) && this.finishRecording("Recording limit reached");
@@ -4895,7 +4881,7 @@ var Xa = class {
 	startRecording(e, t) {
 		if (this.assertOpen(), this.completing) throw Error("Recording completion is in progress");
 		if (this.recorder) throw Error("Recording is already active");
-		this.recorder = new Ia(this.engine, e, t);
+		this.recorder = new Fa(this.engine, e, t);
 	}
 	stopRecording() {
 		if (!this.recorder) return null;
@@ -4919,7 +4905,7 @@ var Xa = class {
 	close(e = "Room closed") {
 		this.closed || (this.closed = !0, this.finishRecording(e));
 	}
-}, Za = class {
+}, Xa = class {
 	stream;
 	sequence = 0;
 	pending = [];
@@ -4990,10 +4976,10 @@ var Xa = class {
 		};
 	}
 };
-function Qa(e, t) {
+function Za(e, t) {
 	if (t) for (let n of e.peers.values()) n.control?.readyState === "open" && n.control.bufferedAmount < 16384 && e.control(n, t);
 }
-var $a = {
+var Qa = {
 	message: {
 		burst: 240,
 		perSecond: 160
@@ -5014,12 +5000,12 @@ var $a = {
 		burst: 1,
 		perSecond: .5
 	}
-}, eo = class {
+}, $a = class {
 	peers = /* @__PURE__ */ new Map();
 	allow(e, t, n = performance.now()) {
 		let r = this.peers.get(e);
 		r || (r = {}, this.peers.set(e, r));
-		let { burst: i, perSecond: a } = $a[t], o = r[t] ?? {
+		let { burst: i, perSecond: a } = Qa[t], o = r[t] ?? {
 			tokens: i,
 			at: n
 		};
@@ -5031,27 +5017,27 @@ var $a = {
 	clear() {
 		this.peers.clear();
 	}
-}, to = 32768, no = 62258, ro = 4, io = 32, ao = (e, t) => typeof e == "number" && Number.isInteger(e) && e >= 0 && e <= t, oo = (e) => Math.max(-32768, Math.min(32767, Math.round(e * ro)));
-function so(e) {
-	return ao(e.halfWidthQ, 65535) && ao(e.halfHeightQ, 65535) && e.halfWidthQ !== 0 && e.halfHeightQ !== 0 && ao(e.grassWidthQ, e.halfWidthQ) && ao(e.grassHeightQ, e.halfHeightQ) && ao(e.cornerQ, Math.min(e.grassWidthQ, e.grassHeightQ));
+}, eo = 32768, to = 62258, no = 4, ro = 32, io = (e, t) => typeof e == "number" && Number.isInteger(e) && e >= 0 && e <= t, ao = (e) => Math.max(-32768, Math.min(32767, Math.round(e * no)));
+function oo(e) {
+	return io(e.halfWidthQ, 65535) && io(e.halfHeightQ, 65535) && e.halfWidthQ !== 0 && e.halfHeightQ !== 0 && io(e.grassWidthQ, e.halfWidthQ) && io(e.grassHeightQ, e.halfHeightQ) && io(e.cornerQ, Math.min(e.grassWidthQ, e.grassHeightQ));
 }
-function co(e) {
+function so(e) {
 	let { bg: t } = e, n = {
-		halfWidthQ: Math.round((Math.max(e.width, t.width) + io) * ro),
-		halfHeightQ: Math.round((Math.max(e.height, t.height) + io) * ro),
-		grassWidthQ: Math.round(t.width * ro),
-		grassHeightQ: Math.round(t.height * ro),
-		cornerQ: Math.round(Math.min(t.cornerRadius ?? 0, t.width, t.height) * ro)
+		halfWidthQ: Math.round((Math.max(e.width, t.width) + ro) * no),
+		halfHeightQ: Math.round((Math.max(e.height, t.height) + ro) * no),
+		grassWidthQ: Math.round(t.width * no),
+		grassHeightQ: Math.round(t.height * no),
+		cornerQ: Math.round(Math.min(t.cornerRadius ?? 0, t.width, t.height) * no)
 	};
-	if (!so(n)) throw Error("Invalid turf field");
+	if (!oo(n)) throw Error("Invalid turf field");
 	return n;
 }
-var lo = (e, t) => e.halfWidthQ === t.halfWidthQ && e.halfHeightQ === t.halfHeightQ && e.grassWidthQ === t.grassWidthQ && e.grassHeightQ === t.grassHeightQ && e.cornerQ === t.cornerQ, uo = (e) => [e.halfWidthQ / ro, e.halfHeightQ / ro];
-function fo(e, t, { grassWidthQ: n, grassHeightQ: r, cornerQ: i }) {
+var co = (e, t) => e.halfWidthQ === t.halfWidthQ && e.halfHeightQ === t.halfHeightQ && e.grassWidthQ === t.grassWidthQ && e.grassHeightQ === t.grassHeightQ && e.cornerQ === t.cornerQ, lo = (e) => [e.halfWidthQ / no, e.halfHeightQ / no];
+function uo(e, t, { grassWidthQ: n, grassHeightQ: r, cornerQ: i }) {
 	let a = Math.abs(e), o = Math.abs(t);
 	return a > n || o > r ? !1 : !(i > 0 && a > n - i && o > r - i && (a - n + i) ** 2 + (o - r + i) ** 2 > i ** 2);
 }
-function po(e, [t, n, r, i], a, o, s) {
+function fo(e, [t, n, r, i], a, o, s) {
 	let { halfWidthQ: c, halfHeightQ: l } = s, u = Math.max(0, Math.floor((Math.min(t, r) - a + c) * 256 / (2 * c))), d = Math.min(255, Math.ceil((Math.max(t, r) + a + c) * 256 / (2 * c))), f = Math.max(0, Math.floor((Math.min(n, i) - a + l) * 128 / (2 * l))), p = Math.min(127, Math.ceil((Math.max(n, i) + a + l) * 128 / (2 * l)));
 	if (d < u || p < f) return !1;
 	let m = r - t, h = i - n, g = m * m + h * h;
@@ -5061,74 +5047,74 @@ function po(e, [t, n, r, i], a, o, s) {
 		let i = (2 * r + 1 - 128) * l / 128;
 		for (let a = u; a <= d; a++) {
 			let l = (2 * a + 1 - 256) * c / 256;
-			if (!fo(l, i, s)) continue;
+			if (!uo(l, i, s)) continue;
 			let u = Math.max(0, Math.min(1, ((l - t) * m + (i - n) * h) / g)), d = l - t - m * u, f = i - n - h * u, p = d * d + f * f;
 			if (p >= v) continue;
 			let b = r * 256 + a, x = Math.round(_ * o * (1 - p / v) * (1 - e[b] / 65535) / 32);
 			if (!x) continue;
-			let ee = Math.min(no, e[b] + x);
+			let ee = Math.min(to, e[b] + x);
 			ee !== e[b] && (e[b] = ee, y = !0);
 		}
 	}
 	return y;
 }
-var mo = to * 3, ho = 102400, go = 1, _o = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/, vo = (e, t) => Math.imul(e ^ t, 16777619);
+var po = eo * 3, mo = 102400, ho = 1, go = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/, _o = (e, t) => Math.imul(e ^ t, 16777619);
+function vo(e) {
+	let t = 2166136261;
+	for (let n of e) t = _o(t, n);
+	return t >>> 0;
+}
 function yo(e) {
 	let t = 2166136261;
-	for (let n of e) t = vo(t, n);
+	for (let n of e) t = _o(_o(t, n & 255), n >>> 8);
 	return t >>> 0;
 }
 function bo(e) {
-	let t = 2166136261;
-	for (let n of e) t = vo(vo(t, n & 255), n >>> 8);
-	return t >>> 0;
-}
-function xo(e) {
 	let t = "";
 	for (let n = 0; n < e.length; n += 8192) t += String.fromCharCode(...e.subarray(n, n + 8192));
 	return btoa(t);
 }
-function So(e, t, n) {
-	if (typeof e != "string" || e.length > Math.ceil(t / 3) * 4 || !_o.test(e)) throw Error(n);
+function xo(e, t, n) {
+	if (typeof e != "string" || e.length > Math.ceil(t / 3) * 4 || !go.test(e)) throw Error(n);
 	return Uint8Array.from(atob(e), (e) => e.charCodeAt(0));
 }
-function Co(e) {
-	let t = So(e, to * 2, "Invalid turf payload");
+function So(e) {
+	let t = xo(e, eo * 2, "Invalid turf payload");
 	if (t.length !== 65536) throw Error("Invalid turf atlas length");
-	let n = new DataView(t.buffer, t.byteOffset, t.byteLength), r = new Uint16Array(to);
-	for (let e = 0; e < to; e++) if (r[e] = n.getUint16(e * 2, !0), r[e] > 62258) throw Error("Invalid turf wear");
+	let n = new DataView(t.buffer, t.byteOffset, t.byteLength), r = new Uint16Array(eo);
+	for (let e = 0; e < eo; e++) if (r[e] = n.getUint16(e * 2, !0), r[e] > 62258) throw Error("Invalid turf wear");
 	return r;
 }
-function wo(e) {
-	let t = So(e, ho, "Invalid turf surface payload");
-	if (!t.length || t.length > ho) throw Error("Invalid turf surface length");
-	let n = new Uint8Array(mo), r = 0, i = !1, a = new Mt((e, t) => {
-		if (r + e.length > mo) throw Error("Expanded turf surface exceeds size limit");
+function Co(e) {
+	let t = xo(e, mo, "Invalid turf surface payload");
+	if (!t.length || t.length > mo) throw Error("Invalid turf surface length");
+	let n = new Uint8Array(po), r = 0, i = !1, a = new jt((e, t) => {
+		if (r + e.length > po) throw Error("Expanded turf surface exceeds size limit");
 		n.set(e, r), r += e.length, i = t;
 	});
 	for (let e = 0; e < t.length; e += 256) a.push(t.subarray(e, e + 256), e + 256 >= t.length);
-	if (!i || r !== mo) throw Error("Invalid turf surface length");
+	if (!i || r !== po) throw Error("Invalid turf surface length");
 	return n;
 }
-function To(e) {
-	let t = new Uint8Array(to * 2), n = new DataView(t.buffer);
-	for (let t = 0; t < to; t++) n.setUint16(t * 2, e.atlas[t], !0);
+function wo(e) {
+	let t = new Uint8Array(eo * 2), n = new DataView(t.buffer);
+	for (let t = 0; t < eo; t++) n.setUint16(t * 2, e.atlas[t], !0);
 	let r = {
 		type: "turf-checkpoint",
-		version: go,
+		version: ho,
 		generation: e.generation,
 		...e.field,
 		digest: e.digest,
-		atlas: xo(t)
+		atlas: bo(t)
 	};
 	if (e.surfaceRgb) {
-		let t = jt(e.surfaceRgb, { level: 1 });
-		if (t.length > ho) throw Error("Compressed turf surface exceeds size limit");
-		r.surface = xo(t), r.surfaceDigest = yo(e.surfaceRgb);
+		let t = At(e.surfaceRgb, { level: 1 });
+		if (t.length > mo) throw Error("Compressed turf surface exceeds size limit");
+		r.surface = bo(t), r.surfaceDigest = vo(e.surfaceRgb);
 	}
 	return r;
 }
-function Eo(e) {
+function To(e) {
 	if (!e || typeof e != "object") throw Error("Invalid turf checkpoint");
 	let t = e, n = {
 		halfWidthQ: t.halfWidthQ,
@@ -5137,14 +5123,14 @@ function Eo(e) {
 		grassHeightQ: t.grassHeightQ,
 		cornerQ: t.cornerQ
 	};
-	if (t.type !== "turf-checkpoint" || t.version !== go || !ao(t.generation, 4294967295) || !so(n) || !ao(t.digest, 4294967295)) throw Error("Invalid turf checkpoint");
-	let r = Co(t.atlas);
-	if (bo(r) !== t.digest) throw Error("Turf checksum mismatch");
+	if (t.type !== "turf-checkpoint" || t.version !== ho || !io(t.generation, 4294967295) || !oo(n) || !io(t.digest, 4294967295)) throw Error("Invalid turf checkpoint");
+	let r = So(t.atlas);
+	if (yo(r) !== t.digest) throw Error("Turf checksum mismatch");
 	if (t.surface === void 0 != (t.surfaceDigest === void 0)) throw Error("Invalid turf surface envelope");
 	let i;
 	if (t.surface !== void 0) {
-		if (!ao(t.surfaceDigest, 4294967295)) throw Error("Invalid turf surface checksum");
-		if (i = wo(t.surface), yo(i) !== t.surfaceDigest) throw Error("Turf surface checksum mismatch");
+		if (!io(t.surfaceDigest, 4294967295)) throw Error("Invalid turf surface checksum");
+		if (i = Co(t.surface), vo(i) !== t.surfaceDigest) throw Error("Turf surface checksum mismatch");
 	}
 	return {
 		field: n,
@@ -5154,42 +5140,42 @@ function Eo(e) {
 		surfaceRgb: i
 	};
 }
-var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
+var Eo = 6, Do = 33, Oo = 31, ko = 255, Ao = {
 	halfWidthQ: 0,
 	halfHeightQ: 0,
 	grassWidthQ: 0,
 	grassHeightQ: 0,
 	cornerQ: 0
-}, Mo = (e) => Math.min(no, Math.round(e * 65535 / 255)), No = class {
-	atlas = new Uint16Array(to);
-	image = new Uint8Array(to);
+}, jo = (e) => Math.min(to, Math.round(e * 65535 / 255)), Mo = class {
+	atlas = new Uint16Array(eo);
+	image = new Uint8Array(eo);
 	surfaceRgb;
-	surfaceImage = new Uint8Array(to * 4);
+	surfaceImage = new Uint8Array(eo * 4);
 	surfaceDirty = !0;
 	imageDirty = !0;
 	digestDirty = !0;
-	digestValue = bo(this.atlas);
+	digestValue = yo(this.atlas);
 	previous = /* @__PURE__ */ new Map();
 	stadium;
 	lastTick = -1;
 	lastElapsed = -1;
 	lastPhase = "lobby";
-	bounds = jo;
+	bounds = Ao;
 	generation = 0;
 	revision = 0;
 	field = [0, 0];
 	get digest() {
-		return this.digestDirty &&= (this.digestValue = bo(this.atlas), !1), this.digestValue;
+		return this.digestDirty &&= (this.digestValue = yo(this.atlas), !1), this.digestValue;
 	}
 	get hasPressure() {
 		let e = this.surfaceRgb;
 		if (!e) return !1;
-		for (let t = 0; t < mo; t += 3) if (e[t] !== 0) return !0;
+		for (let t = 0; t < po; t += 3) if (e[t] !== 0) return !0;
 		return !1;
 	}
 	pixels() {
 		if (this.imageDirty) {
-			for (let e = 0; e < to; e++) this.image[e] = Math.round(this.atlas[e] * 255 / 65535);
+			for (let e = 0; e < eo; e++) this.image[e] = Math.round(this.atlas[e] * 255 / 65535);
 			this.imageDirty = !1;
 		}
 		return this.image;
@@ -5197,7 +5183,7 @@ var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 	surfacePixels() {
 		if (this.surfaceDirty || this.imageDirty) {
 			let e = this.pixels(), t = this.surfaceRgb;
-			for (let n = 0; n < to; n++) {
+			for (let n = 0; n < eo; n++) {
 				let r = n * 4, i = n * 3;
 				this.surfaceImage[r] = t ? t[i] : 0, this.surfaceImage[r + 1] = t ? t[i + 1] : 128, this.surfaceImage[r + 2] = t ? t[i + 2] : 128, this.surfaceImage[r + 3] = e[n];
 			}
@@ -5209,18 +5195,18 @@ var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 		this.imageDirty = !0, this.surfaceDirty = !0, this.digestDirty = !0, this.revision++;
 	}
 	reset(e) {
-		this.atlas.fill(0), this.surfaceRgb = void 0, this.previous.clear(), this.generation = this.generation + 1 >>> 0, this.bounds = e, this.field = uo(e), this.changed();
+		this.atlas.fill(0), this.surfaceRgb = void 0, this.previous.clear(), this.generation = this.generation + 1 >>> 0, this.bounds = e, this.field = lo(e), this.changed();
 	}
 	startsOver(e, t) {
-		return this.stadium !== e.stadium || this.lastTick > e.tick || this.lastElapsed > 0 && e.elapsed < this.lastElapsed || e.phase === "lobby" && this.lastPhase !== "lobby" || !lo(this.bounds, t);
+		return this.stadium !== e.stadium || this.lastTick > e.tick || this.lastElapsed > 0 && e.elapsed < this.lastElapsed || e.phase === "lobby" && this.lastPhase !== "lobby" || !co(this.bounds, t);
 	}
 	capture(e) {
-		let t = e.stadium, n = co(t);
+		let t = e.stadium, n = so(t);
 		if (this.startsOver(e, n) && this.reset(n), this.stadium = t, this.lastTick = e.tick, this.lastElapsed = e.elapsed, this.lastPhase = e.phase, e.phase !== "playing" || e.paused || e.resumeTicks || t.bg.type !== "grass") {
 			this.previous.clear();
 			return;
 		}
-		e.tick % Do === 0 && this.sampleBodies(e.data);
+		e.tick % Eo === 0 && this.sampleBodies(e.data);
 	}
 	sampleBodies(e) {
 		let t = /* @__PURE__ */ new Set(), n = 0;
@@ -5231,17 +5217,17 @@ var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 			if (!Number.isFinite(a) || !Number.isFinite(o) || !Number.isFinite(s)) continue;
 			t.add(r);
 			let c = this.previous.get(r);
-			if (c && n < Oo) {
+			if (c && n < Do) {
 				let e = Math.hypot(a - c[0], o - c[1]);
 				if (e > .1 && e < 60) {
 					n++;
 					let e = [
-						oo(c[0]),
-						oo(c[1]),
-						oo(a),
-						oo(o)
-					], t = Math.max(1, Math.min(96, Math.round(Math.max(3.5, s * .78) * 4))), i = r === 0 ? ko : Ao;
-					po(this.atlas, e, t, i, this.bounds) && this.changed();
+						ao(c[0]),
+						ao(c[1]),
+						ao(a),
+						ao(o)
+					], t = Math.max(1, Math.min(96, Math.round(Math.max(3.5, s * .78) * 4))), i = r === 0 ? Oo : ko;
+					fo(this.atlas, e, t, i, this.bounds) && this.changed();
 				}
 			}
 			this.previous.set(r, [a, o]);
@@ -5250,21 +5236,21 @@ var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 	}
 	seed(e) {
 		if (!(e instanceof Uint8Array) || e.length !== 32768) throw Error("Invalid turf seed");
-		for (let t = 0; t < to; t++) this.atlas[t] = Mo(e[t]);
+		for (let t = 0; t < eo; t++) this.atlas[t] = jo(e[t]);
 		this.surfaceRgb = void 0, this.changed();
 	}
 	seedSurface(e) {
 		if (!(e instanceof Uint8Array) || e.length !== 131072) throw Error("Invalid turf surface seed");
-		let t = new Uint8Array(mo);
-		for (let n = 0; n < to; n++) {
+		let t = new Uint8Array(po);
+		for (let n = 0; n < eo; n++) {
 			let r = n * 4, i = n * 3;
-			t[i] = e[r], t[i + 1] = e[r + 1], t[i + 2] = e[r + 2], this.atlas[n] = Mo(e[r + 3]);
+			t[i] = e[r], t[i + 1] = e[r + 1], t[i + 2] = e[r + 2], this.atlas[n] = jo(e[r + 3]);
 		}
 		this.surfaceRgb = t, this.changed();
 	}
 	checkpoint() {
 		if (!this.bounds.halfWidthQ || !this.bounds.halfHeightQ) throw Error("Turf field is not initialized");
-		return To({
+		return wo({
 			field: this.bounds,
 			generation: this.generation,
 			digest: this.digest,
@@ -5273,10 +5259,10 @@ var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 		});
 	}
 	restore(e) {
-		let t = Eo(e);
-		this.generation > t.generation && this.generation - t.generation < 2147483648 || (this.atlas = t.atlas, this.surfaceRgb = t.surfaceRgb, this.generation = t.generation, this.bounds = t.field, this.field = uo(t.field), this.previous.clear(), this.changed(), this.digestValue = t.digest, this.digestDirty = !1);
+		let t = To(e);
+		this.generation > t.generation && this.generation - t.generation < 2147483648 || (this.atlas = t.atlas, this.surfaceRgb = t.surfaceRgb, this.generation = t.generation, this.bounds = t.field, this.field = lo(t.field), this.previous.clear(), this.changed(), this.digestValue = t.digest, this.digestDirty = !1);
 	}
-}, Po = class {
+}, No = class {
 	players = [];
 	nextId = 0;
 	get all() {
@@ -5311,7 +5297,7 @@ var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 		return this.players.push(t), t;
 	}
 	assignTeam(e, t) {
-		return Bi(this.players, e, t);
+		return zi(this.players, e, t);
 	}
 	removePeer(e) {
 		this.players = this.players.filter((t) => t.peerId !== e);
@@ -5333,16 +5319,16 @@ var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 			muted: !!e.muted
 		}));
 	}
-}, Fo = class {
+}, Po = class {
 	engine;
 	runtime;
 	hooks;
-	players = new Po();
+	players = new No();
 	match;
 	inputs;
-	traffic = new eo();
-	soundStream = new Za();
-	turfState = new No();
+	traffic = new $a();
+	soundStream = new Xa();
+	turfState = new Mo();
 	bans = /* @__PURE__ */ new Map();
 	network;
 	roomId = "";
@@ -5354,7 +5340,7 @@ var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 	closed = !1;
 	stadiumSelection = 0;
 	constructor(e, t, n, r) {
-		this.engine = e, this.runtime = t, this.hooks = n, this.match = new Xa(e, r), this.inputs = new xa(this.match);
+		this.engine = e, this.runtime = t, this.hooks = n, this.match = new Ya(e, r), this.inputs = new ba(this.match);
 	}
 	report(e) {
 		try {
@@ -5417,20 +5403,20 @@ var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 		return e ? this.publicPlayer(e) : null;
 	}
 };
-function Io(e) {
+function Fo(e) {
 	return /^(?:[0-9a-f]{10}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i.test(e) ? e.toLowerCase() : null;
 }
-function Lo(e) {
-	let t = Io(e);
+function Io(e) {
+	let t = Fo(e);
 	if (!t) throw Error("Invalid room code");
 	return `/r/${t}`;
 }
-qr({ password: /* @__PURE__ */ Hr() }), qr({
-	password: /* @__PURE__ */ Hr(),
-	verifier: /* @__PURE__ */ Hr()
-}), qr({ verifier: /* @__PURE__ */ Hr() }), qr({ verified: /* @__PURE__ */ Fr() });
-var Ro = /* @__PURE__ */ Z({ error: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ wr(300), /* @__PURE__ */ Sr((e) => e.trim() !== ""), /* @__PURE__ */ Sr((e) => !/[<>]/.test(e)), /* @__PURE__ */ Sr((e) => !/[\u0000-\u001f\u007f]/.test(e))) });
-async function zo(e, t, n) {
+Kr({ password: /* @__PURE__ */ Vr() }), Kr({
+	password: /* @__PURE__ */ Vr(),
+	verifier: /* @__PURE__ */ Vr()
+}), Kr({ verifier: /* @__PURE__ */ Vr() }), Kr({ verified: /* @__PURE__ */ Pr() });
+var Lo = /* @__PURE__ */ Z({ error: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Cr(300), /* @__PURE__ */ xr((e) => e.trim() !== ""), /* @__PURE__ */ xr((e) => !/[<>]/.test(e)), /* @__PURE__ */ xr((e) => !/[\u0000-\u001f\u007f]/.test(e))) });
+async function Ro(e, t, n) {
 	let r = e.getReader(), i = () => {
 		r.cancel().catch(() => {});
 	};
@@ -5473,21 +5459,21 @@ async function zo(e, t, n) {
 		bytes: s
 	};
 }
-var Bo = 2048, Vo = class extends Error {
+var zo = 2048, Bo = class extends Error {
 	status;
 	retryAfterSeconds;
 	constructor(e, t, n = null) {
 		super(e), this.status = t, this.retryAfterSeconds = n, this.name = "RoomAdmissionError";
 	}
 };
-async function Ho(e, t) {
-	let n = `Room creation failed (${e.status})`, r = e.status === 429 ? e.headers.get("Retry-After") : null, i = r && /^\d+$/.test(r) && Number.isSafeInteger(Number(r)) ? Number(r) : null, a = (t) => new Vo(t, e.status, i), o = e.body;
+async function Vo(e, t) {
+	let n = `Room creation failed (${e.status})`, r = e.status === 429 ? e.headers.get("Retry-After") : null, i = r && /^\d+$/.test(r) && Number.isSafeInteger(Number(r)) ? Number(r) : null, a = (t) => new Bo(t, e.status, i), o = e.body;
 	if (!o) return a(n);
 	try {
 		if (t.throwIfAborted(), e.status < 400 || e.status >= 500 || e.headers.get("content-type")?.split(";")[0].trim() !== "application/json") return a(n);
-		let r = await zo(o, Bo, t);
+		let r = await Ro(o, zo, t);
 		if (!r.ok) return t.throwIfAborted(), a(n);
-		let i = /* @__PURE__ */ Wr(Ro, JSON.parse(new TextDecoder("utf-8", { fatal: !0 }).decode(r.bytes)));
+		let i = /* @__PURE__ */ Ur(Lo, JSON.parse(new TextDecoder("utf-8", { fatal: !0 }).decode(r.bytes)));
 		return i.success ? a(`${i.output.error.trim()} (${e.status})`) : a(n);
 	} catch {
 		return t.throwIfAborted(), a(n);
@@ -5495,7 +5481,7 @@ async function Ho(e, t) {
 		o.cancel().catch(() => {});
 	}
 }
-function Uo(e) {
+function Ho(e) {
 	if (e === void 0) return;
 	if (!e || typeof e != "object" || Array.isArray(e)) throw TypeError("Geolocation must contain a country code, latitude and longitude.");
 	let { code: t, lat: n, lon: r } = e;
@@ -5506,23 +5492,23 @@ function Uo(e) {
 		lon: r === 0 ? 0 : r
 	};
 }
-var Wo = (e, t) => /* @__PURE__ */ $(/* @__PURE__ */ Q(t), /* @__PURE__ */ Sr((t) => !!t.trim() && t.length <= e, t)), Go = (e) => /* @__PURE__ */ zr(/* @__PURE__ */ Fr(`Invalid ${e} setting: expected a boolean`)), Ko = "maxPlayers must be an integer between 2 and 32", qo = /* @__PURE__ */ $(/* @__PURE__ */ Z({
-	roomName: Wo(64, "Room name must contain 1–64 characters"),
-	public: Go("public"),
-	noPlayer: Go("noPlayer"),
-	maxPlayers: /* @__PURE__ */ zr(/* @__PURE__ */ $(/* @__PURE__ */ Rr(Ko), /* @__PURE__ */ Cr(Ko), /* @__PURE__ */ Dr(2, Ko), /* @__PURE__ */ Tr(32, Ko))),
-	password: /* @__PURE__ */ zr(/* @__PURE__ */ $(/* @__PURE__ */ Q("Password must be a string of at most 64 characters"), /* @__PURE__ */ wr(64, "Password must be a string of at most 64 characters"))),
-	stadium: /* @__PURE__ */ zr(/* @__PURE__ */ Q("Stadium must be a Ball2D stadium source string")),
-	playerName: /* @__PURE__ */ zr(/* @__PURE__ */ Hr()),
-	geo: /* @__PURE__ */ zr(/* @__PURE__ */ Hr())
-}), /* @__PURE__ */ Sr((e) => e.noPlayer !== !1 || e.playerName === void 0 || /* @__PURE__ */ Nr(Wo(24, ""), e.playerName), "Invalid host player name")), Jo = new Set(Object.keys(qo.pipe[0].entries));
-function Yo(e) {
+var Uo = (e, t) => /* @__PURE__ */ $(/* @__PURE__ */ Q(t), /* @__PURE__ */ xr((t) => !!t.trim() && t.length <= e, t)), Wo = (e) => /* @__PURE__ */ Rr(/* @__PURE__ */ Pr(`Invalid ${e} setting: expected a boolean`)), Go = "maxPlayers must be an integer between 2 and 32", Ko = /* @__PURE__ */ $(/* @__PURE__ */ Z({
+	roomName: Uo(64, "Room name must contain 1–64 characters"),
+	public: Wo("public"),
+	noPlayer: Wo("noPlayer"),
+	maxPlayers: /* @__PURE__ */ Rr(/* @__PURE__ */ $(/* @__PURE__ */ Lr(Go), /* @__PURE__ */ Sr(Go), /* @__PURE__ */ Er(2, Go), /* @__PURE__ */ wr(32, Go))),
+	password: /* @__PURE__ */ Rr(/* @__PURE__ */ $(/* @__PURE__ */ Q("Password must be a string of at most 64 characters"), /* @__PURE__ */ Cr(64, "Password must be a string of at most 64 characters"))),
+	stadium: /* @__PURE__ */ Rr(/* @__PURE__ */ Q("Stadium must be a Ball2D stadium source string")),
+	playerName: /* @__PURE__ */ Rr(/* @__PURE__ */ Vr()),
+	geo: /* @__PURE__ */ Rr(/* @__PURE__ */ Vr())
+}), /* @__PURE__ */ xr((e) => e.noPlayer !== !1 || e.playerName === void 0 || /* @__PURE__ */ Mr(Uo(24, ""), e.playerName), "Invalid host player name")), qo = new Set(Object.keys(Ko.pipe[0].entries));
+function Jo(e) {
 	if (!e || typeof e != "object" || Array.isArray(e)) throw Error("Room configuration must be an object");
 	for (let t of Object.keys(e)) {
 		if (t === "token") throw Error("External service tokens are not supported. Ball2D join verification is configured on the room.");
-		if (!Jo.has(t)) throw Error(`Unknown room setting: ${t}`);
+		if (!qo.has(t)) throw Error(`Unknown room setting: ${t}`);
 	}
-	let t = /* @__PURE__ */ Wr(qo, e, { abortEarly: !0 });
+	let t = /* @__PURE__ */ Ur(Ko, e, { abortEarly: !0 });
 	if (!t.success) throw Error(t.issues[0].message);
 	let n = t.output;
 	return {
@@ -5533,10 +5519,10 @@ function Yo(e) {
 		noPlayer: n.noPlayer ?? !0,
 		playerName: n.noPlayer === !1 ? (n.playerName ?? "Host").trim() : void 0,
 		stadium: n.stadium,
-		...n.geo === void 0 ? {} : { geo: Uo(n.geo) }
+		...n.geo === void 0 ? {} : { geo: Ho(n.geo) }
 	};
 }
-function Xo(e) {
+function Yo(e) {
 	let t = new AbortController(), n = () => t.abort(e?.reason);
 	e?.aborted ? n() : e?.addEventListener("abort", n, { once: !0 });
 	let r = setTimeout(() => t.abort(new DOMException("Room startup timed out", "TimeoutError")), 15e3);
@@ -5558,19 +5544,19 @@ function Xo(e) {
 		}
 	};
 }
-var Zo = 12e3;
-function Qo(e) {
+var Xo = 12e3;
+function Zo(e) {
 	if (e.noPlayer !== void 0 && typeof e.noPlayer != "boolean") throw Error("Invalid noPlayer setting");
 	if (e.noPlayer !== !1) return null;
 	let t = e.playerName ?? "Host";
 	if (typeof t != "string" || !t.trim() || t.length > 24) throw Error("Invalid host player name");
 	return t.trim();
 }
-function $o(e, t, n, r, i, a) {
+function Qo(e, t, n, r, i, a) {
 	let o;
 	return {
 		ready: new Promise((s, c) => {
-			o = setTimeout(() => c(Error("Signaling timed out")), Zo), e.network = new bi(n.id, { hostToken: n.hostToken }, {
+			o = setTimeout(() => c(Error("Signaling timed out")), Xo), e.network = new yi(n.id, { hostToken: n.hostToken }, {
 				ready: (t, n) => {
 					if (!n) {
 						c(Error("Host authority was not granted"));
@@ -5600,15 +5586,15 @@ function $o(e, t, n, r, i, a) {
 		cancel: () => clearTimeout(o)
 	};
 }
-async function es(e, t, n, r) {
-	let i = Bt(t.network.serviceOrigin), a = Bt(t.publicOrigin ?? i), o = Yo(e), s = Qo(o), c = Xo(n), l;
+async function $o(e, t, n, r) {
+	let i = zt(t.network.serviceOrigin), a = zt(t.publicOrigin ?? i), o = Jo(e), s = Zo(o), c = Yo(n), l;
 	try {
 		c.signal.throwIfAborted();
 		let e = await c.run(t.loadEngine(c.signal));
 		e.load(o.stadium ?? v());
 		let n = r.construct(e);
 		l = n;
-		let u = r.core(n), d = await c.run(t.request(new URL(zt.rooms, i), {
+		let u = r.core(n), d = await c.run(t.request(new URL(Rt.rooms, i), {
 			signal: c.signal,
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -5621,10 +5607,10 @@ async function es(e, t, n, r) {
 				...o.geo ? { geo: o.geo } : {}
 			})
 		}));
-		if (!d.ok) throw await c.run(Ho(d, c.signal));
+		if (!d.ok) throw await c.run(Vo(d, c.signal));
 		let f = await c.run(d.json());
-		u.roomId = f.id, u.roomName = o.roomName, u.roomLink = `${a}${Lo(f.id)}`;
-		let p = $o(u, r.gateway(n), f, s, t, () => r.close(n));
+		u.roomId = f.id, u.roomName = o.roomName, u.roomLink = `${a}${Io(f.id)}`;
+		let p = Qo(u, r.gateway(n), f, s, t, () => r.close(n));
 		try {
 			await c.run(p.ready);
 		} catch (e) {
@@ -5640,18 +5626,18 @@ async function es(e, t, n, r) {
 		c.dispose();
 	}
 }
-var ts = 32768;
-function ns(e, t, n, r) {
-	let i = [...e.peers.values()].filter((e) => e.fast?.readyState === "open" && e.fast.bufferedAmount < ts);
+var es = 32768;
+function ts(e, t, n, r) {
+	let i = [...e.peers.values()].filter((e) => e.fast?.readyState === "open" && e.fast.bufferedAmount < es);
 	if (!i.length) return;
-	let a = Xn(t, i.map((e) => r.acknowledgment(e.id)), n);
+	let a = Yn(t, i.map((e) => r.acknowledgment(e.id)), n);
 	for (let t = 0; t < i.length; t++) {
 		let n = i[t], r = a[t], o = r.reduce((e, t) => e + t.byteLength, 0);
-		if (!(n.fast?.readyState !== "open" || n.fast.bufferedAmount + o > ts)) for (let t of r) e.fast(n, t);
+		if (!(n.fast?.readyState !== "open" || n.fast.bufferedAmount + o > es)) for (let t of r) e.fast(n, t);
 	}
 }
-var rs = 1e3 / Fe, is = 500, as = 32, os = Fe / 30;
-function ss(e) {
+var ns = 1e3 / Fe, rs = 500, is = 32, as = Fe / 30;
+function os(e) {
 	let { engine: t } = e, n = t.red, r = t.blue, i = t.phase;
 	return e.match.step(), e.turfState.capture(t), e.soundStream.capture(t, e.epoch), t.phase !== i && e.broadcastState(), {
 		kickers: t.ballKicks.map((t) => {
@@ -5662,10 +5648,10 @@ function ss(e) {
 		blueGoal: t.blue > r,
 		positionsReset: i === "goal" && t.phase === "playing",
 		stopped: i === "finished" && t.phase === "lobby",
-		victory: i !== "finished" && t.phase === "finished" ? bn(e) : null
+		victory: i !== "finished" && t.phase === "finished" ? yn(e) : null
 	};
 }
-var cs = class {
+var ss = class {
 	room;
 	accumulator = 0;
 	last = performance.now();
@@ -5679,11 +5665,11 @@ var cs = class {
 		let { room: e } = this;
 		if (e.closed) return;
 		let t = performance.now(), n = t - this.last;
-		this.last = t, n > is && e.engine.phase === "playing" && !e.engine.paused && (gn(e, !0, null), e.report("Host scheduler stalled; match paused.")), this.accumulator += Math.max(0, Math.min(n, is));
+		this.last = t, n > rs && e.engine.phase === "playing" && !e.engine.paused && (hn(e, !0, null), e.report("Host scheduler stalled; match paused.")), this.accumulator += Math.max(0, Math.min(n, rs));
 		let r = 0;
 		try {
-			for (; !e.closed && this.accumulator >= rs && r++ < as && (this.tick(t), !e.closed);) this.accumulator -= rs;
-			e.closed || Qa(e.network, e.soundStream.drain(t));
+			for (; !e.closed && this.accumulator >= ns && r++ < is && (this.tick(t), !e.closed);) this.accumulator -= ns;
+			e.closed || Za(e.network, e.soundStream.drain(t));
 		} catch (t) {
 			e.closed || (e.engine.setPaused(!0), e.report(String(t)));
 		}
@@ -5692,12 +5678,12 @@ var cs = class {
 		let { room: t } = this, { engine: n, hooks: r } = t;
 		for (let n of t.players.all) t.inputs.expire(n.peerId, n.slot, e);
 		if (t.match.checkRecordingLimit(), t.closed || (n.phase !== "lobby" && !n.paused && !n.resumeTicks && t.invoke("onGameTick", r.onGameTick), t.closed)) return;
-		let i = ss(t);
+		let i = os(t);
 		i.stopped && t.invoke("onGameStop", r.onGameStop, null), i.victory && (t.invoke("onTeamVictory", r.onTeamVictory, { ...i.victory }), t.invoke("onGameVictory", r.onGameVictory, { ...i.victory }));
 		for (let e of i.kickers) t.invoke("onPlayerBallKick", r.onPlayerBallKick, e);
-		i.redGoal && t.invoke("onTeamGoal", r.onTeamGoal, 1), i.blueGoal && t.invoke("onTeamGoal", r.onTeamGoal, 2), i.positionsReset && t.invoke("onPositionsReset", r.onPositionsReset), !t.closed && n.tick % os === 0 && ns(t.network, n.snapshot(), t.epoch, t.inputs);
+		i.redGoal && t.invoke("onTeamGoal", r.onTeamGoal, 1), i.blueGoal && t.invoke("onTeamGoal", r.onTeamGoal, 2), i.positionsReset && t.invoke("onPositionsReset", r.onPositionsReset), !t.closed && n.tick % as === 0 && ts(t.network, n.snapshot(), t.epoch, t.inputs);
 	}
-}, ls = Object.freeze({ ...x }), us = (e) => new Blob([It(e)], { type: "application/x-ball2d-replay" }), ds = class e {
+}, cs = Object.freeze({ ...x }), ls = (e) => new Blob([Ft(e)], { type: "application/x-ball2d-replay" }), us = class e {
 	engine;
 	core;
 	loop;
@@ -5708,13 +5694,13 @@ var cs = class {
 	gateway;
 	lastRecording = null;
 	constructor(e, t) {
-		this.engine = e, this.core = new Fo(e, t, this, (e, t) => {
-			let n = us(e);
+		this.engine = e, this.core = new Po(e, t, this, (e, t) => {
+			let n = ls(e);
 			this.lastRecording = n, this.core.invoke("onRecordingComplete", this.onRecordingComplete, n, t);
-		}), this.loop = new cs(this.core), this.gateway = ba(this.core);
+		}), this.loop = new ss(this.core), this.gateway = ya(this.core);
 	}
-	static async create(t, n = tn(), r) {
-		return es(t, n, r, {
+	static async create(t, n = en(), r) {
+		return $o(t, n, r, {
 			construct: (t) => new e(t, n),
 			core: (e) => e.core,
 			gateway: (e) => e.gateway,
@@ -5751,7 +5737,7 @@ var cs = class {
 		return this.core.network.requireVerification;
 	}
 	get CollisionFlags() {
-		return ls;
+		return cs;
 	}
 	getPlayerList() {
 		return this.core.players.all.map((e) => this.core.publicPlayer(e));
@@ -5760,78 +5746,78 @@ var cs = class {
 		return this.core.publicOrNull(this.core.players.byId(e) ?? null);
 	}
 	getScores() {
-		return bn(this.core);
+		return yn(this.core);
 	}
 	getBallPosition() {
-		return pn(this.core);
+		return fn(this.core);
 	}
 	getDiscCount() {
-		return on(this.core);
+		return an(this.core);
 	}
 	getDiscProperties(e) {
-		return cn(this.core, e);
+		return sn(this.core, e);
 	}
 	getPlayerDiscProperties(e) {
-		return dn(this.core, e);
+		return un(this.core, e);
 	}
 	getState() {
 		return this.engine.snapshot();
 	}
 	setTeamColors(e, t, n, r) {
-		Yi(this.core, e, t, n, r);
+		Ji(this.core, e, t, n, r);
 	}
 	reorderPlayers(e, t) {
-		Xi(this.core, e, t);
+		Yi(this.core, e, t);
 	}
 	setPlayerAvatar(e, t) {
-		Zi(this.core, e, t);
+		Xi(this.core, e, t);
 	}
 	setPlayerTeam(e, t) {
-		Wi(this.core, e, t, null);
+		Ui(this.core, e, t, null);
 	}
 	setPlayerAdmin(e, t) {
-		Gi(this.core, e, t);
+		Wi(this.core, e, t);
 	}
 	setPlayerMuted(e, t) {
-		Ki(this.core, e, t, null);
+		Gi(this.core, e, t, null);
 	}
 	setTeamsLock(e) {
-		qi(this.core, e, null);
+		Ki(this.core, e, null);
 	}
 	kickPlayer(e, t = "Removed by host", n = !1) {
 		if (this.core.assertOpen(), typeof n != "boolean") throw Error("Invalid ban flag");
-		if (n) return wi(this.core, e, t);
-		Ci(this.core, e, t, null);
+		if (n) return Ci(this.core, e, t);
+		Si(this.core, e, t, null);
 	}
 	clearBan(e) {
-		return Ti(this.core, e);
+		return wi(this.core, e);
 	}
 	clearBans() {
-		return Ei(this.core);
+		return Ti(this.core);
 	}
 	sendChat(e, t) {
-		Tn(this.core, e, t);
+		wn(this.core, e, t);
 	}
 	sendAnnouncement(e, t, n, r, i) {
-		En(this.core, e, t, n, r, i);
+		Tn(this.core, e, t, n, r, i);
 	}
 	startGame() {
-		mn(this.core, null);
+		pn(this.core, null);
 	}
 	stopGame() {
-		hn(this.core, null);
+		mn(this.core, null);
 	}
 	pauseGame(e) {
-		gn(this.core, e, null);
+		hn(this.core, e, null);
 	}
 	setKickRateLimit(e = 2, t = 0, n = 0) {
-		_n(this.core, e, t, n, null);
+		gn(this.core, e, t, n, null);
 	}
 	setScoreLimit(e) {
-		vn(this.core, e);
+		_n(this.core, e);
 	}
 	setTimeLimit(e) {
-		yn(this.core, e);
+		vn(this.core, e);
 	}
 	async setPassword(e) {
 		this.core.assertOpen(), await this.core.network.setPassword(e);
@@ -5840,16 +5826,16 @@ var cs = class {
 		this.core.assertOpen(), await this.core.network.setRequireVerification(e);
 	}
 	setDefaultStadium(e) {
-		return $i(this.core, e);
+		return Qi(this.core, e);
 	}
 	setCustomStadium(e) {
-		Qi(this.core, e, null);
+		Zi(this.core, e, null);
 	}
 	setDiscProperties(e, t) {
-		ln(this.core, e, t);
+		cn(this.core, e, t);
 	}
 	setPlayerDiscProperties(e, t) {
-		fn(this.core, e, t);
+		dn(this.core, e, t);
 	}
 	startRecording() {
 		this.core.assertOpen(), this.core.match.startRecording(this.core.players.all.map((e) => ({
@@ -5860,7 +5846,7 @@ var cs = class {
 	}
 	stopRecording() {
 		let e = this.core.match.stopRecording();
-		return e ? us(e) : null;
+		return e ? ls(e) : null;
 	}
 	close() {
 		let { core: e } = this;
@@ -5874,11 +5860,11 @@ var cs = class {
 		}
 	}
 };
-function fs(e) {
+function ds(e) {
 	if (!e || typeof e != "object" || Array.isArray(e)) throw Error("Room configuration must be an object");
 	let t = { ...e }, n = t.maxPlayers ?? 12;
 	if (typeof n != "number" || !Number.isFinite(n) || !Number.isInteger(n)) throw Error("maxPlayers must be a finite integer");
-	return Yo({
+	return Jo({
 		...t,
 		roomName: t.roomName ?? "Headless Room",
 		playerName: t.playerName ?? "Host",
@@ -5888,7 +5874,7 @@ function fs(e) {
 		password: t.password ?? ""
 	});
 }
-var ps = class {
+var fs = class {
 	onError;
 	pending = [];
 	active;
@@ -5942,7 +5928,7 @@ var ps = class {
 		this.active?.reject(e);
 		for (let t of this.pending.splice(0)) t.reject(e);
 	}
-}, ms = [
+}, ps = [
 	"sendChat",
 	"sendAnnouncement",
 	"setPlayerAdmin",
@@ -5968,18 +5954,18 @@ var ps = class {
 	"setDiscProperties",
 	"setPlayerDiscProperties"
 ];
-function hs(e, t) {
+function ms(e, t) {
 	let n = Object.create(null);
 	t && Object.defineProperty(n, "closed", {
 		enumerable: !0,
 		value: t
 	});
-	let r = new ps((t) => {
+	let r = new fs((t) => {
 		let n = e.onError?.(String(t));
 		n instanceof Promise && n.catch(() => {});
 	});
 	e.signal.addEventListener("abort", () => r.close(), { once: !0 }), e.signal.aborted && r.close();
-	for (let t of ms) Object.defineProperty(n, t, {
+	for (let t of ps) Object.defineProperty(n, t, {
 		enumerable: !0,
 		value: (...n) => {
 			try {
@@ -6037,10 +6023,10 @@ function hs(e, t) {
 		}
 	}), Object.preventExtensions(n);
 }
-function gs(e) {
-	return Ya(e);
+function hs(e) {
+	return Ja(e);
 }
-function _s(e) {
+function gs(e) {
 	if (typeof e != "string") throw TypeError("Stadium source must be a string");
 	let t = H(e);
 	return Object.freeze({
@@ -6049,7 +6035,7 @@ function _s(e) {
 		warnings: Object.freeze([...t.warnings])
 	});
 }
-async function vs(e = {}, t = {}) {
-	return hs(await ds.create(fs(e), void 0, t.signal));
+async function _s(e = {}, t = {}) {
+	return ms(await us.create(ds(e), void 0, t.signal));
 }
-export { Vo as RoomAdmissionError, vs as createRoom, gs as readReplay, _s as validateStadium };
+export { Bo as RoomAdmissionError, _s as createRoom, hs as readReplay, gs as validateStadium };
