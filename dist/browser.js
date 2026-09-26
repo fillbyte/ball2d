@@ -2218,14 +2218,13 @@ var Mt = /* @__PURE__ */ function() {
 try {
 	Nt.decode(Ot, { stream: !0 });
 } catch {}
-var Pt = 33554432, Ft = new TextEncoder();
-new TextDecoder("utf-8", { fatal: !0 });
-function It(e) {
+var Pt = 33554432;
+function Ft(e) {
 	let t = 2166136261;
 	for (let n of e) t = Math.imul(t ^ n, 16777619);
 	return t >>> 0;
 }
-function Lt(e) {
+function It(e) {
 	if (e.length > 33554432) throw Error("Replay exceeds 32 MB");
 	let t = jt(e, { level: 6 }), n = new Uint8Array(16 + t.length), r = new DataView(n.buffer);
 	return n.set([
@@ -2237,17 +2236,12 @@ function Lt(e) {
 		0,
 		0,
 		0
-	]), r.setUint32(8, e.length, !0), r.setUint32(12, It(e), !0), n.set(t, 16), n;
+	]), r.setUint32(8, e.length, !0), r.setUint32(12, Ft(e), !0), n.set(t, 16), n;
 }
-function Rt(e) {
-	if (typeof e == "string") {
-		if (Ft.encode(e).length > 33554432) throw Error("Replay exceeds 32 MB");
-		return Ft.encode(e);
-	}
+function Lt(e) {
 	let t = e instanceof Uint8Array ? e : new Uint8Array(e);
 	if (t.length > 33554432) throw Error("Replay exceeds 32 MB");
-	if (t[0] !== 66 || t[1] !== 50 || t[2] !== 68 || t[3] !== 90) return t;
-	if (t.length < 17 || t[4] !== 1 || t[5] || t[6] || t[7]) throw Error("Invalid compressed replay header");
+	if (t.length < 17 || t[0] !== 66 || t[1] !== 50 || t[2] !== 68 || t[3] !== 90 || t[4] !== 1 || t[5] || t[6] || t[7]) throw Error("Invalid compressed replay header");
 	let n = new DataView(t.buffer, t.byteOffset, t.byteLength), r = n.getUint32(8, !0);
 	if (!r || r > 33554432) throw Error("Invalid expanded replay size");
 	let i = new Uint8Array(r), a = 0, o = !1, s = new Mt((e, t) => {
@@ -2255,36 +2249,36 @@ function Rt(e) {
 		i.set(e, a), a += e.length, o = t;
 	});
 	for (let e = 16; e < t.length; e += 1024) s.push(t.subarray(e, e + 1024), e + 1024 >= t.length);
-	if (!o || a !== r || It(i) !== n.getUint32(12, !0)) throw Error("Compressed replay integrity failure");
+	if (!o || a !== r || Ft(i) !== n.getUint32(12, !0)) throw Error("Compressed replay integrity failure");
 	return i;
 }
-var zt = "/api/v1", Bt = {
-	rooms: `${zt}/rooms`,
-	sdkRooms: `${zt}/sdk/rooms`,
-	account: `${zt}/account`,
-	accountConfig: `${zt}/account/config`,
-	profile: `${zt}/account/profile`,
-	profileVisibility: `${zt}/account/profile/visibility`,
-	publicProfile: (e, t) => `${zt}/community/${e}/${encodeURIComponent(t)}`,
-	notifications: `${zt}/account/notifications`,
-	keys: `${zt}/account/keys`,
-	signal: (e) => `${zt}/rooms/${encodeURIComponent(e)}/signal`,
-	liveness: (e) => `${zt}/rooms/${encodeURIComponent(e)}/liveness`,
-	lease: (e) => `${zt}/sdk/rooms/${encodeURIComponent(e)}/lease`
+var Rt = "/api/v1", zt = {
+	rooms: `${Rt}/rooms`,
+	sdkRooms: `${Rt}/sdk/rooms`,
+	account: `${Rt}/account`,
+	accountConfig: `${Rt}/account/config`,
+	profile: `${Rt}/account/profile`,
+	profileVisibility: `${Rt}/account/profile/visibility`,
+	publicProfile: (e, t) => `${Rt}/community/${e}/${encodeURIComponent(t)}`,
+	notifications: `${Rt}/account/notifications`,
+	keys: `${Rt}/account/keys`,
+	signal: (e) => `${Rt}/rooms/${encodeURIComponent(e)}/signal`,
+	liveness: (e) => `${Rt}/rooms/${encodeURIComponent(e)}/liveness`,
+	lease: (e) => `${Rt}/sdk/rooms/${encodeURIComponent(e)}/lease`
 };
-function Vt(e) {
+function Bt(e) {
 	let t = new URL(e);
 	if (!["http:", "https:"].includes(t.protocol) || t.username || t.password || t.pathname !== "/" || t.search || t.hash) throw Error("Expected an HTTP(S) service origin without credentials or a path");
 	return t.origin;
 }
-function Ht(e) {
+function Vt(e) {
 	let t = new URL(e.assets);
 	if (![
 		"http:",
 		"https:",
 		"ball2d:"
 	].includes(t.protocol) || !t.host || t.username || t.password || t.pathname !== "/" || t.search || t.hash) throw Error("Expected a root asset origin");
-	let n = Vt(e.service), r = Vt(e.public);
+	let n = Bt(e.service), r = Bt(e.public);
 	function i(e, t) {
 		if (!e.startsWith("/") || e.startsWith("//") || e.includes("\\") || [...e].some((e) => e.charCodeAt(0) <= 32 || e.charCodeAt(0) === 127)) throw Error("Expected an absolute application path");
 		let n = decodeURIComponent(e.split(/[?#]/, 1)[0]);
@@ -2300,20 +2294,20 @@ function Ht(e) {
 		public: (e) => i(e, r),
 		api: (e) => {
 			let t = i(e, n);
-			if (!t.pathname.startsWith(`${zt}/`) || t.hash) throw Error("Expected a versioned application API path");
+			if (!t.pathname.startsWith(`${Rt}/`) || t.hash) throw Error("Expected a versioned application API path");
 			return t;
 		}
 	};
 }
-function Ut() {
+function Ht() {
 	let e = location.origin;
-	return Ht({
+	return Vt({
 		assets: e,
 		service: e,
 		public: e
 	});
 }
-function Wt(e, t) {
+function Ut(e, t) {
 	let n = {
 		get label() {
 			return e.label;
@@ -2345,7 +2339,7 @@ function Wt(e, t) {
 	};
 	return t.prepare?.(e), e.onopen = () => n.onopen?.(), e.onclose = () => n.onclose?.(), e.onmessage = ({ data: e }) => n.onmessage?.({ data: t.decode(e) }), n;
 }
-function Gt(e, t, n) {
+function Wt(e, t, n) {
 	let r = {
 		get connectionState() {
 			return e.connectionState;
@@ -2366,7 +2360,7 @@ function Gt(e, t, n) {
 		ondatachannel: null,
 		onconnectionstatechange: null,
 		oniceconnectionstatechange: null,
-		createDataChannel: (n, r) => Wt(e.createDataChannel(n, r), t),
+		createDataChannel: (n, r) => Ut(e.createDataChannel(n, r), t),
 		createOffer: (t) => e.createOffer(t),
 		createAnswer: () => e.createAnswer(),
 		setLocalDescription: (t) => e.setLocalDescription(t),
@@ -2379,42 +2373,42 @@ function Gt(e, t, n) {
 		getStats: () => e.getStats(),
 		close: n
 	};
-	return e.onicecandidate = ({ candidate: e }) => r.onicecandidate?.({ candidate: e ?? null }), e.ondatachannel = ({ channel: e }) => r.ondatachannel?.({ channel: Wt(e, t) }), e.onconnectionstatechange = () => r.onconnectionstatechange?.(), e.oniceconnectionstatechange = () => r.oniceconnectionstatechange?.(), r;
+	return e.onicecandidate = ({ candidate: e }) => r.onicecandidate?.({ candidate: e ?? null }), e.ondatachannel = ({ channel: e }) => r.ondatachannel?.({ channel: Ut(e, t) }), e.onconnectionstatechange = () => r.onconnectionstatechange?.(), e.oniceconnectionstatechange = () => r.oniceconnectionstatechange?.(), r;
 }
-var Kt = null, qt = null;
-function Jt(e) {
+var Gt = null, Kt = null;
+function qt(e) {
 	if (Object.keys(e).length !== 2 || e.bundlePolicy !== "max-bundle") return !1;
 	let t = e.iceServers;
 	if (t?.length !== 1) return !1;
 	let n = t[0];
 	return Object.keys(n).length === 1 && n.urls === "stun:stun.l.google.com:19302";
 }
+function Jt() {
+	Kt?.removeEventListener("pagehide", Yt), Kt = null;
+}
 function Yt() {
-	qt?.removeEventListener("pagehide", Xt), qt = null;
+	let e = Gt;
+	Gt = null, Jt(), e?.close();
 }
-function Xt() {
-	let e = Kt;
-	Kt = null, Yt(), e?.close();
-}
-var Zt = {
+var Xt = {
 	prepare(e) {
 		e.binaryType = "arraybuffer";
 	},
 	encode: (e) => e,
 	decode: (e) => e
 };
-function Qt(e) {
+function Zt(e) {
 	let t;
-	return Kt && Jt(e) ? (t = Kt, Kt = null, Yt(), t.signalingState === "closed" && (t = new RTCPeerConnection(e))) : t = new RTCPeerConnection(e), Gt(t, Zt, () => t.close());
+	return Gt && qt(e) ? (t = Gt, Gt = null, Jt(), t.signalingState === "closed" && (t = new RTCPeerConnection(e))) : t = new RTCPeerConnection(e), Wt(t, Xt, () => t.close());
 }
-function $t(e = Ut()) {
+function Qt(e = Ht()) {
 	return {
 		serviceOrigin: e.serviceOrigin,
 		createWebSocket: (e, t) => new WebSocket(e, t),
-		createPeerConnection: Qt
+		createPeerConnection: Zt
 	};
 }
-var en = [
+var $t = [
 	["classic", "Classic"],
 	["easy", "Easy"],
 	["small", "Small"],
@@ -2430,10 +2424,10 @@ var en = [
 	["street_five", "Street Five"],
 	["asphalt_arena", "Asphalt Arena"]
 ];
-function tn(e) {
+function en(e) {
 	let t = /* @__PURE__ */ new Map();
 	return async (n) => {
-		let r = en.find(([e, t]) => e === n || t === n);
+		let r = $t.find(([e, t]) => e === n || t === n);
 		if (!r) throw Error("Unknown default stadium");
 		let i = t.get(r[0]);
 		return i || (i = (async () => {
@@ -2444,8 +2438,8 @@ function tn(e) {
 		})(), t.set(r[0], i), i.catch(() => t.delete(r[0]))), i;
 	};
 }
-function nn(e = Ut()) {
-	let t = $t(e), n = (e, t) => fetch(e, t);
+function tn(e = Ht()) {
+	let t = Qt(e), n = (e, t) => fetch(e, t);
 	return {
 		network: t,
 		publicOrigin: e.publicOrigin,
@@ -2455,14 +2449,14 @@ function nn(e = Ut()) {
 			if (!r.ok) throw Error("Could not load bundled physics engine");
 			return He.create(await r.arrayBuffer(), t);
 		},
-		loadStadium: tn((t) => n(e.asset(t)))
+		loadStadium: en((t) => n(e.asset(t)))
 	};
 }
-function rn(e, t) {
+function nn(e, t) {
 	let n = e.engine.stadium.discs.length;
 	return t < n ? t : e.engine.index(e.players.fielded()[t - n].slot);
 }
-function an(e, t) {
+function rn(e, t) {
 	let n = e.engine.data, r = t * 18;
 	return {
 		x: n[r],
@@ -2480,117 +2474,71 @@ function an(e, t) {
 		color: e.engine.colors[t]
 	};
 }
-function on(e, t, n) {
-	let r = m(n), i = an(e, t);
+function an(e, t, n) {
+	let r = m(n), i = rn(e, t);
 	Object.entries(r).every(([e, t]) => i[e] === t) || (e.match.command("disc", t, 0, r), e.broadcastState());
 }
-function sn(e) {
+function on(e) {
 	return e.closed || e.engine.phase === "lobby" ? 0 : e.engine.stadium.discs.length + e.players.fielded().length;
 }
-var cn = (e, t) => Number.isInteger(t) && t >= 0 && t < sn(e);
-function ln(e, t) {
-	return cn(e, t) ? an(e, rn(e, t)) : null;
+var sn = (e, t) => Number.isInteger(t) && t >= 0 && t < on(e);
+function cn(e, t) {
+	return sn(e, t) ? rn(e, nn(e, t)) : null;
 }
-function un(e, t, n) {
-	e.assertOpen(), cn(e, t) && on(e, rn(e, t), n);
+function ln(e, t, n) {
+	e.assertOpen(), sn(e, t) && an(e, nn(e, t), n);
 }
-var dn = (e, t) => {
+var un = (e, t) => {
 	let n = e.players.byId(t);
 	return n && n.team !== 0 ? n : void 0;
 };
-function fn(e, t) {
+function dn(e, t) {
 	if (e.closed || e.engine.phase === "lobby") return null;
-	let n = dn(e, t);
-	return n ? an(e, e.engine.index(n.slot)) : null;
+	let n = un(e, t);
+	return n ? rn(e, e.engine.index(n.slot)) : null;
 }
-function pn(e, t, n) {
+function fn(e, t, n) {
 	if (e.assertOpen(), e.engine.phase === "lobby") return;
-	let r = dn(e, t);
-	r && on(e, e.engine.index(r.slot), n);
+	let r = un(e, t);
+	r && an(e, e.engine.index(r.slot), n);
 }
-function mn(e) {
+function pn(e) {
 	return e.closed || e.engine.phase === "lobby" ? null : {
 		x: e.engine.data[0],
 		y: e.engine.data[1]
 	};
 }
-function hn(e) {
-	return e === null || typeof e == "string" && Array.from(e).length <= 2 && !/[\p{Cc}\p{Cf}]/u.test(e);
-}
-function gn(e, t, n, r) {
-	if (e.assertOpen(), ![
-		0,
-		1,
-		2
-	].includes(n)) throw Error("Invalid team");
-	let i = e.players.byId(t);
-	i && e.players.assignTeam(i, n) && (e.command("team", i.slot, n), e.match.recordOrder(e.players.all.map((e) => e.slot)), e.syncLobby(), e.invoke("onPlayerTeamChange", e.hooks.onPlayerTeamChange, e.publicPlayer(i), e.publicOrNull(r)));
-}
-function _n(e, t, n) {
-	e.assertOpen();
-	let r = e.players.byId(t);
-	r && r.admin !== !!n && (r.admin = !!n, e.syncLobby(), e.invoke("onPlayerAdminChange", e.hooks.onPlayerAdminChange, e.publicPlayer(r), null));
-}
-function vn(e, t, n, r) {
-	if (e.assertOpen(), !Number.isInteger(t) || typeof n != "boolean") throw Error("Invalid player mute");
-	let i = e.players.byId(t);
-	i && !e.isHost(i) && !!i.muted !== n && (i.muted = n, e.syncLobby(), e.invoke("onPlayerMuteChange", e.hooks.onPlayerMuteChange, e.publicPlayer(i), r));
-}
-function yn(e, t, n) {
-	e.assertOpen(), e.locked !== !!t && (e.locked = !!t, e.syncLobby(), e.invoke("onTeamsLockChange", e.hooks.onTeamsLockChange, e.locked, n));
-}
-function bn(e, t, n) {
-	if (e.assertOpen(), t !== 1 && t !== 2) throw Error("Invalid team");
-	JSON.stringify(e.teamStyles[t - 1]) !== JSON.stringify(n) && (e.teamStyles[t - 1] = n, e.match.recordStyles(e.teamStyles), e.syncLobby());
-}
-function xn(e, t, n, r, i) {
-	let a = ge(n, r, i);
-	a.angle = ((256 * n / 360 | 0) & 255) * (360 / 256), bn(e, t, a);
-}
-function Sn(e, t, n) {
-	if (e.assertOpen(), !Array.isArray(t) || t.length > 32 || t.some((e) => !Number.isSafeInteger(e) || e < 0) || typeof n != "boolean") throw Error("Invalid player order");
-	let r = new Set(t), i = [...r].flatMap((t) => {
-		let n = e.players.byId(t);
-		return n ? [n] : [];
-	}), a = e.players.all.filter((e) => !r.has(e.id)), o = n ? [...i, ...a] : [...a, ...i];
-	e.players.reorder(o) && (e.match.recordOrder(o.map((e) => e.slot)), e.syncLobby());
-}
-function Cn(e, t, n) {
-	if (e.assertOpen(), !hn(n)) throw Error("Avatar must be null or at most two visible characters.");
-	let r = e.players.byId(t);
-	r && (r.avatarOverride = n, e.match.recordPlayer(r.slot, r.name, n ?? r.avatar), e.syncLobby());
-}
-function wn(e, t) {
+function mn(e, t) {
 	e.assertOpen();
 	let n = e.engine.phase;
 	(n === "lobby" || n === "finished") && (e.command("start"), e.stadiumSelection++, e.broadcastState(), n !== e.engine.phase && e.engine.phase === "playing" && e.invoke("onGameStart", e.hooks.onGameStart, e.publicOrNull(t)));
 }
-function Tn(e, t) {
+function hn(e, t) {
 	e.assertOpen();
 	let n = e.engine.phase !== "lobby";
 	(n || e.engine.paused) && (e.command("stop"), e.broadcastState(), n && e.invoke("onGameStop", e.hooks.onGameStop, e.publicOrNull(t)));
 }
-function En(e, t, n) {
+function gn(e, t, n) {
 	e.assertOpen(), e.engine.phase !== "lobby" && (t = !!t, e.engine.paused !== t && (e.command("pause", 0, +t), e.broadcastState(), t ? e.invoke("onGamePause", e.hooks.onGamePause, n) : e.invoke("onGameUnpause", e.hooks.onGameUnpause, n), e.invoke("onGamePauseChange", e.hooks.onGamePauseChange, t)));
 }
-function Dn(e, t, n, r, i) {
+function _n(e, t, n, r, i) {
 	e.assertOpen();
 	let a = g(t, n, r);
 	a !== e.engine.kickRate && (e.command("kickRate", 0, a), e.broadcastState(), e.invoke("onKickRateLimitSet", e.hooks.onKickRateLimitSet, ..._(a), i));
 }
-function On(e, t) {
+function vn(e, t) {
 	if (e.assertOpen(), e.stopped()) {
 		if (!Number.isInteger(t) || t < 0 || t > 99) throw Error("Invalid limit");
 		t !== e.engine.scoreLimit && (e.command("scoreLimit", 0, t), e.syncLobby());
 	}
 }
-function kn(e, t) {
+function yn(e, t) {
 	if (e.assertOpen(), e.stopped()) {
 		if (!Number.isInteger(t) || t < 0 || t > 99) throw Error("Invalid time limit");
 		t * 60 !== e.engine.timeLimit && (e.command("timeLimit", 0, t * 60), e.syncLobby());
 	}
 }
-function An(e) {
+function bn(e) {
 	let t = e.engine;
 	return e.closed || t.phase === "lobby" ? null : {
 		red: t.red,
@@ -2600,41 +2548,7 @@ function An(e) {
 		timeLimit: t.timeLimit
 	};
 }
-var jn = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/, Mn = (e) => e === "red" ? 1 : 2;
-function Nn(e) {
-	return e.length >= 2 && e.length <= 22 && new Set(e.map((e) => e.userId)).size === e.length && new Set(e.map((e) => e.peerId)).size === e.length && e.filter((e) => e.side === "red").length * 2 === e.length && e.every((e) => jn.test(e.userId) && !!e.peerId && jn.test(e.peerId) && ["red", "blue"].includes(e.side) && e.signalingAttached === !0);
-}
-function Pn(e, t) {
-	let { roomId: n, generation: r, matchId: i } = t;
-	if (e.closed || e.applyingAssignment || e.assignedMatch || n !== e.roomId || r !== e.network.roomGeneration || !jn.test(i) || !jn.test(r)) return !1;
-	let a = t.players.map((e) => ({ ...e }));
-	if (!Nn(a)) return !1;
-	let o = () => !e.closed && e.network.signalingReady && e.engine.phase === "lobby" && e.network.roomGeneration === r && e.players.size === a.length && a.every((t) => {
-		let n = t.peerId ? e.players.byPeer(t.peerId) : void 0, r = t.peerId ? e.network.peers.get(t.peerId) : void 0;
-		return n && !e.isHost(n) && r?.connected === !0 && r.lostAt === void 0 && r.control?.readyState === "open" && r.fast?.readyState === "open";
-	});
-	if (!o()) return !1;
-	e.applyingAssignment = !0;
-	try {
-		yn(e, !0, null);
-		for (let t of a) {
-			if (!o()) return !1;
-			let n = t.peerId ? e.players.byPeer(t.peerId) : void 0;
-			if (!n || (_n(e, n.id, !1), !o())) return !1;
-			gn(e, n.id, Mn(t.side), null);
-		}
-		return !o() || !e.locked || !a.every((t) => {
-			let n = t.peerId ? e.players.byPeer(t.peerId) : void 0;
-			return n && !n.admin && n.team === Mn(t.side);
-		}) ? !1 : (e.assignedMatch = i, wn(e, null), !e.closed && e.engine.phase === "playing");
-	} finally {
-		e.applyingAssignment = !1;
-	}
-}
-function Fn(e) {
-	return !e.assignedMatch || !e.engine.canFinishDraw() ? !1 : (e.command("finishDraw"), e.broadcastState(), !0);
-}
-var In = [
+var xn = [
 	"normal",
 	"bold",
 	"italic",
@@ -2642,10 +2556,10 @@ var In = [
 	"small-bold",
 	"small-italic"
 ];
-function Ln(e, t, n, r) {
+function Sn(e, t, n, r) {
 	if (typeof e != "string" || e.length > 1e3) throw Error("Announcement exceeds 1000 characters");
 	if (t != null && (!Number.isInteger(t) || t < 0 || t > 16777215)) throw Error("Invalid announcement color");
-	if (n != null && !In.includes(n)) throw Error("Invalid announcement style");
+	if (n != null && !xn.includes(n)) throw Error("Invalid announcement style");
 	if (r != null && ![
 		0,
 		1,
@@ -2659,10 +2573,10 @@ function Ln(e, t, n, r) {
 		sound: r ?? 1
 	};
 }
-function Rn(e) {
+function Cn(e) {
 	return e == null || Number.isSafeInteger(e) && e >= 0;
 }
-function zn(e, t, n) {
+function wn(e, t, n) {
 	if (n == null) {
 		e.network.broadcast(t);
 		return;
@@ -2670,25 +2584,25 @@ function zn(e, t, n) {
 	let r = e.players.byId(n), i = r && e.network.peers.get(r.peerId);
 	i && e.network.control(i, t);
 }
-function Bn(e, t, n) {
+function Tn(e, t, n) {
 	if (e.assertOpen(), typeof t != "string" || t.length > 200) throw Error("Chat must contain at most 200 characters");
-	if (!Rn(n)) throw Error("Invalid chat target");
+	if (!Cn(n)) throw Error("Invalid chat target");
 	let r = e.players.byPeer(e.network.hostId);
 	if (!r) throw Error("sendChat requires a host player; use sendAnnouncement");
-	t.trim() && zn(e, {
+	t.trim() && wn(e, {
 		type: "chat",
 		name: r.name,
 		text: t,
 		...n == null ? { playerId: r.peerId } : {}
 	}, n);
 }
-function Vn(e, t, n, r, i, a) {
+function En(e, t, n, r, i, a) {
 	e.assertOpen();
-	let o = Ln(t, r, i, a);
-	if (!Rn(n)) throw Error("Invalid announcement target");
-	zn(e, o, n);
+	let o = Sn(t, r, i, a);
+	if (!Cn(n)) throw Error("Invalid announcement target");
+	wn(e, o, n);
 }
-var Hn = 524288, Un = 16384, Wn = 12, Gn = 45635, Kn = 1, qn = 32, Jn = 1e4, Yn = {
+var Dn = 524288, On = 16384, kn = 12, An = 45635, jn = 1, Mn = 32, Nn = 1e4, Pn = {
 	MAGIC: 0,
 	VERSION: 2,
 	RESERVED: 3,
@@ -2696,31 +2610,31 @@ var Hn = 524288, Un = 16384, Wn = 12, Gn = 45635, Kn = 1, qn = 32, Jn = 1e4, Yn 
 	INDEX: 8,
 	COUNT: 10
 };
-function Xn(e, t) {
+function Fn(e, t) {
 	let n = JSON.stringify(e);
 	if (n === void 0) throw Error("Missing control message");
 	let r = new TextEncoder().encode(n);
-	if (r.length > Hn) throw Error("Control message exceeds 512 KB");
-	if (r.length <= Un) return [n];
-	let i = Math.ceil(r.length / Un), a = [];
+	if (r.length > Dn) throw Error("Control message exceeds 512 KB");
+	if (r.length <= On) return [n];
+	let i = Math.ceil(r.length / On), a = [];
 	for (let e = 0; e < i; e++) {
-		let n = r.subarray(e * Un, (e + 1) * Un), o = new ArrayBuffer(Wn + n.length), s = new DataView(o);
-		s.setUint16(Yn.MAGIC, Gn), s.setUint8(Yn.VERSION, Kn), s.setUint32(Yn.ID, t, !0), s.setUint16(Yn.INDEX, e, !0), s.setUint16(Yn.COUNT, i, !0), new Uint8Array(o, Wn).set(n), a.push(o);
+		let n = r.subarray(e * On, (e + 1) * On), o = new ArrayBuffer(kn + n.length), s = new DataView(o);
+		s.setUint16(Pn.MAGIC, An), s.setUint8(Pn.VERSION, jn), s.setUint32(Pn.ID, t, !0), s.setUint16(Pn.INDEX, e, !0), s.setUint16(Pn.COUNT, i, !0), new Uint8Array(o, kn).set(n), a.push(o);
 	}
 	return a;
 }
-var Zn = class {
+var In = class {
 	partial;
 	push(e, t = performance.now()) {
 		if (typeof e == "string") {
-			if (this.partial || new TextEncoder().encode(e).length > Un) throw Error("Invalid control message");
+			if (this.partial || new TextEncoder().encode(e).length > On) throw Error("Invalid control message");
 			return JSON.parse(e);
 		}
 		if (e.byteLength < 13 || e.byteLength > 16396) throw Error("Control fragment length");
 		let n = new DataView(e);
-		if (n.getUint16(Yn.MAGIC) !== Gn || n.getUint8(Yn.VERSION) !== Kn || n.getUint8(Yn.RESERVED) !== 0) throw Error("Control fragment version");
-		let r = n.getUint32(Yn.ID, !0), i = n.getUint16(Yn.INDEX, !0), a = n.getUint16(Yn.COUNT, !0);
-		if (a < 2 || a > qn || i >= a) throw Error("Control fragment bounds");
+		if (n.getUint16(Pn.MAGIC) !== An || n.getUint8(Pn.VERSION) !== jn || n.getUint8(Pn.RESERVED) !== 0) throw Error("Control fragment version");
+		let r = n.getUint32(Pn.ID, !0), i = n.getUint16(Pn.INDEX, !0), a = n.getUint16(Pn.COUNT, !0);
+		if (a < 2 || a > Mn || i >= a) throw Error("Control fragment bounds");
 		if (!this.partial) {
 			if (i !== 0) throw Error("Missing first fragment");
 			this.partial = {
@@ -2733,24 +2647,24 @@ var Zn = class {
 			};
 		}
 		let o = this.partial;
-		if (o.id !== r || o.count !== a || o.next !== i || t - o.since > Jn) throw Error("Control fragment sequence");
-		if (o.next++, o.bytes += e.byteLength - Wn, o.bytes > Hn) throw Error("Control size limit");
-		if (o.parts.push(new Uint8Array(e.slice(Wn))), o.next !== a) return;
+		if (o.id !== r || o.count !== a || o.next !== i || t - o.since > Nn) throw Error("Control fragment sequence");
+		if (o.next++, o.bytes += e.byteLength - kn, o.bytes > Dn) throw Error("Control size limit");
+		if (o.parts.push(new Uint8Array(e.slice(kn))), o.next !== a) return;
 		let s = new Uint8Array(o.bytes), c = 0;
 		for (let e of o.parts) s.set(e, c), c += e.length;
 		return this.partial = void 0, JSON.parse(new TextDecoder("utf-8", { fatal: !0 }).decode(s));
 	}
-}, Qn = {
+}, Ln = {
 	INPUT: 1,
 	STATE: 2
-}, $n = {
+}, Rn = {
 	KIND: 0,
 	PROTOCOL: 1,
 	SEQUENCE: 2,
 	KEYS: 6,
 	RESERVED: 7,
 	EPOCH: 8
-}, er = {
+}, zn = {
 	KIND: 0,
 	PROTOCOL: 1,
 	TICK: 2,
@@ -2758,7 +2672,7 @@ var Zn = class {
 	COUNT: 7,
 	EPOCH: 8,
 	SIZE: 10
-}, tr = 1188, J = {
+}, Bn = 1188, J = {
 	TICK: 0,
 	ELAPSED: 4,
 	RED: 8,
@@ -2777,33 +2691,33 @@ var Zn = class {
 	KICK_RATE: 32,
 	LAST_TOUCH: 36,
 	GOAL_TOUCH: 38
-}, nr = [
+}, Vn = [
 	"lobby",
 	"playing",
 	"goal",
 	"finished"
-], rr = {
+], Hn = {
 	INDEX: 0,
 	TEAM: 2,
 	PACKED_INPUT: 3,
 	MOTION: 4,
 	KICK_STATE: 36,
 	KICK_BUDGET: 38
-}, ir = 31;
-function ar(e) {
+}, Un = 31;
+function Wn(e) {
 	if (e.byteLength !== 10) throw Error("Input length");
 	let t = new DataView(e);
-	if (t.getUint8($n.KIND) !== Qn.INPUT || t.getUint8($n.PROTOCOL) !== 2 || t.getUint8($n.KEYS) > ir || t.getUint8($n.RESERVED)) throw Error("Input format");
+	if (t.getUint8(Rn.KIND) !== Ln.INPUT || t.getUint8(Rn.PROTOCOL) !== 2 || t.getUint8(Rn.KEYS) > Un || t.getUint8(Rn.RESERVED)) throw Error("Input format");
 	return {
-		seq: t.getUint32($n.SEQUENCE, !0),
-		keys: t.getUint8($n.KEYS),
-		epoch: t.getUint16($n.EPOCH, !0)
+		seq: t.getUint32(Rn.SEQUENCE, !0),
+		keys: t.getUint8(Rn.KEYS),
+		epoch: t.getUint16(Rn.EPOCH, !0)
 	};
 }
-function or(e, t) {
+function Gn(e, t) {
 	return e !== t && e - t >>> 0 < 2147483648;
 }
-function sr(e) {
+function Kn(e) {
 	let t = [];
 	for (let n = 0; n < e.length / 18; n++) {
 		let r = n * 18, i = e[r + u.INVERSE_MASS] > 0 || e[r + u.SPEED_X] !== 0 || e[r + u.SPEED_Y] !== 0 || e[r + u.GRAVITY_X] !== 0 || e[r + u.GRAVITY_Y] !== 0 || e[r + u.X] !== e[r + u.SPAWN_X] || e[r + u.Y] !== e[r + u.SPAWN_Y];
@@ -2811,97 +2725,97 @@ function sr(e) {
 	}
 	return t;
 }
-function cr(e, t, n, r) {
-	e.setUint32(J.TICK, t.tick, !0), e.setUint32(J.ELAPSED, t.elapsed, !0), e.setUint16(J.RED, t.red, !0), e.setUint16(J.BLUE, t.blue, !0), e.setUint8(J.PHASE, nr.indexOf(t.phase)), e.setUint8(J.PAUSED, +t.paused), e.setUint8(J.KICKOFF, t.kickoff), e.setUint8(J.KICKOFF_ACTIVE, +t.kickoffActive), e.setUint16(J.COUNTDOWN, t.countdown, !0), e.setUint16(J.SCORE_LIMIT, t.scoreLimit, !0), e.setUint16(J.TIME_LIMIT, t.timeLimit, !0), e.setUint16(J.DISC_COUNT, t.discs.length / 18, !0), e.setUint32(J.ACKNOWLEDGED, n, !0), e.setUint16(J.BODY_COUNT, r, !0), e.setUint16(J.RESUME_TICKS, t.resumeTicks, !0), e.setUint32(J.KICK_RATE, t.kickRate, !0), e.setUint8(J.LAST_TOUCH, t.lastTouch?.slot ?? 255), e.setUint8(J.LAST_TOUCH + 1, t.lastTouch?.team ?? 0), e.setUint8(J.GOAL_TOUCH, t.goalTouch?.slot ?? 255), e.setUint8(J.GOAL_TOUCH + 1, t.goalTouch?.team ?? 0);
+function qn(e, t, n, r) {
+	e.setUint32(J.TICK, t.tick, !0), e.setUint32(J.ELAPSED, t.elapsed, !0), e.setUint16(J.RED, t.red, !0), e.setUint16(J.BLUE, t.blue, !0), e.setUint8(J.PHASE, Vn.indexOf(t.phase)), e.setUint8(J.PAUSED, +t.paused), e.setUint8(J.KICKOFF, t.kickoff), e.setUint8(J.KICKOFF_ACTIVE, +t.kickoffActive), e.setUint16(J.COUNTDOWN, t.countdown, !0), e.setUint16(J.SCORE_LIMIT, t.scoreLimit, !0), e.setUint16(J.TIME_LIMIT, t.timeLimit, !0), e.setUint16(J.DISC_COUNT, t.discs.length / 18, !0), e.setUint32(J.ACKNOWLEDGED, n, !0), e.setUint16(J.BODY_COUNT, r, !0), e.setUint16(J.RESUME_TICKS, t.resumeTicks, !0), e.setUint32(J.KICK_RATE, t.kickRate, !0), e.setUint8(J.LAST_TOUCH, t.lastTouch?.slot ?? 255), e.setUint8(J.LAST_TOUCH + 1, t.lastTouch?.team ?? 0), e.setUint8(J.GOAL_TOUCH, t.goalTouch?.slot ?? 255), e.setUint8(J.GOAL_TOUCH + 1, t.goalTouch?.team ?? 0);
 }
-function lr(e, t, n, r) {
+function Jn(e, t, n, r) {
 	let i = r * 18, a = n[i + u.PLAYER_SLOT] > 0;
-	e.setUint16(t + rr.INDEX, r, !0), e.setUint8(t + rr.TEAM, n[i + u.TEAM]), e.setUint8(t + rr.PACKED_INPUT, n[i + u.INPUT] | (a ? (n[i + u.COLLISION_MASK] & 24) << 2 : 0));
-	for (let r = 0; r < 4; r++) e.setFloat64(t + rr.MOTION + r * 8, n[i + r], !0);
-	e.setUint16(t + rr.KICK_STATE, n[i + u.KICK_STATE], !0), a && e.setUint16(t + rr.KICK_BUDGET, n[i + u.KICK_BUDGET] + 255, !0);
+	e.setUint16(t + Hn.INDEX, r, !0), e.setUint8(t + Hn.TEAM, n[i + u.TEAM]), e.setUint8(t + Hn.PACKED_INPUT, n[i + u.INPUT] | (a ? (n[i + u.COLLISION_MASK] & 24) << 2 : 0));
+	for (let r = 0; r < 4; r++) e.setFloat64(t + Hn.MOTION + r * 8, n[i + r], !0);
+	e.setUint16(t + Hn.KICK_STATE, n[i + u.KICK_STATE], !0), a && e.setUint16(t + Hn.KICK_BUDGET, n[i + u.KICK_BUDGET] + 255, !0);
 }
-function ur(e, t, n = 0) {
-	let r = sr(e.discs), i = /* @__PURE__ */ new ArrayBuffer(40 + r.length * 40), a = new DataView(i);
-	cr(a, e, t, r.length);
-	for (let [t, n] of r.entries()) lr(a, 40 + t * 40, e.discs, n);
-	let o = new Uint8Array(i), s = [], c = Math.ceil(o.length / tr);
+function Yn(e, t, n = 0) {
+	let r = Kn(e.discs), i = /* @__PURE__ */ new ArrayBuffer(40 + r.length * 40), a = new DataView(i);
+	qn(a, e, t, r.length);
+	for (let [t, n] of r.entries()) Jn(a, 40 + t * 40, e.discs, n);
+	let o = new Uint8Array(i), s = [], c = Math.ceil(o.length / Bn);
 	for (let t = 0; t < c; t++) {
-		let r = o.subarray(t * tr, (t + 1) * tr), i = new ArrayBuffer(12 + r.length), a = new DataView(i);
-		a.setUint8(er.KIND, Qn.STATE), a.setUint8(er.PROTOCOL, 2), a.setUint32(er.TICK, e.tick, !0), a.setUint8(er.INDEX, t), a.setUint8(er.COUNT, c), a.setUint16(er.EPOCH, n, !0), a.setUint16(er.SIZE, r.length, !0), new Uint8Array(i, 12).set(r), s.push(i);
+		let r = o.subarray(t * Bn, (t + 1) * Bn), i = new ArrayBuffer(12 + r.length), a = new DataView(i);
+		a.setUint8(zn.KIND, Ln.STATE), a.setUint8(zn.PROTOCOL, 2), a.setUint32(zn.TICK, e.tick, !0), a.setUint8(zn.INDEX, t), a.setUint8(zn.COUNT, c), a.setUint16(zn.EPOCH, n, !0), a.setUint16(zn.SIZE, r.length, !0), new Uint8Array(i, 12).set(r), s.push(i);
 	}
 	return s;
 }
-function dr(e, t, n = 0) {
+function Xn(e, t, n = 0) {
 	if (!t.length) return [];
-	let r = ur(e, t[0], n), i = [r];
+	let r = Yn(e, t[0], n), i = [r];
 	for (let e = 1; e < t.length; e++) {
 		let n = r.map((e) => e.slice(0));
 		new DataView(n[0]).setUint32(12 + J.ACKNOWLEDGED, t[e], !0), i.push(n);
 	}
 	return i;
 }
-function fr(e) {
+function Zn(e) {
 	let t = [...e], n = new Set(t.filter((e) => e.type === "transport" && e.selectedCandidatePairId).map((e) => e.selectedCandidatePairId)), r = t.filter((e) => e.type === "candidate-pair" && e.state === "succeeded"), i = n.size ? r.filter((e) => n.has(e.id)) : r.filter((e) => e.nominated === !0);
 	if (i.length !== 1) return null;
 	let a = i[0].currentRoundTripTime;
 	return typeof a == "number" && Number.isFinite(a) && a >= 0 ? a * 1e3 : null;
 }
-var pr = (e) => e?.match(/(?:^|\r?\n)a=ice-ufrag:([^\s]+)/)?.[1], mr = (e) => e.usernameFragment ?? e.candidate?.match(/(?:^| )ufrag ([^ ]+)/)?.[1];
-function hr(e) {
+var Qn = (e) => e?.match(/(?:^|\r?\n)a=ice-ufrag:([^\s]+)/)?.[1], $n = (e) => e.usernameFragment ?? e.candidate?.match(/(?:^| )ufrag ([^ ]+)/)?.[1];
+function er(e) {
 	let t = e.pc.localDescription;
 	if (!t?.sdp) throw Error("Local peer description is unavailable");
 	return t.sdp;
 }
-function gr(e, t, n) {
+function tr(e, t, n) {
 	if (n()) {
 		if (e.candidates.length >= 128) throw Error("Too many pending ICE candidates");
 		e.candidates.push(t);
 	}
 }
-async function _r(e, t) {
+async function nr(e, t) {
 	let n = e.candidates.splice(0);
 	for (let r of n) {
 		if (!t.current()) return;
-		if (!t.versioned || e.remoteIceUfrag && mr(r) === e.remoteIceUfrag) try {
+		if (!t.versioned || e.remoteIceUfrag && $n(r) === e.remoteIceUfrag) try {
 			await e.pc.addIceCandidate(r);
 		} catch {}
 	}
 }
-async function vr(e, t, n) {
+async function rr(e, t, n) {
 	let r = await e.pc.createOffer(n);
-	return !t.current() || (e.localIceUfrag = pr(r.sdp), await e.pc.setLocalDescription(r), !t.current()) ? !1 : (t.publish({
+	return !t.current() || (e.localIceUfrag = Qn(r.sdp), await e.pc.setLocalDescription(r), !t.current()) ? !1 : (t.publish({
 		type: "offer",
-		sdp: hr(e)
+		sdp: er(e)
 	}), !0);
 }
-async function yr(e, t, n) {
+async function ir(e, t, n) {
 	if (await e.pc.setRemoteDescription({
 		type: "offer",
 		sdp: t
-	}), !n.current() || (await _r(e, n), !n.current())) return;
+	}), !n.current() || (await nr(e, n), !n.current())) return;
 	let r = await e.pc.createAnswer();
-	n.current() && (e.localIceUfrag = pr(r.sdp), await e.pc.setLocalDescription(r), n.current() && n.publish({
+	n.current() && (e.localIceUfrag = Qn(r.sdp), await e.pc.setLocalDescription(r), n.current() && n.publish({
 		type: "answer",
-		sdp: hr(e)
+		sdp: er(e)
 	}));
 }
-async function br(e, t, n) {
+async function ar(e, t, n) {
 	return await e.pc.setRemoteDescription({
 		type: "answer",
 		sdp: t
-	}), n.current() ? (await _r(e, n), !0) : !1;
+	}), n.current() ? (await nr(e, n), !0) : !1;
 }
-async function xr(e, t, n) {
-	if (!(n.versioned && (!mr(t) || e.remoteIceUfrag && mr(t) !== e.remoteIceUfrag))) {
-		if (!e.pc.remoteDescription) gr(e, t, n.current);
+async function or(e, t, n) {
+	if (!(n.versioned && (!$n(t) || e.remoteIceUfrag && $n(t) !== e.remoteIceUfrag))) {
+		if (!e.pc.remoteDescription) tr(e, t, n.current);
 		else try {
 			await e.pc.addIceCandidate(t);
 		} catch {
-			gr(e, t, n.current);
+			tr(e, t, n.current);
 		}
 	}
 }
-var Sr = class {
+var sr = class {
 	admission;
 	assembler;
 	constructor(e) {
@@ -2914,13 +2828,13 @@ var Sr = class {
 		if (typeof e != "string" && !(e instanceof ArrayBuffer)) throw Error("Invalid control type");
 		let t = typeof e != "string" || new TextEncoder().encode(e).length > 4096, n = this.admission.fromGuest();
 		if (n && t && !this.admission.canUploadStadium()) throw Error("Guest control size or permission");
-		this.assembler ??= new Zn();
+		this.assembler ??= new In();
 		let r = this.assembler.push(e);
 		if (r !== void 0 && n && t && (!r || typeof r != "object" || !("type" in r) || r.type !== "action" || !("action" in r) || r.action !== "customStadium")) throw Error("Invalid bulk action");
 		return r;
 	}
-}, Cr = 1e4, wr = 1200, Tr = (e) => e.connectionState === "connected" && ["connected", "completed"].includes(e.iceConnectionState), Er = (e) => ["failed", "disconnected"].includes(e.connectionState) || ["failed", "disconnected"].includes(e.iceConnectionState);
-function Dr(e, t, n) {
+}, cr = 1e4, lr = 1200, ur = (e) => e.connectionState === "connected" && ["connected", "completed"].includes(e.iceConnectionState), dr = (e) => ["failed", "disconnected"].includes(e.connectionState) || ["failed", "disconnected"].includes(e.iceConnectionState);
+function fr(e, t, n) {
 	let r = {
 		id: t,
 		pc: e,
@@ -2936,28 +2850,28 @@ function Dr(e, t, n) {
 			type: "candidate",
 			candidate: e.candidate.toJSON()
 		});
-	}, e.ondatachannel = (e) => Ar(r, e.channel, n);
+	}, e.ondatachannel = (e) => hr(r, e.channel, n);
 	let i = () => {
-		n.current(r) && (e.connectionState === "closed" ? (n.hooks.status("A peer disconnected.", "info"), n.remove(t)) : Tr(e) ? n.noteHealthy(r) : Er(e) && (r.lostAt ??= performance.now(), n.hooks.status("Direct connection interrupted. Attempting recovery…", "info")));
+		n.current(r) && (e.connectionState === "closed" ? (n.hooks.status("A peer disconnected.", "info"), n.remove(t)) : ur(e) ? n.noteHealthy(r) : dr(e) && (r.lostAt ??= performance.now(), n.hooks.status("Direct connection interrupted. Attempting recovery…", "info")));
 	};
 	return e.onconnectionstatechange = i, e.oniceconnectionstatechange = i, r;
 }
-function Or(e, t) {
+function pr(e, t) {
 	return t.maxPacketLifeTime === null ? t.label === "control" ? t.ordered === !0 && t.maxRetransmits === null && !e.control : t.ordered === !1 && t.maxRetransmits === 0 && !e.fast : !1;
 }
-function kr(e) {
+function mr(e) {
 	return typeof e == "string" ? e.length : e instanceof ArrayBuffer ? e.byteLength : 0;
 }
-function Ar(e, t, n) {
+function hr(e, t, n) {
 	if (!n.current(e) || !["control", "realtime"].includes(t.label)) {
 		t.close();
 		return;
 	}
-	if (!Or(e, t)) {
+	if (!pr(e, t)) {
 		t.close(), n.remove(e.id);
 		return;
 	}
-	t.label === "control" ? (e.control = t, e.controlReader = new Sr({
+	t.label === "control" ? (e.control = t, e.controlReader = new sr({
 		fromGuest: () => n.isHost(),
 		canUploadStadium: () => n.hooks.allowStadiumUpload?.(e) ?? !1
 	})) : e.fast = t, t.onclose = () => {
@@ -2965,15 +2879,15 @@ function Ar(e, t, n) {
 	}, t.onopen = () => {
 		n.current(e) && (e.control?.readyState !== "open" || e.fast?.readyState !== "open" || e.connected || (e.connected = !0, n.isHost() && (e.admissionTimer = setTimeout(() => {
 			n.current(e) && (n.hooks.status("A peer did not complete room admission.", "error"), n.remove(e.id));
-		}, Cr)), n.hooks.open(e)));
+		}, cr)), n.hooks.open(e)));
 	}, t.onmessage = (r) => {
 		if (n.current(e)) {
-			n.countReceived(kr(r.data));
+			n.countReceived(mr(r.data));
 			try {
 				if (t.label === "control") {
 					let t = e.controlReader?.read(r.data);
 					t !== void 0 && n.hooks.control(e, t);
-				} else if (r.data instanceof ArrayBuffer && r.data.byteLength <= wr) n.hooks.fast(e, r.data);
+				} else if (r.data instanceof ArrayBuffer && r.data.byteLength <= lr) n.hooks.fast(e, r.data);
 				else throw Error("Invalid realtime packet");
 			} catch {
 				n.hooks.status("Invalid peer message rejected.", "error"), n.remove(e.id);
@@ -2981,28 +2895,28 @@ function Ar(e, t, n) {
 		}
 	};
 }
-var jr = {
+var gr = {
 	lang: void 0,
 	message: void 0,
 	abortEarly: void 0,
 	abortPipeEarly: void 0
 };
 /* @__NO_SIDE_EFFECTS__ */
-function Mr(e) {
+function _r(e) {
 	return e ? {
 		lang: e?.lang ?? void 0,
 		message: e?.message,
 		abortEarly: e?.abortEarly ?? void 0,
 		abortPipeEarly: e?.abortPipeEarly ?? void 0
-	} : jr;
+	} : gr;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Nr(e) {
+function vr(e) {
 	let t = typeof e;
 	return t === "string" ? `"${e}"` : t === "number" || t === "bigint" || t === "boolean" ? `${e}` : t === "object" || t === "function" ? (e && Object.getPrototypeOf(e)?.constructor?.name) ?? "null" : t;
 }
 function Y(e, t, n, r, i) {
-	let a = i && "input" in i ? i.input : n.value, o = i?.expected ?? e.expects ?? null, s = i?.received ?? /* @__PURE__ */ Nr(a), c = {
+	let a = i && "input" in i ? i.input : n.value, o = i?.expected ?? e.expects ?? null, s = i?.received ?? /* @__PURE__ */ vr(a), c = {
 		kind: e.kind,
 		type: e.type,
 		input: a,
@@ -3019,27 +2933,27 @@ function Y(e, t, n, r, i) {
 	u !== void 0 && (c.message = typeof u == "function" ? u(c) : u), l && (n.typed = !1), n.issues ? n.issues.push(c) : n.issues = [c];
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Pr(e, t) {
+function yr(e, t) {
 	return e === t || Number.isNaN(e) && Number.isNaN(t);
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Fr(e, t) {
+function br(e, t) {
 	let n = [...new Set(e)];
 	return n.length > 1 ? `(${n.join(` ${t} `)})` : n[0] ?? "never";
 }
-function Ir(e) {
+function xr(e) {
 	return e["~standard"] = {
 		version: 1,
 		vendor: "valibot",
-		validate: (t) => e["~run"]({ value: t }, /* @__PURE__ */ Mr())
+		validate: (t) => e["~run"]({ value: t }, /* @__PURE__ */ _r())
 	}, e;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Lr(e, t) {
+function Sr(e, t) {
 	return {
 		kind: "validation",
 		type: "check",
-		reference: Lr,
+		reference: Sr,
 		async: !1,
 		expects: null,
 		requirement: e,
@@ -3050,11 +2964,11 @@ function Lr(e, t) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Rr(e) {
+function Cr(e) {
 	return {
 		kind: "validation",
 		type: "integer",
-		reference: Rr,
+		reference: Cr,
 		async: !1,
 		expects: null,
 		requirement: Number.isInteger,
@@ -3065,11 +2979,11 @@ function Rr(e) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function zr(e, t) {
+function wr(e, t) {
 	return {
 		kind: "validation",
 		type: "max_length",
-		reference: zr,
+		reference: wr,
 		async: !1,
 		expects: `<=${e}`,
 		requirement: e,
@@ -3080,26 +2994,26 @@ function zr(e, t) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Br(e, t) {
+function Tr(e, t) {
 	return {
 		kind: "validation",
 		type: "max_value",
-		reference: Br,
+		reference: Tr,
 		async: !1,
-		expects: `<=${e instanceof Date ? e.toJSON() : /* @__PURE__ */ Nr(e)}`,
+		expects: `<=${e instanceof Date ? e.toJSON() : /* @__PURE__ */ vr(e)}`,
 		requirement: e,
 		message: t,
 		"~run"(e, t) {
-			return e.typed && !(e.value <= this.requirement) && Y(this, "value", e, t, { received: e.value instanceof Date ? e.value.toJSON() : /* @__PURE__ */ Nr(e.value) }), e;
+			return e.typed && !(e.value <= this.requirement) && Y(this, "value", e, t, { received: e.value instanceof Date ? e.value.toJSON() : /* @__PURE__ */ vr(e.value) }), e;
 		}
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Vr(e, t) {
+function Er(e, t) {
 	return {
 		kind: "validation",
 		type: "min_length",
-		reference: Vr,
+		reference: Er,
 		async: !1,
 		expects: `>=${e}`,
 		requirement: e,
@@ -3110,26 +3024,26 @@ function Vr(e, t) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Hr(e, t) {
+function Dr(e, t) {
 	return {
 		kind: "validation",
 		type: "min_value",
-		reference: Hr,
+		reference: Dr,
 		async: !1,
-		expects: `>=${e instanceof Date ? e.toJSON() : /* @__PURE__ */ Nr(e)}`,
+		expects: `>=${e instanceof Date ? e.toJSON() : /* @__PURE__ */ vr(e)}`,
 		requirement: e,
 		message: t,
 		"~run"(e, t) {
-			return e.typed && !(e.value >= this.requirement) && Y(this, "value", e, t, { received: e.value instanceof Date ? e.value.toJSON() : /* @__PURE__ */ Nr(e.value) }), e;
+			return e.typed && !(e.value >= this.requirement) && Y(this, "value", e, t, { received: e.value instanceof Date ? e.value.toJSON() : /* @__PURE__ */ vr(e.value) }), e;
 		}
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Ur(e) {
+function Or(e) {
 	return {
 		kind: "transformation",
 		type: "raw_transform",
-		reference: Ur,
+		reference: Or,
 		async: !1,
 		"~run"(t, n) {
 			let r = e({
@@ -3143,11 +3057,11 @@ function Ur(e) {
 	};
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Wr(e, t) {
+function kr(e, t) {
 	return {
 		kind: "validation",
 		type: "regex",
-		reference: Wr,
+		reference: kr,
 		async: !1,
 		expects: `${e}`,
 		requirement: e,
@@ -3157,25 +3071,25 @@ function Wr(e, t) {
 		}
 	};
 }
-var Gr = { abortEarly: !0 };
+var Ar = { abortEarly: !0 };
 /* @__NO_SIDE_EFFECTS__ */
-function Kr(e, t, n) {
+function jr(e, t, n) {
 	return typeof e.fallback == "function" ? e.fallback(t, n) : e.fallback;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function qr(e, t, n) {
+function Mr(e, t, n) {
 	return typeof e.default == "function" ? e.default(t, n) : e.default;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Jr(e, t) {
-	return !e["~run"]({ value: t }, Gr).issues;
+function Nr(e, t) {
+	return !e["~run"]({ value: t }, Ar).issues;
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Yr(e, t) {
-	return Ir({
+function Pr(e, t) {
+	return xr({
 		kind: "schema",
 		type: "array",
-		reference: Yr,
+		reference: Pr,
 		expects: "Array",
 		async: !1,
 		item: e,
@@ -3208,11 +3122,11 @@ function Yr(e, t) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Xr(e) {
-	return Ir({
+function Fr(e) {
+	return xr({
 		kind: "schema",
 		type: "boolean",
-		reference: Xr,
+		reference: Fr,
 		expects: "boolean",
 		async: !1,
 		message: e,
@@ -3222,11 +3136,11 @@ function Xr(e) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Zr(e, t) {
-	return Ir({
+function Ir(e, t) {
+	return xr({
 		kind: "schema",
 		type: "custom",
-		reference: Zr,
+		reference: Ir,
 		expects: "unknown",
 		async: !1,
 		check: e,
@@ -3238,40 +3152,40 @@ function Zr(e, t) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function X(e, t) {
-	return Ir({
+	return xr({
 		kind: "schema",
 		type: "literal",
 		reference: X,
-		expects: /* @__PURE__ */ Nr(e),
+		expects: /* @__PURE__ */ vr(e),
 		async: !1,
 		literal: e,
 		message: t,
 		"~run"(e, t) {
-			return /* @__PURE__ */ Pr(e.value, this.literal) ? e.typed = !0 : Y(this, "type", e, t), e;
+			return /* @__PURE__ */ yr(e.value, this.literal) ? e.typed = !0 : Y(this, "type", e, t), e;
 		}
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function Qr(e, t) {
-	return Ir({
+function Lr(e, t) {
+	return xr({
 		kind: "schema",
 		type: "nullable",
-		reference: Qr,
+		reference: Lr,
 		expects: `(${e.expects} | null)`,
 		async: !1,
 		wrapped: e,
 		default: t,
 		"~run"(e, t) {
-			return e.value === null && (this.default !== void 0 && (e.value = /* @__PURE__ */ qr(this, e, t)), e.value === null) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
+			return e.value === null && (this.default !== void 0 && (e.value = /* @__PURE__ */ Mr(this, e, t)), e.value === null) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
 		}
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function $r(e) {
-	return Ir({
+function Rr(e) {
+	return xr({
 		kind: "schema",
 		type: "number",
-		reference: $r,
+		reference: Rr,
 		expects: "number",
 		async: !1,
 		message: e,
@@ -3282,7 +3196,7 @@ function $r(e) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function Z(e, t) {
-	return Ir({
+	return xr({
 		kind: "schema",
 		type: "object",
 		reference: Z,
@@ -3297,7 +3211,7 @@ function Z(e, t) {
 				for (let r in this.entries) {
 					let i = this.entries[r];
 					if (r in n || (i.type === "exact_optional" || i.type === "optional" || i.type === "nullish") && i.default !== void 0) {
-						let a = r in n ? n[r] : /* @__PURE__ */ qr(i), o = i["~run"]({ value: a }, t);
+						let a = r in n ? n[r] : /* @__PURE__ */ Mr(i), o = i["~run"]({ value: a }, t);
 						if (o.issues) {
 							let i = {
 								type: "object",
@@ -3313,7 +3227,7 @@ function Z(e, t) {
 							}
 						}
 						o.typed || (e.typed = !1), e.value[r] = o.value;
-					} else if (i.fallback !== void 0) e.value[r] = /* @__PURE__ */ Kr(i);
+					} else if (i.fallback !== void 0) e.value[r] = /* @__PURE__ */ jr(i);
 					else if (i.type !== "exact_optional" && i.type !== "optional" && i.type !== "nullish" && (Y(this, "key", e, t, {
 						input: void 0,
 						expected: `"${r}"`,
@@ -3332,27 +3246,27 @@ function Z(e, t) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function ei(e, t) {
-	return Ir({
+function zr(e, t) {
+	return xr({
 		kind: "schema",
 		type: "optional",
-		reference: ei,
+		reference: zr,
 		expects: `(${e.expects} | undefined)`,
 		async: !1,
 		wrapped: e,
 		default: t,
 		"~run"(e, t) {
-			return e.value === void 0 && (this.default !== void 0 && (e.value = /* @__PURE__ */ qr(this, e, t)), e.value === void 0) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
+			return e.value === void 0 && (this.default !== void 0 && (e.value = /* @__PURE__ */ Mr(this, e, t)), e.value === void 0) ? (e.typed = !0, e) : this.wrapped["~run"](e, t);
 		}
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function ti(e, t) {
-	return Ir({
+function Br(e, t) {
+	return xr({
 		kind: "schema",
 		type: "picklist",
-		reference: ti,
-		expects: /* @__PURE__ */ Fr(e.map(Nr), "|"),
+		reference: Br,
+		expects: /* @__PURE__ */ br(e.map(vr), "|"),
 		async: !1,
 		options: e,
 		message: t,
@@ -3362,11 +3276,11 @@ function ti(e, t) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function ni(e, t) {
-	return Ir({
+function Vr(e, t) {
+	return xr({
 		kind: "schema",
 		type: "strict_object",
-		reference: ni,
+		reference: Vr,
 		expects: "Object",
 		async: !1,
 		entries: e,
@@ -3378,7 +3292,7 @@ function ni(e, t) {
 				for (let r in this.entries) {
 					let i = this.entries[r];
 					if (r in n || (i.type === "exact_optional" || i.type === "optional" || i.type === "nullish") && i.default !== void 0) {
-						let a = r in n ? n[r] : /* @__PURE__ */ qr(i), o = i["~run"]({ value: a }, t);
+						let a = r in n ? n[r] : /* @__PURE__ */ Mr(i), o = i["~run"]({ value: a }, t);
 						if (o.issues) {
 							let i = {
 								type: "object",
@@ -3394,7 +3308,7 @@ function ni(e, t) {
 							}
 						}
 						o.typed || (e.typed = !1), e.value[r] = o.value;
-					} else if (i.fallback !== void 0) e.value[r] = /* @__PURE__ */ Kr(i);
+					} else if (i.fallback !== void 0) e.value[r] = /* @__PURE__ */ jr(i);
 					else if (i.type !== "exact_optional" && i.type !== "optional" && i.type !== "nullish" && (Y(this, "key", e, t, {
 						input: void 0,
 						expected: `"${r}"`,
@@ -3430,7 +3344,7 @@ function ni(e, t) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function Q(e) {
-	return Ir({
+	return xr({
 		kind: "schema",
 		type: "string",
 		reference: Q,
@@ -3443,11 +3357,11 @@ function Q(e) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function ri() {
-	return Ir({
+function Hr() {
+	return xr({
 		kind: "schema",
 		type: "unknown",
-		reference: ri,
+		reference: Hr,
 		expects: "unknown",
 		async: !1,
 		"~run"(e) {
@@ -3456,11 +3370,11 @@ function ri() {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function ii(e, t, n) {
-	return Ir({
+function Ur(e, t, n) {
+	return xr({
 		kind: "schema",
 		type: "variant",
-		reference: ii,
+		reference: Ur,
 		expects: "Object",
 		async: !1,
 		key: e,
@@ -3479,7 +3393,7 @@ function ii(e, t, n) {
 								if (t in n ? r["~run"]({
 									typed: !1,
 									value: n[t]
-								}, Gr).issues : r.type !== "exact_optional" && r.type !== "optional" && r.type !== "nullish") {
+								}, Ar).issues : r.type !== "exact_optional" && r.type !== "optional" && r.type !== "nullish") {
 									e = !1, a !== t && (i < s || i === s && t in n && !(a in n)) && (i = s, a = t, o = []), a === t && o.push(l.entries[t].expects);
 									break;
 								}
@@ -3496,7 +3410,7 @@ function ii(e, t, n) {
 				if (s(this, /* @__PURE__ */ new Set([this.key])), r) return r;
 				Y(this, "type", e, t, {
 					input: n[a],
-					expected: /* @__PURE__ */ Fr(o, "|"),
+					expected: /* @__PURE__ */ br(o, "|"),
 					path: [{
 						type: "object",
 						origin: "value",
@@ -3512,7 +3426,7 @@ function ii(e, t, n) {
 }
 /* @__NO_SIDE_EFFECTS__ */
 function $(...e) {
-	return Ir({
+	return xr({
 		...e[0],
 		pipe: e,
 		"~run"(t, n) {
@@ -3528,8 +3442,8 @@ function $(...e) {
 	});
 }
 /* @__NO_SIDE_EFFECTS__ */
-function ai(e, t, n) {
-	let r = e["~run"]({ value: t }, /* @__PURE__ */ Mr(n));
+function Wr(e, t, n) {
+	let r = e["~run"]({ value: t }, /* @__PURE__ */ _r(n));
 	return {
 		typed: r.typed,
 		success: !r.issues,
@@ -3537,19 +3451,19 @@ function ai(e, t, n) {
 		issues: r.issues
 	};
 }
-var oi = /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Wr(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)), si = (e) => /* @__PURE__ */ $(/* @__PURE__ */ Zr((e) => typeof e == "object" && !!e && !Array.isArray(e)), e), ci = (e) => si(/* @__PURE__ */ ni(e));
-((e) => si(/* @__PURE__ */ Z(e)))({ error: /* @__PURE__ */ Q() });
-var li = /* @__PURE__ */ $(/* @__PURE__ */ Z({
-	id: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Vr(1)),
-	hostId: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Vr(1)),
-	role: /* @__PURE__ */ ti(["host", "guest"]),
-	generation: /* @__PURE__ */ ei(oi),
-	requireVerification: /* @__PURE__ */ ei(/* @__PURE__ */ ri()),
-	locked: /* @__PURE__ */ ei(/* @__PURE__ */ ri())
-}), /* @__PURE__ */ Lr((e) => e.role === "host" == (e.id === e.hostId))), ui = /* @__PURE__ */ Z({
+var Gr = /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ kr(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)), Kr = (e) => /* @__PURE__ */ $(/* @__PURE__ */ Ir((e) => typeof e == "object" && !!e && !Array.isArray(e)), e), qr = (e) => Kr(/* @__PURE__ */ Vr(e));
+((e) => Kr(/* @__PURE__ */ Z(e)))({ error: /* @__PURE__ */ Q() });
+var Jr = /* @__PURE__ */ $(/* @__PURE__ */ Z({
+	id: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Er(1)),
+	hostId: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Er(1)),
+	role: /* @__PURE__ */ Br(["host", "guest"]),
+	generation: /* @__PURE__ */ zr(Gr),
+	requireVerification: /* @__PURE__ */ zr(/* @__PURE__ */ Hr()),
+	locked: /* @__PURE__ */ zr(/* @__PURE__ */ Hr())
+}), /* @__PURE__ */ Sr((e) => e.role === "host" == (e.id === e.hostId))), Yr = /* @__PURE__ */ Z({
 	roomId: /* @__PURE__ */ Q(),
-	siteKey: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Wr(/^[A-Za-z0-9_-]{1,100}$/))
-}), di = 6e4, fi = class {
+	siteKey: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ kr(/^[A-Za-z0-9_-]{1,100}$/))
+}), Xr = 6e4, Zr = class {
 	roomId;
 	hostToken;
 	runtime;
@@ -3568,11 +3482,11 @@ var li = /* @__PURE__ */ $(/* @__PURE__ */ Z({
 	}
 	pulse(e) {
 		let t = performance.now();
-		this.lastPulseAt !== void 0 && t - this.lastPulseAt < di || (e.send("hb"), this.lastPulseAt = t);
+		this.lastPulseAt !== void 0 && t - this.lastPulseAt < Xr || (e.send("hb"), this.lastPulseAt = t);
 	}
 	connect() {
 		if (this.stopped) return;
-		let e = new URL(Bt.liveness(this.roomId), Vt(this.runtime.serviceOrigin));
+		let e = new URL(zt.liveness(this.roomId), Bt(this.runtime.serviceOrigin));
 		e.protocol = e.protocol === "https:" ? "wss:" : "ws:";
 		let t;
 		try {
@@ -3595,7 +3509,7 @@ var li = /* @__PURE__ */ $(/* @__PURE__ */ Z({
 	close() {
 		this.stopped || (this.stopped = !0, clearTimeout(this.retry), clearTimeout(this.handshake), this.socket?.close(1e3, "Host left"), this.socket = void 0);
 	}
-}, pi = class extends Error {}, mi = class {
+}, Qr = class extends Error {}, $r = class {
 	messages;
 	unconfirmed;
 	sequence = 0;
@@ -3633,25 +3547,25 @@ var li = /* @__PURE__ */ $(/* @__PURE__ */ Z({
 		let e = this.pending;
 		return this.pending = void 0, e && clearTimeout(e.timer), e;
 	}
-}, hi = class {
+}, ei = class {
 	available;
 	send;
 	verification = null;
-	verificationRequest = new mi({
+	verificationRequest = new $r({
 		pending: "A verification update is already pending.",
 		timeout: "Verification update was not confirmed.",
 		send: "Verification update could not be sent."
 	}, (e) => (this.verification = null, Error(e)));
-	passwordRequest = new mi({
+	passwordRequest = new $r({
 		pending: "A password update is already pending.",
 		timeout: "Password update was not confirmed.",
 		send: "Password update could not be sent."
 	});
-	banRequest = new mi({
+	banRequest = new $r({
 		pending: "A ban operation is already pending.",
 		timeout: "Ban operation was not confirmed.",
 		send: "Ban operation could not be sent."
-	}, (e) => new pi(e));
+	}, (e) => new Qr(e));
 	constructor(e, t) {
 		this.available = e, this.send = t;
 	}
@@ -3689,28 +3603,28 @@ var li = /* @__PURE__ */ $(/* @__PURE__ */ Z({
 		let t = e === "closed" ? "Room closed" : "Signaling disconnected";
 		this.verificationRequest.fail(`${t} before verification confirmation.`), this.banRequest.fail(`${t} before ban confirmation.`), this.passwordRequest.fail(`${t} before password confirmation.`), e === "closed" && (this.verification = null);
 	}
-}, gi = 1, _i = 2048, vi = [
+}, ti = 1, ni = 2048, ri = [
 	1001,
 	1008,
 	1009,
 	1011,
 	1013
-], yi = (e) => typeof e == "string" && /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(e), bi = (e) => typeof e == "string" && e.length <= 123 ? e : "Room connection ended.", xi = {
+], ii = (e) => typeof e == "string" && /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(e), ai = (e) => typeof e == "string" && e.length <= 123 ? e : "Room connection ended.", oi = {
 	"Host left": "The host left. Return to Rooms and join again.",
 	"Host connection ended": "Host connection ended. Return to Rooms and join again."
 };
-function Si(e) {
-	return Object.hasOwn(xi, e.reason) ? xi[e.reason] : vi.includes(e.code) && e.reason ? e.reason : "Room connection ended. Return to Rooms and join again.";
+function si(e) {
+	return Object.hasOwn(oi, e.reason) ? oi[e.reason] : ri.includes(e.code) && e.reason ? e.reason : "Room connection ended. Return to Rooms and join again.";
 }
-function Ci(e) {
-	if (e.matchEntry && (e.hostToken || !/^[a-f0-9]{64}$/.test(e.matchEntry.token) || !yi(e.matchEntry.generation))) throw Error("Invalid match entry credentials.");
+function ci(e) {
+	if (e.matchEntry && (e.hostToken || !/^[a-f0-9]{64}$/.test(e.matchEntry.token) || !ii(e.matchEntry.generation))) throw Error("Invalid match entry credentials.");
 	return {
 		hostToken: e.hostToken,
 		password: e.password,
 		...e.matchEntry ? { matchEntry: { ...e.matchEntry } } : {}
 	};
 }
-var wi = class {
+var li = class {
 	room;
 	hooks;
 	events;
@@ -3723,18 +3637,18 @@ var wi = class {
 	generation = null;
 	locked = null;
 	serial = 0;
-	ownerRequests = new hi(() => this.host && this.ready, (e) => this.send(e));
+	ownerRequests = new ei(() => this.host && this.ready, (e) => this.send(e));
 	credentials;
 	challenge;
 	queue = Promise.resolve();
 	hostMonitor;
 	constructor(e, t, n, r, i) {
-		this.room = e, this.hooks = n, this.events = r, this.runtime = i, this.credentials = Ci(t);
-		let a = new URL(Bt.signal(e), Vt(i.serviceOrigin));
+		this.room = e, this.hooks = n, this.events = r, this.runtime = i, this.credentials = ci(t);
+		let a = new URL(zt.signal(e), Bt(i.serviceOrigin));
 		a.protocol = a.protocol === "https:" ? "wss:" : "ws:", this.ws = i.createWebSocket(a), this.attach(this.ws);
 	}
 	get socketOpen() {
-		return this.ws.readyState === gi;
+		return this.ws.readyState === ti;
 	}
 	get ready() {
 		return !this.closed && !!this.id && this.socketOpen;
@@ -3766,22 +3680,19 @@ var wi = class {
 				n() && this.hooks.status("Connection negotiation failed. Try another room or network.", "error");
 			}));
 		}, e.onclose = (e) => {
-			n() && (this.serial++, this.challenge?.abort(), this.ownerRequests.cancel("disconnected"), this.events.ended(Si(e)));
+			n() && (this.serial++, this.challenge?.abort(), this.ownerRequests.cancel("disconnected"), this.events.ended(si(e)));
 		}, e.onerror = () => {
 			n() && this.hooks.status("Room service is unavailable.", "error");
 		};
 	}
 	async receive(e, t) {
 		if (!(this.closed || t !== this.serial)) {
-			if (e.type === "terminal") return this.events.ended(bi(e.reason));
+			if (e.type === "terminal") return this.events.ended(ai(e.reason));
 			if (!this.ownerRequests.accept(e)) switch (e.type) {
 				case "heartbeat":
 					this.host && this.hostMonitor?.acknowledged();
 					return;
 				case "verificationRequired": return this.answerVerification(e);
-				case "passwordUpgradeRequired":
-					this.host && this.hooks.status("Update the room password or explicitly unlock it to allow new guests.", "error");
-					return;
 				case "ready": return this.admit(e);
 				case "peer":
 				case "leave": return this.events.peer(e, t);
@@ -3790,7 +3701,7 @@ var wi = class {
 		}
 	}
 	async answerVerification(e) {
-		if (this.closed || this.id || this.credentials.hostToken || this.challenge || !/* @__PURE__ */ Jr(ui, e) || e.roomId !== this.room) return;
+		if (this.closed || this.id || this.credentials.hostToken || this.challenge || !/* @__PURE__ */ Nr(Yr, e) || e.roomId !== this.room) return;
 		if (!this.hooks.verify) {
 			this.events.ended("This client cannot complete the room verification challenge.");
 			return;
@@ -3803,7 +3714,7 @@ var wi = class {
 				roomId: this.room
 			}, t.signal);
 			if (t.signal.aborted || this.closed || !this.socketOpen) return;
-			if (typeof n != "string" || n.length === 0 || n.length > _i) throw Error("Invalid verification response.");
+			if (typeof n != "string" || n.length === 0 || n.length > ni) throw Error("Invalid verification response.");
 			this.send({
 				type: "hello",
 				...this.helloCredentials(),
@@ -3818,11 +3729,11 @@ var wi = class {
 	admit(e) {
 		if (this.id) return;
 		let t = this.credentials.matchEntry;
-		if (!/* @__PURE__ */ Jr(li, e) || t && (e.role !== "guest" || !yi(e.id) || !yi(e.hostId) || e.generation !== t.generation)) {
+		if (!/* @__PURE__ */ Nr(Jr, e) || t && (e.role !== "guest" || !ii(e.id) || !ii(e.hostId) || e.generation !== t.generation)) {
 			this.events.ended("Invalid room admission.");
 			return;
 		}
-		this.id = e.id, this.host = e.role === "host", this.host && this.credentials.hostToken && (this.hostMonitor = new fi(this.room, this.credentials.hostToken, this.runtime), this.hostMonitor.acknowledged()), this.hostId = e.hostId, this.generation = e.generation ?? null, delete this.credentials.matchEntry, this.ownerRequests.verification = typeof e.requireVerification == "boolean" ? e.requireVerification : null, this.locked = typeof e.locked == "boolean" ? e.locked : null, this.events.admitted(this.id, this.host);
+		this.id = e.id, this.host = e.role === "host", this.host && this.credentials.hostToken && (this.hostMonitor = new Zr(this.room, this.credentials.hostToken, this.runtime), this.hostMonitor.acknowledged()), this.hostId = e.hostId, this.generation = e.generation ?? null, delete this.credentials.matchEntry, this.ownerRequests.verification = typeof e.requireVerification == "boolean" ? e.requireVerification : null, this.locked = typeof e.locked == "boolean" ? e.locked : null, this.events.admitted(this.id, this.host);
 	}
 	helloCredentials() {
 		return {
@@ -3834,7 +3745,7 @@ var wi = class {
 	close() {
 		this.closed || (this.serial++, this.challenge?.abort(), this.ownerRequests.cancel("closed"), this.closed = !0, this.hostMonitor?.close(), this.hostMonitor = void 0, this.credentials = {}, this.ws.close(1e3, "Left room"));
 	}
-}, Ti = 2e4, Ei = 5e3, Di = 2, Oi = 3e4, ki = 5e3, Ai = 1048576, ji = 32768, Mi = 1e3, Ni = [{ urls: "stun:stun.l.google.com:19302" }], Pi = (e) => typeof e == "string" ? new TextEncoder().encode(e).length : e.byteLength, Fi = class {
+}, ui = 2e4, di = 5e3, fi = 2, pi = 3e4, mi = 5e3, hi = 1048576, gi = 32768, _i = 1e3, vi = [{ urls: "stun:stun.l.google.com:19302" }], yi = (e) => typeof e == "string" ? new TextEncoder().encode(e).length : e.byteLength, bi = class {
 	hooks;
 	runtime;
 	peers = /* @__PURE__ */ new Map();
@@ -3847,7 +3758,7 @@ var wi = class {
 	lastHeartbeat = 0;
 	controlId = 0;
 	hostCloseTimer;
-	constructor(e, t, n, r = $t()) {
+	constructor(e, t, n, r = Qt()) {
 		this.hooks = n, this.runtime = r, this.link = {
 			isHost: () => this.host,
 			hooks: n,
@@ -3859,12 +3770,12 @@ var wi = class {
 			countReceived: (e) => {
 				this.bytesReceived += e;
 			}
-		}, this.signaling = new wi(e, t, n, {
+		}, this.signaling = new li(e, t, n, {
 			admitted: (e, t) => n.ready(e, t),
 			peer: (e, t) => this.peerChanged(e, t),
 			negotiate: (e, t) => this.negotiate(e, t),
 			ended: (e) => this.end(e)
-		}, r), this.timer = setInterval(() => this.maintain(), ki);
+		}, r), this.timer = setInterval(() => this.maintain(), mi);
 	}
 	get ws() {
 		return this.signaling.ws;
@@ -3911,8 +3822,8 @@ var wi = class {
 	}
 	maintain() {
 		let e = performance.now();
-		this.host && this.signalingReady && e - this.lastHeartbeat >= Oi && (this.signal({ type: "heartbeat" }), this.lastHeartbeat = e);
-		for (let t of this.peers.values()) !t.connected && e - t.created > Ti ? (this.hooks.status("Could not connect directly to this room. Try another network or room.", "error"), this.remove(t.id)) : t.lostAt !== void 0 && e - t.lostAt > Ti ? (this.hooks.status("The direct connection could not be recovered. Rejoin the room.", "error"), this.remove(t.id)) : t.lostAt !== void 0 && this.host && e - t.lastRestart > Ei && this.restartPeer(t.id);
+		this.host && this.signalingReady && e - this.lastHeartbeat >= pi && (this.signal({ type: "heartbeat" }), this.lastHeartbeat = e);
+		for (let t of this.peers.values()) !t.connected && e - t.created > ui ? (this.hooks.status("Could not connect directly to this room. Try another network or room.", "error"), this.remove(t.id)) : t.lostAt !== void 0 && e - t.lostAt > ui ? (this.hooks.status("The direct connection could not be recovered. Rejoin the room.", "error"), this.remove(t.id)) : t.lostAt !== void 0 && this.host && e - t.lastRestart > di && this.restartPeer(t.id);
 	}
 	async peerChanged(e, t) {
 		typeof e.id == "string" && e.id && e.id !== this.id && (e.type === "leave" ? this.remove(e.id, !1) : this.host && !this.peers.has(e.id) && await this.offerPeer(e.id, t));
@@ -3927,18 +3838,18 @@ var wi = class {
 		let i = this.negotiationScope(r, t);
 		if (n.type === "offer") {
 			if (this.host) throw Error("Only the host can offer");
-			await yr(r, n.sdp, i);
+			await ir(r, n.sdp, i);
 		} else if (n.type === "answer") {
 			if (!this.host) throw Error("Only guests can answer");
-			await br(r, n.sdp, i) && this.noteHealthy(r);
-		} else n.type === "candidate" && n.candidate && await xr(r, n.candidate, i);
+			await ar(r, n.sdp, i) && this.noteHealthy(r);
+		} else n.type === "candidate" && n.candidate && await or(r, n.candidate, i);
 	}
 	async offerPeer(e, t) {
 		let n = this.make(e);
 		this.bind(n, n.pc.createDataChannel("control", { ordered: !0 })), this.bind(n, n.pc.createDataChannel("realtime", {
 			ordered: !1,
 			maxRetransmits: 0
-		})), await vr(n, this.negotiationScope(n, t));
+		})), await rr(n, this.negotiationScope(n, t));
 	}
 	negotiationScope(e, t) {
 		return {
@@ -3957,11 +3868,11 @@ var wi = class {
 	}
 	async restartPeer(e) {
 		let t = this.peers.get(e);
-		if (this.closed || !this.host || !t || t.restarting || t.restarts >= Di || t.pc.signalingState !== "stable" || !this.signaling.socketOpen) return !1;
+		if (this.closed || !this.host || !t || t.restarting || t.restarts >= fi || t.pc.signalingState !== "stable" || !this.signaling.socketOpen) return !1;
 		let n = this.signaling.serial;
 		t.restarting = !0, t.lastRestart = performance.now(), t.lostAt ??= t.lastRestart, t.restarts++;
 		try {
-			return await vr(t, this.negotiationScope(t, n), { iceRestart: !0 });
+			return await rr(t, this.negotiationScope(t, n), { iceRestart: !0 });
 		} catch {
 			return this.current(t) && this.hooks.status("Direct connection recovery is still pending.", "info"), !1;
 		} finally {
@@ -3969,14 +3880,14 @@ var wi = class {
 		}
 	}
 	make(e) {
-		let t = Dr(this.runtime.createPeerConnection({
-			iceServers: Ni,
+		let t = fr(this.runtime.createPeerConnection({
+			iceServers: vi,
 			bundlePolicy: "max-bundle"
 		}), e, this.link);
 		return this.peers.set(e, t), t;
 	}
 	bind(e, t) {
-		Ar(e, t, this.link);
+		hr(e, t, this.link);
 	}
 	admit(e) {
 		clearTimeout(e.admissionTimer), e.admissionTimer = void 0;
@@ -3984,8 +3895,8 @@ var wi = class {
 	control(e, t) {
 		let n = e.control;
 		if (n?.readyState !== "open") return;
-		let r = Xn(t, this.controlId++), i = r.reduce((e, t) => e + Pi(t), 0);
-		if (n.bufferedAmount + i > Ai) {
+		let r = Fn(t, this.controlId++), i = r.reduce((e, t) => e + yi(t), 0);
+		if (n.bufferedAmount + i > hi) {
 			this.remove(e.id);
 			return;
 		}
@@ -3993,7 +3904,7 @@ var wi = class {
 		this.bytesSent += i;
 	}
 	fast(e, t) {
-		e.fast?.readyState === "open" && e.fast.bufferedAmount < ji && (e.fast.send(t), this.bytesSent += t.byteLength);
+		e.fast?.readyState === "open" && e.fast.bufferedAmount < gi && (e.fast.send(t), this.bytesSent += t.byteLength);
 	}
 	broadcast(e) {
 		for (let t of this.peers.values()) this.control(t, e);
@@ -4009,7 +3920,7 @@ var wi = class {
 					}
 					try {
 						let t = await e.pc.getStats();
-						this.current(e) && (e.rtt = fr(t.values()));
+						this.current(e) && (e.rtt = Zn(t.values()));
 					} catch {
 						e.rtt = null;
 					}
@@ -4034,7 +3945,7 @@ var wi = class {
 		} catch {}
 		if (this.hooks.leave(e), this.host) return;
 		let r = this.signalingReady, i = () => this.end(r ? "The host connection ended. Return to Rooms and join again." : "Room connection ended. Return to Rooms and join again.");
-		r ? this.hostCloseTimer = setTimeout(i, Mi) : i();
+		r ? this.hostCloseTimer = setTimeout(i, _i) : i();
 	}
 	close() {
 		if (!this.closed) {
@@ -4043,92 +3954,95 @@ var wi = class {
 			this.peers.clear();
 		}
 	}
-}, Ii = 256, Li = (e) => e.slice(0, 100);
-function Ri(e, t, n, r) {
+}, xi = 256, Si = (e) => e.slice(0, 100);
+function Ci(e, t, n, r) {
 	if (e.assertOpen(), typeof n != "string") throw Error("Invalid kick reason");
 	let i = e.players.byId(t);
 	if (!i || e.isHost(i)) return;
-	let a = e.publicPlayer(i), o = Li(n), s = e.network.peers.get(i.peerId);
+	let a = e.publicPlayer(i), o = Si(n), s = e.network.peers.get(i.peerId);
 	s && e.network.control(s, {
 		type: "kicked",
 		reason: o
 	}), e.network.remove(i.peerId), e.players.has(i) || e.invoke("onPlayerKicked", e.hooks.onPlayerKicked, a, o, !1, r);
 }
-async function zi(e, t, n, r = null) {
+async function wi(e, t, n, r = null) {
 	if (typeof n != "string") throw Error("Invalid kick reason");
 	let i = e.players.byId(t);
 	if (!i || e.isHost(i)) return;
-	let a = e.publicPlayer(i), o = Li(n);
-	if (e.bans.size >= Ii && !e.bans.has(t)) throw Error("Clear existing bans before adding more.");
+	let a = e.publicPlayer(i), o = Si(n);
+	if (e.bans.size >= xi && !e.bans.has(t)) throw Error("Clear existing bans before adding more.");
 	try {
 		await e.network.updateBan("ban", i.peerId, o);
 	} catch (n) {
-		throw n instanceof pi && e.bans.set(t, i.peerId), n;
+		throw n instanceof Qr && e.bans.set(t, i.peerId), n;
 	}
 	e.bans.set(t, i.peerId), e.network.remove(i.peerId), e.invoke("onPlayerKicked", e.hooks.onPlayerKicked, a, o, !0, r);
 }
-async function Bi(e, t) {
+async function Ti(e, t) {
 	e.assertOpen();
 	let n = e.bans.get(t);
 	n && (await e.network.updateBan("clearBan", n), e.bans.delete(t));
 }
-async function Vi(e) {
+async function Ei(e) {
 	e.assertOpen(), await e.network.updateBan("clearBans"), e.bans.clear();
 }
-var Hi = (e) => /* @__PURE__ */ $(/* @__PURE__ */ $r(), /* @__PURE__ */ Rr(), /* @__PURE__ */ Hr(0), /* @__PURE__ */ Br(e)), Ui = Hi(31), Wi = /* @__PURE__ */ ti([1, 2]), Gi = /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ zr(200), /* @__PURE__ */ Lr((e) => !!e.trim())), Ki = /* @__PURE__ */ Z({
-	score: Hi(99),
-	minutes: Hi(99),
-	locked: /* @__PURE__ */ Xr(),
-	kickRate: /* @__PURE__ */ ei(Hi(h))
-}), qi = /* @__PURE__ */ $(/* @__PURE__ */ Z({
-	angle: /* @__PURE__ */ $r(),
-	textColor: /* @__PURE__ */ $r(),
-	colors: /* @__PURE__ */ Yr(/* @__PURE__ */ $r())
-}), /* @__PURE__ */ Ur(({ dataset: e, addIssue: t, NEVER: n }) => {
+function Di(e) {
+	return e === null || typeof e == "string" && Array.from(e).length <= 2 && !/[\p{Cc}\p{Cf}]/u.test(e);
+}
+var Oi = (e) => /* @__PURE__ */ $(/* @__PURE__ */ Rr(), /* @__PURE__ */ Cr(), /* @__PURE__ */ Dr(0), /* @__PURE__ */ Tr(e)), ki = Oi(31), Ai = /* @__PURE__ */ Br([1, 2]), ji = /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ wr(200), /* @__PURE__ */ Sr((e) => !!e.trim())), Mi = /* @__PURE__ */ Z({
+	score: Oi(99),
+	minutes: Oi(99),
+	locked: /* @__PURE__ */ Fr(),
+	kickRate: /* @__PURE__ */ zr(Oi(h))
+}), Ni = /* @__PURE__ */ $(/* @__PURE__ */ Z({
+	angle: /* @__PURE__ */ Rr(),
+	textColor: /* @__PURE__ */ Rr(),
+	colors: /* @__PURE__ */ Pr(/* @__PURE__ */ Rr())
+}), /* @__PURE__ */ Or(({ dataset: e, addIssue: t, NEVER: n }) => {
 	try {
 		let { angle: t, textColor: n, colors: r } = e.value;
 		return ge(t, n, r);
 	} catch {
 		return t({ message: "Invalid team colors" }), n;
 	}
-})), Ji = (e) => /* @__PURE__ */ Z({ action: /* @__PURE__ */ X(e) }), Yi = /* @__PURE__ */ ii("action", [
+})), Pi = (e) => /* @__PURE__ */ Z({ action: /* @__PURE__ */ X(e) }), Fi = /* @__PURE__ */ Ur("action", [
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("typing"),
-		active: /* @__PURE__ */ Xr()
+		active: /* @__PURE__ */ Fr()
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("chat"),
-		text: Gi
+		text: ji
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("directChat"),
-		recipientId: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Vr(1), /* @__PURE__ */ zr(128)),
-		text: Gi
+		recipientId: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ Er(1), /* @__PURE__ */ wr(128)),
+		text: ji
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("avatar"),
-		avatar: /* @__PURE__ */ Zr(hn)
+		avatar: /* @__PURE__ */ Ir(Di)
 	}),
-	Ji("autoTeams"),
-	Ji("clearBans"),
-	Ji("start"),
-	Ji("stop"),
+	Pi("autoTeams"),
+	Pi("clearBans"),
+	Pi("start"),
+	Pi("stop"),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("teamsLock"),
-		locked: /* @__PURE__ */ Xr()
+		locked: /* @__PURE__ */ Fr()
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("resetTeams"),
-		team: /* @__PURE__ */ ei(Wi)
+		team: /* @__PURE__ */ zr(Ai)
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("team"),
-		team: /* @__PURE__ */ ti([
+		team: /* @__PURE__ */ Br([
 			0,
 			1,
 			2
 		]),
-		slot: /* @__PURE__ */ ei(Ui)
+		slot: /* @__PURE__ */ zr(ki)
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("defaultStadium"),
@@ -4140,47 +4054,47 @@ var Hi = (e) => /* @__PURE__ */ $(/* @__PURE__ */ $r(), /* @__PURE__ */ Rr(), /*
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("ban"),
-		slot: Ui
+		slot: ki
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("kick"),
-		slot: Ui
+		slot: ki
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("admin"),
-		slot: Ui
+		slot: ki
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("mute"),
-		slot: Ui,
-		muted: /* @__PURE__ */ Xr()
+		slot: ki,
+		muted: /* @__PURE__ */ Fr()
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("teamColors"),
-		team: Wi,
-		palette: /* @__PURE__ */ Qr(qi)
+		team: Ai,
+		palette: /* @__PURE__ */ Lr(Ni)
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("pause"),
-		paused: /* @__PURE__ */ ei(/* @__PURE__ */ Xr())
+		paused: /* @__PURE__ */ zr(/* @__PURE__ */ Fr())
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("kickRate"),
-		value: Hi(h)
+		value: Oi(h)
 	}),
 	/* @__PURE__ */ Z({
 		action: /* @__PURE__ */ X("settings"),
-		...Ki.entries
+		...Mi.entries
 	})
 ]);
-function Xi(e, t) {
-	let n = /* @__PURE__ */ ai(Yi, {
+function Ii(e, t) {
+	let n = /* @__PURE__ */ Wr(Fi, {
 		...t,
 		action: e
 	});
 	return n.success ? n.output : null;
 }
-function Zi(e, t, n, r) {
+function Li(e, t, n, r) {
 	let i = e.find((e) => e.id === t), a = e.find((e) => e.id === n);
 	return !i || i.muted || !a || a.bot || t === n || !r.trim() || r.length > 200 ? null : {
 		type: "directChat",
@@ -4191,17 +4105,17 @@ function Zi(e, t, n, r) {
 		text: r
 	};
 }
-function Qi(e, t, n) {
+function Ri(e, t, n) {
 	return t !== void 0 && (e.admin || !n && t === e);
 }
-function $i(e, t, n) {
+function zi(e, t, n) {
 	return t !== void 0 && e.admin && t !== e && !n(t);
 }
-function ea(e, t, n) {
+function Bi(e, t, n) {
 	let r = e.indexOf(t);
 	return r < 0 || t.team === n ? !1 : (t.team = n, e.splice(r, 1), e.push(t), !0);
 }
-function ta(e, t) {
+function Vi(e, t) {
 	let n = e.filter((e) => e.team === 0), r = e.filter((e) => e.team === 1).length, i = e.filter((e) => e.team === 2).length;
 	if (!n.length || r === i && n.length < 2) return [];
 	let a = () => n.splice(t ? Math.floor(t() * n.length) : 0, 1)[0];
@@ -4219,23 +4133,23 @@ function ta(e, t) {
 		team: 2
 	}];
 }
-function na(e, t) {
+function Hi(e, t) {
 	return (t ? [t] : [2, 1]).flatMap((t) => e.filter((e) => e.team === t));
 }
-function ra(e, t, n) {
+function Ui(e, t, n) {
 	switch (t.action) {
 		case "team": {
 			let r = t.slot === void 0 ? e : n.players().find((e) => e.slot === t.slot);
-			return Qi(e, r, n.locked()) && n.move(r, t.team), !0;
+			return Ri(e, r, n.locked()) && n.move(r, t.team), !0;
 		}
 		case "teamsLock": return e.admin && n.lock(t.locked), !0;
 		case "autoTeams":
 		case "resetTeams": {
 			if (!e.admin) return !0;
-			let r = t.action === "resetTeams" ? na(n.players(), t.team).map((e) => ({
+			let r = t.action === "resetTeams" ? Hi(n.players(), t.team).map((e) => ({
 				player: e,
 				team: 0
-			})) : ta(n.players());
+			})) : Vi(n.players());
 			for (let { player: i, team: a } of r) {
 				if (!n.current() || !n.players().includes(e) || !e.admin || t.action === "resetTeams" && !n.stopped()) break;
 				n.players().includes(i) && ((t.action === "autoTeams" ? i.team !== 0 : i.team === 0) || n.move(i, a));
@@ -4245,7 +4159,50 @@ function ra(e, t, n) {
 		default: return !1;
 	}
 }
-function ia(e, t, n) {
+function Wi(e, t, n, r) {
+	if (e.assertOpen(), ![
+		0,
+		1,
+		2
+	].includes(n)) throw Error("Invalid team");
+	let i = e.players.byId(t);
+	i && e.players.assignTeam(i, n) && (e.command("team", i.slot, n), e.match.recordOrder(e.players.all.map((e) => e.slot)), e.syncLobby(), e.invoke("onPlayerTeamChange", e.hooks.onPlayerTeamChange, e.publicPlayer(i), e.publicOrNull(r)));
+}
+function Gi(e, t, n) {
+	e.assertOpen();
+	let r = e.players.byId(t);
+	r && r.admin !== !!n && (r.admin = !!n, e.syncLobby(), e.invoke("onPlayerAdminChange", e.hooks.onPlayerAdminChange, e.publicPlayer(r), null));
+}
+function Ki(e, t, n, r) {
+	if (e.assertOpen(), !Number.isInteger(t) || typeof n != "boolean") throw Error("Invalid player mute");
+	let i = e.players.byId(t);
+	i && !e.isHost(i) && !!i.muted !== n && (i.muted = n, e.syncLobby(), e.invoke("onPlayerMuteChange", e.hooks.onPlayerMuteChange, e.publicPlayer(i), r));
+}
+function qi(e, t, n) {
+	e.assertOpen(), e.locked !== !!t && (e.locked = !!t, e.syncLobby(), e.invoke("onTeamsLockChange", e.hooks.onTeamsLockChange, e.locked, n));
+}
+function Ji(e, t, n) {
+	if (e.assertOpen(), t !== 1 && t !== 2) throw Error("Invalid team");
+	JSON.stringify(e.teamStyles[t - 1]) !== JSON.stringify(n) && (e.teamStyles[t - 1] = n, e.match.recordStyles(e.teamStyles), e.syncLobby());
+}
+function Yi(e, t, n, r, i) {
+	let a = ge(n, r, i);
+	a.angle = ((256 * n / 360 | 0) & 255) * (360 / 256), Ji(e, t, a);
+}
+function Xi(e, t, n) {
+	if (e.assertOpen(), !Array.isArray(t) || t.length > 32 || t.some((e) => !Number.isSafeInteger(e) || e < 0) || typeof n != "boolean") throw Error("Invalid player order");
+	let r = new Set(t), i = [...r].flatMap((t) => {
+		let n = e.players.byId(t);
+		return n ? [n] : [];
+	}), a = e.players.all.filter((e) => !r.has(e.id)), o = n ? [...i, ...a] : [...a, ...i];
+	e.players.reorder(o) && (e.match.recordOrder(o.map((e) => e.slot)), e.syncLobby());
+}
+function Zi(e, t, n) {
+	if (e.assertOpen(), !Di(n)) throw Error("Avatar must be null or at most two visible characters.");
+	let r = e.players.byId(t);
+	r && (r.avatarOverride = n, e.match.recordPlayer(r.slot, r.name, n ?? r.avatar), e.syncLobby());
+}
+function Qi(e, t, n) {
 	if (e.assertOpen(), !e.stopped()) return;
 	H(t);
 	let r = ++e.stadiumSelection;
@@ -4261,23 +4218,23 @@ function ia(e, t, n) {
 		}), e.invoke("onStadiumChange", e.hooks.onStadiumChange, e.engine.stadium.name, n);
 	}
 }
-async function aa(e, t) {
+async function $i(e, t) {
 	if (e.assertOpen(), !e.stopped()) return;
 	let n = ++e.stadiumSelection, r = await e.runtime.loadStadium(t);
 	if (e.assertOpen(), n !== e.stadiumSelection) throw Error("Stadium selection superseded");
-	ia(e, r, null);
+	Qi(e, r, null);
 }
-var oa = "You are muted in this room.", sa = "Message not sent. Please wait a moment before sending again.";
-function ca({ room: e, peer: t, actor: n }, r, i) {
+var ea = "You are muted in this room.", ta = "Message not sent. Please wait a moment before sending again.";
+function na({ room: e, peer: t, actor: n }, r, i) {
 	return !n.muted && e.traffic.allow(t.id, "chat") ? !1 : (e.traffic.allow(t.id, "feedback") && e.network.control(t, {
 		type: "chatError",
 		rejectedText: r,
 		recipientId: i,
-		text: n.muted ? oa : sa
+		text: n.muted ? ea : ta
 	}), !0);
 }
-var la = ({ room: e, actor: t }) => !e.closed && e.players.has(t);
-function ua(e, t) {
+var ra = ({ room: e, actor: t }) => !e.closed && e.players.has(t);
+function ia(e, t) {
 	let { room: n, peer: r, actor: i } = e;
 	n.traffic.allow(r.id, "typing") && n.network.broadcast({
 		type: "typing",
@@ -4285,10 +4242,10 @@ function ua(e, t) {
 		active: t.active && !i.muted
 	});
 }
-function da(e, t) {
+function aa(e, t) {
 	let { room: n, peer: r, actor: i } = e;
-	if (ca(e, t.text, t.recipientId)) return;
-	let a = Zi(n.players.all.map((e) => ({
+	if (na(e, t.text, t.recipientId)) return;
+	let a = Li(n.players.all.map((e) => ({
 		...e,
 		id: e.peerId
 	})), r.id, t.recipientId, t.text);
@@ -4306,26 +4263,26 @@ function da(e, t) {
 		let e = n.hooks.onPlayerDirectChat?.(n.publicPlayer(i), n.publicPlayer(o), a.text);
 		return s = !0, e;
 	});
-	if (!(!s || c instanceof Promise || c === !1 || !la(e) || i.muted || !n.players.has(o))) for (let e of [a.fromId, a.toId]) {
+	if (!(!s || c instanceof Promise || c === !1 || !ra(e) || i.muted || !n.players.has(o))) for (let e of [a.fromId, a.toId]) {
 		let t = n.network.peers.get(e);
 		t && n.network.control(t, a);
 	}
 }
-function fa(e, t) {
+function oa(e, t) {
 	let { room: n, actor: r } = e;
-	ca(e, t.text, "") || (n.invoke("onPlayerActivity", n.hooks.onPlayerActivity, n.publicPlayer(r)), la(e) && n.invoke("onPlayerChat", n.hooks.onPlayerChat, n.publicPlayer(r), t.text) !== !1 && la(e) && !r.muted && n.network.broadcast({
+	na(e, t.text, "") || (n.invoke("onPlayerActivity", n.hooks.onPlayerActivity, n.publicPlayer(r)), ra(e) && n.invoke("onPlayerChat", n.hooks.onPlayerChat, n.publicPlayer(r), t.text) !== !1 && ra(e) && !r.muted && n.network.broadcast({
 		type: "chat",
 		playerId: r.peerId,
 		name: r.name,
 		text: t.text
 	}));
 }
-function pa({ room: e, actor: t }, n) {
+function sa({ room: e, actor: t }, n) {
 	t.avatar = n.avatar, e.match.recordPlayer(t.slot, t.name, t.avatarOverride ?? t.avatar), e.syncLobby();
 }
-function ma(e, t) {
+function ca(e, t) {
 	let { room: n, peer: r, actor: i } = e, a = (t) => {
-		la(e) && n.network.control(r, {
+		ra(e) && n.network.control(r, {
 			type: "stadiumResult",
 			text: t
 		});
@@ -4336,95 +4293,95 @@ function ma(e, t) {
 	}
 	let o = ++n.stadiumSelection;
 	(t.action === "defaultStadium" ? n.runtime.loadStadium(t.name) : Promise.resolve(t.source)).then((t) => {
-		if (la(e)) {
+		if (ra(e)) {
 			if (o !== n.stadiumSelection || !i.admin || !n.stopped()) {
 				a("Stadium change cancelled: room state or permissions changed.");
 				return;
 			}
-			ia(n, t, n.publicPlayer(i)), a("Stadium applied.");
+			Qi(n, t, n.publicPlayer(i)), a("Stadium applied.");
 		}
 	}).catch(() => a("Stadium could not be loaded. Please try again."));
 }
-function ha({ room: e, actor: t }, n) {
+function la({ room: e, actor: t }, n) {
 	let r = e.players.bySlot(n);
-	return $i(t, r, (t) => e.isHost(t)) ? r : void 0;
+	return zi(t, r, (t) => e.isHost(t)) ? r : void 0;
 }
-function ga({ room: e, peer: t }, n) {
+function ua({ room: e, peer: t }, n) {
 	!e.closed && e.network.peers.has(t.id) && e.network.control(t, {
 		type: "moderationResult",
 		text: n
 	});
 }
-function _a(e, t) {
-	let { room: n, actor: r } = e, i = ha(e, t);
-	i && zi(n, i.id, "Removed by admin", n.publicPlayer(r)).then(() => ga(e, "Player banned.")).catch((t) => ga(e, t instanceof Error ? t.message : "Moderation failed."));
+function da(e, t) {
+	let { room: n, actor: r } = e, i = la(e, t);
+	i && wi(n, i.id, "Removed by admin", n.publicPlayer(r)).then(() => ua(e, "Player banned.")).catch((t) => ua(e, t instanceof Error ? t.message : "Moderation failed."));
 }
-function va(e, t, n) {
-	Dn(e, ..._(t), e.publicPlayer(n));
+function fa(e, t, n) {
+	_n(e, ..._(t), e.publicPlayer(n));
 }
-function ya({ room: e, actor: t }, n) {
-	e.stopped() && (On(e, n.score), kn(e, n.minutes), yn(e, n.locked, e.publicPlayer(t)), !e.closed && n.kickRate !== void 0 && n.kickRate !== e.engine.kickRate && va(e, n.kickRate, t));
+function pa({ room: e, actor: t }, n) {
+	e.stopped() && (vn(e, n.score), yn(e, n.minutes), qi(e, n.locked, e.publicPlayer(t)), !e.closed && n.kickRate !== void 0 && n.kickRate !== e.engine.kickRate && fa(e, n.kickRate, t));
 }
-function ba(e, t) {
+function ma(e, t) {
 	let { room: n, actor: r } = e;
 	switch (t.action) {
 		case "mute": {
-			let i = ha(e, t.slot);
-			i && vn(n, i.id, t.muted, n.publicPlayer(r));
+			let i = la(e, t.slot);
+			i && Ki(n, i.id, t.muted, n.publicPlayer(r));
 			return;
 		}
-		case "ban": return _a(e, t.slot);
-		case "clearBans": return ga(e, "Only the room owner can clear bans.");
-		case "teamColors": return bn(n, t.team, t.palette);
-		case "kickRate": return va(n, t.value, r);
-		case "start": return wn(n, r);
-		case "stop": return Tn(n, r);
-		case "pause": return En(n, t.paused === void 0 ? !n.engine.paused : t.paused, n.publicPlayer(r));
-		case "settings": return ya(e, t);
+		case "ban": return da(e, t.slot);
+		case "clearBans": return ua(e, "Only the room owner can clear bans.");
+		case "teamColors": return Ji(n, t.team, t.palette);
+		case "kickRate": return fa(n, t.value, r);
+		case "start": return mn(n, r);
+		case "stop": return hn(n, r);
+		case "pause": return gn(n, t.paused === void 0 ? !n.engine.paused : t.paused, n.publicPlayer(r));
+		case "settings": return pa(e, t);
 		case "kick": {
-			let i = ha(e, t.slot);
-			i && Ri(n, i.id, "Removed by host", n.publicPlayer(r));
+			let i = la(e, t.slot);
+			i && Ci(n, i.id, "Removed by host", n.publicPlayer(r));
 			return;
 		}
 	}
 }
-function xa(e, t, n, r) {
+function ha(e, t, n, r) {
 	let i = {
 		room: e,
 		peer: t,
 		actor: n
 	};
 	switch (r.action) {
-		case "typing": return ua(i, r);
-		case "directChat": return da(i, r);
-		case "chat": return fa(i, r);
-		case "avatar": return pa(i, r);
+		case "typing": return ia(i, r);
+		case "directChat": return aa(i, r);
+		case "chat": return oa(i, r);
+		case "avatar": return sa(i, r);
 		case "defaultStadium":
-		case "customStadium": return ma(i, r);
+		case "customStadium": return ca(i, r);
 	}
-	!ra(n, r, {
+	!Ui(n, r, {
 		players: () => e.players.all,
 		current: () => !e.closed,
 		stopped: () => e.stopped(),
 		locked: () => e.locked,
-		move: (t, r) => gn(e, t.id, r, n),
-		lock: (t) => yn(e, t, e.publicPlayer(n))
-	}) && n.admin && ba(i, r);
+		move: (t, r) => Wi(e, t.id, r, n),
+		lock: (t) => qi(e, t, e.publicPlayer(n))
+	}) && n.admin && ma(i, r);
 }
-var Sa = /* @__PURE__ */ new Set([
+var ga = /* @__PURE__ */ new Set([
 	"chat",
 	"directChat",
 	"typing"
 ]);
-function Ca(e, t) {
+function _a(e, t) {
 	return e.traffic.allow(t.id, "message") ? !0 : (e.network.remove(t.id), !1);
 }
-function wa(e) {
+function va(e) {
 	return e.version === 1 && e.engine === Ue && typeof e.name == "string" && !!e.name.trim() && e.name.length <= 24;
 }
-function Ta(e, t, n) {
-	let r = wa(n) ? e.players.freeSlot() : void 0;
-	if (!wa(n) || r === void 0) {
+function ya(e, t, n) {
+	let r = va(n) ? e.players.freeSlot() : void 0;
+	if (!va(n) || r === void 0) {
 		e.network.remove(t.id);
 		return;
 	}
@@ -4451,18 +4408,18 @@ function Ta(e, t, n) {
 		locked: e.locked
 	}), e.syncLobby(), e.invoke("onPlayerJoin", e.hooks.onPlayerJoin, e.publicPlayer(i));
 }
-function Ea(e) {
+function ba(e) {
 	return {
 		control(t, n) {
-			if (!Ca(e, t) || !n || typeof n != "object") return;
+			if (!_a(e, t) || !n || typeof n != "object") return;
 			let r = n, i = e.players.byPeer(t.id);
-			if (r.type === "join" && !i) return Ta(e, t, r);
-			if (!i || r.type !== "action" || !(typeof r.action == "string" && Sa.has(r.action)) && !e.traffic.allow(t.id, "action")) return;
-			let a = Xi(r.action, r);
-			a && xa(e, t, i, a);
+			if (r.type === "join" && !i) return ya(e, t, r);
+			if (!i || r.type !== "action" || !(typeof r.action == "string" && ga.has(r.action)) && !e.traffic.allow(t.id, "action")) return;
+			let a = Ii(r.action, r);
+			a && ha(e, t, i, a);
 		},
 		fast(t, n) {
-			if (!Ca(e, t)) return;
+			if (!_a(e, t)) return;
 			let r = e.players.byPeer(t.id);
 			if (!r) return;
 			let i = e.engine.index(r.slot) * 18 + u.INPUT, a = e.engine.data[i], o = e.inputs.accept(t.id, r.slot, n, e.epoch);
@@ -4478,7 +4435,7 @@ function Ea(e) {
 		}
 	};
 }
-var Da = class {
+var xa = class {
 	match;
 	now;
 	peers = /* @__PURE__ */ new Map();
@@ -4488,10 +4445,10 @@ var Da = class {
 	}
 	accept(e, t, n, r) {
 		if (this.closed) return;
-		let i = ar(n);
+		let i = Wn(n);
 		if (i.epoch !== r) return;
 		let a = this.peers.get(e);
-		if (!a || or(i.seq, a.seq)) return this.peers.set(e, {
+		if (!a || Gn(i.seq, a.seq)) return this.peers.set(e, {
 			seq: i.seq,
 			received: this.now(),
 			keys: i.keys
@@ -4514,7 +4471,7 @@ var Da = class {
 	close() {
 		this.closed = !0, this.reset();
 	}
-}, Oa = {
+}, Sa = {
 	input: {
 		slot: 31,
 		value: 31
@@ -4560,7 +4517,7 @@ var Da = class {
 		value: 0
 	}
 };
-function ka(e, t) {
+function Ca(e, t) {
 	switch (t.kind) {
 		case "disc":
 			if (!t.properties) throw Error("Missing replay disc properties");
@@ -4596,12 +4553,12 @@ function ka(e, t) {
 		case "pause": e.setPaused(!!t.value);
 	}
 }
-function Aa(e) {
+function wa(e) {
 	let t = JSON.stringify(e), n = 2166136261;
 	for (let e = 0; e < t.length; e++) n ^= t.charCodeAt(e), n = Math.imul(n, 16777619);
 	return (n >>> 0).toString(16).padStart(8, "0");
 }
-var ja = [
+var Ta = [
 	"input",
 	"team",
 	"start",
@@ -4613,11 +4570,11 @@ var ja = [
 	"join",
 	"disc",
 	"finishDraw"
-], Ma = new TextEncoder(), Na = new TextDecoder("utf-8", { fatal: !0 });
-function Pa(e) {
-	return Lt(Fa(e));
+], Ea = new TextEncoder(), Da = new TextDecoder("utf-8", { fatal: !0 });
+function Oa(e) {
+	return It(ka(e));
 }
-function Fa(e) {
+function ka(e) {
 	let { commands: t, ...n } = e, r = 0, i = e.checkpoints.map((e) => {
 		let t = e.state.discs;
 		if (!Array.isArray(t) || t.length > 1728 || t.some((e) => !Number.isFinite(e))) throw Error("Invalid checkpoint discs");
@@ -4630,7 +4587,7 @@ function Fa(e) {
 		};
 	});
 	if (i.length > 721) throw Error("Too many replay checkpoints");
-	let a = Ma.encode(JSON.stringify({
+	let a = Ea.encode(JSON.stringify({
 		...n,
 		checkpoints: i
 	}));
@@ -4646,7 +4603,7 @@ function Fa(e) {
 		} while (e);
 	};
 	for (let e of t) {
-		let t = ja.indexOf(e.kind);
+		let t = Ta.indexOf(e.kind);
 		if ((e.kind === "join" || e.kind === "finishDraw") && e.value !== 0 || e.kind === "team" && e.value > 2) throw Error("Invalid replay team command");
 		if (t < 0 || !Number.isInteger(e.slot) || e.slot < 0 || e.slot > (e.kind === "disc" ? 95 : 31) || e.kind === "finishDraw" && e.slot !== 0) throw Error("Invalid replay command");
 		if (f(e.tick - d), l(1), s[u++] = t, f(e.slot), f(e.value), e.kind === "disc") {
@@ -4678,82 +4635,82 @@ function Fa(e) {
 	for (let t of e.checkpoints) for (let e of t.state.discs) _.setFloat64(v, e, !0), v += 8;
 	return g.set(s.subarray(0, u), v), g;
 }
-function Ia(e) {
-	let t = Rt(e);
-	if (t[0] !== 66 || t[1] !== 50 || t[2] !== 68 || t[3] !== 49) {
-		if (t[0] === 66 && t[1] === 50 && t[2] === 68) throw Error("Unsupported packed replay format");
-		return JSON.parse(Na.decode(t));
-	}
-	if (t.length < 16 || t[4] !== 1 || t[5] || t[6] || t[7]) throw Error("Invalid packed replay header");
-	let n = new DataView(t.buffer, t.byteOffset, t.byteLength), r = n.getUint32(8, !0), i = n.getUint32(12, !0);
-	if (r > t.length - 16 || i > 5e5 || i > (t.length - 16 - r) / 3) throw Error("Invalid packed replay bounds");
-	let a = JSON.parse(Na.decode(t.subarray(16, 16 + r)));
-	if (!a || !Number.isSafeInteger(a.initial?.tick) || a.initial.tick < 0) throw Error("Invalid replay initial tick");
-	a.commands = [];
-	let o = 16 + r, s = a.initial.tick;
-	if (!Array.isArray(a.checkpoints) || a.checkpoints.length > 721) throw Error("Invalid packed checkpoints");
-	let c = a.checkpoints.map((e) => {
+function Aa(e) {
+	let t = e instanceof Uint8Array ? e : new Uint8Array(e), n = t[0] === 66 && t[1] === 50 && t[2] === 68 && t[3] === 49;
+	if (n && t.length > 33554432) throw Error("Replay exceeds 32 MB");
+	return ja(n ? t : Lt(t));
+}
+function ja(e) {
+	if (e.length < 16 || e[0] !== 66 || e[1] !== 50 || e[2] !== 68 || e[3] !== 49 || e[4] !== 1 || e[5] || e[6] || e[7]) throw Error("Invalid packed replay header");
+	let t = new DataView(e.buffer, e.byteOffset, e.byteLength), n = t.getUint32(8, !0), r = t.getUint32(12, !0);
+	if (n > e.length - 16 || r > 5e5 || r > (e.length - 16 - n) / 3) throw Error("Invalid packed replay bounds");
+	let i = JSON.parse(Da.decode(e.subarray(16, 16 + n)));
+	if (!i || !Number.isSafeInteger(i.initial?.tick) || i.initial.tick < 0) throw Error("Invalid replay initial tick");
+	i.commands = [];
+	let a = 16 + n, o = i.initial.tick;
+	if (!Array.isArray(i.checkpoints) || i.checkpoints.length > 721) throw Error("Invalid packed checkpoints");
+	let s = i.checkpoints.map((e) => {
 		let t = e?.state?.discs;
 		if (typeof t != "number" || !Number.isInteger(t) || t < 0 || t > 1728) throw Error("Invalid checkpoint disc count");
 		return t;
 	});
-	if (c.reduce((e, t) => e + t * 8, 0) > t.length - o - i * 3) throw Error("Truncated checkpoint discs");
-	for (let [e, t] of a.checkpoints.entries()) {
-		let r = c[e], i = Array(r);
+	if (s.reduce((e, t) => e + t * 8, 0) > e.length - a - r * 3) throw Error("Truncated checkpoint discs");
+	for (let [e, n] of i.checkpoints.entries()) {
+		let r = s[e], i = Array(r);
 		for (let e = 0; e < r; e++) {
-			let t = n.getFloat64(o, !0);
-			if (!Number.isFinite(t)) throw Error("Nonfinite checkpoint disc");
-			i[e] = t, o += 8;
+			let n = t.getFloat64(a, !0);
+			if (!Number.isFinite(n)) throw Error("Nonfinite checkpoint disc");
+			i[e] = n, a += 8;
 		}
-		t.state.discs = i;
+		n.state.discs = i;
 	}
-	let l = () => {
-		let e = 0;
+	let c = () => {
+		let t = 0;
 		for (let n = 0; n <= 28; n += 7) {
-			if (o >= t.length) throw Error("Truncated replay command");
-			let r = t[o++];
+			if (a >= e.length) throw Error("Truncated replay command");
+			let r = e[a++];
 			if (n === 28 && r > 15) throw Error("Replay integer overflow");
-			if (e += (r & 127) * 2 ** n, !(r & 128)) {
+			if (t += (r & 127) * 2 ** n, !(r & 128)) {
 				if (n && r === 0) throw Error("Noncanonical replay integer");
-				return e;
+				return t;
 			}
 		}
 		throw Error("Invalid replay integer");
 	};
-	for (let e = 0; e < i; e++) {
-		if (s += l(), !Number.isSafeInteger(s) || o >= t.length) throw Error("Invalid replay tick");
-		let e = ja[t[o++]];
-		if (!e) throw Error("Unknown replay command");
-		let r = l(), i = l();
-		if (e === "disc") {
-			let c = l();
-			if (c > 8191) throw Error("Invalid disc property mask");
+	for (let n = 0; n < r; n++) {
+		if (o += c(), !Number.isSafeInteger(o) || a >= e.length) throw Error("Invalid replay tick");
+		let n = Ta[e[a++]];
+		if (!n) throw Error("Unknown replay command");
+		let r = c(), s = c();
+		if (n === "disc") {
+			let l = c();
+			if (l > 8191) throw Error("Invalid disc property mask");
 			let u = {};
-			p.forEach(([e], r) => {
-				if (c & 1 << r) {
-					if (o + 8 > t.length) throw Error("Truncated disc properties");
-					u[e] = n.getFloat64(o, !0), o += 8;
+			p.forEach(([n], r) => {
+				if (l & 1 << r) {
+					if (a + 8 > e.length) throw Error("Truncated disc properties");
+					u[n] = t.getFloat64(a, !0), a += 8;
 				}
-			}), a.commands.push({
-				tick: s,
-				kind: e,
+			}), i.commands.push({
+				tick: o,
+				kind: n,
 				slot: r,
-				value: i,
+				value: s,
 				properties: m(u)
 			});
 			continue;
 		}
-		a.commands.push({
-			tick: s,
-			kind: e,
+		i.commands.push({
+			tick: o,
+			kind: n,
 			slot: r,
-			value: i
+			value: s
 		});
 	}
-	if (o !== t.length) throw Error("Trailing replay command data");
-	return a;
+	if (a !== e.length) throw Error("Trailing replay command data");
+	return i;
 }
-var La = 31457280, Ra = 5e5, za = 4096, Ba = Fe * 5, Va = class {
+var Ma = 31457280, Na = 5e5, Pa = 4096, Fa = Fe * 5, Ia = class {
 	replay;
 	playerOrder = [];
 	lastInputs = /* @__PURE__ */ new Map();
@@ -4785,13 +4742,13 @@ var La = 31457280, Ra = 5e5, za = 4096, Ba = Fe * 5, Va = class {
 				slots: [...this.playerOrder]
 			}],
 			end: r.tick,
-			finalHash: Aa(r)
+			finalHash: wa(r)
 		}, this.bytes = new TextEncoder().encode(JSON.stringify(this.replay)).length;
 		for (let t = 0; t < 32; t++) this.lastInputs.set(t, e.data[e.index(t) * 18 + u.INPUT]);
 	}
 	reserve(e) {
 		let t = new TextEncoder().encode(JSON.stringify(e)).length + 1;
-		return this.full || this.bytes + t > La ? (this.full = !0, !1) : (this.bytes += t, !0);
+		return this.full || this.bytes + t > Ma ? (this.full = !0, !1) : (this.bytes += t, !0);
 	}
 	player(e, t, n, r) {
 		let i = {
@@ -4800,14 +4757,14 @@ var La = 31457280, Ra = 5e5, za = 4096, Ba = Fe * 5, Va = class {
 			name: n,
 			avatar: r
 		};
-		return this.replay.roster.length >= za || !this.reserve(i) ? (this.full = !0, !1) : (this.replay.roster.push(i), n === null ? this.order(e, this.playerOrder.filter((e) => e !== t)) : this.playerOrder.includes(t) ? !0 : this.order(e, [...this.playerOrder, t]));
+		return this.replay.roster.length >= Pa || !this.reserve(i) ? (this.full = !0, !1) : (this.replay.roster.push(i), n === null ? this.order(e, this.playerOrder.filter((e) => e !== t)) : this.playerOrder.includes(t) ? !0 : this.order(e, [...this.playerOrder, t]));
 	}
 	style(e, t) {
 		let n = {
 			tick: e,
 			teams: U(t)
 		}, r = this.replay.styles;
-		return r.length >= za || !this.reserve(n) ? (this.full = !0, !1) : (r.push(n), !0);
+		return r.length >= Pa || !this.reserve(n) ? (this.full = !0, !1) : (r.push(n), !0);
 	}
 	order(e, t) {
 		if (t.length === this.playerOrder.length && t.every((e, t) => e === this.playerOrder[t])) return !0;
@@ -4815,87 +4772,87 @@ var La = 31457280, Ra = 5e5, za = 4096, Ba = Fe * 5, Va = class {
 			tick: e,
 			slots: [...t]
 		}, r = this.replay.orders;
-		return r.length >= za || !this.reserve(n) ? (this.full = !0, !1) : (this.playerOrder = [...t], r.push(n), !0);
+		return r.length >= Pa || !this.reserve(n) ? (this.full = !0, !1) : (this.playerOrder = [...t], r.push(n), !0);
 	}
 	command(e) {
-		return e.kind === "input" && this.lastInputs.get(e.slot) === e.value ? !0 : this.replay.commands.length >= Ra || !this.reserve(e) ? (this.full = !0, !1) : (e.kind === "input" && this.lastInputs.set(e.slot, e.value), (e.kind === "team" || e.kind === "join") && this.lastInputs.set(e.slot, 0), e.kind === "start" && this.lastInputs.clear(), this.replay.commands.push(e.kind === "disc" ? {
+		return e.kind === "input" && this.lastInputs.get(e.slot) === e.value ? !0 : this.replay.commands.length >= Na || !this.reserve(e) ? (this.full = !0, !1) : (e.kind === "input" && this.lastInputs.set(e.slot, e.value), (e.kind === "team" || e.kind === "join") && this.lastInputs.set(e.slot, 0), e.kind === "start" && this.lastInputs.clear(), this.replay.commands.push(e.kind === "disc" ? {
 			...e,
 			properties: m(e.properties)
 		} : { ...e }), !0);
 	}
 	step(e) {
 		for (let t = 0; t < 32; t++) this.lastInputs.set(t, e.data[e.index(t) * 18 + u.INPUT]);
-		if (e.tick % Ba === 0) {
+		if (e.tick % Fa === 0) {
 			let t = e.snapshot(), n = {
 				tick: e.tick,
 				state: t,
-				hash: Aa(t)
+				hash: wa(t)
 			};
 			this.reserve(n) && this.replay.checkpoints.push(n);
 		}
 		this.replay.end = e.tick;
 	}
 	pack(e) {
-		return this.replay.end = e.tick, this.replay.finalHash = Aa(e.snapshot()), Fa(this.replay);
+		return this.replay.end = e.tick, this.replay.finalHash = wa(e.snapshot()), ka(this.replay);
 	}
 	finish(e) {
-		return this.replay.end = e.tick, this.replay.finalHash = Aa(e.snapshot()), new Blob([Pa(this.replay)], { type: "application/x-ball2d-replay" });
+		return this.replay.end = e.tick, this.replay.finalHash = wa(e.snapshot()), new Blob([Oa(this.replay)], { type: "application/x-ball2d-replay" });
 	}
-}, Ha = 5e5, Ua = 721, Wa = 4096, Ga = Fe * 3600, Ka = (e, t, n) => Number.isInteger(e) && e >= t && e <= n;
-function qa(e) {
+}, La = 5e5, Ra = 721, za = 4096, Ba = Fe * 3600, Va = (e, t, n) => Number.isInteger(e) && e >= t && e <= n;
+function Ha(e) {
 	if (e.magic !== "B2DR" || e.version !== 1 || e.engine !== Ue) throw Error("Unsupported replay engine/version");
-	if (!Array.isArray(e.commands) || e.commands.length > Ha || !Array.isArray(e.checkpoints) || e.checkpoints.length > Ua || !Number.isInteger(e.end) || e.end < e.initial.tick || e.end - e.initial.tick > Ga) throw Error("Invalid replay bounds");
+	if (!Array.isArray(e.commands) || e.commands.length > La || !Array.isArray(e.checkpoints) || e.checkpoints.length > Ra || !Number.isInteger(e.end) || e.end < e.initial.tick || e.end - e.initial.tick > Ba) throw Error("Invalid replay bounds");
 }
-function Ja(e) {
+function Ua(e) {
 	let t = e.initial.tick;
 	for (let n of e.commands) {
-		let r = Object.hasOwn(Oa, n.kind) ? Oa[n.kind] : void 0;
-		if (!r || !Ka(n.tick, t, e.end) || !Ka(n.slot, 0, r.slot) || !Ka(n.value, 0, r.value)) throw Error("Invalid replay command");
+		let r = Object.hasOwn(Sa, n.kind) ? Sa[n.kind] : void 0;
+		if (!r || !Va(n.tick, t, e.end) || !Va(n.slot, 0, r.slot) || !Va(n.value, 0, r.value)) throw Error("Invalid replay command");
 		n.kind === "disc" && (n.properties = m(n.properties)), t = n.tick;
 	}
 }
-function Ya(e) {
-	if (!Array.isArray(e.roster) || e.roster.length > Wa) throw Error("Invalid replay roster");
+function Wa(e) {
+	if (!Array.isArray(e.roster) || e.roster.length > za) throw Error("Invalid replay roster");
 	let t = e.initial.tick;
 	for (let n of e.roster) {
-		if (!Ka(n.tick, t, e.end) || !Ka(n.slot, 0, 31) || n.name !== null && (typeof n.name != "string" || n.name.length > 24) || n.avatar !== void 0 && !hn(n.avatar)) throw Error("Invalid roster event");
+		if (!Va(n.tick, t, e.end) || !Va(n.slot, 0, 31) || n.name !== null && (typeof n.name != "string" || n.name.length > 24) || n.avatar !== void 0 && !Di(n.avatar)) throw Error("Invalid roster event");
 		t = n.tick;
 	}
 }
-function Xa(e) {
+function Ga(e) {
 	if (e.styles === void 0) return;
-	if (!Array.isArray(e.styles) || e.styles.length > Wa) throw Error("Invalid replay styles");
+	if (!Array.isArray(e.styles) || e.styles.length > za) throw Error("Invalid replay styles");
 	let t = e.initial.tick;
 	for (let n of e.styles) {
-		if (!n || !Ka(n.tick, t, e.end) || n.teams === void 0) throw Error("Invalid replay style");
+		if (!n || !Va(n.tick, t, e.end) || n.teams === void 0) throw Error("Invalid replay style");
 		n.teams = U(n.teams), t = n.tick;
 	}
 }
-function Za(e) {
+function Ka(e) {
 	if (e.orders === void 0) return;
-	if (!Array.isArray(e.orders) || e.orders.length > Wa) throw Error("Invalid replay orders");
+	if (!Array.isArray(e.orders) || e.orders.length > za) throw Error("Invalid replay orders");
 	let t = e.initial.tick;
 	for (let n of e.orders) {
-		if (!n || !Ka(n.tick, t, e.end) || !Array.isArray(n.slots) || n.slots.length > 32 || n.slots.some((e) => !Ka(e, 0, 31)) || new Set(n.slots).size !== n.slots.length) throw Error("Invalid replay order");
+		if (!n || !Va(n.tick, t, e.end) || !Array.isArray(n.slots) || n.slots.length > 32 || n.slots.some((e) => !Va(e, 0, 31)) || new Set(n.slots).size !== n.slots.length) throw Error("Invalid replay order");
 		t = n.tick;
 	}
 }
-function Qa(e) {
+function qa(e) {
 	let t = e.initial.tick;
 	for (let n of e.checkpoints) {
-		if (!Ka(n.tick, t + 1, e.end) || n.state.tick !== n.tick || typeof n.hash != "string") throw Error("Invalid checkpoint");
+		if (!Va(n.tick, t + 1, e.end) || n.state.tick !== n.tick || typeof n.hash != "string") throw Error("Invalid checkpoint");
 		t = n.tick;
 	}
 }
-function $a(e) {
-	let t = Ia(e);
-	return qa(t), Ja(t), Ya(t), Xa(t), Za(t), Qa(t), t;
+function Ja(e) {
+	let t = Aa(e);
+	return Ha(t), Ua(t), Wa(t), Ga(t), Ka(t), qa(t), t;
 }
-async function eo(e) {
+async function Ya(e) {
 	if (e.size > 33554432) throw Error("Replay exceeds 32 MB");
-	return $a(await e.arrayBuffer());
+	return Ja(await e.arrayBuffer());
 }
-var to = class {
+var Xa = class {
 	engine;
 	onRecordingComplete;
 	recorder;
@@ -4918,7 +4875,7 @@ var to = class {
 			slot: t,
 			value: n
 		};
-		r && (i.properties = r), this.recorder && (!this.recorder.canRecord(this.engine) || !this.recorder.command(i)) && this.finishRecording("Recording limit reached"), this.assertOpen(), ka(this.engine, i);
+		r && (i.properties = r), this.recorder && (!this.recorder.canRecord(this.engine) || !this.recorder.command(i)) && this.finishRecording("Recording limit reached"), this.assertOpen(), Ca(this.engine, i);
 	}
 	checkRecordingLimit() {
 		this.recorder && !this.recorder.canRecord(this.engine) && this.finishRecording("Recording limit reached");
@@ -4938,7 +4895,7 @@ var to = class {
 	startRecording(e, t) {
 		if (this.assertOpen(), this.completing) throw Error("Recording completion is in progress");
 		if (this.recorder) throw Error("Recording is already active");
-		this.recorder = new Va(this.engine, e, t);
+		this.recorder = new Ia(this.engine, e, t);
 	}
 	stopRecording() {
 		if (!this.recorder) return null;
@@ -4962,7 +4919,7 @@ var to = class {
 	close(e = "Room closed") {
 		this.closed || (this.closed = !0, this.finishRecording(e));
 	}
-}, no = class {
+}, Za = class {
 	stream;
 	sequence = 0;
 	pending = [];
@@ -5033,10 +4990,10 @@ var to = class {
 		};
 	}
 };
-function ro(e, t) {
+function Qa(e, t) {
 	if (t) for (let n of e.peers.values()) n.control?.readyState === "open" && n.control.bufferedAmount < 16384 && e.control(n, t);
 }
-var io = {
+var $a = {
 	message: {
 		burst: 240,
 		perSecond: 160
@@ -5057,12 +5014,12 @@ var io = {
 		burst: 1,
 		perSecond: .5
 	}
-}, ao = class {
+}, eo = class {
 	peers = /* @__PURE__ */ new Map();
 	allow(e, t, n = performance.now()) {
 		let r = this.peers.get(e);
 		r || (r = {}, this.peers.set(e, r));
-		let { burst: i, perSecond: a } = io[t], o = r[t] ?? {
+		let { burst: i, perSecond: a } = $a[t], o = r[t] ?? {
 			tokens: i,
 			at: n
 		};
@@ -5074,27 +5031,27 @@ var io = {
 	clear() {
 		this.peers.clear();
 	}
-}, oo = 32768, so = 62258, co = 4, lo = 32, uo = (e, t) => typeof e == "number" && Number.isInteger(e) && e >= 0 && e <= t, fo = (e) => Math.max(-32768, Math.min(32767, Math.round(e * co)));
-function po(e) {
-	return uo(e.halfWidthQ, 65535) && uo(e.halfHeightQ, 65535) && e.halfWidthQ !== 0 && e.halfHeightQ !== 0 && uo(e.grassWidthQ, e.halfWidthQ) && uo(e.grassHeightQ, e.halfHeightQ) && uo(e.cornerQ, Math.min(e.grassWidthQ, e.grassHeightQ));
+}, to = 32768, no = 62258, ro = 4, io = 32, ao = (e, t) => typeof e == "number" && Number.isInteger(e) && e >= 0 && e <= t, oo = (e) => Math.max(-32768, Math.min(32767, Math.round(e * ro)));
+function so(e) {
+	return ao(e.halfWidthQ, 65535) && ao(e.halfHeightQ, 65535) && e.halfWidthQ !== 0 && e.halfHeightQ !== 0 && ao(e.grassWidthQ, e.halfWidthQ) && ao(e.grassHeightQ, e.halfHeightQ) && ao(e.cornerQ, Math.min(e.grassWidthQ, e.grassHeightQ));
 }
-function mo(e) {
+function co(e) {
 	let { bg: t } = e, n = {
-		halfWidthQ: Math.round((Math.max(e.width, t.width) + lo) * co),
-		halfHeightQ: Math.round((Math.max(e.height, t.height) + lo) * co),
-		grassWidthQ: Math.round(t.width * co),
-		grassHeightQ: Math.round(t.height * co),
-		cornerQ: Math.round(Math.min(t.cornerRadius ?? 0, t.width, t.height) * co)
+		halfWidthQ: Math.round((Math.max(e.width, t.width) + io) * ro),
+		halfHeightQ: Math.round((Math.max(e.height, t.height) + io) * ro),
+		grassWidthQ: Math.round(t.width * ro),
+		grassHeightQ: Math.round(t.height * ro),
+		cornerQ: Math.round(Math.min(t.cornerRadius ?? 0, t.width, t.height) * ro)
 	};
-	if (!po(n)) throw Error("Invalid turf field");
+	if (!so(n)) throw Error("Invalid turf field");
 	return n;
 }
-var ho = (e, t) => e.halfWidthQ === t.halfWidthQ && e.halfHeightQ === t.halfHeightQ && e.grassWidthQ === t.grassWidthQ && e.grassHeightQ === t.grassHeightQ && e.cornerQ === t.cornerQ, go = (e) => [e.halfWidthQ / co, e.halfHeightQ / co];
-function _o(e, t, { grassWidthQ: n, grassHeightQ: r, cornerQ: i }) {
+var lo = (e, t) => e.halfWidthQ === t.halfWidthQ && e.halfHeightQ === t.halfHeightQ && e.grassWidthQ === t.grassWidthQ && e.grassHeightQ === t.grassHeightQ && e.cornerQ === t.cornerQ, uo = (e) => [e.halfWidthQ / ro, e.halfHeightQ / ro];
+function fo(e, t, { grassWidthQ: n, grassHeightQ: r, cornerQ: i }) {
 	let a = Math.abs(e), o = Math.abs(t);
 	return a > n || o > r ? !1 : !(i > 0 && a > n - i && o > r - i && (a - n + i) ** 2 + (o - r + i) ** 2 > i ** 2);
 }
-function vo(e, [t, n, r, i], a, o, s) {
+function po(e, [t, n, r, i], a, o, s) {
 	let { halfWidthQ: c, halfHeightQ: l } = s, u = Math.max(0, Math.floor((Math.min(t, r) - a + c) * 256 / (2 * c))), d = Math.min(255, Math.ceil((Math.max(t, r) + a + c) * 256 / (2 * c))), f = Math.max(0, Math.floor((Math.min(n, i) - a + l) * 128 / (2 * l))), p = Math.min(127, Math.ceil((Math.max(n, i) + a + l) * 128 / (2 * l)));
 	if (d < u || p < f) return !1;
 	let m = r - t, h = i - n, g = m * m + h * h;
@@ -5104,74 +5061,74 @@ function vo(e, [t, n, r, i], a, o, s) {
 		let i = (2 * r + 1 - 128) * l / 128;
 		for (let a = u; a <= d; a++) {
 			let l = (2 * a + 1 - 256) * c / 256;
-			if (!_o(l, i, s)) continue;
+			if (!fo(l, i, s)) continue;
 			let u = Math.max(0, Math.min(1, ((l - t) * m + (i - n) * h) / g)), d = l - t - m * u, f = i - n - h * u, p = d * d + f * f;
 			if (p >= v) continue;
 			let b = r * 256 + a, x = Math.round(_ * o * (1 - p / v) * (1 - e[b] / 65535) / 32);
 			if (!x) continue;
-			let ee = Math.min(so, e[b] + x);
+			let ee = Math.min(no, e[b] + x);
 			ee !== e[b] && (e[b] = ee, y = !0);
 		}
 	}
 	return y;
 }
-var yo = oo * 3, bo = 102400, xo = 1, So = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/, Co = (e, t) => Math.imul(e ^ t, 16777619);
-function wo(e) {
+var mo = to * 3, ho = 102400, go = 1, _o = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/, vo = (e, t) => Math.imul(e ^ t, 16777619);
+function yo(e) {
 	let t = 2166136261;
-	for (let n of e) t = Co(t, n);
+	for (let n of e) t = vo(t, n);
 	return t >>> 0;
 }
-function To(e) {
+function bo(e) {
 	let t = 2166136261;
-	for (let n of e) t = Co(Co(t, n & 255), n >>> 8);
+	for (let n of e) t = vo(vo(t, n & 255), n >>> 8);
 	return t >>> 0;
 }
-function Eo(e) {
+function xo(e) {
 	let t = "";
 	for (let n = 0; n < e.length; n += 8192) t += String.fromCharCode(...e.subarray(n, n + 8192));
 	return btoa(t);
 }
-function Do(e, t, n) {
-	if (typeof e != "string" || e.length > Math.ceil(t / 3) * 4 || !So.test(e)) throw Error(n);
+function So(e, t, n) {
+	if (typeof e != "string" || e.length > Math.ceil(t / 3) * 4 || !_o.test(e)) throw Error(n);
 	return Uint8Array.from(atob(e), (e) => e.charCodeAt(0));
 }
-function Oo(e) {
-	let t = Do(e, oo * 2, "Invalid turf payload");
+function Co(e) {
+	let t = So(e, to * 2, "Invalid turf payload");
 	if (t.length !== 65536) throw Error("Invalid turf atlas length");
-	let n = new DataView(t.buffer, t.byteOffset, t.byteLength), r = new Uint16Array(oo);
-	for (let e = 0; e < oo; e++) if (r[e] = n.getUint16(e * 2, !0), r[e] > 62258) throw Error("Invalid turf wear");
+	let n = new DataView(t.buffer, t.byteOffset, t.byteLength), r = new Uint16Array(to);
+	for (let e = 0; e < to; e++) if (r[e] = n.getUint16(e * 2, !0), r[e] > 62258) throw Error("Invalid turf wear");
 	return r;
 }
-function ko(e) {
-	let t = Do(e, bo, "Invalid turf surface payload");
-	if (!t.length || t.length > bo) throw Error("Invalid turf surface length");
-	let n = new Uint8Array(yo), r = 0, i = !1, a = new Mt((e, t) => {
-		if (r + e.length > yo) throw Error("Expanded turf surface exceeds size limit");
+function wo(e) {
+	let t = So(e, ho, "Invalid turf surface payload");
+	if (!t.length || t.length > ho) throw Error("Invalid turf surface length");
+	let n = new Uint8Array(mo), r = 0, i = !1, a = new Mt((e, t) => {
+		if (r + e.length > mo) throw Error("Expanded turf surface exceeds size limit");
 		n.set(e, r), r += e.length, i = t;
 	});
 	for (let e = 0; e < t.length; e += 256) a.push(t.subarray(e, e + 256), e + 256 >= t.length);
-	if (!i || r !== yo) throw Error("Invalid turf surface length");
+	if (!i || r !== mo) throw Error("Invalid turf surface length");
 	return n;
 }
-function Ao(e) {
-	let t = new Uint8Array(oo * 2), n = new DataView(t.buffer);
-	for (let t = 0; t < oo; t++) n.setUint16(t * 2, e.atlas[t], !0);
+function To(e) {
+	let t = new Uint8Array(to * 2), n = new DataView(t.buffer);
+	for (let t = 0; t < to; t++) n.setUint16(t * 2, e.atlas[t], !0);
 	let r = {
 		type: "turf-checkpoint",
-		version: xo,
+		version: go,
 		generation: e.generation,
 		...e.field,
 		digest: e.digest,
-		atlas: Eo(t)
+		atlas: xo(t)
 	};
 	if (e.surfaceRgb) {
 		let t = jt(e.surfaceRgb, { level: 1 });
-		if (t.length > bo) throw Error("Compressed turf surface exceeds size limit");
-		r.surface = Eo(t), r.surfaceDigest = wo(e.surfaceRgb);
+		if (t.length > ho) throw Error("Compressed turf surface exceeds size limit");
+		r.surface = xo(t), r.surfaceDigest = yo(e.surfaceRgb);
 	}
 	return r;
 }
-function jo(e) {
+function Eo(e) {
 	if (!e || typeof e != "object") throw Error("Invalid turf checkpoint");
 	let t = e, n = {
 		halfWidthQ: t.halfWidthQ,
@@ -5180,14 +5137,14 @@ function jo(e) {
 		grassHeightQ: t.grassHeightQ,
 		cornerQ: t.cornerQ
 	};
-	if (t.type !== "turf-checkpoint" || t.version !== xo || !uo(t.generation, 4294967295) || !po(n) || !uo(t.digest, 4294967295)) throw Error("Invalid turf checkpoint");
-	let r = Oo(t.atlas);
-	if (To(r) !== t.digest) throw Error("Turf checksum mismatch");
+	if (t.type !== "turf-checkpoint" || t.version !== go || !ao(t.generation, 4294967295) || !so(n) || !ao(t.digest, 4294967295)) throw Error("Invalid turf checkpoint");
+	let r = Co(t.atlas);
+	if (bo(r) !== t.digest) throw Error("Turf checksum mismatch");
 	if (t.surface === void 0 != (t.surfaceDigest === void 0)) throw Error("Invalid turf surface envelope");
 	let i;
 	if (t.surface !== void 0) {
-		if (!uo(t.surfaceDigest, 4294967295)) throw Error("Invalid turf surface checksum");
-		if (i = ko(t.surface), wo(i) !== t.surfaceDigest) throw Error("Turf surface checksum mismatch");
+		if (!ao(t.surfaceDigest, 4294967295)) throw Error("Invalid turf surface checksum");
+		if (i = wo(t.surface), yo(i) !== t.surfaceDigest) throw Error("Turf surface checksum mismatch");
 	}
 	return {
 		field: n,
@@ -5197,42 +5154,42 @@ function jo(e) {
 		surfaceRgb: i
 	};
 }
-var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
+var Do = 6, Oo = 33, ko = 31, Ao = 255, jo = {
 	halfWidthQ: 0,
 	halfHeightQ: 0,
 	grassWidthQ: 0,
 	grassHeightQ: 0,
 	cornerQ: 0
-}, Lo = (e) => Math.min(so, Math.round(e * 65535 / 255)), Ro = class {
-	atlas = new Uint16Array(oo);
-	image = new Uint8Array(oo);
+}, Mo = (e) => Math.min(no, Math.round(e * 65535 / 255)), No = class {
+	atlas = new Uint16Array(to);
+	image = new Uint8Array(to);
 	surfaceRgb;
-	surfaceImage = new Uint8Array(oo * 4);
+	surfaceImage = new Uint8Array(to * 4);
 	surfaceDirty = !0;
 	imageDirty = !0;
 	digestDirty = !0;
-	digestValue = To(this.atlas);
+	digestValue = bo(this.atlas);
 	previous = /* @__PURE__ */ new Map();
 	stadium;
 	lastTick = -1;
 	lastElapsed = -1;
 	lastPhase = "lobby";
-	bounds = Io;
+	bounds = jo;
 	generation = 0;
 	revision = 0;
 	field = [0, 0];
 	get digest() {
-		return this.digestDirty &&= (this.digestValue = To(this.atlas), !1), this.digestValue;
+		return this.digestDirty &&= (this.digestValue = bo(this.atlas), !1), this.digestValue;
 	}
 	get hasPressure() {
 		let e = this.surfaceRgb;
 		if (!e) return !1;
-		for (let t = 0; t < yo; t += 3) if (e[t] !== 0) return !0;
+		for (let t = 0; t < mo; t += 3) if (e[t] !== 0) return !0;
 		return !1;
 	}
 	pixels() {
 		if (this.imageDirty) {
-			for (let e = 0; e < oo; e++) this.image[e] = Math.round(this.atlas[e] * 255 / 65535);
+			for (let e = 0; e < to; e++) this.image[e] = Math.round(this.atlas[e] * 255 / 65535);
 			this.imageDirty = !1;
 		}
 		return this.image;
@@ -5240,7 +5197,7 @@ var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
 	surfacePixels() {
 		if (this.surfaceDirty || this.imageDirty) {
 			let e = this.pixels(), t = this.surfaceRgb;
-			for (let n = 0; n < oo; n++) {
+			for (let n = 0; n < to; n++) {
 				let r = n * 4, i = n * 3;
 				this.surfaceImage[r] = t ? t[i] : 0, this.surfaceImage[r + 1] = t ? t[i + 1] : 128, this.surfaceImage[r + 2] = t ? t[i + 2] : 128, this.surfaceImage[r + 3] = e[n];
 			}
@@ -5252,18 +5209,18 @@ var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
 		this.imageDirty = !0, this.surfaceDirty = !0, this.digestDirty = !0, this.revision++;
 	}
 	reset(e) {
-		this.atlas.fill(0), this.surfaceRgb = void 0, this.previous.clear(), this.generation = this.generation + 1 >>> 0, this.bounds = e, this.field = go(e), this.changed();
+		this.atlas.fill(0), this.surfaceRgb = void 0, this.previous.clear(), this.generation = this.generation + 1 >>> 0, this.bounds = e, this.field = uo(e), this.changed();
 	}
 	startsOver(e, t) {
-		return this.stadium !== e.stadium || this.lastTick > e.tick || this.lastElapsed > 0 && e.elapsed < this.lastElapsed || e.phase === "lobby" && this.lastPhase !== "lobby" || !ho(this.bounds, t);
+		return this.stadium !== e.stadium || this.lastTick > e.tick || this.lastElapsed > 0 && e.elapsed < this.lastElapsed || e.phase === "lobby" && this.lastPhase !== "lobby" || !lo(this.bounds, t);
 	}
 	capture(e) {
-		let t = e.stadium, n = mo(t);
+		let t = e.stadium, n = co(t);
 		if (this.startsOver(e, n) && this.reset(n), this.stadium = t, this.lastTick = e.tick, this.lastElapsed = e.elapsed, this.lastPhase = e.phase, e.phase !== "playing" || e.paused || e.resumeTicks || t.bg.type !== "grass") {
 			this.previous.clear();
 			return;
 		}
-		e.tick % Mo === 0 && this.sampleBodies(e.data);
+		e.tick % Do === 0 && this.sampleBodies(e.data);
 	}
 	sampleBodies(e) {
 		let t = /* @__PURE__ */ new Set(), n = 0;
@@ -5274,17 +5231,17 @@ var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
 			if (!Number.isFinite(a) || !Number.isFinite(o) || !Number.isFinite(s)) continue;
 			t.add(r);
 			let c = this.previous.get(r);
-			if (c && n < No) {
+			if (c && n < Oo) {
 				let e = Math.hypot(a - c[0], o - c[1]);
 				if (e > .1 && e < 60) {
 					n++;
 					let e = [
-						fo(c[0]),
-						fo(c[1]),
-						fo(a),
-						fo(o)
-					], t = Math.max(1, Math.min(96, Math.round(Math.max(3.5, s * .78) * 4))), i = r === 0 ? Po : Fo;
-					vo(this.atlas, e, t, i, this.bounds) && this.changed();
+						oo(c[0]),
+						oo(c[1]),
+						oo(a),
+						oo(o)
+					], t = Math.max(1, Math.min(96, Math.round(Math.max(3.5, s * .78) * 4))), i = r === 0 ? ko : Ao;
+					po(this.atlas, e, t, i, this.bounds) && this.changed();
 				}
 			}
 			this.previous.set(r, [a, o]);
@@ -5293,21 +5250,21 @@ var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
 	}
 	seed(e) {
 		if (!(e instanceof Uint8Array) || e.length !== 32768) throw Error("Invalid turf seed");
-		for (let t = 0; t < oo; t++) this.atlas[t] = Lo(e[t]);
+		for (let t = 0; t < to; t++) this.atlas[t] = Mo(e[t]);
 		this.surfaceRgb = void 0, this.changed();
 	}
 	seedSurface(e) {
 		if (!(e instanceof Uint8Array) || e.length !== 131072) throw Error("Invalid turf surface seed");
-		let t = new Uint8Array(yo);
-		for (let n = 0; n < oo; n++) {
+		let t = new Uint8Array(mo);
+		for (let n = 0; n < to; n++) {
 			let r = n * 4, i = n * 3;
-			t[i] = e[r], t[i + 1] = e[r + 1], t[i + 2] = e[r + 2], this.atlas[n] = Lo(e[r + 3]);
+			t[i] = e[r], t[i + 1] = e[r + 1], t[i + 2] = e[r + 2], this.atlas[n] = Mo(e[r + 3]);
 		}
 		this.surfaceRgb = t, this.changed();
 	}
 	checkpoint() {
 		if (!this.bounds.halfWidthQ || !this.bounds.halfHeightQ) throw Error("Turf field is not initialized");
-		return Ao({
+		return To({
 			field: this.bounds,
 			generation: this.generation,
 			digest: this.digest,
@@ -5316,10 +5273,10 @@ var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
 		});
 	}
 	restore(e) {
-		let t = jo(e);
-		this.generation > t.generation && this.generation - t.generation < 2147483648 || (this.atlas = t.atlas, this.surfaceRgb = t.surfaceRgb, this.generation = t.generation, this.bounds = t.field, this.field = go(t.field), this.previous.clear(), this.changed(), this.digestValue = t.digest, this.digestDirty = !1);
+		let t = Eo(e);
+		this.generation > t.generation && this.generation - t.generation < 2147483648 || (this.atlas = t.atlas, this.surfaceRgb = t.surfaceRgb, this.generation = t.generation, this.bounds = t.field, this.field = uo(t.field), this.previous.clear(), this.changed(), this.digestValue = t.digest, this.digestDirty = !1);
 	}
-}, zo = class {
+}, Po = class {
 	players = [];
 	nextId = 0;
 	get all() {
@@ -5354,7 +5311,7 @@ var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
 		return this.players.push(t), t;
 	}
 	assignTeam(e, t) {
-		return ea(this.players, e, t);
+		return Bi(this.players, e, t);
 	}
 	removePeer(e) {
 		this.players = this.players.filter((t) => t.peerId !== e);
@@ -5376,16 +5333,16 @@ var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
 			muted: !!e.muted
 		}));
 	}
-}, Bo = class {
+}, Fo = class {
 	engine;
 	runtime;
 	hooks;
-	players = new zo();
+	players = new Po();
 	match;
 	inputs;
-	traffic = new ao();
-	soundStream = new no();
-	turfState = new Ro();
+	traffic = new eo();
+	soundStream = new Za();
+	turfState = new No();
 	bans = /* @__PURE__ */ new Map();
 	network;
 	roomId = "";
@@ -5396,10 +5353,8 @@ var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
 	teamStyles = [null, null];
 	closed = !1;
 	stadiumSelection = 0;
-	assignedMatch = null;
-	applyingAssignment = !1;
 	constructor(e, t, n, r) {
-		this.engine = e, this.runtime = t, this.hooks = n, this.match = new to(e, r), this.inputs = new Da(this.match);
+		this.engine = e, this.runtime = t, this.hooks = n, this.match = new Xa(e, r), this.inputs = new xa(this.match);
 	}
 	report(e) {
 		try {
@@ -5462,20 +5417,20 @@ var Mo = 6, No = 33, Po = 31, Fo = 255, Io = {
 		return e ? this.publicPlayer(e) : null;
 	}
 };
-function Vo(e) {
+function Io(e) {
 	return /^(?:[0-9a-f]{10}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i.test(e) ? e.toLowerCase() : null;
 }
-function Ho(e) {
-	let t = Vo(e);
+function Lo(e) {
+	let t = Io(e);
 	if (!t) throw Error("Invalid room code");
 	return `/r/${t}`;
 }
-ci({ password: /* @__PURE__ */ ri() }), ci({
-	password: /* @__PURE__ */ ri(),
-	verifier: /* @__PURE__ */ ri()
-}), ci({ verifier: /* @__PURE__ */ ri() }), ci({ verified: /* @__PURE__ */ Xr() });
-var Uo = /* @__PURE__ */ Z({ error: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ zr(300), /* @__PURE__ */ Lr((e) => e.trim() !== ""), /* @__PURE__ */ Lr((e) => !/[<>]/.test(e)), /* @__PURE__ */ Lr((e) => !/[\u0000-\u001f\u007f]/.test(e))) });
-async function Wo(e, t, n) {
+qr({ password: /* @__PURE__ */ Hr() }), qr({
+	password: /* @__PURE__ */ Hr(),
+	verifier: /* @__PURE__ */ Hr()
+}), qr({ verifier: /* @__PURE__ */ Hr() }), qr({ verified: /* @__PURE__ */ Fr() });
+var Ro = /* @__PURE__ */ Z({ error: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ wr(300), /* @__PURE__ */ Sr((e) => e.trim() !== ""), /* @__PURE__ */ Sr((e) => !/[<>]/.test(e)), /* @__PURE__ */ Sr((e) => !/[\u0000-\u001f\u007f]/.test(e))) });
+async function zo(e, t, n) {
 	let r = e.getReader(), i = () => {
 		r.cancel().catch(() => {});
 	};
@@ -5518,21 +5473,21 @@ async function Wo(e, t, n) {
 		bytes: s
 	};
 }
-var Go = 2048, Ko = class extends Error {
+var Bo = 2048, Vo = class extends Error {
 	status;
 	retryAfterSeconds;
 	constructor(e, t, n = null) {
 		super(e), this.status = t, this.retryAfterSeconds = n, this.name = "RoomAdmissionError";
 	}
 };
-async function qo(e, t) {
-	let n = `Room creation failed (${e.status})`, r = e.status === 429 ? e.headers.get("Retry-After") : null, i = r && /^\d+$/.test(r) && Number.isSafeInteger(Number(r)) ? Number(r) : null, a = (t) => new Ko(t, e.status, i), o = e.body;
+async function Ho(e, t) {
+	let n = `Room creation failed (${e.status})`, r = e.status === 429 ? e.headers.get("Retry-After") : null, i = r && /^\d+$/.test(r) && Number.isSafeInteger(Number(r)) ? Number(r) : null, a = (t) => new Vo(t, e.status, i), o = e.body;
 	if (!o) return a(n);
 	try {
 		if (t.throwIfAborted(), e.status < 400 || e.status >= 500 || e.headers.get("content-type")?.split(";")[0].trim() !== "application/json") return a(n);
-		let r = await Wo(o, Go, t);
+		let r = await zo(o, Bo, t);
 		if (!r.ok) return t.throwIfAborted(), a(n);
-		let i = /* @__PURE__ */ ai(Uo, JSON.parse(new TextDecoder("utf-8", { fatal: !0 }).decode(r.bytes)));
+		let i = /* @__PURE__ */ Wr(Ro, JSON.parse(new TextDecoder("utf-8", { fatal: !0 }).decode(r.bytes)));
 		return i.success ? a(`${i.output.error.trim()} (${e.status})`) : a(n);
 	} catch {
 		return t.throwIfAborted(), a(n);
@@ -5540,7 +5495,7 @@ async function qo(e, t) {
 		o.cancel().catch(() => {});
 	}
 }
-function Jo(e) {
+function Uo(e) {
 	if (e === void 0) return;
 	if (!e || typeof e != "object" || Array.isArray(e)) throw TypeError("Geolocation must contain a country code, latitude and longitude.");
 	let { code: t, lat: n, lon: r } = e;
@@ -5551,23 +5506,23 @@ function Jo(e) {
 		lon: r === 0 ? 0 : r
 	};
 }
-var Yo = (e, t) => /* @__PURE__ */ $(/* @__PURE__ */ Q(t), /* @__PURE__ */ Lr((t) => !!t.trim() && t.length <= e, t)), Xo = (e) => /* @__PURE__ */ ei(/* @__PURE__ */ Xr(`Invalid ${e} setting: expected a boolean`)), Zo = "maxPlayers must be an integer between 2 and 32", Qo = /* @__PURE__ */ $(/* @__PURE__ */ Z({
-	roomName: Yo(64, "Room name must contain 1–64 characters"),
-	public: Xo("public"),
-	noPlayer: Xo("noPlayer"),
-	maxPlayers: /* @__PURE__ */ ei(/* @__PURE__ */ $(/* @__PURE__ */ $r(Zo), /* @__PURE__ */ Rr(Zo), /* @__PURE__ */ Hr(2, Zo), /* @__PURE__ */ Br(32, Zo))),
-	password: /* @__PURE__ */ ei(/* @__PURE__ */ $(/* @__PURE__ */ Q("Password must be a string of at most 64 characters"), /* @__PURE__ */ zr(64, "Password must be a string of at most 64 characters"))),
-	stadium: /* @__PURE__ */ ei(/* @__PURE__ */ Q("Stadium must be a Ball2D stadium source string")),
-	playerName: /* @__PURE__ */ ei(/* @__PURE__ */ ri()),
-	geo: /* @__PURE__ */ ei(/* @__PURE__ */ ri())
-}), /* @__PURE__ */ Lr((e) => e.noPlayer !== !1 || e.playerName === void 0 || /* @__PURE__ */ Jr(Yo(24, ""), e.playerName), "Invalid host player name")), $o = new Set(Object.keys(Qo.pipe[0].entries));
-function es(e) {
+var Wo = (e, t) => /* @__PURE__ */ $(/* @__PURE__ */ Q(t), /* @__PURE__ */ Sr((t) => !!t.trim() && t.length <= e, t)), Go = (e) => /* @__PURE__ */ zr(/* @__PURE__ */ Fr(`Invalid ${e} setting: expected a boolean`)), Ko = "maxPlayers must be an integer between 2 and 32", qo = /* @__PURE__ */ $(/* @__PURE__ */ Z({
+	roomName: Wo(64, "Room name must contain 1–64 characters"),
+	public: Go("public"),
+	noPlayer: Go("noPlayer"),
+	maxPlayers: /* @__PURE__ */ zr(/* @__PURE__ */ $(/* @__PURE__ */ Rr(Ko), /* @__PURE__ */ Cr(Ko), /* @__PURE__ */ Dr(2, Ko), /* @__PURE__ */ Tr(32, Ko))),
+	password: /* @__PURE__ */ zr(/* @__PURE__ */ $(/* @__PURE__ */ Q("Password must be a string of at most 64 characters"), /* @__PURE__ */ wr(64, "Password must be a string of at most 64 characters"))),
+	stadium: /* @__PURE__ */ zr(/* @__PURE__ */ Q("Stadium must be a Ball2D stadium source string")),
+	playerName: /* @__PURE__ */ zr(/* @__PURE__ */ Hr()),
+	geo: /* @__PURE__ */ zr(/* @__PURE__ */ Hr())
+}), /* @__PURE__ */ Sr((e) => e.noPlayer !== !1 || e.playerName === void 0 || /* @__PURE__ */ Nr(Wo(24, ""), e.playerName), "Invalid host player name")), Jo = new Set(Object.keys(qo.pipe[0].entries));
+function Yo(e) {
 	if (!e || typeof e != "object" || Array.isArray(e)) throw Error("Room configuration must be an object");
 	for (let t of Object.keys(e)) {
 		if (t === "token") throw Error("External service tokens are not supported. Ball2D join verification is configured on the room.");
-		if (!$o.has(t)) throw Error(`Unknown room setting: ${t}`);
+		if (!Jo.has(t)) throw Error(`Unknown room setting: ${t}`);
 	}
-	let t = /* @__PURE__ */ ai(Qo, e, { abortEarly: !0 });
+	let t = /* @__PURE__ */ Wr(qo, e, { abortEarly: !0 });
 	if (!t.success) throw Error(t.issues[0].message);
 	let n = t.output;
 	return {
@@ -5578,10 +5533,10 @@ function es(e) {
 		noPlayer: n.noPlayer ?? !0,
 		playerName: n.noPlayer === !1 ? (n.playerName ?? "Host").trim() : void 0,
 		stadium: n.stadium,
-		...n.geo === void 0 ? {} : { geo: Jo(n.geo) }
+		...n.geo === void 0 ? {} : { geo: Uo(n.geo) }
 	};
 }
-function ts(e) {
+function Xo(e) {
 	let t = new AbortController(), n = () => t.abort(e?.reason);
 	e?.aborted ? n() : e?.addEventListener("abort", n, { once: !0 });
 	let r = setTimeout(() => t.abort(new DOMException("Room startup timed out", "TimeoutError")), 15e3);
@@ -5603,19 +5558,19 @@ function ts(e) {
 		}
 	};
 }
-var ns = 12e3;
-function rs(e) {
+var Zo = 12e3;
+function Qo(e) {
 	if (e.noPlayer !== void 0 && typeof e.noPlayer != "boolean") throw Error("Invalid noPlayer setting");
 	if (e.noPlayer !== !1) return null;
 	let t = e.playerName ?? "Host";
 	if (typeof t != "string" || !t.trim() || t.length > 24) throw Error("Invalid host player name");
 	return t.trim();
 }
-function is(e, t, n, r, i, a) {
+function $o(e, t, n, r, i, a) {
 	let o;
 	return {
 		ready: new Promise((s, c) => {
-			o = setTimeout(() => c(Error("Signaling timed out")), ns), e.network = new Fi(n.id, { hostToken: n.hostToken }, {
+			o = setTimeout(() => c(Error("Signaling timed out")), Zo), e.network = new bi(n.id, { hostToken: n.hostToken }, {
 				ready: (t, n) => {
 					if (!n) {
 						c(Error("Host authority was not granted"));
@@ -5645,15 +5600,15 @@ function is(e, t, n, r, i, a) {
 		cancel: () => clearTimeout(o)
 	};
 }
-async function as(e, t, n, r) {
-	let i = Vt(t.network.serviceOrigin), a = Vt(t.publicOrigin ?? i), o = es(e), s = rs(o), c = ts(n), l;
+async function es(e, t, n, r) {
+	let i = Bt(t.network.serviceOrigin), a = Bt(t.publicOrigin ?? i), o = Yo(e), s = Qo(o), c = Xo(n), l;
 	try {
 		c.signal.throwIfAborted();
 		let e = await c.run(t.loadEngine(c.signal));
 		e.load(o.stadium ?? v());
 		let n = r.construct(e);
 		l = n;
-		let u = r.core(n), d = await c.run(t.request(new URL(Bt.rooms, i), {
+		let u = r.core(n), d = await c.run(t.request(new URL(zt.rooms, i), {
 			signal: c.signal,
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -5666,10 +5621,10 @@ async function as(e, t, n, r) {
 				...o.geo ? { geo: o.geo } : {}
 			})
 		}));
-		if (!d.ok) throw await c.run(qo(d, c.signal));
+		if (!d.ok) throw await c.run(Ho(d, c.signal));
 		let f = await c.run(d.json());
-		u.roomId = f.id, u.roomName = o.roomName, u.roomLink = `${a}${Ho(f.id)}`;
-		let p = is(u, r.gateway(n), f, s, t, () => r.close(n));
+		u.roomId = f.id, u.roomName = o.roomName, u.roomLink = `${a}${Lo(f.id)}`;
+		let p = $o(u, r.gateway(n), f, s, t, () => r.close(n));
 		try {
 			await c.run(p.ready);
 		} catch (e) {
@@ -5685,18 +5640,18 @@ async function as(e, t, n, r) {
 		c.dispose();
 	}
 }
-var os = 32768;
-function ss(e, t, n, r) {
-	let i = [...e.peers.values()].filter((e) => e.fast?.readyState === "open" && e.fast.bufferedAmount < os);
+var ts = 32768;
+function ns(e, t, n, r) {
+	let i = [...e.peers.values()].filter((e) => e.fast?.readyState === "open" && e.fast.bufferedAmount < ts);
 	if (!i.length) return;
-	let a = dr(t, i.map((e) => r.acknowledgment(e.id)), n);
+	let a = Xn(t, i.map((e) => r.acknowledgment(e.id)), n);
 	for (let t = 0; t < i.length; t++) {
 		let n = i[t], r = a[t], o = r.reduce((e, t) => e + t.byteLength, 0);
-		if (!(n.fast?.readyState !== "open" || n.fast.bufferedAmount + o > os)) for (let t of r) e.fast(n, t);
+		if (!(n.fast?.readyState !== "open" || n.fast.bufferedAmount + o > ts)) for (let t of r) e.fast(n, t);
 	}
 }
-var cs = 1e3 / Fe, ls = 500, us = 32, ds = Fe / 30;
-function fs(e) {
+var rs = 1e3 / Fe, is = 500, as = 32, os = Fe / 30;
+function ss(e) {
 	let { engine: t } = e, n = t.red, r = t.blue, i = t.phase;
 	return e.match.step(), e.turfState.capture(t), e.soundStream.capture(t, e.epoch), t.phase !== i && e.broadcastState(), {
 		kickers: t.ballKicks.map((t) => {
@@ -5707,10 +5662,10 @@ function fs(e) {
 		blueGoal: t.blue > r,
 		positionsReset: i === "goal" && t.phase === "playing",
 		stopped: i === "finished" && t.phase === "lobby",
-		victory: i !== "finished" && t.phase === "finished" ? An(e) : null
+		victory: i !== "finished" && t.phase === "finished" ? bn(e) : null
 	};
 }
-var ps = class {
+var cs = class {
 	room;
 	accumulator = 0;
 	last = performance.now();
@@ -5724,11 +5679,11 @@ var ps = class {
 		let { room: e } = this;
 		if (e.closed) return;
 		let t = performance.now(), n = t - this.last;
-		this.last = t, n > ls && e.engine.phase === "playing" && !e.engine.paused && (En(e, !0, null), e.report("Host scheduler stalled; match paused.")), this.accumulator += Math.max(0, Math.min(n, ls));
+		this.last = t, n > is && e.engine.phase === "playing" && !e.engine.paused && (gn(e, !0, null), e.report("Host scheduler stalled; match paused.")), this.accumulator += Math.max(0, Math.min(n, is));
 		let r = 0;
 		try {
-			for (; !e.closed && this.accumulator >= cs && r++ < us && (this.tick(t), !e.closed);) this.accumulator -= cs;
-			e.closed || ro(e.network, e.soundStream.drain(t));
+			for (; !e.closed && this.accumulator >= rs && r++ < as && (this.tick(t), !e.closed);) this.accumulator -= rs;
+			e.closed || Qa(e.network, e.soundStream.drain(t));
 		} catch (t) {
 			e.closed || (e.engine.setPaused(!0), e.report(String(t)));
 		}
@@ -5737,12 +5692,12 @@ var ps = class {
 		let { room: t } = this, { engine: n, hooks: r } = t;
 		for (let n of t.players.all) t.inputs.expire(n.peerId, n.slot, e);
 		if (t.match.checkRecordingLimit(), t.closed || (n.phase !== "lobby" && !n.paused && !n.resumeTicks && t.invoke("onGameTick", r.onGameTick), t.closed)) return;
-		let i = fs(t);
+		let i = ss(t);
 		i.stopped && t.invoke("onGameStop", r.onGameStop, null), i.victory && (t.invoke("onTeamVictory", r.onTeamVictory, { ...i.victory }), t.invoke("onGameVictory", r.onGameVictory, { ...i.victory }));
 		for (let e of i.kickers) t.invoke("onPlayerBallKick", r.onPlayerBallKick, e);
-		i.redGoal && t.invoke("onTeamGoal", r.onTeamGoal, 1), i.blueGoal && t.invoke("onTeamGoal", r.onTeamGoal, 2), i.positionsReset && t.invoke("onPositionsReset", r.onPositionsReset), !t.closed && n.tick % ds === 0 && ss(t.network, n.snapshot(), t.epoch, t.inputs);
+		i.redGoal && t.invoke("onTeamGoal", r.onTeamGoal, 1), i.blueGoal && t.invoke("onTeamGoal", r.onTeamGoal, 2), i.positionsReset && t.invoke("onPositionsReset", r.onPositionsReset), !t.closed && n.tick % os === 0 && ns(t.network, n.snapshot(), t.epoch, t.inputs);
 	}
-}, ms = Object.freeze({ ...x }), hs = (e) => new Blob([Lt(e)], { type: "application/x-ball2d-replay" }), gs = class e {
+}, ls = Object.freeze({ ...x }), us = (e) => new Blob([It(e)], { type: "application/x-ball2d-replay" }), ds = class e {
 	engine;
 	core;
 	loop;
@@ -5753,13 +5708,13 @@ var ps = class {
 	gateway;
 	lastRecording = null;
 	constructor(e, t) {
-		this.engine = e, this.core = new Bo(e, t, this, (e, t) => {
-			let n = hs(e);
+		this.engine = e, this.core = new Fo(e, t, this, (e, t) => {
+			let n = us(e);
 			this.lastRecording = n, this.core.invoke("onRecordingComplete", this.onRecordingComplete, n, t);
-		}), this.loop = new ps(this.core), this.gateway = Ea(this.core);
+		}), this.loop = new cs(this.core), this.gateway = ba(this.core);
 	}
-	static async create(t, n = nn(), r) {
-		return as(t, n, r, {
+	static async create(t, n = tn(), r) {
+		return es(t, n, r, {
 			construct: (t) => new e(t, n),
 			core: (e) => e.core,
 			gateway: (e) => e.gateway,
@@ -5792,14 +5747,11 @@ var ps = class {
 	get teamsLocked() {
 		return this.core.locked;
 	}
-	get assignedMatchId() {
-		return this.core.assignedMatch;
-	}
 	get requireVerification() {
 		return this.core.network.requireVerification;
 	}
 	get CollisionFlags() {
-		return ms;
+		return ls;
 	}
 	getPlayerList() {
 		return this.core.players.all.map((e) => this.core.publicPlayer(e));
@@ -5808,84 +5760,78 @@ var ps = class {
 		return this.core.publicOrNull(this.core.players.byId(e) ?? null);
 	}
 	getScores() {
-		return An(this.core);
+		return bn(this.core);
 	}
 	getBallPosition() {
-		return mn(this.core);
+		return pn(this.core);
 	}
 	getDiscCount() {
-		return sn(this.core);
+		return on(this.core);
 	}
 	getDiscProperties(e) {
-		return ln(this.core, e);
+		return cn(this.core, e);
 	}
 	getPlayerDiscProperties(e) {
-		return fn(this.core, e);
+		return dn(this.core, e);
 	}
 	getState() {
 		return this.engine.snapshot();
 	}
 	setTeamColors(e, t, n, r) {
-		xn(this.core, e, t, n, r);
+		Yi(this.core, e, t, n, r);
 	}
 	reorderPlayers(e, t) {
-		Sn(this.core, e, t);
+		Xi(this.core, e, t);
 	}
 	setPlayerAvatar(e, t) {
-		Cn(this.core, e, t);
+		Zi(this.core, e, t);
 	}
 	setPlayerTeam(e, t) {
-		gn(this.core, e, t, null);
+		Wi(this.core, e, t, null);
 	}
 	setPlayerAdmin(e, t) {
-		_n(this.core, e, t);
+		Gi(this.core, e, t);
 	}
 	setPlayerMuted(e, t) {
-		vn(this.core, e, t, null);
+		Ki(this.core, e, t, null);
 	}
 	setTeamsLock(e) {
-		yn(this.core, e, null);
+		qi(this.core, e, null);
 	}
 	kickPlayer(e, t = "Removed by host", n = !1) {
 		if (this.core.assertOpen(), typeof n != "boolean") throw Error("Invalid ban flag");
-		if (n) return zi(this.core, e, t);
-		Ri(this.core, e, t, null);
+		if (n) return wi(this.core, e, t);
+		Ci(this.core, e, t, null);
 	}
 	clearBan(e) {
-		return Bi(this.core, e);
+		return Ti(this.core, e);
 	}
 	clearBans() {
-		return Vi(this.core);
+		return Ei(this.core);
 	}
 	sendChat(e, t) {
-		Bn(this.core, e, t);
+		Tn(this.core, e, t);
 	}
 	sendAnnouncement(e, t, n, r, i) {
-		Vn(this.core, e, t, n, r, i);
-	}
-	startAssignedMatch(e) {
-		return Pn(this.core, e);
-	}
-	static finishAssignedDraw(e) {
-		return Fn(e.core);
+		En(this.core, e, t, n, r, i);
 	}
 	startGame() {
-		wn(this.core, null);
+		mn(this.core, null);
 	}
 	stopGame() {
-		Tn(this.core, null);
+		hn(this.core, null);
 	}
 	pauseGame(e) {
-		En(this.core, e, null);
+		gn(this.core, e, null);
 	}
 	setKickRateLimit(e = 2, t = 0, n = 0) {
-		Dn(this.core, e, t, n, null);
+		_n(this.core, e, t, n, null);
 	}
 	setScoreLimit(e) {
-		On(this.core, e);
+		vn(this.core, e);
 	}
 	setTimeLimit(e) {
-		kn(this.core, e);
+		yn(this.core, e);
 	}
 	async setPassword(e) {
 		this.core.assertOpen(), await this.core.network.setPassword(e);
@@ -5894,16 +5840,16 @@ var ps = class {
 		this.core.assertOpen(), await this.core.network.setRequireVerification(e);
 	}
 	setDefaultStadium(e) {
-		return aa(this.core, e);
+		return $i(this.core, e);
 	}
 	setCustomStadium(e) {
-		ia(this.core, e, null);
+		Qi(this.core, e, null);
 	}
 	setDiscProperties(e, t) {
-		un(this.core, e, t);
+		ln(this.core, e, t);
 	}
 	setPlayerDiscProperties(e, t) {
-		pn(this.core, e, t);
+		fn(this.core, e, t);
 	}
 	startRecording() {
 		this.core.assertOpen(), this.core.match.startRecording(this.core.players.all.map((e) => ({
@@ -5914,7 +5860,7 @@ var ps = class {
 	}
 	stopRecording() {
 		let e = this.core.match.stopRecording();
-		return e ? hs(e) : null;
+		return e ? us(e) : null;
 	}
 	close() {
 		let { core: e } = this;
@@ -5928,11 +5874,11 @@ var ps = class {
 		}
 	}
 };
-function _s(e) {
+function fs(e) {
 	if (!e || typeof e != "object" || Array.isArray(e)) throw Error("Room configuration must be an object");
 	let t = { ...e }, n = t.maxPlayers ?? 12;
 	if (typeof n != "number" || !Number.isFinite(n) || !Number.isInteger(n)) throw Error("maxPlayers must be a finite integer");
-	return es({
+	return Yo({
 		...t,
 		roomName: t.roomName ?? "Headless Room",
 		playerName: t.playerName ?? "Host",
@@ -5942,7 +5888,7 @@ function _s(e) {
 		password: t.password ?? ""
 	});
 }
-var vs = class {
+var ps = class {
 	onError;
 	pending = [];
 	active;
@@ -5996,7 +5942,7 @@ var vs = class {
 		this.active?.reject(e);
 		for (let t of this.pending.splice(0)) t.reject(e);
 	}
-}, ys = [
+}, ms = [
 	"sendChat",
 	"sendAnnouncement",
 	"setPlayerAdmin",
@@ -6022,18 +5968,18 @@ var vs = class {
 	"setDiscProperties",
 	"setPlayerDiscProperties"
 ];
-function bs(e, t) {
+function hs(e, t) {
 	let n = Object.create(null);
 	t && Object.defineProperty(n, "closed", {
 		enumerable: !0,
 		value: t
 	});
-	let r = new vs((t) => {
+	let r = new ps((t) => {
 		let n = e.onError?.(String(t));
 		n instanceof Promise && n.catch(() => {});
 	});
 	e.signal.addEventListener("abort", () => r.close(), { once: !0 }), e.signal.aborted && r.close();
-	for (let t of ys) Object.defineProperty(n, t, {
+	for (let t of ms) Object.defineProperty(n, t, {
 		enumerable: !0,
 		value: (...n) => {
 			try {
@@ -6091,10 +6037,10 @@ function bs(e, t) {
 		}
 	}), Object.preventExtensions(n);
 }
-function xs(e) {
-	return eo(e);
+function gs(e) {
+	return Ya(e);
 }
-function Ss(e) {
+function _s(e) {
 	if (typeof e != "string") throw TypeError("Stadium source must be a string");
 	let t = H(e);
 	return Object.freeze({
@@ -6103,7 +6049,7 @@ function Ss(e) {
 		warnings: Object.freeze([...t.warnings])
 	});
 }
-async function Cs(e = {}, t = {}) {
-	return bs(await gs.create(_s(e), void 0, t.signal));
+async function vs(e = {}, t = {}) {
+	return hs(await ds.create(fs(e), void 0, t.signal));
 }
-export { Ko as RoomAdmissionError, Cs as createRoom, xs as readReplay, Ss as validateStadium };
+export { Vo as RoomAdmissionError, vs as createRoom, gs as readReplay, _s as validateStadium };
