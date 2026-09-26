@@ -6,6 +6,8 @@
   0.3.0 hosts and current web players no longer share an engine version. Physics
   (`core.wasm`) and the public API are unchanged.
 - Validate more host-side wire input and service responses with typed schemas.
+- Room callbacks are declared once as `RoomHooks` (`dist/types/room-hooks.d.ts`), which
+  `Room` extends; the callbacks themselves are unchanged.
 
 ## 0.3.0 — 2026-09-25
 
