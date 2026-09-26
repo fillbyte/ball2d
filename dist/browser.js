@@ -3695,9 +3695,12 @@ var li = /* @__PURE__ */ $(/* @__PURE__ */ Z({
 	1009,
 	1011,
 	1013
-], yi = (e) => typeof e == "string" && /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(e), bi = (e) => typeof e == "string" && e.length <= 123 ? e : "Room connection ended.", xi = ["Host left", "Host connection ended"];
+], yi = (e) => typeof e == "string" && /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(e), bi = (e) => typeof e == "string" && e.length <= 123 ? e : "Room connection ended.", xi = {
+	"Host left": "The host left. Return to Rooms and join again.",
+	"Host connection ended": "Host connection ended. Return to Rooms and join again."
+};
 function Si(e) {
-	return xi.includes(e.reason) ? "The host left. Return to Rooms and join again." : vi.includes(e.code) && e.reason ? e.reason : "Room connection ended. Return to Rooms and join again.";
+	return Object.hasOwn(xi, e.reason) ? xi[e.reason] : vi.includes(e.code) && e.reason ? e.reason : "Room connection ended. Return to Rooms and join again.";
 }
 function Ci(e) {
 	if (e.matchEntry && (e.hostToken || !/^[a-f0-9]{64}$/.test(e.matchEntry.token) || !yi(e.matchEntry.generation))) throw Error("Invalid match entry credentials.");
@@ -5471,38 +5474,73 @@ ci({ password: /* @__PURE__ */ ri() }), ci({
 	password: /* @__PURE__ */ ri(),
 	verifier: /* @__PURE__ */ ri()
 }), ci({ verifier: /* @__PURE__ */ ri() }), ci({ verified: /* @__PURE__ */ Xr() });
-var Uo = /* @__PURE__ */ Z({ error: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ zr(300), /* @__PURE__ */ Lr((e) => e.trim() !== ""), /* @__PURE__ */ Lr((e) => !/[<>]/.test(e)), /* @__PURE__ */ Lr((e) => !/[\u0000-\u001f\u007f]/.test(e))) }), Wo = class extends Error {
+var Uo = /* @__PURE__ */ Z({ error: /* @__PURE__ */ $(/* @__PURE__ */ Q(), /* @__PURE__ */ zr(300), /* @__PURE__ */ Lr((e) => e.trim() !== ""), /* @__PURE__ */ Lr((e) => !/[<>]/.test(e)), /* @__PURE__ */ Lr((e) => !/[\u0000-\u001f\u007f]/.test(e))) });
+async function Wo(e, t, n) {
+	let r = e.getReader(), i = () => {
+		r.cancel().catch(() => {});
+	};
+	n?.addEventListener("abort", i, { once: !0 });
+	let a = [], o = 0;
+	try {
+		for (;;) {
+			if (n?.aborted) return {
+				ok: !1,
+				reason: "aborted"
+			};
+			let e = await r.read();
+			if (e.done) break;
+			if (o += e.value.byteLength, o > t) return {
+				ok: !1,
+				reason: "too-large"
+			};
+			a.push(e.value);
+		}
+	} catch (e) {
+		if (n?.aborted) return {
+			ok: !1,
+			reason: "aborted"
+		};
+		throw e;
+	} finally {
+		n?.removeEventListener("abort", i), i();
+		try {
+			r.releaseLock();
+		} catch {}
+	}
+	if (n?.aborted) return {
+		ok: !1,
+		reason: "aborted"
+	};
+	let s = new Uint8Array(o), c = 0;
+	for (let e of a) s.set(e, c), c += e.byteLength;
+	return {
+		ok: !0,
+		bytes: s
+	};
+}
+var Go = 2048, Ko = class extends Error {
 	status;
 	retryAfterSeconds;
 	constructor(e, t, n = null) {
 		super(e), this.status = t, this.retryAfterSeconds = n, this.name = "RoomAdmissionError";
 	}
 };
-async function Go(e, t) {
-	let n = `Room creation failed (${e.status})`, r = e.status === 429 ? e.headers.get("Retry-After") : null, i = r && /^\d+$/.test(r) && Number.isSafeInteger(Number(r)) ? Number(r) : null, a = (t) => new Wo(t, e.status, i), o = e.body?.getReader();
+async function qo(e, t) {
+	let n = `Room creation failed (${e.status})`, r = e.status === 429 ? e.headers.get("Retry-After") : null, i = r && /^\d+$/.test(r) && Number.isSafeInteger(Number(r)) ? Number(r) : null, a = (t) => new Ko(t, e.status, i), o = e.body;
 	if (!o) return a(n);
-	let s = () => {
-		o.cancel().catch(() => {});
-	};
-	t.addEventListener("abort", s, { once: !0 });
 	try {
 		if (t.throwIfAborted(), e.status < 400 || e.status >= 500 || e.headers.get("content-type")?.split(";")[0].trim() !== "application/json") return a(n);
-		let r = /* @__PURE__ */ new Uint8Array(2048), i = 0;
-		for (;;) {
-			let e = await o.read();
-			if (t.throwIfAborted(), e.done) break;
-			if (i + e.value.byteLength > r.length) return a(n);
-			r.set(e.value, i), i += e.value.byteLength;
-		}
-		let s = /* @__PURE__ */ ai(Uo, JSON.parse(new TextDecoder("utf-8", { fatal: !0 }).decode(r.subarray(0, i))));
-		return s.success ? a(`${s.output.error.trim()} (${e.status})`) : a(n);
+		let r = await Wo(o, Go, t);
+		if (!r.ok) return t.throwIfAborted(), a(n);
+		let i = /* @__PURE__ */ ai(Uo, JSON.parse(new TextDecoder("utf-8", { fatal: !0 }).decode(r.bytes)));
+		return i.success ? a(`${i.output.error.trim()} (${e.status})`) : a(n);
 	} catch {
 		return t.throwIfAborted(), a(n);
 	} finally {
-		t.removeEventListener("abort", s), s(), o.releaseLock();
+		o.cancel().catch(() => {});
 	}
 }
-function Ko(e) {
+function Jo(e) {
 	if (e === void 0) return;
 	if (!e || typeof e != "object" || Array.isArray(e)) throw TypeError("Geolocation must contain a country code, latitude and longitude.");
 	let { code: t, lat: n, lon: r } = e;
@@ -5513,23 +5551,23 @@ function Ko(e) {
 		lon: r === 0 ? 0 : r
 	};
 }
-var qo = (e, t) => /* @__PURE__ */ $(/* @__PURE__ */ Q(t), /* @__PURE__ */ Lr((t) => !!t.trim() && t.length <= e, t)), Jo = (e) => /* @__PURE__ */ ei(/* @__PURE__ */ Xr(`Invalid ${e} setting: expected a boolean`)), Yo = "maxPlayers must be an integer between 2 and 32", Xo = /* @__PURE__ */ $(/* @__PURE__ */ Z({
-	roomName: qo(64, "Room name must contain 1–64 characters"),
-	public: Jo("public"),
-	noPlayer: Jo("noPlayer"),
-	maxPlayers: /* @__PURE__ */ ei(/* @__PURE__ */ $(/* @__PURE__ */ $r(Yo), /* @__PURE__ */ Rr(Yo), /* @__PURE__ */ Hr(2, Yo), /* @__PURE__ */ Br(32, Yo))),
+var Yo = (e, t) => /* @__PURE__ */ $(/* @__PURE__ */ Q(t), /* @__PURE__ */ Lr((t) => !!t.trim() && t.length <= e, t)), Xo = (e) => /* @__PURE__ */ ei(/* @__PURE__ */ Xr(`Invalid ${e} setting: expected a boolean`)), Zo = "maxPlayers must be an integer between 2 and 32", Qo = /* @__PURE__ */ $(/* @__PURE__ */ Z({
+	roomName: Yo(64, "Room name must contain 1–64 characters"),
+	public: Xo("public"),
+	noPlayer: Xo("noPlayer"),
+	maxPlayers: /* @__PURE__ */ ei(/* @__PURE__ */ $(/* @__PURE__ */ $r(Zo), /* @__PURE__ */ Rr(Zo), /* @__PURE__ */ Hr(2, Zo), /* @__PURE__ */ Br(32, Zo))),
 	password: /* @__PURE__ */ ei(/* @__PURE__ */ $(/* @__PURE__ */ Q("Password must be a string of at most 64 characters"), /* @__PURE__ */ zr(64, "Password must be a string of at most 64 characters"))),
 	stadium: /* @__PURE__ */ ei(/* @__PURE__ */ Q("Stadium must be a Ball2D stadium source string")),
 	playerName: /* @__PURE__ */ ei(/* @__PURE__ */ ri()),
 	geo: /* @__PURE__ */ ei(/* @__PURE__ */ ri())
-}), /* @__PURE__ */ Lr((e) => e.noPlayer !== !1 || e.playerName === void 0 || /* @__PURE__ */ Jr(qo(24, ""), e.playerName), "Invalid host player name")), Zo = new Set(Object.keys(Xo.pipe[0].entries));
-function Qo(e) {
+}), /* @__PURE__ */ Lr((e) => e.noPlayer !== !1 || e.playerName === void 0 || /* @__PURE__ */ Jr(Yo(24, ""), e.playerName), "Invalid host player name")), $o = new Set(Object.keys(Qo.pipe[0].entries));
+function es(e) {
 	if (!e || typeof e != "object" || Array.isArray(e)) throw Error("Room configuration must be an object");
 	for (let t of Object.keys(e)) {
 		if (t === "token") throw Error("External service tokens are not supported. Ball2D join verification is configured on the room.");
-		if (!Zo.has(t)) throw Error(`Unknown room setting: ${t}`);
+		if (!$o.has(t)) throw Error(`Unknown room setting: ${t}`);
 	}
-	let t = /* @__PURE__ */ ai(Xo, e, { abortEarly: !0 });
+	let t = /* @__PURE__ */ ai(Qo, e, { abortEarly: !0 });
 	if (!t.success) throw Error(t.issues[0].message);
 	let n = t.output;
 	return {
@@ -5540,10 +5578,10 @@ function Qo(e) {
 		noPlayer: n.noPlayer ?? !0,
 		playerName: n.noPlayer === !1 ? (n.playerName ?? "Host").trim() : void 0,
 		stadium: n.stadium,
-		...n.geo === void 0 ? {} : { geo: Ko(n.geo) }
+		...n.geo === void 0 ? {} : { geo: Jo(n.geo) }
 	};
 }
-function $o(e) {
+function ts(e) {
 	let t = new AbortController(), n = () => t.abort(e?.reason);
 	e?.aborted ? n() : e?.addEventListener("abort", n, { once: !0 });
 	let r = setTimeout(() => t.abort(new DOMException("Room startup timed out", "TimeoutError")), 15e3);
@@ -5565,19 +5603,19 @@ function $o(e) {
 		}
 	};
 }
-var es = 12e3;
-function ts(e) {
+var ns = 12e3;
+function rs(e) {
 	if (e.noPlayer !== void 0 && typeof e.noPlayer != "boolean") throw Error("Invalid noPlayer setting");
 	if (e.noPlayer !== !1) return null;
 	let t = e.playerName ?? "Host";
 	if (typeof t != "string" || !t.trim() || t.length > 24) throw Error("Invalid host player name");
 	return t.trim();
 }
-function ns(e, t, n, r, i, a) {
+function is(e, t, n, r, i, a) {
 	let o;
 	return {
 		ready: new Promise((s, c) => {
-			o = setTimeout(() => c(Error("Signaling timed out")), es), e.network = new Fi(n.id, { hostToken: n.hostToken }, {
+			o = setTimeout(() => c(Error("Signaling timed out")), ns), e.network = new Fi(n.id, { hostToken: n.hostToken }, {
 				ready: (t, n) => {
 					if (!n) {
 						c(Error("Host authority was not granted"));
@@ -5607,8 +5645,8 @@ function ns(e, t, n, r, i, a) {
 		cancel: () => clearTimeout(o)
 	};
 }
-async function rs(e, t, n, r) {
-	let i = Vt(t.network.serviceOrigin), a = Vt(t.publicOrigin ?? i), o = Qo(e), s = ts(o), c = $o(n), l;
+async function as(e, t, n, r) {
+	let i = Vt(t.network.serviceOrigin), a = Vt(t.publicOrigin ?? i), o = es(e), s = rs(o), c = ts(n), l;
 	try {
 		c.signal.throwIfAborted();
 		let e = await c.run(t.loadEngine(c.signal));
@@ -5628,10 +5666,10 @@ async function rs(e, t, n, r) {
 				...o.geo ? { geo: o.geo } : {}
 			})
 		}));
-		if (!d.ok) throw await c.run(Go(d, c.signal));
+		if (!d.ok) throw await c.run(qo(d, c.signal));
 		let f = await c.run(d.json());
 		u.roomId = f.id, u.roomName = o.roomName, u.roomLink = `${a}${Ho(f.id)}`;
-		let p = ns(u, r.gateway(n), f, s, t, () => r.close(n));
+		let p = is(u, r.gateway(n), f, s, t, () => r.close(n));
 		try {
 			await c.run(p.ready);
 		} catch (e) {
@@ -5647,18 +5685,18 @@ async function rs(e, t, n, r) {
 		c.dispose();
 	}
 }
-var is = 32768;
-function as(e, t, n, r) {
-	let i = [...e.peers.values()].filter((e) => e.fast?.readyState === "open" && e.fast.bufferedAmount < is);
+var os = 32768;
+function ss(e, t, n, r) {
+	let i = [...e.peers.values()].filter((e) => e.fast?.readyState === "open" && e.fast.bufferedAmount < os);
 	if (!i.length) return;
 	let a = dr(t, i.map((e) => r.acknowledgment(e.id)), n);
 	for (let t = 0; t < i.length; t++) {
 		let n = i[t], r = a[t], o = r.reduce((e, t) => e + t.byteLength, 0);
-		if (!(n.fast?.readyState !== "open" || n.fast.bufferedAmount + o > is)) for (let t of r) e.fast(n, t);
+		if (!(n.fast?.readyState !== "open" || n.fast.bufferedAmount + o > os)) for (let t of r) e.fast(n, t);
 	}
 }
-var os = 1e3 / Fe, ss = 500, cs = 32, ls = Fe / 30;
-function us(e) {
+var cs = 1e3 / Fe, ls = 500, us = 32, ds = Fe / 30;
+function fs(e) {
 	let { engine: t } = e, n = t.red, r = t.blue, i = t.phase;
 	return e.match.step(), e.turfState.capture(t), e.soundStream.capture(t, e.epoch), t.phase !== i && e.broadcastState(), {
 		kickers: t.ballKicks.map((t) => {
@@ -5672,7 +5710,7 @@ function us(e) {
 		victory: i !== "finished" && t.phase === "finished" ? An(e) : null
 	};
 }
-var ds = class {
+var ps = class {
 	room;
 	accumulator = 0;
 	last = performance.now();
@@ -5686,10 +5724,10 @@ var ds = class {
 		let { room: e } = this;
 		if (e.closed) return;
 		let t = performance.now(), n = t - this.last;
-		this.last = t, n > ss && e.engine.phase === "playing" && !e.engine.paused && (En(e, !0, null), e.report("Host scheduler stalled; match paused.")), this.accumulator += Math.max(0, Math.min(n, ss));
+		this.last = t, n > ls && e.engine.phase === "playing" && !e.engine.paused && (En(e, !0, null), e.report("Host scheduler stalled; match paused.")), this.accumulator += Math.max(0, Math.min(n, ls));
 		let r = 0;
 		try {
-			for (; !e.closed && this.accumulator >= os && r++ < cs && (this.tick(t), !e.closed);) this.accumulator -= os;
+			for (; !e.closed && this.accumulator >= cs && r++ < us && (this.tick(t), !e.closed);) this.accumulator -= cs;
 			e.closed || ro(e.network, e.soundStream.drain(t));
 		} catch (t) {
 			e.closed || (e.engine.setPaused(!0), e.report(String(t)));
@@ -5699,12 +5737,12 @@ var ds = class {
 		let { room: t } = this, { engine: n, hooks: r } = t;
 		for (let n of t.players.all) t.inputs.expire(n.peerId, n.slot, e);
 		if (t.match.checkRecordingLimit(), t.closed || (n.phase !== "lobby" && !n.paused && !n.resumeTicks && t.invoke("onGameTick", r.onGameTick), t.closed)) return;
-		let i = us(t);
+		let i = fs(t);
 		i.stopped && t.invoke("onGameStop", r.onGameStop, null), i.victory && (t.invoke("onTeamVictory", r.onTeamVictory, { ...i.victory }), t.invoke("onGameVictory", r.onGameVictory, { ...i.victory }));
 		for (let e of i.kickers) t.invoke("onPlayerBallKick", r.onPlayerBallKick, e);
-		i.redGoal && t.invoke("onTeamGoal", r.onTeamGoal, 1), i.blueGoal && t.invoke("onTeamGoal", r.onTeamGoal, 2), i.positionsReset && t.invoke("onPositionsReset", r.onPositionsReset), !t.closed && n.tick % ls === 0 && as(t.network, n.snapshot(), t.epoch, t.inputs);
+		i.redGoal && t.invoke("onTeamGoal", r.onTeamGoal, 1), i.blueGoal && t.invoke("onTeamGoal", r.onTeamGoal, 2), i.positionsReset && t.invoke("onPositionsReset", r.onPositionsReset), !t.closed && n.tick % ds === 0 && ss(t.network, n.snapshot(), t.epoch, t.inputs);
 	}
-}, fs = Object.freeze({ ...x }), ps = (e) => new Blob([Lt(e)], { type: "application/x-ball2d-replay" }), ms = class e {
+}, ms = Object.freeze({ ...x }), hs = (e) => new Blob([Lt(e)], { type: "application/x-ball2d-replay" }), gs = class e {
 	engine;
 	core;
 	loop;
@@ -5716,12 +5754,12 @@ var ds = class {
 	lastRecording = null;
 	constructor(e, t) {
 		this.engine = e, this.core = new Bo(e, t, this, (e, t) => {
-			let n = ps(e);
+			let n = hs(e);
 			this.lastRecording = n, this.core.invoke("onRecordingComplete", this.onRecordingComplete, n, t);
-		}), this.loop = new ds(this.core), this.gateway = Ea(this.core);
+		}), this.loop = new ps(this.core), this.gateway = Ea(this.core);
 	}
 	static async create(t, n = nn(), r) {
-		return rs(t, n, r, {
+		return as(t, n, r, {
 			construct: (t) => new e(t, n),
 			core: (e) => e.core,
 			gateway: (e) => e.gateway,
@@ -5761,7 +5799,7 @@ var ds = class {
 		return this.core.network.requireVerification;
 	}
 	get CollisionFlags() {
-		return fs;
+		return ms;
 	}
 	getPlayerList() {
 		return this.core.players.all.map((e) => this.core.publicPlayer(e));
@@ -5876,7 +5914,7 @@ var ds = class {
 	}
 	stopRecording() {
 		let e = this.core.match.stopRecording();
-		return e ? ps(e) : null;
+		return e ? hs(e) : null;
 	}
 	close() {
 		let { core: e } = this;
@@ -5890,11 +5928,11 @@ var ds = class {
 		}
 	}
 };
-function hs(e) {
+function _s(e) {
 	if (!e || typeof e != "object" || Array.isArray(e)) throw Error("Room configuration must be an object");
 	let t = { ...e }, n = t.maxPlayers ?? 12;
 	if (typeof n != "number" || !Number.isFinite(n) || !Number.isInteger(n)) throw Error("maxPlayers must be a finite integer");
-	return Qo({
+	return es({
 		...t,
 		roomName: t.roomName ?? "Headless Room",
 		playerName: t.playerName ?? "Host",
@@ -5904,7 +5942,7 @@ function hs(e) {
 		password: t.password ?? ""
 	});
 }
-var gs = class {
+var vs = class {
 	onError;
 	pending = [];
 	active;
@@ -5958,7 +5996,7 @@ var gs = class {
 		this.active?.reject(e);
 		for (let t of this.pending.splice(0)) t.reject(e);
 	}
-}, _s = [
+}, ys = [
 	"sendChat",
 	"sendAnnouncement",
 	"setPlayerAdmin",
@@ -5984,18 +6022,18 @@ var gs = class {
 	"setDiscProperties",
 	"setPlayerDiscProperties"
 ];
-function vs(e, t) {
+function bs(e, t) {
 	let n = Object.create(null);
 	t && Object.defineProperty(n, "closed", {
 		enumerable: !0,
 		value: t
 	});
-	let r = new gs((t) => {
+	let r = new vs((t) => {
 		let n = e.onError?.(String(t));
 		n instanceof Promise && n.catch(() => {});
 	});
 	e.signal.addEventListener("abort", () => r.close(), { once: !0 }), e.signal.aborted && r.close();
-	for (let t of _s) Object.defineProperty(n, t, {
+	for (let t of ys) Object.defineProperty(n, t, {
 		enumerable: !0,
 		value: (...n) => {
 			try {
@@ -6053,10 +6091,10 @@ function vs(e, t) {
 		}
 	}), Object.preventExtensions(n);
 }
-function ys(e) {
+function xs(e) {
 	return eo(e);
 }
-function bs(e) {
+function Ss(e) {
 	if (typeof e != "string") throw TypeError("Stadium source must be a string");
 	let t = H(e);
 	return Object.freeze({
@@ -6065,7 +6103,7 @@ function bs(e) {
 		warnings: Object.freeze([...t.warnings])
 	});
 }
-async function xs(e = {}, t = {}) {
-	return vs(await ms.create(hs(e), void 0, t.signal));
+async function Cs(e = {}, t = {}) {
+	return bs(await gs.create(_s(e), void 0, t.signal));
 }
-export { Wo as RoomAdmissionError, xs as createRoom, ys as readReplay, bs as validateStadium };
+export { Ko as RoomAdmissionError, Cs as createRoom, xs as readReplay, Ss as validateStadium };
