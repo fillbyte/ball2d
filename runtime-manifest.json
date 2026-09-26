@@ -3,14 +3,14 @@
   "sourceRepository": "fillbyte/ball2d.com",
   "boundary": "Reviewed compiled runtime and public declarations. Private implementation source is not included.",
   "files": {
-    "dist/browser.js": "aae1bc0d6a3700ceb35861c8d7fe732b971e3bbd2ef411fc55d857eab9c2de72",
+    "dist/browser.js": "9c67960d1671d0a68396d680704c8b574f1f1d5fc9bae5a305ddb37f6ef0921c",
     "dist/core.wasm": "105f5ccfb67900e11f5d8a36b86125d085a1b1ece88bb20e6690eb376b836fdb",
     "dist/licenses/fflate.txt": "0a1df3a083d0c010560aa342e87959c8c1070e6fd54545741f083f22d0c8b551",
     "dist/licenses/json5.txt": "53e59feb13058722d977c699eb0407c7bce2f93c949b681bbd2ff31698535927",
     "dist/licenses/native.json": "0db7149371531dc809896fbc27c39eceb0e4bb0d5e15bf7f24524917cf8a9a40",
     "dist/licenses/valibot.txt": "1ca6c9ca372cffe26c313464b9d9f0aef2417b27b2bad20396f4769005122d4d",
     "dist/licenses/werift.txt": "b83683f3f71b5971e6c2e33a8b894a49d752fd24c11b8ae08b53ca20f594fca5",
-    "dist/node.js": "cec9c75822feeca265521284d213ce000b7194d1761ef999cc1a34b59749f3a4",
+    "dist/node.js": "0a03dbae43fe67e4d63702e2fee8a42bf08a6361420abec5ef6508a083601212",
     "dist/stadiums/asphalt.ball2dstadium": "9fed7029b2f44663d54241fb6656744b001423f8e20c3a08b0dee14c9a093415",
     "dist/stadiums/asphalt_arena.ball2dstadium": "fa04673db615ec8f562801994efc38f3084097cf64e358b3caacc19991119af4",
     "dist/stadiums/big.ball2dstadium": "97a982e78f0a8ecdf9fdc3621ef8ed5254b3845b08a5e4d41f9f6de74cc12257",
@@ -36,7 +36,8 @@
     "dist/types/player.d.ts": "cb1c23461b77486b5aa846446981f8b6f801697c85e77af3be7bdad3c3f27c6b",
     "dist/types/replay.d.ts": "6094c53e7e7991db75b1bbbd5d29ed5bac4ba03d683822ed6d6df44390c8c920",
     "dist/types/room-geo.d.ts": "60852d8146a5ea368333e5dc5b56d2f912575b352f97683f3117e4e896d4711e",
-    "dist/types/room.d.ts": "7be75f1ce4552e233f7789aad1dddcbb8ba45bc503030e36d4b6d4facf46ca8b",
+    "dist/types/room-hooks.d.ts": "e2c9846dd8ee867fd201e35f8dfcaeee5e5be277db6178569d1303368cd0075d",
+    "dist/types/room.d.ts": "eec37e67261307cb182b3fb8bbcfcfad107372b32a5fff7596dd18db67677181",
     "dist/types/stadium.d.ts": "e3707e8a8721cb1b95ef85645670bdc00c508af7612d07ccf294b5590c90137f",
     "dist/types/team.d.ts": "2b0992c4b5a64ef0748a8a1e4b39fda857082accdc50fca9acb50cfdd311aac5"
   }

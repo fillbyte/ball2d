@@ -14,6 +14,7 @@ const contracts = new Set(
     'replay',
     'room',
     'room-geo',
+    'room-hooks',
     'stadium',
     'team',
   ].map((name) => `dist/types/${name}.d.ts`),
