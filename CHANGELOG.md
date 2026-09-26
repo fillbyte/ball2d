@@ -10,3 +10,6 @@
 - Add `onPlayerInput(player, prevInput)` and the `player.input` key bitmask.
 - Remove the surface (wet grass / ground wear) room API.
 - Remove retired compatibility assets and historical release claims.
+- Validate service responses with typed schemas (Valibot, MIT; license included).
+- Engine fix: kicks no longer move spectators in custom stadiums that give players
+  the kick collision group, which could break snapshot restore.

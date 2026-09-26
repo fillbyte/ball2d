@@ -24,6 +24,7 @@ const artifacts = new Set([
   'dist/core.wasm',
   'dist/licenses/fflate.txt',
   'dist/licenses/json5.txt',
+  'dist/licenses/valibot.txt',
   'dist/licenses/werift.txt',
   'dist/licenses/native.json',
 ]);
