@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 — 2026-09-26
+
+- Match the Ball2D service deployed on 2026-09-26: the engine identity changed, so
+  0.3.0 hosts and current web players no longer share an engine version. Physics
+  (`core.wasm`) and the public API are unchanged.
+- Validate more host-side wire input and service responses with typed schemas.
+
 ## 0.3.0 — 2026-09-25
 
 - Use Ball2D stadium and recording formats throughout the SDK.
