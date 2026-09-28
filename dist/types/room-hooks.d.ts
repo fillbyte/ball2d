@@ -1,9 +1,20 @@
+import type { MatchKickEstimateEvent } from './match-xg-runtime.js';
 import type { HostPlayer, HostScores } from './player.js';
+import type { CommentaryObservation, MatchFact } from './commentary.js';
+import type { MatchIntelligenceEvent } from './match-intelligence.js';
 /**
  * Application callbacks a host room invokes. All are optional and run with the room
  * as `this`; they observe the room and may call its commands.
  */
 export interface RoomHooks {
+    /** Immutable event-time context captured before legacy match callbacks. */
+    onMatchFact?: (fact: MatchFact) => void;
+    /** Conservative geometry evidence; never a confirmed goal, pass, save, or player rank. */
+    onMatchObservation?: (observation: CommentaryObservation) => void;
+    /** Bounded authoritative-derived analysis, copied before application callbacks. No persisted statistics. */
+    onMatchIntelligenceEvent?: (event: MatchIntelligenceEvent) => void;
+    /** Host-local frozen kick estimate; trust is an operator assertion, never platform certification. */
+    onMatchKickEstimate?: (event: MatchKickEstimateEvent) => void;
     onRecordingComplete?: (blob: Blob, reason: string) => void;
     onRoomLink?: (url: string) => void;
     onPlayerJoin?: (p: HostPlayer) => void;

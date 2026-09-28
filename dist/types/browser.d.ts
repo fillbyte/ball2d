@@ -14,3 +14,7 @@ export declare class RoomAdmissionError extends Error {
 export declare function createRoom(config?: RoomConfig, options?: CreateRoomOptions): Promise<Room>;
 export declare function readReplay(blob: Blob): Promise<Replay>;
 export declare function validateStadium(source: string): StadiumValidation;
+export type { AtmospherePolicy, AtmospherePack, AtmosphereCue, CommentaryCue, CommentaryWordTiming, MatchFact, CommentaryPolicy, CommentaryPolicyPatch, CommentaryPlayerFact, CommentaryPlayerFactInput, CommentaryConfiguration, CommentaryObservation, CommentaryGoalGeometry, } from './commentary.js';
+export type { MatchIntelligencePolicy, MatchIntelligencePolicyPatch, MatchIntelligenceRole, MatchIntelligenceRoleInput, MatchIntelligenceRoleAssignment, MatchIntelligenceEvent, MatchIntelligenceEventKind, MatchIntelligenceSnapshot, MatchIntelligenceTeamTotals, MatchShotQuality, } from './match-intelligence.js';
+export type { MatchXgFeatures, MatchXgVector, MatchXgDomain, MatchXgModel, MatchXgUnavailableReason, MatchXgEstimate, MatchXgTrust, } from './match-xg.js';
+export type { MatchXgCollectionPolicy, MatchXgRuntimeConfig, MatchXgRuntimeReason, MatchXgRuntimeStatus, MatchKickEstimateEvent, } from './match-xg-runtime.js';
