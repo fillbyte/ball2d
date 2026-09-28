@@ -1,8 +1,11 @@
+import type { MatchXgRuntimeConfig, MatchXgRuntimeStatus } from './match-xg-runtime.js';
 import type { HostPlayer, HostScores, HostDiscProperties } from './player.js';
 import type { DiscPropertyPatch } from './disc.js';
 import type { MatchState } from './match-state.js';
 import type { AnnouncementStyle } from './announcement.js';
 import type { RoomHooks } from './room-hooks.js';
+import type { AtmospherePack, AtmospherePolicy, CommentaryCue, CommentaryGoalGeometry, CommentaryPlayerFact, CommentaryPlayerFactInput, CommentaryPolicy, CommentaryPolicyPatch } from './commentary.js';
+import type { MatchIntelligencePolicy, MatchIntelligencePolicyPatch, MatchIntelligenceRoleAssignment, MatchIntelligenceRoleInput, MatchIntelligenceSnapshot } from './match-intelligence.js';
 /** Public room contract: runtime classes and transport types are deliberately absent. */
 export interface Room extends RoomHooks {
     readonly roomId: string;
@@ -10,6 +13,28 @@ export interface Room extends RoomHooks {
     readonly roomName: string;
     readonly signal: AbortSignal;
     readonly lastRecording: Blob | null;
+    /** Host-local opt-in; preparation performs hashes outside the simulation loop. null disables. */
+    setMatchXgConfig(config: MatchXgRuntimeConfig | null): Promise<void>;
+    getMatchXgStatus(): MatchXgRuntimeStatus;
+    setCommentaryPolicy(patch: CommentaryPolicyPatch): Promise<void>;
+    getCommentaryPolicy(): CommentaryPolicy;
+    setMatchIntelligencePolicy(patch: MatchIntelligencePolicyPatch): Promise<void>;
+    getMatchIntelligencePolicy(): MatchIntelligencePolicy;
+    /** Replaces all explicit role assignments; [] clears them. Only current field players qualify. */
+    setMatchIntelligenceRoles(roles: readonly MatchIntelligenceRoleInput[]): Promise<void>;
+    getMatchIntelligenceRoles(): readonly MatchIntelligenceRoleAssignment[];
+    /** In-memory observations for this match, never persistent player statistics. */
+    getMatchIntelligenceSnapshot(): MatchIntelligenceSnapshot;
+    setPlayerCommentaryContext(id: number, facts: readonly CommentaryPlayerFactInput[] | null): Promise<void>;
+    getPlayerCommentaryContext(id: number): CommentaryPlayerFact[];
+    setCommentaryGeometry(goals: readonly CommentaryGoalGeometry[] | null): Promise<void>;
+    getCommentaryGeometry(): readonly CommentaryGoalGeometry[];
+    setCommentaryCatalog(cues: readonly CommentaryCue[] | null): Promise<void>;
+    getCommentaryCatalog(): readonly CommentaryCue[] | null;
+    setAtmospherePolicy(patch: Partial<AtmospherePolicy>): Promise<void>;
+    getAtmospherePolicy(): AtmospherePolicy;
+    setAtmospherePack(pack: AtmospherePack | null): Promise<void>;
+    getAtmospherePack(): AtmospherePack | null;
     getPlayerList(): HostPlayer[];
     getPlayer(id: number): HostPlayer | null;
     setTeamColors(team: number, angle: number, textColor: number, colors: number[]): Promise<void>;

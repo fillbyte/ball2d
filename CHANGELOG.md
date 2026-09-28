@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.2-next.0 — 2026-09-28
+
+- Rebuild the SDK for engine identity `98c92c27828179bc4258` and the current
+  Ball2D service. Hosts must use the same engine identity as the players joining
+  their room.
+- Add optional host-local commentary, match intelligence and shot-quality
+  contracts, configuration methods and observation hooks. These observations do
+  not change the authoritative match result.
+- Keep native API-key admission and direct peer gameplay. This candidate needs
+  deployed-service and device/network acceptance before promotion to `latest`.
+
 ## 0.3.1 — 2026-09-26
 
 - Match the Ball2D service deployed on 2026-09-26: the engine identity changed, so
