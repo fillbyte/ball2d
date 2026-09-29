@@ -1,30 +1,54 @@
 # Changelog
 
-## 1.0.0-next.0 — 2026-09-29
+## 0.4.0-next.0 — 2026-09-29
 
-The v1 pre-release, pending review. Ball2D is not public yet, so this resets the
-pre-launch version scheme to 1 instead of carrying forward earlier 0.x iteration
-numbers.
+- Breaking: resets the pre-launch room protocol and gameplay wire protocol to 1,
+  and rebuilds the engine to identity `2e6cea39a72fef7f7558`. Hosts on
+  `0.3.2-next.1` and earlier no longer share a protocol or engine version with
+  current web players; upgrade alongside the web game before you deploy.
+- Physics (`core.wasm`) and the public API are otherwise unchanged from
+  `0.3.2-next.1`.
 
-- Uses engine identity `2e6cea39a72fef7f7558` and room protocol 1. Hosts must use
-  the same engine identity as the players joining their room.
-- Hosts send a bounded, about 1 Hz match-statistics summary (heatmap cells and
+## 0.3.2-next.1 — 2026-09-29
+
+- Same engine identity `98c92c27828179bc4258` and room protocol as 0.3.2-next.0.
+- Hosts now send a bounded, about 1 Hz match-statistics summary (heatmap cells and
   distance) that current web guests show; older guests ignore it.
-- Adds optional host-local commentary, match intelligence and shot-quality
+- Carry the current runtime fixes: interrupted commentary fades in instead of
+  overlapping, kickoff lines load first, and match intelligence exposes the frame a
+  host observed to local consumers.
+
+## 0.3.2-next.0 — 2026-09-28
+
+- Rebuild the SDK for engine identity `98c92c27828179bc4258` and the current
+  Ball2D service. Hosts must use the same engine identity as the players joining
+  their room.
+- Add optional host-local commentary, match intelligence and shot-quality
   contracts, configuration methods and observation hooks. These observations do
   not change the authoritative match result.
-- Interrupted commentary fades in instead of overlapping, kickoff lines load
-  first, and match intelligence exposes the frame a host observed to local
-  consumers.
-- Validates host-side wire input and service responses with typed schemas
-  (Valibot, MIT; license included).
-- Room callbacks are declared once as `RoomHooks` (`dist/types/room-hooks.d.ts`),
-  which `Room` extends.
-- Uses Ball2D stadium and recording formats throughout the SDK. Bundles fourteen
-  default stadiums: Classic, Easy, Small, Big, Rounded, Big Easy, Big Rounded,
-  Huge, Asphalt, Asphalt Arena, Courtyard, Meadow, Street Five and Training
-  Green. Hockey variants are retired.
-- Adds `onPlayerInput(player, prevInput)` and the `player.input` key bitmask.
-  Removes the surface (wet grass / ground wear) room API.
-- Keeps native API-key admission and direct peer gameplay. This candidate needs
+- Keep native API-key admission and direct peer gameplay. This candidate needs
   deployed-service and device/network acceptance before promotion to `latest`.
+
+## 0.3.1 — 2026-09-26
+
+- Match the Ball2D service deployed on 2026-09-26: the engine identity changed, so
+  0.3.0 hosts and current web players no longer share an engine version. Physics
+  (`core.wasm`) and the public API are unchanged.
+- Validate more host-side wire input and service responses with typed schemas.
+- Room callbacks are declared once as `RoomHooks` (`dist/types/room-hooks.d.ts`), which
+  `Room` extends; the callbacks themselves are unchanged.
+
+## 0.3.0 — 2026-09-25
+
+- Use Ball2D stadium and recording formats throughout the SDK.
+- Include the current shared room runtime and physics engine (the room protocol
+  of that release).
+- Bundle fourteen default stadiums: Classic, Easy, Small, Big, Rounded, Big Easy,
+  Big Rounded, Huge, Asphalt, Asphalt Arena, Courtyard, Meadow, Street Five and
+  Training Green. Hockey variants are retired.
+- Add `onPlayerInput(player, prevInput)` and the `player.input` key bitmask.
+- Remove the surface (wet grass / ground wear) room API.
+- Remove retired compatibility assets and historical release claims.
+- Validate service responses with typed schemas (Valibot, MIT; license included).
+- Engine fix: kicks no longer move spectators in custom stadiums that give players
+  the kick collision group, which could break snapshot restore.
