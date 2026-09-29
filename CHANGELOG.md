@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.2-next.1 — 2026-09-29
+
+- Same engine identity `98c92c27828179bc4258` and room protocol as 0.3.2-next.0.
+- Hosts now send a bounded, about 1 Hz match-statistics summary (heatmap cells and
+  distance) that current web guests show; older guests ignore it.
+- Carry the current runtime fixes: interrupted commentary fades in instead of
+  overlapping, kickoff lines load first, and match intelligence exposes the frame a
+  host observed to local consumers.
+
 ## 0.3.2-next.0 — 2026-09-28
 
 - Rebuild the SDK for engine identity `98c92c27828179bc4258` and the current
