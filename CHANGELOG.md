@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0-next.0 — 2026-09-29
+
+- Breaking: resets the pre-launch room protocol and gameplay wire protocol to 1,
+  and rebuilds the engine to identity `2e6cea39a72fef7f7558`. Hosts on
+  `0.3.2-next.1` and earlier no longer share a protocol or engine version with
+  current web players; upgrade alongside the web game before you deploy.
+- Physics (`core.wasm`) and the public API are otherwise unchanged from
+  `0.3.2-next.1`.
+
 ## 0.3.2-next.1 — 2026-09-29
 
 - Same engine identity `98c92c27828179bc4258` and room protocol as 0.3.2-next.0.
@@ -32,7 +41,8 @@
 ## 0.3.0 — 2026-09-25
 
 - Use Ball2D stadium and recording formats throughout the SDK.
-- Include the current shared room runtime and physics engine (room protocol 5).
+- Include the current shared room runtime and physics engine (the room protocol
+  of that release).
 - Bundle fourteen default stadiums: Classic, Easy, Small, Big, Rounded, Big Easy,
   Big Rounded, Huge, Asphalt, Asphalt Arena, Courtyard, Meadow, Street Five and
   Training Green. Hockey variants are retired.

@@ -501,7 +501,7 @@ function z(e, t, n = {}) {
 		}
 	});
 }
-var xe = "98c92c27828179bc4258", B = {
+var xe = "2e6cea39a72fef7f7558", B = {
 	X: 0,
 	Y: 1,
 	SPEED_X: 2,
@@ -2096,7 +2096,7 @@ async function zt(e) {
 	return Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", e))).map((e) => e.toString(16).padStart(2, "0")).join("");
 }
 async function Bt(e, t) {
-	let n = e ?? await (await fetch("/core.wasm?v=98c92c27828179bc4258", { signal: t })).arrayBuffer();
+	let n = e ?? await (await fetch("/core.wasm?v=2e6cea39a72fef7f7558", { signal: t })).arrayBuffer();
 	if (await zt(n) !== "23989127182d21b3dc42055febe7b8d25cc3e9bcf7b5b738de652a48f6735871") throw Error("Physics build changed. Refresh the page to load a matching version.");
 	return WebAssembly.instantiate(await WebAssembly.compile(n));
 }
@@ -3934,7 +3934,7 @@ var si = class {
 function hi(e, t) {
 	if (e.byteLength !== 12) throw Error("Input length");
 	let n = new Uint8Array(e);
-	if (n[li.KIND] !== ci.INPUT || n[li.PROTOCOL] !== 3) throw Error("Input format");
+	if (n[li.KIND] !== ci.INPUT || n[li.PROTOCOL] !== 1) throw Error("Input format");
 	for (let e = 0; e < 4; e++) {
 		let r = n[li.KEYS + e];
 		if (r > mi) throw Error("Input format");
@@ -3969,7 +3969,7 @@ function bi(e, t, n = 0) {
 	let o = new Uint8Array(i), s = [], c = Math.ceil(o.length / di);
 	for (let t = 0; t < c; t++) {
 		let r = o.subarray(t * di, (t + 1) * di), i = new ArrayBuffer(12 + r.length), a = new DataView(i);
-		a.setUint8(ui.KIND, ci.STATE), a.setUint8(ui.PROTOCOL, 3), a.setUint32(ui.TICK, e.tick, !0), a.setUint8(ui.INDEX, t), a.setUint8(ui.COUNT, c), a.setUint16(ui.EPOCH, n, !0), a.setUint16(ui.SIZE, r.length, !0), new Uint8Array(i, 12).set(r), s.push(i);
+		a.setUint8(ui.KIND, ci.STATE), a.setUint8(ui.PROTOCOL, 1), a.setUint32(ui.TICK, e.tick, !0), a.setUint8(ui.INDEX, t), a.setUint8(ui.COUNT, c), a.setUint16(ui.EPOCH, n, !0), a.setUint16(ui.SIZE, r.length, !0), new Uint8Array(i, 12).set(r), s.push(i);
 	}
 	return s;
 }
