@@ -7285,12 +7285,13 @@ function bc(e, t) {
 	}
 }
 var xc = (e, t) => e.sessionId === t.sessionId && e.playerId === t.playerId && e.team === t.team, Sc = class {
+	onFrame;
 	intelligence;
 	roles = [];
 	sampled;
 	discontinuous = !1;
-	constructor(e = {}) {
-		this.intelligence = new yc(e, U);
+	constructor(e = {}, t) {
+		this.onFrame = t, this.intelligence = new yc(e, U);
 	}
 	configure(e) {
 		if (!e || typeof e != "object" || Array.isArray(e)) throw Error("Invalid match intelligence policy");
@@ -7399,7 +7400,8 @@ var xc = (e, t) => e.sessionId === t.sessionId && e.playerId === t.playerId && e
 			}
 		}
 		let d = !this.discontinuous && l && (s || e.ballContactsComplete);
-		return s || (this.discontinuous = !1), this.intelligence.observe({
+		s || (this.discontinuous = !1);
+		let f = {
 			streamId: n,
 			epoch: t,
 			tick: e.tick,
@@ -7425,7 +7427,8 @@ var xc = (e, t) => e.sessionId === t.sessionId && e.playerId === t.playerId && e
 			players: o,
 			contacts: u,
 			contactsComplete: d
-		});
+		}, p = this.intelligence.observe(f);
+		return this.onFrame?.(f, p), p;
 	}
 }, Cc = class {
 	sequence = 0;
