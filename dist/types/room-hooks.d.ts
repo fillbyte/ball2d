@@ -2,6 +2,7 @@ import type { MatchKickEstimateEvent } from './match-xg-runtime.js';
 import type { HostPlayer, HostScores } from './player.js';
 import type { CommentaryObservation, MatchFact } from './commentary.js';
 import type { MatchIntelligenceEvent } from './match-intelligence.js';
+import type { StadiumSurface } from './stadium-surface.js';
 /**
  * Application callbacks a host room invokes. All are optional and run with the room
  * as `this`; they observe the room and may call its commands.
@@ -41,6 +42,8 @@ export interface RoomHooks {
     onTeamGoal?: (team: 1 | 2) => void;
     onPositionsReset?: () => void;
     onStadiumChange?: (name: string, byPlayer: HostPlayer | null) => void;
+    /** The room's surface changed; `null` returns to the stadium's own default surface. */
+    onSurfaceChange?: (surface: StadiumSurface | null, byPlayer: HostPlayer | null) => void;
     onTeamsLockChange?: (locked: boolean, byPlayer: HostPlayer | null) => void;
     onKickRateLimitSet?: (min: number, rate: number, burst: number, byPlayer: HostPlayer | null) => void;
     onGameTick?: () => void;
