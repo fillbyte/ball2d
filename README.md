@@ -4,8 +4,8 @@ Host a Ball2D football room on your own server and control it through a typed
 JavaScript API. The host runs the simulation; players connect directly over
 WebRTC. Ball2D provides authorization, room discovery and signaling.
 
-**Current candidate: 0.4.0-next.0.** It uses engine identity
-`2e6cea39a72fef7f7558` and room protocol 1. Install this candidate with
+**Current candidate: 0.4.0-next.1.** It uses engine identity
+`5532af7ca9da3779ea23` and gameplay wire protocol 6. Install this candidate with
 `npm install ball2d@next` after publication; the `latest` tag stays on the
 previously accepted release. Recordings and stadium geometry differ from 0.2.x.
 
@@ -90,7 +90,8 @@ prevent modified participants from running an unconnected private simulation.
 ## Room API
 
 The public types are included in `dist/types`. The `ball2d/node` entry exports
-`createRoom`, `validateStadium`, `readReplay` and the native/public room types.
+`createRoom`, `validateStadium`, `listStadiums`, `listSurfaces`, `readReplay` and
+the native/public room types.
 TypeScript projects can use `module: "NodeNext"`, `lib: ["ES2022"]` and Node types;
 native declarations do not require DOM/WebRTC globals or `skipLibCheck`.
 
@@ -98,10 +99,14 @@ native declarations do not require DOM/WebRTC globals or `skipLibCheck`.
   manage admission, send chat and announcements, and configure the room.
 - **Matches:** start/stop, pause/resume, score/time limits, kick-rate limits and
   team controls.
-- **Physics and stadiums:** load custom stadium text, select fourteen bundled defaults,
-  query and modify supported player/disc properties, and use `CollisionFlags`.
+- **Physics and stadiums:** load custom stadium text, select eight bundled layouts,
+  draw any stadium on any of 36 surfaces, query and modify supported player/disc
+  properties, and use `CollisionFlags`.
 - **Events:** player join/leave/input/chat, team/admin changes, ball kicks, goals,
-  match ticks, position resets, victory, stadium changes and recording completion.
+  match ticks, position resets, victory, stadium and surface changes and recording
+  completion.
+- **Match analysis:** optional host-local commentary, match intelligence and an
+  in-memory match statistics snapshot; nothing is persisted.
 - **Replay:** record and decode Ball2D recordings with their embedded stadium and
   matching engine identity.
 
@@ -140,7 +145,7 @@ not bypass revocation or quota enforcement.
 
 ## Stadiums and replays
 
-Stadium files use `.ball2dstadium` or JSON; recordings use `.ball2drep`.
+Stadium files use `.ball2dstadium` or JSON; recordings use `.b2r`.
 Only recordings matching the current engine are accepted. Historical engine
 compatibility is not part of this development baseline.
 
@@ -161,9 +166,14 @@ if (recording) {
 
 Validation is synchronous and does not allocate a room. Passing validation means
 the stadium can be parsed, not that all gameplay outcomes have been certified.
-Bundled defaults are Classic, Easy, Small, Big, Rounded, Big Easy, Big Rounded,
-Huge, Asphalt, Asphalt Arena, Courtyard, Meadow, Street Five and Training Green. They are Ball2D-authored procedural designs;
-provenance and hashes are included. Custom stadiums and embedded-stadium replays
+Bundled layouts are four sizes, each with straight or rounded pitch corners: Small,
+Small Rounded, Classic, Rounded, Big, Big Rounded, Huge and Huge Rounded.
+`listStadiums()` returns their IDs, names and dimensions without opening a room.
+Any layout can be drawn on any surface with the `surface` room setting or
+`room.setSurface()`, which take a `family/variant` id from `listSurfaces()`
+(`grass/…`, `asphalt/…` or `felt/…`); surfaces never change physics. The layouts are
+Ball2D-authored procedural designs; provenance and hashes are included in
+`dist/stadiums/provenance.json`. Custom stadiums and embedded-stadium replays
 remain supported. Geometry and physics can differ from earlier SDK assets.
 Recordings are binary containers: use `readReplay`, not JSON parsing.
 

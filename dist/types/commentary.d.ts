@@ -2,16 +2,38 @@
 export type CommentaryLocale = 'tr' | 'en';
 export type CommentaryTeam = 1 | 2;
 export type CommentaryDose = 'off' | 'minimal' | 'balanced' | 'rich';
-export type CommentaryIntentKind = 'kickoff' | 'restart' | 'goal.neutral' | 'goal.first' | 'goal.equalizer' | 'goal.lead' | 'goal.late-winner' | 'goal.consolation' | 'goal.own-goal' | 'post' | 'near-miss' | 'pressure' | 'pass' | 'pass-chain' | 'turnover' | 'assist' | 'save' | 'shot' | 'block' | 'counterattack' | 'attack-progress' | 'sustained-pressure' | 'tactical-summary' | 'match-end.win' | 'match-end.draw' | 'match-stop' | 'pause' | 'resume' | 'context.fact';
+export type CommentaryIntentKind = 'kickoff' | 'restart' | 'goal.neutral' | 'goal.first' | 'goal.equalizer' | 'goal.lead' | 'goal.late-winner' | 'goal.consolation' | 'goal.own-goal' | 'post' | 'near-miss' | 'pressure' | 'pass' | 'pass-chain' | 'turnover' | 'assist' | 'save' | 'shot' | 'block'
+/** A defending-side touch near the defender's own goal sends the ball away from danger -
+ * shot-independent: unlike `block`/`clearance.line`, this never requires a shot to have
+ * been in flight at all, just a defensive touch under pressure near the defender's goal. */
+ | 'clearance'
+/** A defensive touch stops a ball on a proven goal-crossing trajectory, at or near the
+ * line (the clearance event's `goal-line-clearance` evidence) - the confirmed, dramatic,
+ * shot-stopping last-ditch case. Not the shot-independent `clearance`. */
+ | 'clearance.line'
+/** A kick had a defender already decisively in its lane at release (idealized pursuit
+ * lead well past the ball's own arrival): never a directed shot, but worth naming so
+ * commentary can still react to it instead of falling silent. */
+ | 'shot.blocked-source' | 'counterattack' | 'attack-progress' | 'sustained-pressure' | 'tactical-summary'
+/** Per-player confirmed goal tally this match (not the team score). Deferred like
+ * assist: never announced before the primary goal reaction has been presented.
+ * `goal.count.3` covers the hat-trick; `goal.count.lost` is the 6th and beyond - a
+ * rotating, deliberately vague reaction rather than an ever-growing number. */
+ | 'goal.count.1' | 'goal.count.2' | 'goal.count.3' | 'goal.count.4' | 'goal.count.5' | 'goal.count.lost'
+/** Dull-moment filler only (director-triggered idle detection): real-life football
+ * trivia/stories, never gameplay-derived. Lowest priority; never interrupts action. */
+ | 'context.anecdote' | 'match-end.win' | 'match-end.draw' | 'match-stop' | 'pause' | 'resume' | 'context.fact';
 export interface CommentaryPlayerIdentity {
     /** Room/connection generation qualified; never reuse for a new occupant of a slot. */
     readonly sessionId: string;
     readonly playerId: number;
     readonly team: CommentaryTeam;
+    /** @default none — omitted when the identity can no longer be resolved */
     readonly name?: string;
 }
 export interface CommentaryMatchContext {
     readonly phase: 'lobby' | 'playing' | 'goal' | 'finished';
+    /** @default none — omitted when pause state doesn't apply to this event */
     readonly paused?: boolean;
     /** Simulation seconds, not wall-clock time and not ticks. Zero limit means unlimited. */
     readonly elapsed: number;
@@ -31,11 +53,13 @@ export interface MatchFact {
     readonly epoch: number;
     readonly kind: 'kickoff' | 'restart' | 'goal' | 'pause' | 'resume' | 'end' | 'stop';
     readonly context: CommentaryMatchContext;
+    /** @default none — present only when `kind` is `'goal'` */
     readonly goal?: {
         readonly team: CommentaryTeam;
         readonly scorer: CommentaryPlayerIdentity | null;
         readonly ownGoal: boolean;
     };
+    /** @default none — present only when `kind` is `'end'` */
     readonly endReason?: 'time-limit' | 'score-limit' | 'draw' | 'script';
 }
 /** Optional human-supplied alignment; binding validation is not artistic or rights approval. */
@@ -75,21 +99,29 @@ export interface CommentaryCue {
         readonly url: string;
         readonly sha256: string;
     } | null;
+    /** @default none — present only for a fully recorded, aligned cue */
     readonly wordTiming?: CommentaryWordTiming;
     readonly provenance: {
         readonly source: string;
         readonly license: string;
         readonly status: 'draft' | 'approved';
     };
+    /** @default none — present only when the cue has a scripted fallback */
     readonly fallbackId?: string;
-    /** No arbitrary runtime interpolation; a recorded full sentence must name its fact. */
+    /** No arbitrary runtime interpolation; a recorded full sentence must name its fact.
+     * @default none */
     readonly contextFactKey?: string;
+    /** @default none */
     readonly contextFactValue?: string | number;
 }
 export interface CommentaryFamilyPolicy {
+    /** @default none — omitted keeps the family enabled */
     readonly enabled?: boolean;
+    /** @default none — omitted keeps the family's baseline cooldown */
     readonly cooldownMs?: number;
+    /** @default none — omitted keeps the family's baseline priority */
     readonly priority?: number;
+    /** @default none — omitted keeps the family's baseline time-to-live */
     readonly ttlMs?: number;
 }
 export interface CommentaryPolicy {
@@ -104,7 +136,15 @@ export interface CommentaryPolicy {
     readonly seed: number;
     readonly families: Readonly<Partial<Record<CommentaryIntentKind, CommentaryFamilyPolicy>>>;
     readonly contextFactsEnabled: boolean;
-    /** Host presentation ceilings. Omitted channels allow delivery; local consent still applies. */
+    /** No supported/authoritative intent has reached the director for at least this long
+     * (and no result is deferred/pending) before an anecdote is offered. */
+    readonly dullMomentMs: number;
+    /** Hard cap on anecdote plays for the whole match; 0 disables the family entirely. */
+    readonly maxAnecdotesPerMatch: number;
+    /**
+     * Host presentation ceilings. Omitted channels allow delivery; local consent still applies.
+     * @default none — omitted allows delivery on every channel
+     */
     readonly channels?: {
         readonly audio?: boolean;
         readonly caption?: boolean;
@@ -139,14 +179,17 @@ export interface CommentaryPlan {
     readonly createdAtMs: number;
     readonly expiresAtMs: number;
     readonly durationMs: number;
+    /** @default none — present only for a fully recorded, aligned cue */
     readonly wordTiming?: CommentaryWordTiming;
     readonly canInterrupt: boolean;
     readonly interruptibleAtMs: readonly number[];
     readonly context: CommentaryMatchContext;
     readonly confidence: 'authoritative' | 'supported';
     readonly explanation: readonly string[];
+    /** @default none — present only when the plan cites a pre-fetched fact */
     readonly playerFact?: CommentaryPlayerFact;
-    /** Correlation never invents a result; it prevents retelling the same observed attack. */
+    /** Correlation never invents a result; it prevents retelling the same observed attack.
+     * @default none */
     readonly attackId?: string;
 }
 export interface CommentarySelectionAudit {
@@ -171,15 +214,20 @@ export interface CommentaryTrace {
     readonly eventId: string;
     readonly action: 'reject' | 'silence' | 'plan' | 'played' | 'previewed' | 'displayed' | 'cancel' | 'defer';
     readonly reason: string;
+    /** @default none — present only when the trace names a plan */
     readonly cueId?: string;
+    /** @default none — present only when the trace names a plan */
     readonly family?: CommentaryIntentKind;
+    /** @default none — present only for a fact-triggered trace */
     readonly fact?: {
         readonly kind: string;
         readonly tick: number;
         readonly epoch: number;
         readonly context: CommentaryMatchContext;
     };
+    /** @default none — present only for a rejection or silence */
     readonly evidence?: readonly string[];
+    /** @default none — present only when a plan was selected */
     readonly selection?: CommentarySelectionAudit;
 }
 export interface CommentaryBaseline {
@@ -211,9 +259,12 @@ export interface CommentaryAnalysisFrame {
         readonly radius: number;
     };
     readonly goals: readonly CommentaryGoalGeometry[];
+    /** @default none — present only on a contact frame */
     readonly contact?: {
         readonly kind: 'kick' | 'post' | 'player' | 'wall' | 'net';
+        /** @default none — present only when the contact involves a player */
         readonly player?: CommentaryPlayerIdentity;
+        /** @default none — present only for a contact on a goal frame */
         readonly goalId?: string;
     };
 }
@@ -228,7 +279,9 @@ export interface CommentaryObservation {
     readonly evidence: readonly string[];
     readonly attackingTeam: CommentaryTeam;
     readonly intensity: number;
+    /** @default none — present only when the observation credits a player */
     readonly player?: CommentaryPlayerIdentity;
+    /** @default none — present only when the observation continues a tracked attack */
     readonly attackId?: string;
 }
 export interface CommentaryConfiguration {
@@ -236,10 +289,14 @@ export interface CommentaryConfiguration {
     readonly playerFacts: readonly CommentaryPlayerFact[];
     /** Configuration transport converts expiry durations to the receiver's clock domain. */
     readonly hostNowMs: number;
-    /** Omitted means unchanged; null restores the built-in catalog. */
+    /** Omitted means unchanged; null restores the built-in catalog.
+     * @default none — omitted leaves the current catalog unchanged
+     */
     readonly catalog?: readonly CommentaryCue[] | null;
     readonly atmosphere: AtmospherePolicy;
-    /** Omitted means unchanged; null restores the built-in atmosphere assets. */
+    /** Omitted means unchanged; null restores the built-in atmosphere assets.
+     * @default none — omitted leaves the current pack unchanged
+     */
     readonly atmospherePack?: AtmospherePack | null;
 }
 export interface AtmospherePolicy {

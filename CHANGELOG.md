@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.4.0-next.1 — 2026-10-03
+
+- Breaking: match the live game's engine identity `5532af7ca9da3779ea23` and
+  gameplay wire protocol 6. Hosts on `0.4.0-next.0` and earlier no longer share an
+  engine or protocol with current web players. `core.wasm` adds the rollback
+  support current players use and includes collision fixes; recordings from
+  earlier engine builds are rejected.
+- Add stadium surfaces: 36 `family/variant` ids across `grass`, `asphalt` and
+  `felt`, listed by `listSurfaces()`. The `surface` room setting,
+  `room.setSurface()`, `room.getSurface()` and the `onSurfaceChange` hook draw any
+  stadium on any surface for every player, live and recorded as
+  `Replay.surfaces`. A stadium file's `bg.type` sets its default surface, which
+  `validateStadium()` reports. Physics is unchanged by the surface.
+- Breaking: the bundled layouts are Small, Small Rounded, Classic, Rounded, Big,
+  Big Rounded, Huge and Huge Rounded. `Easy`, `Big Easy`, `Asphalt`,
+  `Asphalt Arena`, `Meadow`, `Training Green`, `Courtyard` and `Street Five` are
+  removed; draw a layout on another surface instead. Add `listStadiums()` and
+  `StadiumInfo` with IDs, names, dimensions and suggested team sizes.
+- Add `room.getMatchStatsSnapshot()` and the `MatchStats*` types: in-memory
+  per-team and per-player counters, heatmaps, distance, coverage, timeline and xG
+  summary for the current match, never persisted. SDK host recordings carry the
+  commentary policy as `Replay.commentary`.
+- Commentary adds clearance, blocked-source, per-player goal count and anecdote
+  families (`dullMomentMs`, `maxAnecdotesPerMatch`); match intelligence adds
+  `clearance`, `blocked-at-source` and `scorer-tally` events, kick `trajectory`
+  data and matching policy fields.
+- Breaking (types): xG features move to the `shot-trajectory-v1` revision with ten
+  values; `MatchXgVector` is `readonly number[]`, and models reviewed for the
+  earlier four-value vector no longer match.
+- `maxPlayers` clamps to 2–32. Declarations state defaults and accepted ranges.
+
 ## 0.4.0-next.0 — 2026-09-29
 
 - Breaking: resets the pre-launch room protocol and gameplay wire protocol to 1,

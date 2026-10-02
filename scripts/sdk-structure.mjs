@@ -10,6 +10,7 @@ const contracts = new Set(
     'creation',
     'disc',
     'match-intelligence',
+    'match-stats',
     'match-state',
     'match-xg',
     'match-xg-runtime',
@@ -20,6 +21,7 @@ const contracts = new Set(
     'room-geo',
     'room-hooks',
     'stadium',
+    'stadium-surface',
     'team',
   ].map((name) => `dist/types/${name}.d.ts`),
 );

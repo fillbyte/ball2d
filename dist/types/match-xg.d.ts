@@ -1,3 +1,17 @@
+/** Upper bound (seconds) for the forward trajectory/intercept simulation. A shot whose
+ * unimpeded ball path or fastest relevant defender has not resolved by this horizon is
+ * reported at the horizon value itself; it is not evidence of an eventual outcome. */
+export declare const MATCH_XG_TRAJECTORY_HORIZON_SECONDS = 3;
+/** Ordered feature names for the current `shot-trajectory-v1` revision. Order is the
+ * runtime/offline vector order; a revision change must publish a new ordered name list,
+ * never reorder or resize this one in place. */
+export declare const MATCH_XG_FEATURE_NAMES: readonly ["distanceGoalWidths", "openingAngleRadians", "speedBallRadiiPerSecond", "defendersInLane", "timeToGoalLineSeconds", "crossesGoalMouth", "defendersReachingLaneCount", "ballLeadSeconds", "defenderLeadSeconds", "keeperCoverageRatio"];
+export type MatchXgFeatureName = (typeof MATCH_XG_FEATURE_NAMES)[number];
+/** Inclusive per-feature upper bound; every feature is non-negative by construction
+ * (signed margins are split into two non-negative lead features instead). */
+export declare const MATCH_XG_FEATURE_MAXIMUMS: Readonly<Record<MatchXgFeatureName, number>>;
+/** Feature names whose runtime/offline value must be a non-negative integer. */
+export declare const MATCH_XG_INTEGER_FEATURE_NAMES: ReadonlySet<MatchXgFeatureName>;
 /** Feature units are bound by MatchXgDomain; end-step observations are not frozen kick inputs. */
 export interface MatchXgFeatures {
     /** Perpendicular playable-side distance to the goal line / mouth width. */
@@ -10,15 +24,32 @@ export interface MatchXgFeatures {
     readonly speedBallRadiiPerSecond: number;
     /** Opponents intersecting the ball-to-goal-center corridor; not a block probability. */
     readonly defendersInLane: number;
+    /** Forward-simulated unimpeded ball time to reach the extended goal line, including
+     * post/wall bounces; MATCH_XG_TRAJECTORY_HORIZON_SECONDS when it never arrives. */
+    readonly timeToGoalLineSeconds: number;
+    /** 1 when the unimpeded path's first goal-line crossing lands inside the goal mouth. */
+    readonly crossesGoalMouth: number;
+    /** Opponents (kinematically, from position/velocity/acceleration/max speed) able to
+     * reach the ball's path at or before the ball, within reach radius. */
+    readonly defendersReachingLaneCount: number;
+    /** max(0, bestDefenderArrival - ballArrival): how far the ball beats the best-placed
+     * defender to its own path, in seconds. Zero when a defender arrives at least as soon. */
+    readonly ballLeadSeconds: number;
+    /** max(0, ballArrival - bestDefenderArrival): how far the best-placed defender beats
+     * the ball, in seconds. Zero when the ball arrives at least as soon. */
+    readonly defenderLeadSeconds: number;
+    /** Goalkeeper's (or, absent a role assignment, the nearest defender's) reachable lateral
+     * coverage of the goal mouth at the ball's arrival, as a fraction of the mouth width. */
+    readonly keeperCoverageRatio: number;
 }
-export type MatchXgVector = readonly [
-    distance: number,
-    angle: number,
-    speed: number,
-    defenders: number
-];
+/** Length equals MATCH_XG_FEATURE_NAMES.length; validated at runtime, not by the TS type,
+ * so a feature revision can resize this without a new generic parameter here. */
+export type MatchXgVector = readonly number[];
 /** Supplied from the authoritative match configuration, never from the candidate model alone. */
 export interface MatchXgDomain {
+    /** A physics-behavior-only fingerprint (ENGINE_PHYSICS_ID: the WASM's own
+     * conformance_hash(), narrower than the runtime's full ENGINE_VERSION build id), so an
+     * additive, non-physics engine change never invalidates an otherwise-still-valid model. */
     readonly engineId: string;
     /** SHA-256 of the integration's canonical stadium physics/goal geometry. */
     readonly geometrySha256: string;
@@ -83,6 +114,9 @@ export type MatchXgEstimate = {
     readonly modelId: string;
 };
 export interface MatchXgTrust {
-    /** Separate integration-owned allowlist. Never accept this list from the candidate descriptor. */
+    /**
+     * Separate integration-owned allowlist. Never accept this list from the candidate descriptor.
+     * @default none — omitted trusts no reviewed offline model
+     */
     readonly trustedModels?: readonly MatchXgModel[];
 }
