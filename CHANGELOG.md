@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.0-next.1 — 2026-10-03
+## 0.4.0-next.1 — 2026-10-04
 
 - Breaking: match the live game's engine identity `5532af7ca9da3779ea23` and
   gameplay wire protocol 6. Hosts on `0.4.0-next.0` and earlier no longer share an

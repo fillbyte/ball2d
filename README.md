@@ -4,10 +4,9 @@ Host a Ball2D football room on your own server and control it through a typed
 JavaScript API. The host runs the simulation; players connect directly over
 WebRTC. Ball2D provides authorization, room discovery and signaling.
 
-**Current candidate: 0.4.0-next.1.** It uses engine identity
-`5532af7ca9da3779ea23` and gameplay wire protocol 6. Install this candidate with
-`npm install ball2d@next` after publication; the `latest` tag stays on the
-previously accepted release. Recordings and stadium geometry differ from 0.2.x.
+**Current candidate: 0.4.0-next.1**, published under the `next` tag. It uses engine
+identity `5532af7ca9da3779ea23` and gameplay wire protocol 6. Install it with
+`npm install ball2d@next`; the `latest` tag stays on the previously accepted release. Recordings and stadium geometry differ from 0.2.x.
 
 Repository maintainers: [local setup](https://github.com/fillbyte/ball2d/blob/main/docs/DEVELOPMENT.md) · [release procedure](https://github.com/fillbyte/ball2d/blob/main/docs/RELEASING.md) · [changelog](https://github.com/fillbyte/ball2d/blob/main/CHANGELOG.md).
 
